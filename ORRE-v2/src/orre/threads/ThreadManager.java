@@ -5,32 +5,40 @@ import java.util.Arrays;
 import java.util.Stack;
 
 import orre.modules.Module;
+import orre.modules.TaskCue;
 
 public class ThreadManager {
 	private Module[] moduleList;
 	
 	private ArrayList<WorkerThread> workerThreadList = new ArrayList<WorkerThread>();
+	private ArrayList<ContinuousThread> continuousThreadList = new ArrayList<ContinuousThread>();
 	private Stack<WorkerThread> idleThreads = new Stack<WorkerThread>();
 	
-	private ModuleCue moduleCue;
+	private final ModuleCue moduleCue;
 	
 	public ThreadManager(Module[] moduleList)
 	{
 		this.moduleList = moduleList;
+		moduleCue = new ModuleCue(this.moduleList);
 	}
 	
-	public void initialize()
+	public void run()
 	{
-		moduleCue = new ModuleCue(this.moduleList);
-		int numberOfThreads = this.getNumberOfAvailableCPUCores();
-		WorkerThread thread;
-		System.out.println("spawning " + numberOfThreads + " worker threads");
-		for(int i = 0; i < numberOfThreads; i++)
-		{
-			thread = new WorkerThread(this);
-			this.workerThreadList.add(thread);
-			thread.start();
-		}
+		
+	}
+	
+	public void createSyncedWorkerThread(Module[] moduleList)
+	{
+		WorkerThread thread = new WorkerThread(this);
+		this.workerThreadList.add(thread);
+		thread.start();
+	}
+	
+	public void createContinuousThread(Module[] moduleList)
+	{
+		ContinuousThread thread = new ContinuousThread(this);
+		this.continuousThreadList.add(thread);
+		thread.start();
 	}
 	
 	public synchronized void tick() {

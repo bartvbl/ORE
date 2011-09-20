@@ -16,7 +16,6 @@ public class GameState {
 	public GameState(Module[] moduleList)
 	{
 		ThreadManager threadManager = new ThreadManager(moduleList);
-		threadManager.initialize();
 		this.threadManager = threadManager;
 	}
 	

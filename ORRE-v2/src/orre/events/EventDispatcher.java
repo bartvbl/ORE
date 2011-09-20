@@ -9,7 +9,11 @@ public class EventDispatcher {
 	{
 		
 	}
-	public void GetEventCue(String eventType)
+	public void dispatchTo(Event event, int moduleID)
+	{
+		
+	}
+	public void GetEventsByEventType(String eventType)
 	{
 		
 	}
