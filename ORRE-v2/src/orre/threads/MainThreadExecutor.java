@@ -20,9 +20,14 @@ public class MainThreadExecutor {
 	public void run()
 	{
 		this.moduleCue.reset();
+		
 		this.waitForFrameStart();
+		this.frameStartBarrier.reset();
+		
 		this.executeModuleCue();
+		
 		this.waitForFrameEnd();
+		this.frameEndBarrier.reset();
 	}
 	
 	private void waitForFrameStart() {

@@ -9,11 +9,8 @@ import orre.modules.Module;
 import orre.modules.TaskCue;
 
 public class ThreadManager {
-	private Module[] moduleList;
-	
 	private ArrayList<WorkerThread> workerThreadList = new ArrayList<WorkerThread>();
 	private ArrayList<ContinuousThread> continuousThreadList = new ArrayList<ContinuousThread>();
-	private Stack<WorkerThread> idleThreads = new Stack<WorkerThread>();
 	
 	private CyclicBarrier dispatched_frameStartBarrier;
 	private CyclicBarrier dispatched_frameEndBarrier;
@@ -49,6 +46,18 @@ public class ThreadManager {
 		this.mainThreadExecutor.run();
 	}
 	
+	public void shutDown()
+	{
+		for(WorkerThread thread : this.workerThreadList)
+		{
+			thread.shutdown();
+		}
+		for(ContinuousThread thread : this.continuousThreadList)
+		{
+			thread.shutdown();
+		}
+	}
+	
 	public void createSyncedWorkerThread(ArrayList<Module> moduleList)
 	{
 		if(this.threadsRunning)
@@ -61,14 +70,14 @@ public class ThreadManager {
 		this.updateBarriers(this.barrierSize + 1);
 	}
 	
-	public void createContinuousThread(ArrayList<Module> moduleList)
+	public void createContinuousThread(ArrayList<Module> moduleList, long minimumSleepTime)
 	{
 		if(this.threadsRunning)
 		{
 			System.out.println("you can not create new threads while the threads are running!");
 			return;
 		}
-		ContinuousThread thread = new ContinuousThread(this);
+		ContinuousThread thread = new ContinuousThread(moduleList, minimumSleepTime);
 		this.continuousThreadList.add(thread);
 	}
 	
@@ -89,7 +98,7 @@ public class ThreadManager {
 		}
 	}
 	
-	private int getNumberOfAvailableCPUCores()
+	public static int getNumberOfAvailableCPUCores()
 	{
 		return Runtime.getRuntime().availableProcessors();
 	}
