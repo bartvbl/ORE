@@ -57,9 +57,9 @@ public class GameMain extends EventDispatcher{
 	
 	public void initialize()
 	{
-		this.gameStates.add(GameState.STARTUP, new GameState_Startup(new Module[0]));
-		this.gameStates.add(GameState.MAIN_MENU, new GameState_MainMenu(new Module[0]));
-		this.gameStates.add(GameState.PAUSE_MENU, new GameState_PauseMenu(new Module[0]));
-		this.gameStates.add(GameState.GAME, new GameState_GameRunning(new Module[0]));
+		//this.gameStates.add(GameState.STARTUP, new GameState_Startup(new Module[0]));
+		//this.gameStates.add(GameState.MAIN_MENU, new GameState_MainMenu(new Module[0]));
+		//this.gameStates.add(GameState.PAUSE_MENU, new GameState_PauseMenu(new Module[0]));
+		//this.gameStates.add(GameState.GAME, new GameState_GameRunning(new Module[0]));
 	}
 }

@@ -1,9 +1,11 @@
 package orre.states;
 
+import java.util.ArrayList;
+
 import orre.modules.Module;
 
 public class GameState_GameRunning extends GameState {
-	public GameState_GameRunning(Module[] moduleList)
+	public GameState_GameRunning(ArrayList<Module> moduleList)
 	{
 		super(moduleList);
 	}
