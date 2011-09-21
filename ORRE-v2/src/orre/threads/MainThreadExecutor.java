@@ -6,36 +6,25 @@ import java.util.concurrent.CyclicBarrier;
 
 import orre.modules.Module;
 
-public class WorkerThread extends Thread {
-	private boolean running = false;
+public class MainThreadExecutor {
 	private CyclicBarrier frameStartBarrier;
 	private CyclicBarrier frameEndBarrier;
 	
-	private ModuleCue moduleCue;
+	private final ModuleCue moduleCue;
 	
-	public WorkerThread(ArrayList<Module> moduleCue)
+	public MainThreadExecutor(ArrayList<Module> moduleCue)
 	{
 		this.moduleCue = new ModuleCue(moduleCue);
 	}
 	
-	public void updateBarrierReferences(CyclicBarrier frameStartBarrier, CyclicBarrier frameEndBarrier)
-	{
-		this.frameStartBarrier = frameStartBarrier;
-		this.frameEndBarrier = frameEndBarrier;
-	}
-	
 	public void run()
 	{
-		running = true;
-		while(running)
-		{
-			this.waitForFrameStart();
-			this.executeModuleCue();
-			this.waitForFrameEnd();
-			this.moduleCue.reset();
-		}
+		this.moduleCue.reset();
+		this.waitForFrameStart();
+		this.executeModuleCue();
+		this.waitForFrameEnd();
 	}
-
+	
 	private void waitForFrameStart() {
 		try {
 			this.frameStartBarrier.await();
@@ -55,11 +44,6 @@ public class WorkerThread extends Thread {
 			e.printStackTrace();
 		}
 	}
-
-	public synchronized void shutdown()
-	{
-		running = false;
-	}
 	
 	private void executeModuleCue()
 	{
@@ -70,5 +54,4 @@ public class WorkerThread extends Thread {
 			currentModule = moduleCue.getNextModuleForExecution();
 		}
 	}
-	
 }

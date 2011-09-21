@@ -1,5 +1,7 @@
 package orre.states;
 
+import java.util.ArrayList;
+
 import orre.modules.Module;
 import orre.sceneGraph.SceneGraphRootNode;
 import orre.threads.ThreadManager;
@@ -13,7 +15,7 @@ public class GameState {
 	protected ThreadManager threadManager;
 	protected SceneGraphRootNode sceneGraphRootNode;
 	
-	public GameState(Module[] moduleList)
+	public GameState(ArrayList<Module> moduleList)
 	{
 		ThreadManager threadManager = new ThreadManager(moduleList);
 		this.threadManager = threadManager;

@@ -3,6 +3,7 @@ package orre.threads;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Stack;
+import java.util.concurrent.CyclicBarrier;
 
 import orre.modules.Module;
 import orre.modules.TaskCue;
@@ -14,68 +15,78 @@ public class ThreadManager {
 	private ArrayList<ContinuousThread> continuousThreadList = new ArrayList<ContinuousThread>();
 	private Stack<WorkerThread> idleThreads = new Stack<WorkerThread>();
 	
-	private final ModuleCue moduleCue;
+	private CyclicBarrier dispatched_frameStartBarrier;
+	private CyclicBarrier dispatched_frameEndBarrier;
+	private int barrierSize;
 	
-	public ThreadManager(Module[] moduleList)
+	private boolean threadsRunning = false;
+	
+	private MainThreadExecutor mainThreadExecutor;
+	
+	public ThreadManager(ArrayList<Module> mainLoopModuleCue)
 	{
-		this.moduleList = moduleList;
-		moduleCue = new ModuleCue(this.moduleList);
+		this.mainThreadExecutor = new MainThreadExecutor(mainLoopModuleCue);
+		this.dispatched_frameEndBarrier = new CyclicBarrier(1);
+		this.dispatched_frameStartBarrier = new CyclicBarrier(1);
+		this.barrierSize = 1;
 	}
 	
-	public void run()
+	public void startThreads()
 	{
-		
+		this.threadsRunning = true;
+		for(WorkerThread thread : this.workerThreadList)
+		{
+			thread.run();
+		}
+		for(ContinuousThread thread : this.continuousThreadList)
+		{
+			thread.run();
+		}
 	}
 	
-	public void createSyncedWorkerThread(Module[] moduleList)
+	public void tick()
 	{
-		WorkerThread thread = new WorkerThread(this);
+		this.mainThreadExecutor.run();
+	}
+	
+	public void createSyncedWorkerThread(ArrayList<Module> moduleList)
+	{
+		if(this.threadsRunning)
+		{
+			System.out.println("you can not create new threads while the threads are running!");
+			return;
+		}
+		WorkerThread thread = new WorkerThread(moduleList);
 		this.workerThreadList.add(thread);
-		thread.start();
+		this.updateBarriers(this.barrierSize + 1);
 	}
 	
-	public void createContinuousThread(Module[] moduleList)
+	public void createContinuousThread(ArrayList<Module> moduleList)
 	{
+		if(this.threadsRunning)
+		{
+			System.out.println("you can not create new threads while the threads are running!");
+			return;
+		}
 		ContinuousThread thread = new ContinuousThread(this);
 		this.continuousThreadList.add(thread);
-		thread.start();
 	}
 	
-	public synchronized void tick() {
-		this.moduleCue.reset();
-		this.idleThreads = new Stack<WorkerThread>();
-		for(WorkerThread i:this.workerThreadList)
-		{
-			i.notify();
-		}
-	}
-	
-	public synchronized void pauseThread(WorkerThread thread)
+	private synchronized void updateBarriers(int barrierSize)
 	{
-		try {
-			thread.wait();
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
-	}
-	
-	public synchronized Module GetNextModuleForExecution(WorkerThread thread)
-	{
-		if(moduleCue.cueIsFinished())
+		synchronized(this.dispatched_frameEndBarrier)
 		{
-			
+			this.dispatched_frameEndBarrier = new CyclicBarrier(barrierSize);
 		}
-		Module nextModule = this.moduleCue.getNextModuleForExecution();
-		if(nextModule == null)
+		synchronized(this.dispatched_frameStartBarrier)
 		{
-			this.idleThreads.add(thread);
+			this.dispatched_frameStartBarrier = new CyclicBarrier(barrierSize);
 		}
-		return nextModule;
-	}
-	
-	public synchronized void markModuleAsExecuted(int moduleID)
-	{
-		this.moduleCue.markModuleAsCompleted(moduleID);
+		this.barrierSize = barrierSize;
+		for(WorkerThread thread : this.workerThreadList)
+		{
+			thread.updateBarrierReferences(this.dispatched_frameStartBarrier, this.dispatched_frameEndBarrier);
+		}
 	}
 	
 	private int getNumberOfAvailableCPUCores()

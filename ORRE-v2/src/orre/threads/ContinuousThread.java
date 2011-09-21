@@ -5,4 +5,8 @@ public class ContinuousThread extends Thread {
 	{
 		
 	}
+	public void run()
+	{
+		
+	}
 }

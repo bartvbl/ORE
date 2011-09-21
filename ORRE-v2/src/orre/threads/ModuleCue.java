@@ -1,58 +1,46 @@
 package orre.threads;
 
-import java.util.Arrays;
-import java.util.Stack;
+import java.util.ArrayList;
 
 import orre.modules.Module;
 
 public class ModuleCue {
-private Stack<Module> moduleStack = new Stack<Module>();
-private Module[] modules;
-private boolean[] dependencies = new boolean[Module.TOTAL_NUMBER_OF_MODULES];
+	private ArrayList<Module> moduleCue = new ArrayList<Module>();
+	private int currentModuleIndex = 0;
 
-public ModuleCue(Module[] modules)
-{
-this.modules = modules;
-Arrays.fill(dependencies, false);
-}
+	public ModuleCue(ArrayList<Module> modules)
+	{
+		if(modules == null)
+		{
+			System.out.println("WARNING: a module cue could not initialize, as the entered module list was null");
+			return;
+		}
+		if(modules.size() == 0)
+		{
+			System.out.println("WARNING: a module cue could not initialize, as no modules were present in the entered module list");
+			return;
+		}
+		
+		this.moduleCue = modules;
+	}
 
-public Module getNextModuleForExecution()
-{
-for(Module currentModule : this.modules)
-{
-if(this.checkDependencies(currentModule))
-{
-return currentModule;
-}
-}
-return null;
-}
-public void markModuleAsCompleted(int moduleID)
-{
-this.dependencies[moduleID] = true;
-}
-public boolean cueIsFinished()
-{
-return moduleStack.isEmpty();
-}
-public void reset()
-{
-Arrays.fill(this.dependencies, false);
-for(Module i:modules)
-{
-this.moduleStack.add(i);
-}
-}
-private boolean checkDependencies(Module module)
-{
-int[] dependencies = module.getDependentModules();
-for(int currentModuleID : dependencies)
-{
-if(this.dependencies[currentModuleID] == false)
-{
-return false;
-}
-}
-return true;
-}
+	public Module getNextModuleForExecution()
+	{
+		if(!cueIsFinished())
+		{
+			return this.moduleCue.get(currentModuleIndex);
+		} else {
+			return null;
+		}
+	}
+	
+	public boolean cueIsFinished()
+	{
+		return (this.moduleCue.size() == (this.currentModuleIndex + 1));
+	}
+	
+	public void reset()
+	{
+		this.currentModuleIndex = 0;
+	}
 }
