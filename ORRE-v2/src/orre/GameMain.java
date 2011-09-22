@@ -31,7 +31,7 @@ public class GameMain extends EventDispatcher{
 	{
 		while(gameIsRunning)
 		{
-			this.currentGameState.execute(this.frameNumber);
+			this.currentGameState.tick(this.frameNumber);
 			this.frameNumber++;
 			frameTimer.sleep();
 		}
@@ -49,7 +49,7 @@ public class GameMain extends EventDispatcher{
 		{
 			if(this.currentGameState != null)
 			{
-				this.currentGameState.destroy();
+				this.currentGameState.unset();
 			}
 			this.currentGameState = newState;
 		}

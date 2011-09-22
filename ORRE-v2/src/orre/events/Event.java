@@ -15,20 +15,23 @@ public class Event<EventParamsDataType>
 		this.eventParameter = eventParameterObject;
 	}
 	
-	public EventParamsDataType getEventParameterObject()
-	{
-		return this.eventParameter;
-	}
+	
 	public boolean hasParameterObject()
 	{
-		if(this.eventParameter != null)
+		if(this.getEventParameterObject() != null)
 		{
 			return true;
 		} else {
 			return false;
 		}
 	}
-	public String getEventType()
+	
+	public synchronized EventParamsDataType getEventParameterObject()
+	{
+		return this.eventParameter;
+	}
+	
+	public synchronized String getEventType()
 	{
 		return this.eventType;
 	}
