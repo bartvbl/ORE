@@ -6,8 +6,6 @@ public class ResourceCache {
 		
 	}
 	
-	public void loadResourceFile(String filePath)
-	{
-		
-	}
+	//createModelInstaceByName()
+	//getSoundBufferByName()
 }

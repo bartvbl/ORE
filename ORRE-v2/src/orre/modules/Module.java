@@ -16,7 +16,6 @@ public class Module {
 	
 	private int[] dependentModuleList = new int[0];
 	private final int moduleID;
-	private final TaskCue taskCue = new TaskCue();
 	
 	//TODO: pass in references to event system, scene graph and 
 	public Module(int moduleID, boolean isExecutedContinuously)
@@ -38,10 +37,6 @@ public class Module {
 	{
 		return this.moduleID;
 	}
-	public void addTask(Event<?> taskRequestEvent)
-	{
-		this.taskCue.addEventToCue(taskRequestEvent);
-	}
 	
 	protected void addDependentmodule(int moduleID)
 	{
@@ -52,10 +47,6 @@ public class Module {
 			this.dependentModuleList[i] = oldList[i];
 		}
 		this.dependentModuleList[this.dependentModuleList.length] = moduleID;
-	}
-	protected Event<?> getNextTask()
-	{
-		return this.taskCue.getNext();
 	}
 	
 }

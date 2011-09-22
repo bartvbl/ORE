@@ -1,12 +1,9 @@
 package orre.threads;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Stack;
 import java.util.concurrent.CyclicBarrier;
 
 import orre.modules.Module;
-import orre.modules.TaskCue;
 
 public class ThreadManager {
 	private ArrayList<WorkerThread> workerThreadList = new ArrayList<WorkerThread>();
