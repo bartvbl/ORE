@@ -76,6 +76,6 @@ public class GameState {
 	
 	private void forwardGameEvents() 
 	{
-		this.eventDispatcher.GetEventsByEventType(EventType.GAME_CHANGE_GAMESTATE);
+		
 	}
 }

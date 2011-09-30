@@ -1,14 +1,14 @@
 package orre.events;
 
 import java.util.ArrayList;
-import java.util.Stack;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 import orre.modules.Module;
 
 public class EventDispatcher {
-	private ConcurrentHashMap<String, ArrayList<Module>> listeners = new ConcurrentHashMap<String, ArrayList<Module>>();
-	private ConcurrentHashMap<Module, Stack<Event<?>>> dispatchedEventCue = new ConcurrentHashMap<Module, Stack<Event<?>>>();
+	private ConcurrentHashMap<String, CopyOnWriteArrayList<Module>> listeners = new ConcurrentHashMap<String, CopyOnWriteArrayList<Module>>();
+	private ConcurrentHashMap<Module, ArrayList<Event<?>>> dispatchedEventCue = new ConcurrentHashMap<Module, ArrayList<Event<?>>>();
 	
 	public EventDispatcher()
 	{
@@ -16,8 +16,8 @@ public class EventDispatcher {
 	}
 	public synchronized void addEventListener(String type, Module module)
 	{
-		listeners.putIfAbsent(type, new ArrayList<Module>());
-		ArrayList<Module> list = this.listeners.get(type);
+		listeners.putIfAbsent(type, new CopyOnWriteArrayList<Module>());
+		CopyOnWriteArrayList<Module> list = this.listeners.get(type);
 		synchronized(list)
 		{
 			list.add(module);
@@ -30,7 +30,7 @@ public class EventDispatcher {
 			System.out.println("ERROR: tried to remove the event listener of type '" + type + "', which is not present in the dispatcher");
 			return;
 		}
-		ArrayList<Module> list = this.listeners.get(type);
+		CopyOnWriteArrayList<Module> list = this.listeners.get(type);
 		synchronized(list)
 		{
 			list.remove(module);
@@ -38,15 +38,36 @@ public class EventDispatcher {
 	}
 	public synchronized void dispatchEvent(Event<?> event)
 	{
-		
+		CopyOnWriteArrayList<Module> listeners = this.listeners.get(event.getEventType());
+		ArrayList<Event<?>> eventCue;
+		for(Module module : listeners)
+		{
+			eventCue = this.dispatchedEventCue.get(module);
+			synchronized(eventCue)
+			{
+				eventCue.add(event);
+			}
+		}
 	}
-	public synchronized void dispatchTo(Event<?> event, Module module)
+	public synchronized ArrayList<Event<?>> GetEventsByEventType(Module listener)
 	{
+		ArrayList<Event<?>> eventCue = this.dispatchedEventCue.get(listener);
 		
-	}
-	public synchronized void GetEventsByEventType(String eventType)
-	{
-		
+		synchronized(eventCue)
+		{
+			try{
+				@SuppressWarnings("unchecked")
+				ArrayList<Event<?>> returnedEventCue = (ArrayList<Event<?>>)eventCue.clone();
+				eventCue.clear();
+				return returnedEventCue;
+			} catch(Exception e)
+			{
+				System.out.println("failed to cast the cloned event cue!");
+				e.printStackTrace();
+				
+			}
+		}
+		return null;
 	}
 	
 }
