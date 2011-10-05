@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
+	<classpathentry kind="lib" path="/OpenRR/jars/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="/OpenRR/jars/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="/OpenRR/jars/jinput.jar"/>
+	<classpathentry kind="lib" path="/OpenRR/jars/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="/OpenRR/jars/lwjgl.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="OpenRR/natives"/>
+		</attributes>
+	</classpathentry>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
