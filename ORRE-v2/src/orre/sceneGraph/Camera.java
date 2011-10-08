@@ -31,4 +31,8 @@ public class Camera extends SimpleSceneNode implements SceneNode
 	{
 		System.out.println("WARNING: cameras can not be hidden");
 	}
+
+	public float getRenderRadius() {
+		return 0;
+	}
 }

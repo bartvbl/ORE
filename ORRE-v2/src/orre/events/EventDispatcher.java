@@ -49,7 +49,7 @@ public class EventDispatcher {
 			}
 		}
 	}
-	public synchronized ArrayList<Event<?>> GetEventsByEventType(Module listener)
+	public synchronized ArrayList<Event<?>> getEventsByListenerModule(Module listener)
 	{
 		ArrayList<Event<?>> eventCue = this.dispatchedEventCue.get(listener);
 		

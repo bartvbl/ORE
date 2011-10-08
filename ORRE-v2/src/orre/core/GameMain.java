@@ -1,4 +1,4 @@
-package orre;
+package orre.core;
 
 import java.util.ArrayList;
 
@@ -11,9 +11,8 @@ import orre.util.FlexibleFrameTimer;
 public class GameMain extends EventDispatcher{
 	private boolean gameIsRunning = true;
 	private long frameNumber = 0;
-	private GameState currentGameState;
+	private GameState currentGameState = null;
 	private FlexibleFrameTimer frameTimer = new FlexibleFrameTimer(60);
-	
 	private ArrayList<GameState> gameStates = new ArrayList<GameState>();
 	
 	public GameMain() 
@@ -23,7 +22,6 @@ public class GameMain extends EventDispatcher{
 
 	public void run()
 	{
-		this.setGameState(GameState.GAME);
 		this.mainLoop();
 	}
 	
@@ -52,14 +50,17 @@ public class GameMain extends EventDispatcher{
 				this.currentGameState.unset();
 			}
 			this.currentGameState = newState;
+			newState.set();
 		}
 	}
 	
 	public void initialize()
 	{
-		//this.gameStates.add(GameState.STARTUP, new GameState_Startup(new Module[0]));
-		//this.gameStates.add(GameState.MAIN_MENU, new GameState_MainMenu(new Module[0]));
-		//this.gameStates.add(GameState.PAUSE_MENU, new GameState_PauseMenu(new Module[0]));
-		//this.gameStates.add(GameState.GAME, new GameState_GameRunning(new Module[0]));
+		this.gameStates.add(GameState.STARTUP, 		new GameState_Startup());
+		this.gameStates.add(GameState.MAIN_MENU, 	new GameState_MainMenu());
+		this.gameStates.add(GameState.PAUSE_MENU, 	new GameState_PauseMenu());
+		this.gameStates.add(GameState.GAME, 		new GameState_GameRunning());
+		
+		this.setGameState(GameState.STARTUP);
 	}
 }

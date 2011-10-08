@@ -6,8 +6,8 @@ import orre.modules.Module;
 
 public class GameState_MainMenu extends GameState {
 
-	public GameState_MainMenu(ArrayList<Module> moduleList) {
-		super(moduleList);
+	public GameState_MainMenu() {
+		
 		
 	}
 

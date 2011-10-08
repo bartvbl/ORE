@@ -1,5 +1,7 @@
 package orre;
 
+import orre.core.GameMain;
+
 public class Main {
 	public static void main(String[] args) 
 	{

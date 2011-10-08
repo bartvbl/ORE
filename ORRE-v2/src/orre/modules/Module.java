@@ -1,6 +1,7 @@
 package orre.modules;
 
-import orre.events.Event;
+import orre.events.EventDispatcher;
+import orre.scene.Scene;
 
 public class Module {
 	public static final int MODULE_SOUND 			= 0;
@@ -12,41 +13,18 @@ public class Module {
 	public static final int MODULE_GAME_MANAGER 	= 6;
 	
 	public static final int TOTAL_NUMBER_OF_MODULES = 7;
-	public final boolean isExecutedContinuously;
 	
-	private int[] dependentModuleList = new int[0];
-	private final int moduleID;
-	
-	//TODO: pass in references to event system, scene graph and 
-	public Module(int moduleID, boolean isExecutedContinuously)
+	protected final EventDispatcher eventDispatcher;
+	protected final Scene sceneGraph;
+	 
+	public Module(EventDispatcher eventDispatcher, Scene sceneGraph)
 	{
-		this.moduleID = moduleID;
-		this.isExecutedContinuously = isExecutedContinuously;
+		this.eventDispatcher = eventDispatcher;
+		this.sceneGraph = sceneGraph;
 	}
 	
 	public void execute(){}
 	public void initialize(){}
 	public void onStateEnter(){}
 	public void onStateRelease(){}
-	
-	public int[] getDependentModules()
-	{
-		return this.dependentModuleList;
-	}
-	public int getModuleID()
-	{
-		return this.moduleID;
-	}
-	
-	protected void addDependentmodule(int moduleID)
-	{
-		int[] oldList = this.dependentModuleList;
-		this.dependentModuleList = new int[oldList.length + 1];
-		for(int i : oldList)
-		{
-			this.dependentModuleList[i] = oldList[i];
-		}
-		this.dependentModuleList[this.dependentModuleList.length] = moduleID;
-	}
-	
 }

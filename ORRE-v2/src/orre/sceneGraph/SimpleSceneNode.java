@@ -7,6 +7,12 @@ public class SimpleSceneNode {
 	protected float x, y, z;
 	protected boolean visible = true;
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
+	protected float renderRadius = 0.0f;
+	
+	public float getRenderRadius()
+	{
+		return this.renderRadius;
+	}
 	
 	public void translate(float x, float y, float z) 
 	{
@@ -49,5 +55,13 @@ public class SimpleSceneNode {
 	public void setVisibility(boolean isVisible) 
 	{
 		this.visible = isVisible;
+	}
+	
+	protected void renderChildren()
+	{
+		for(SceneNode child : this.children)
+		{
+			child.render();
+		}
 	}
 }
