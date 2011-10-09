@@ -30,10 +30,6 @@ public class Texture {
 		this.bytes = this.getBytesFromBuffer(buffer);
 		texRef = this.createImage(buffer);
 	}
-	public Texture()
-	{
-		
-	}
 	public void blit(int x, int y, int width, int height)
 	{
 		glBindTexture(GL_TEXTURE_2D, texRef);

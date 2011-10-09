@@ -3,12 +3,13 @@ package orre.events;
 import java.util.ArrayList;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.concurrent.atomic.AtomicReference;
 
 import orre.modules.Module;
 
 public class EventDispatcher {
 	private ConcurrentHashMap<String, CopyOnWriteArrayList<Module>> listeners = new ConcurrentHashMap<String, CopyOnWriteArrayList<Module>>();
-	private ConcurrentHashMap<Module, ArrayList<Event<?>>> dispatchedEventCue = new ConcurrentHashMap<Module, ArrayList<Event<?>>>();
+	private ConcurrentHashMap<Module, AtomicReference<ArrayList<Event<?>>>> dispatchedEventCue = new ConcurrentHashMap<Module, AtomicReference<ArrayList<Event<?>>>>();
 	
 	public EventDispatcher()
 	{
@@ -39,10 +40,12 @@ public class EventDispatcher {
 	public synchronized void dispatchEvent(Event<?> event)
 	{
 		CopyOnWriteArrayList<Module> listeners = this.listeners.get(event.getEventType());
+		AtomicReference<ArrayList<Event<?>>> eventCueReference;
 		ArrayList<Event<?>> eventCue;
 		for(Module module : listeners)
 		{
-			eventCue = this.dispatchedEventCue.get(module);
+			eventCueReference = this.dispatchedEventCue.get(module);
+			eventCue = eventCueReference.get();
 			synchronized(eventCue)
 			{
 				eventCue.add(event);
@@ -51,23 +54,10 @@ public class EventDispatcher {
 	}
 	public synchronized ArrayList<Event<?>> getEventsByListenerModule(Module listener)
 	{
-		ArrayList<Event<?>> eventCue = this.dispatchedEventCue.get(listener);
-		
-		synchronized(eventCue)
-		{
-			try{
-				@SuppressWarnings("unchecked")
-				ArrayList<Event<?>> returnedEventCue = (ArrayList<Event<?>>)eventCue.clone();
-				eventCue.clear();
-				return returnedEventCue;
-			} catch(Exception e)
-			{
-				System.out.println("failed to cast the cloned event cue!");
-				e.printStackTrace();
-				
-			}
-		}
-		return null;
+		AtomicReference<ArrayList<Event<?>>> eventCueReference = this.dispatchedEventCue.get(listener);
+		ArrayList<Event<?>> emptyList = new ArrayList<Event<?>>();
+		ArrayList<Event<?>> returnedEventCue = eventCueReference.getAndSet(emptyList);
+		return returnedEventCue;
 	}
 	
 }
