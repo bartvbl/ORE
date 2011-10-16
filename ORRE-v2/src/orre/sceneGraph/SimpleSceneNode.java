@@ -2,7 +2,7 @@ package orre.sceneGraph;
 
 import java.util.ArrayList;
 
-public class SimpleSceneNode {
+public class SimpleSceneNode extends EmptySceneNode{
 	protected float rotationX, rotationY, rotationZ;
 	protected float x, y, z;
 	protected boolean visible = true;
@@ -40,28 +40,5 @@ public class SimpleSceneNode {
 		this.rotationX = rotationX;
 		this.rotationY = rotationY;
 		this.rotationZ = rotationZ;
-	}
-
-	public void addChild(SceneNode node) 
-	{
-		this.children.add(node);
-	}
-
-	public void removeChild(SceneNode node) 
-	{
-		this.children.remove(node);
-	}
-
-	public void setVisibility(boolean isVisible) 
-	{
-		this.visible = isVisible;
-	}
-	
-	protected void renderChildren()
-	{
-		for(SceneNode child : this.children)
-		{
-			child.render();
-		}
 	}
 }
