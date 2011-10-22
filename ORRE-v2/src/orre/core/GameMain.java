@@ -2,22 +2,23 @@ package orre.core;
 
 import java.util.ArrayList;
 
+import org.lwjgl.opengl.Display;
+
 import orre.events.EventDispatcher;
-import orre.modules.Module;
+import orre.gl.RenderUtils;
 import orre.states.*;
-import orre.util.FlexibleFrameTimer;
 
 
 public class GameMain extends EventDispatcher{
 	private boolean gameIsRunning = true;
 	private long frameNumber = 0;
 	private GameState currentGameState = null;
-	private FlexibleFrameTimer frameTimer = new FlexibleFrameTimer(60);
 	private ArrayList<GameState> gameStates = new ArrayList<GameState>();
+	private GameWindow mainWindow;
 	
 	public GameMain() 
 	{
-		
+		mainWindow = new GameWindow();
 	}
 
 	public void run()
@@ -27,14 +28,16 @@ public class GameMain extends EventDispatcher{
 	
 	private void mainLoop()
 	{
-		while(gameIsRunning)
+		while(!Display.isCloseRequested() && gameIsRunning)
 		{
+			RenderUtils.newFrame();
 			this.currentGameState.tick(this.frameNumber);
 			this.frameNumber++;
-			frameTimer.sleep();
+			Display.update();
+			Display.sync(60);
 		}
 	}
-	
+
 	public long getFrameNumber()
 	{
 		return this.frameNumber;
@@ -56,6 +59,8 @@ public class GameMain extends EventDispatcher{
 	
 	public void initialize()
 	{
+		this.mainWindow.create();
+		
 		this.gameStates.add(GameState.STARTUP, 		new GameState_Startup());
 		this.gameStates.add(GameState.MAIN_MENU, 	new GameState_MainMenu());
 		this.gameStates.add(GameState.PAUSE_MENU, 	new GameState_PauseMenu());

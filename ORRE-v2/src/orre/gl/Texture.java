@@ -4,6 +4,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -64,7 +65,7 @@ public class Texture {
 		this.bytes = this.getBytesFromBuffer(image);
 		this.texRef = this.createImage(image);
 	}
-	@SuppressWarnings("unused")
+	
 	private BufferedImage loadImage(String src)
 	{
 		BufferedImage img = null;
@@ -82,13 +83,13 @@ public class Texture {
 				}
     		}
     	}
-    	catch (Exception e) {System.out.println("oops. " + e.getMessage());}
+    	catch (Exception e) {System.out.println("texture loading failed. " + e.getMessage());}
 		
 		try {
 			
 			img = ImageIO.read(in);
 		}
-		catch (Exception e) {System.out.println("oops. " + e.getMessage());}
+		catch (Exception e) {System.out.println("texture loading failed. " + e.getMessage());}
 		AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
         tx.translate(0, -1*img.getHeight(null));
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);
