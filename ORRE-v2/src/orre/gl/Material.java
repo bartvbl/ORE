@@ -1,24 +1,42 @@
 package orre.gl;
 
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
+
 import orre.sceneGraph.SceneNode;
 import orre.sceneGraph.SimpleSceneNode;
+import static org.lwjgl.opengl.GL11.*;
 
 public class Material extends SimpleSceneNode implements SceneNode {
-	private float[] defaultLightAmbient = {3f, 3f, 3f, 1f};
-	private float[] defaultLightDiffuse = {3f, 3f, 3f, 1.0f};
-	private float[] defaultLightSpecular = {9f, 9f, 9f, 1.0f};
-	private float[] defaultLightPosition = {0f, 1f, 0f, 0f};
-	
+	private Colour ambientColour;
+	private Colour diffuseColour;
+	private Colour specularColour;
+	private AtomicBoolean isColourMaterial = new AtomicBoolean(false);
+	private AtomicReference<Float> alpha;
 	private Texture texture;
+	public final String name;
 	
-	public Material(Texture texture)
+	public Material(String name)
+	{
+		this.name = name;
+		this.ambientColour = new Colour(0.2f, 0.2f, 0.2f, 1.0f);
+		this.diffuseColour = new Colour(0.8f, 0.8f, 0.8f, 1.0f);
+		this.specularColour = new Colour(1.0f, 1.0f, 1.0f, 1.0f);
+	}
+	
+	public void setTexture(Texture texture)
 	{
 		this.texture = texture;
 	}
 	
+	public void setAmbientColour(float[] colour)
+	{
+		
+	}
+	
 	public void render() 
 	{
-		// TODO write out material settings here
+		glBindTexture(GL_TEXTURE_2D, this.texture.texRef);
 		this.renderChildren();
 	}
 	
