@@ -1,44 +1,68 @@
 package orre.gl;
 
+import java.util.concurrent.atomic.AtomicReference;
+
 public class Colour {
-	private float[] ambientColour = {3f, 3f, 3f, 1f};
-	private float[] diffuseColour = {3f, 3f, 3f, 1.0f};
-	private float[] specularColour = {9f, 9f, 9f, 1.0f};
+	private AtomicReference<Float> red;
+	private AtomicReference<Float> green;
+	private AtomicReference<Float> blue;
+	private AtomicReference<Float> alpha;
 	
-	private float alpha;
+	public Colour(float red, float green, float blue)
+	{
+		this.initializeAtomicReferences();
+		this.setRed(red);
+		this.setBlue(blue);
+		this.setGreen(green);
+	}
+	
+	public Colour(float red, float green, float blue, float alpha)
+	{
+		this.initializeAtomicReferences();
+		this.setRed(red);
+		this.setBlue(blue);
+		this.setGreen(green);
+		this.setAlpha(alpha);
+	}
 	
 	public Colour()
 	{
-		
+		this.initializeAtomicReferences();
 	}
 	
-	public void set()
+	public void setRed(float red)
 	{
-		
+		this.red.set(red);
 	}
 	
-	public void unset()
+	public void setGreen(float green)
 	{
-		
+		this.green.set(green);
+	}
+	
+	public void setBlue(float blue)
+	{
+		this.blue.set(blue);
 	}
 	
 	public void setAlpha(float alpha)
 	{
-		this.alpha = alpha;
+		this.alpha.set(alpha);
 	}
 	
-	public void setAmbientColour(float[] ambientColour)
+	public void setAsRGBAArray(float[] colour)
 	{
-		this.ambientColour = ambientColour;
+		this.setRed(colour[0]);
+		this.setGreen(colour[1]);
+		this.setBlue(colour[2]);
+		this.setAlpha(colour[3]);
 	}
 	
-	public void setDiffuseColour(float[] diffuseColour)
+	private void initializeAtomicReferences()
 	{
-		this.diffuseColour = diffuseColour;
-	}
-	
-	public void setSpecularColour(float[] specularColour)
-	{
-		this.specularColour = specularColour;
+		this.red = new AtomicReference<Float>(0.2f);
+		this.green = new AtomicReference<Float>(0.2f);
+		this.blue = new AtomicReference<Float>(0.2f);
+		this.alpha = new AtomicReference<Float>(1.0f);
 	}
 }
