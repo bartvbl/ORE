@@ -8,13 +8,13 @@ import orre.sceneGraph.SimpleSceneNode;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Material extends SimpleSceneNode implements SceneNode {
+	public final String name;
 	private Colour ambientColour;
 	private Colour diffuseColour;
 	private Colour specularColour;
 	private AtomicBoolean isColourMaterial = new AtomicBoolean(false);
 	private AtomicReference<Float> alpha;
 	private Texture texture;
-	public final String name;
 	
 	public Material(String name)
 	{
@@ -27,7 +27,12 @@ public class Material extends SimpleSceneNode implements SceneNode {
 	
 	public void setTexture(Texture texture)
 	{
-		this.texture = texture;
+		
+	}
+	
+	public void setAmbientTexture(Texture texture)
+	{
+		
 	}
 	
 	public void setAmbientColour(float[] colour)
