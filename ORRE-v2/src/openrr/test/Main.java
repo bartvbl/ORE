@@ -1,6 +1,6 @@
 package openrr.test;
 
-import openrr.utils.XMLDocument;
+import orre.util.XMLDocument;
 import org.dom4j.Node;
 import java.util.List;
 
@@ -10,12 +10,12 @@ import java.util.ArrayList;
 
 public class Main {
 	
-	static XMLDocument doc = new XMLDocument("src/res/defaultGUI.xml");
+	static XMLDocument doc = new XMLDocument("res/defaultGUI.xml");
 	static ArrayList<Button> buttons = new ArrayList<Button>();
 	
 	public static void main (String args[]) {
 		System.out.println("Texture In");
-		Texture test = new Texture("src/res/images/menus/main/raider.bmp");
+		Texture test = new Texture("res/raider.bmp");
 		System.out.println("Texture Out");
 		loadGUI();
 		//System.out.println(buttons.get(0).stateImages.get(0)+" "+buttons.get(0).stateImages.get(1)+buttons.get(0).stateImages.get(2)+buttons.get(0).stateImages.get(4));
@@ -30,7 +30,6 @@ public class Main {
 	
 	
 	public static void loadGUI() {
-		Node superiorNode = doc.getNode("/ORRDefaultGUI/menus");
 		List<Node> menuNodes = doc.document.selectNodes("/ORRDefaultGUI/menus/*");
 		for (Node menuNode : menuNodes) {
 			List<Node> itemNodes = menuNode.selectNodes(menuNode.getPath()+"/*");
