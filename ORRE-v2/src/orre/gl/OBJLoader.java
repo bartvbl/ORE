@@ -14,7 +14,7 @@ public class OBJLoader {
 	}
 	private void parseMaterialLib(String src, ArrayList<Material> materialList)
 	{
-		Material currentMaterial;
+		Material currentMaterial = new Material("untitled");
 		
 	}
 }
