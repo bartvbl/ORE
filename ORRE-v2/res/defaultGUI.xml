@@ -1,0 +1,18 @@
+<ORRDefaultGUI>
+	<meta>
+		<author>Ramius Antillies</author>
+		<name>Default ORR-Delta GUI Setup</name>
+		<description>The default GUI setup for OpenRR-Delta</description>
+		<version>1.0</version>
+	</meta>
+	<config>
+		<pathPrefix value="src/res/images/"/>
+	</config>
+	<menus>
+		<main>
+			<button x="100" y="100" align="right" path="src/res/images/menus/main/" fileName="raider.bmp" hoverPath="src\res\images\hover.png"/>
+		</main>
+		<radar/>
+		<svehicles/>
+	</menus>
+</ORRDefaultGUI>
