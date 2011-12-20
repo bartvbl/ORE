@@ -2,8 +2,15 @@ package openrr.test;
 
 import orre.util.XMLDocument;
 import org.dom4j.Node;
+import org.lwjgl.LWJGLException;
+import org.lwjgl.opengl.Display;
+import org.lwjgl.opengl.DisplayMode;
+import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.util.glu.GLU.*;
+
 import java.util.List;
 
+import orre.core.GameWindow;
 import orre.gl.Texture;
 import openrr.test.Button;
 import java.util.ArrayList;
@@ -14,16 +21,35 @@ public class Main {
 	static ArrayList<Button> buttons = new ArrayList<Button>();
 	
 	public static void main (String args[]) {
+		
+		try {
+			Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
+			Display.create();
+		} catch (LWJGLException e) {
+			e.printStackTrace();
+		}
+		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
+		gluOrtho2D(0f, 640f, 0f, 480f);
+		glEnable (GL_BLEND);
+		  glDepthFunc(GL_NEVER);
+		  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		System.out.println("Texture In");
 		Texture test = new Texture("res/raider.bmp");
 		System.out.println("Texture Out");
 		loadGUI();
 		//System.out.println(buttons.get(0).stateImages.get(0)+" "+buttons.get(0).stateImages.get(1)+buttons.get(0).stateImages.get(2)+buttons.get(0).stateImages.get(4));
-		while (true) {
-			for (Button button : buttons) {
+		while(!Display.isCloseRequested())
+		{
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		  glMatrixMode(GL_MODELVIEW);
+		  glLoadIdentity();
+		  for (Button button : buttons) {
 				System.out.println(button.image);
 				button.draw();
 			}
+		  //do drawing here
+		Display.update();
+		Display.sync(50);
 		}
 		
 	}
