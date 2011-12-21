@@ -1,4 +1,4 @@
-package orre.states;
+package orre.gameStates;
 
 import java.util.ArrayList;
 
@@ -7,8 +7,8 @@ import orre.modules.Input;
 import orre.modules.Module;
 import orre.scene.Scene;
 
-public class GameState_GameRunning extends GameState {
-	public GameState_GameRunning()
+public class GameRunning extends GameState {
+	public GameRunning()
 	{
 		
 	}

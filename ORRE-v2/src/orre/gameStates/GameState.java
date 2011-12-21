@@ -1,4 +1,4 @@
-package orre.states;
+package orre.gameStates;
 
 import java.util.ArrayList;
 

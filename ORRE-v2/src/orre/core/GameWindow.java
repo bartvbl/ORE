@@ -81,7 +81,6 @@ public class GameWindow {
 	private void createDisplay() throws LWJGLException
 	{
 		Display.setLocation(100, 100);
-		Display.setTitle("Defence of the Creepers");
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
 		Display.setParent(canvas);
 		Display.create();
