@@ -12,23 +12,23 @@ public class Button {
 	public int INACTIVE = 2;
 	public int HOVER = 3;
 	
-	public int x;
-	public int y;
-	public int width;
-	public int height;
-	public int xOffset;
-	public int yOffset;
+	private int x;
+	private int y;
+	private int xOffset;
+	private int yOffset;
 	
-	public int[] screenDims;
+	private int[] screenDims;
 	
-	public Texture image;
-	public Texture hoverText;
+	private Texture image;
+	private Texture hoverText;
 	
-	public ArrayList<Texture> stateImages = new ArrayList<Texture>();
+	private ArrayList<Texture> stateImages = new ArrayList<Texture>();
 	
-	public int state;
+	private int state;
 	
-	public String align;
+	private String align;
+	
+	private Container parent;
 	
 	public Button(int x, int y, int screenSize[], String inAlign) {
 		xOffset = x;
@@ -41,6 +41,14 @@ public class Button {
 		return new int[] {x, x+image.width, y, y+image.height};
 	}
 	
+	public Container getParent() {
+		return parent;
+	}
+	
+	public void addParent(Container c) {
+		parent = c;
+	}
+	
 	public void setState(int newState) {
 		state = newState;
 		if (state==HOVER) {
@@ -49,6 +57,19 @@ public class Button {
 		else {
 			image = stateImages.get(state);
 		}
+	}
+	
+	public void pressed() {
+		setState(PRESSED);
+	}
+	
+	public void clicked() {
+		setState(NORMAL);
+		//Action
+	}
+	
+	public void hoveredOver() {
+		setState(HOVER);
 	}
 	
 	public void draw() {

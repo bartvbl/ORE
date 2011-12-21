@@ -10,7 +10,7 @@
 	</config>
 	<menus>
 		<main>
-			<button x="100" y="100" align="right" path="res/images/menus/main/" fileName="raider.bmp" hoverPath="res/images/hover.png"/>
+			<button x="100" y="100" align="left" path="res/images/menus/main/" fileName="raider.bmp" hoverPath="res/images/hover.png"/>
 		</main>
 		<radar/>
 		<svehicles/>
