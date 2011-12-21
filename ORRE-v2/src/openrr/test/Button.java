@@ -1,9 +1,13 @@
 package openrr.test;
 
 import java.util.ArrayList;
-import orre.gl.Texture;
+
+import orre.gl.texture.Texture;
+
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
+
+import org.lwjgl.util.Rectangle;
 
 public class Button {
 	
@@ -37,8 +41,12 @@ public class Button {
 		align = inAlign;
 	}
 	
-	public int[] getBounds() {
-		return new int[] {x, x+image.width, y, y+image.height};
+//	public int[] getBounds() {
+//		return new int[] {x, x+image.width, y, y+image.height};
+//	}
+	
+	public Rectangle getBounds() {
+		return new Rectangle(x, y, x+image.width, y+image.height);
 	}
 	
 	public void setState(int newState) {

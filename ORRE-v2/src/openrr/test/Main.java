@@ -11,7 +11,7 @@ import static org.lwjgl.util.glu.GLU.*;
 import java.util.List;
 
 import orre.core.GameWindow;
-import orre.gl.Texture;
+import orre.gl.texture.Texture;
 import openrr.test.Button;
 import java.util.ArrayList;
 

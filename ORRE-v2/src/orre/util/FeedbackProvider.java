@@ -19,4 +19,8 @@ public class FeedbackProvider {
 	public static void showLoadOBJFileFailedMessage(String src) {
 		showErrorMessage("Loading of the OBJ file \n\"" + src + "\"\n failed. It may be incomplete or corrupted.");
 	}
+
+	public static void showLoadTextureFailedMessage(String src, String message) {
+		showErrorMessage("Loading of the texture \"" + src + "\" failed.\nReason:\n"+message);
+	}
 }
