@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import org.lwjgl.opengl.Display;
 
 import orre.events.EventDispatcher;
+import orre.gameStates.*;
 import orre.gl.RenderUtils;
-import orre.states.*;
 
 
 public class GameMain extends EventDispatcher{
@@ -61,10 +61,10 @@ public class GameMain extends EventDispatcher{
 	{
 		this.mainWindow.create();
 		
-		this.gameStates.add(GameState.STARTUP, 		new GameState_Startup());
-		this.gameStates.add(GameState.MAIN_MENU, 	new GameState_MainMenu());
-		this.gameStates.add(GameState.PAUSE_MENU, 	new GameState_PauseMenu());
-		this.gameStates.add(GameState.GAME, 		new GameState_GameRunning());
+		this.gameStates.add(GameState.STARTUP, 		new Startup());
+		this.gameStates.add(GameState.MAIN_MENU, 	new MainMenu());
+		this.gameStates.add(GameState.PAUSE_MENU, 	new PauseMenu());
+		this.gameStates.add(GameState.GAME, 		new GameRunning());
 		
 		this.setGameState(GameState.STARTUP);
 	}

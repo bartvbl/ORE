@@ -12,7 +12,7 @@ import org.lwjgl.input.Mouse;
 import java.util.List;
 
 import orre.core.GameWindow;
-import orre.gl.Texture;
+import orre.gl.texture.Texture;
 import openrr.test.Button;
 import openrr.test.MouseEvent;
 import java.util.ArrayList;

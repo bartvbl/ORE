@@ -3,6 +3,7 @@ package orre.gl;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
+import orre.gl.texture.Texture;
 import orre.sceneGraph.SceneNode;
 import orre.sceneGraph.SimpleSceneNode;
 import static org.lwjgl.opengl.GL11.*;
@@ -62,7 +63,7 @@ public class Material extends SimpleSceneNode implements SceneNode {
 	
 	public void render() 
 	{
-		glBindTexture(GL_TEXTURE_2D, this.texture.texRef);
+		this.texture.bind();
 		this.renderChildren();
 		//glMaterial(GL_FRONT, GL_AMBIENT, );
 	}

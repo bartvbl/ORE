@@ -15,7 +15,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import orre.gl.Texture;
+import orre.gl.texture.Texture;
+import orre.gl.texture.TextureLoader;
 
 public class GameWindow {
 	public static final String WINDOW_TITLE = "Open Rock Raiders - Delta";
@@ -80,15 +81,13 @@ public class GameWindow {
 	private void createDisplay() throws LWJGLException
 	{
 		Display.setLocation(100, 100);
-		Display.setTitle("Defence of the Creepers");
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
 		Display.setParent(canvas);
 		Display.create();
 	}
 	private void setIcon()
 	{
-		Texture icon = new Texture("res/icon.png");
-		this.jframe.setIconImage(icon.buffer);
+		this.jframe.setIconImage(TextureLoader.loadImageFromFile("res/icon.png"));
 	}
 	private void initOpenGL()
 	{
