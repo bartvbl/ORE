@@ -4,10 +4,23 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class Texture {
 	private final int textureReference;
+	private final int width, height;
 	
 	public Texture(int textureReference, int width, int height)
 	{
 		this.textureReference = textureReference;
+		this.width = width;
+		this.height = height;
+	}
+	
+	public int getWidth()
+	{
+		return this.width;
+	}
+	
+	public int getHeight()
+	{
+		return this.height;
 	}
 	
 	public void bind()
