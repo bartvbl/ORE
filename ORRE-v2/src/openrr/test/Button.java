@@ -33,7 +33,7 @@ public class Button {
 	public Button(int x, int y, int screenSize[], String inAlign) {
 		xOffset = x;
 		yOffset = y;
-		screenDims= screenSize;
+		screenDims = screenSize;
 		align = inAlign;
 	}
 	
@@ -66,7 +66,6 @@ public class Button {
 		types[2] = "n";
 		FileInputStream filePath;
 		for (int i=0; i<3;i++) {
-			System.out.println(path+types[i]+file);
 			try {
 				filePath = new FileInputStream(path+types[i]+file);
 				
@@ -107,11 +106,11 @@ public class Button {
 			y = screenDims[1]+yOffset;
 		}
 		
-		if (align=="left") {
+		if (align.equals("left")) {
 			x = xOffset;
 		}
 		else {
-			if (align=="right") {
+			if (align.equals("right")) {
 				x = screenDims[0]+xOffset;
 			}
 			else {

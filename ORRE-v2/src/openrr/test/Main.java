@@ -33,9 +33,6 @@ public class Main {
 		glEnable (GL_BLEND);
 		  glDepthFunc(GL_NEVER);
 		  glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		System.out.println("Texture In");
-		Texture test = new Texture("res/raider.bmp");
-		System.out.println("Texture Out");
 		loadGUI();
 		//System.out.println(buttons.get(0).stateImages.get(0)+" "+buttons.get(0).stateImages.get(1)+buttons.get(0).stateImages.get(2)+buttons.get(0).stateImages.get(4));
 		while(!Display.isCloseRequested())
@@ -44,7 +41,6 @@ public class Main {
 		  glMatrixMode(GL_MODELVIEW);
 		  glLoadIdentity();
 		  for (Button button : buttons) {
-				System.out.println(button.image);
 				button.draw();
 			}
 		  //do drawing here
