@@ -3,6 +3,7 @@ package openrr.test;
 import java.util.ArrayList;
 
 import orre.gl.texture.Texture;
+import orre.gl.texture.TextureLoader;
 
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
@@ -41,12 +42,8 @@ public class Button {
 		align = inAlign;
 	}
 	
-//	public int[] getBounds() {
-//		return new int[] {x, x+image.width, y, y+image.height};
-//	}
-	
-	public Rectangle getBounds() {
-		return new Rectangle(x, y, x+image.width, y+image.height);
+	public boolean inBounds(int cX, int cY) {
+		return (x <= cX && cX <= x+image.getWidth()) && (y <= cY && cY <= y+image.getHeight());
 	}
 	
 	public Container getParent() {
@@ -83,9 +80,9 @@ public class Button {
 	public void draw() {
 		if (state==HOVER && stateImages.get(HOVER)!=null) {
 			Texture hoverOverlay = stateImages.get(HOVER);
-			hoverOverlay.blit(x,y,hoverOverlay.width,hoverOverlay.height);
+			hoverOverlay.blit(x,y,hoverOverlay.getWidth(),hoverOverlay.getHeight());
 		}
-		image.blit(x, y, image.width, image.height);
+		image.blit(x, y, image.getWidth(), image.getHeight());
 	}
 	
 	public void loadImages(String path, String file, String hoverFile) {
@@ -103,7 +100,7 @@ public class Button {
 			}
 			
 			if (filePath!=null) {
-				stateImages.add(new Texture(path+types[i]+file));
+				stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(path+types[i]+file)));
 			}
 			else {
 				stateImages.add(null);
@@ -118,7 +115,7 @@ public class Button {
 		}
 		
 		if (filePath!=null) {
-			stateImages.add(new Texture(hoverFile));
+			stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(hoverFile)));
 		}
 		else {
 			stateImages.add(null);
@@ -143,7 +140,7 @@ public class Button {
 				x = screenDims[0]+xOffset;
 			}
 			else {
-				x = (screenDims[0]/2)+(image.width/2);
+				x = (screenDims[0]/2)+(image.getWidth()/2);
 			}
 		}
 	}

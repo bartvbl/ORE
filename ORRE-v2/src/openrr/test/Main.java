@@ -27,7 +27,8 @@ public class Main {
 	
 	public static void main (String args[]) {
 		
-		ui = new UI();
+		MenuManager menuManager = new MenuManager();
+		ui = new UI(menuManager);
 		
 		try {
 			Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
@@ -41,12 +42,8 @@ public class Main {
 		glDepthFunc(GL_NEVER);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		loadGUI();
-		Texture test = new Texture("res/images/menus/main/raider.bmp");
-		//System.out.println(buttons.get(0).stateImages.get(0)+" "+buttons.get(0).stateImages.get(1)+buttons.get(0).stateImages.get(2)+buttons.get(0).stateImages.get(4));
 		while(!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
-			//glMatrixMode(GL_MODELVIEW);
-			//glLoadIdentity();
 			glEnable(GL_TEXTURE_2D);
 			set2DMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
 			for (Button button : buttons) {

@@ -8,12 +8,14 @@ import openrr.test.Container;
 
 public class MenuManager {
 	
-	ArrayList<Container> menus = ArrayList<Container>();
+	ArrayList<Container> menus = new ArrayList<Container>();
 	
 	public MenuManager() {
 		Button button = new Button(100,100, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT},"left");
-		menus.add(new Container(100,100,40,40));
-		
+		button.loadImages("res/images/menus/main/", "raider.bmp", "res/images/hover.png");
+		Container container = new Container(100,100,40,40);
+		container.addChild(button);
+		menus.add(container);
 	}
 	
 	public void draw () {
@@ -23,5 +25,24 @@ public class MenuManager {
 			}
 		}
 	}
+	
+	public boolean mouseIsInMenuBounds(int x, int y) {
+		for (Container menu : menus) {
+			if (menu.inBounds(x,y)) {
+				return true;
+			}
+		}
+		return false;
+	}
+	
+	public Button getButtonInBounds(int x, int y) {
+		for (Container menu : menus) {
+			if (menu.inBounds(x,y)) {
+				return menu.getButtonInBounds(x, y);
+			}
+		}
+		return null;
+	}
+
 
 }

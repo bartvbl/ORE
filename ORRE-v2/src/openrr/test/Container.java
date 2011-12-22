@@ -3,7 +3,6 @@ package openrr.test;
 import openrr.test.Button;
 
 import java.util.ArrayList;
-import openrr.test.OutOfBoundsException;
 
 public class Container {
 
@@ -26,8 +25,17 @@ public class Container {
 		items.add(button);
 	}
 	
-	public int[] getBounds() {
-		return new int[] {x, x+width, y, y+height};
+	public boolean inBounds(int cX, int cY) {
+		return (x <= cX && cX <= x+width) && (y <= cY && cY <= y+height);
+	}
+	
+	public Button getButtonInBounds(int cX, int cY) {
+		for (Button item : items) {
+			if (item.inBounds(cX, cY)) {
+				return item;
+			}
+		}
+		return null;
 	}
 	
 }
