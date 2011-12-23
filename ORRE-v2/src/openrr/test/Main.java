@@ -35,30 +35,28 @@ public class Main {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		//glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
-		glClearColor(1, 1, 1, 1);
-		gluOrtho2D(0f, 640f, 0f, 480f);
-		glEnable (GL_BLEND);
-		glDepthFunc(GL_NEVER);
+		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);	
+		gluOrtho2D(0f, 640f, 0f, 480f);		
+		glEnable (GL_BLEND);		
+		glDepthFunc(GL_NEVER);		
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		
 		MenuManager menuManager = new MenuManager();
 		ui = new UI(menuManager);
-		loadGUI();
-		Texture tex = TextureLoader.loadTextureFromFile("res/icon.png");
+		//loadGUI();
 		while(!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			glEnable(GL_TEXTURE_2D);
 			set2DMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
 			
-			tex.blit(0, 0, 100, 100);
-			
 			for (Button button : buttons) {
 				button.draw();
-				}
+			}
+				
 			if (Mouse.next()==true) {
 				if (Mouse.getEventButton()!=-1) {
-					if (Mouse.getEventButton()==1) {
-						if (Mouse.isButtonDown(1)) {
+					if (Mouse.getEventButton()==0) {
+						if (Mouse.isButtonDown(0)) {
 							ui.handleUI(new MouseEvent(Mouse.getX(), Mouse.getY(), MouseEvent.PRESS));
 						}
 						else {
@@ -70,6 +68,7 @@ public class Main {
 					ui.handleUI(new MouseEvent(Mouse.getX(), Mouse.getY(), MouseEvent.MOVE));
 				}
 			}
+			menuManager.draw();
 			Display.update();
 			Display.sync(50);
 		}

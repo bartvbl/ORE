@@ -12,10 +12,10 @@ import org.lwjgl.util.Rectangle;
 
 public class Button {
 	
-	public int NORMAL = 0;
-	public int PRESSED = 1;
-	public int INACTIVE = 2;
-	public int HOVER = 3;
+	public static int NORMAL = 0;
+	public static int PRESSED = 1;
+	public static int INACTIVE = 2;
+	public static int HOVER = 3;
 	
 	private int x;
 	private int y;
@@ -44,6 +44,10 @@ public class Button {
 	
 	public boolean inBounds(int cX, int cY) {
 		return (x <= cX && cX <= x+image.getWidth()) && (y <= cY && cY <= y+image.getHeight());
+	}
+	
+	public int getState() {
+		return state;
 	}
 	
 	public Container getParent() {
@@ -78,11 +82,11 @@ public class Button {
 	}
 	
 	public void draw() {
+		image.blit(x, y, image.getWidth(), image.getHeight());
 		if (state==HOVER && stateImages.get(HOVER)!=null) {
 			Texture hoverOverlay = stateImages.get(HOVER);
 			hoverOverlay.blit(x,y,hoverOverlay.getWidth(),hoverOverlay.getHeight());
 		}
-		image.blit(x, y, image.getWidth(), image.getHeight());
 	}
 	
 	public void loadImages(String path, String file, String hoverFile) {
@@ -100,9 +104,11 @@ public class Button {
 			}
 			
 			if (filePath!=null) {
+				System.out.println(path+types[i]+file+" LOADED!");
 				stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(path+types[i]+file)));
 			}
 			else {
+				System.out.println(path+types[i]+file+" NOT LOADED!");
 				stateImages.add(null);
 			}
 		}
