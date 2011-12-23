@@ -61,10 +61,10 @@ public class GameMain extends EventDispatcher{
 	{
 		this.mainWindow.create();
 		
-		this.gameStates.add(GameState.STARTUP, 		new Startup());
-		this.gameStates.add(GameState.MAIN_MENU, 	new MainMenu());
-		this.gameStates.add(GameState.PAUSE_MENU, 	new PauseMenu());
-		this.gameStates.add(GameState.GAME, 		new GameRunning());
+		this.gameStates.add(GameState.STARTUP, 		new Startup(this));
+		this.gameStates.add(GameState.MAIN_MENU, 	new MainMenu(this));
+		this.gameStates.add(GameState.PAUSE_MENU, 	new PauseMenu(this));
+		this.gameStates.add(GameState.GAME, 		new GameRunning(this));
 		
 		this.setGameState(GameState.STARTUP);
 	}

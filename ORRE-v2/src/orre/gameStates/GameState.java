@@ -2,6 +2,7 @@ package orre.gameStates;
 
 import java.util.ArrayList;
 
+import orre.core.GameMain;
 import orre.events.EventDispatcher;
 import orre.events.EventType;
 import orre.modules.Module;
@@ -9,6 +10,7 @@ import orre.resources.ResourceCache;
 import orre.scene.Scene;
 import orre.sceneGraph.SceneGraph;
 import orre.threads.ThreadManager;
+import orre.util.Logger;
 
 public class GameState {
 	public static final int STARTUP 		= 0;
@@ -23,11 +25,12 @@ public class GameState {
 	protected ThreadManager threadManager;
 	protected Scene sceneGraph;
 	protected EventDispatcher eventDispatcher;
+	protected final GameMain main;
 	
 	
-	public GameState()
+	public GameState(GameMain main)
 	{
-		
+		this.main = main;
 	}
 	
 	protected ArrayList<Module> initializeMainThreadModules(EventDispatcher eventDispatcher, Scene scene){return null;}
@@ -50,14 +53,14 @@ public class GameState {
 			this.executeLoadingFrame(frameNumber);
 			return;
 		}
-		System.out.println("ERROR: tried calling an inactive game state.");
+		Logger.log("tried calling an inactive game state.", Logger.LogType.ERROR);
 	}
 	
 	public void set()
 	{
 		if(this.currentState != State.INACTIVE)
 		{
-			System.out.println("ERROR: can not set game state: state is already active.");
+			Logger.log("can not set game state: state is already active.", Logger.LogType.ERROR);
 			return;
 		}
 		this.currentState = State.LOADING;
@@ -67,7 +70,7 @@ public class GameState {
 	{
 		if(this.currentState != State.ACTIVE)
 		{
-			System.out.println("ERROR: can not unset game state: state is not active, or has not finished loading.");
+			Logger.log("can not unset game state: state is not active, or has not finished loading.", Logger.LogType.ERROR);
 			return;
 		}
 		this.unloadState();
@@ -78,25 +81,24 @@ public class GameState {
 	{
 		if(resourceCache == null)
 		{
-			System.out.println("ERROR: the resource cahce produced by the game state loader can not be null");
+			Logger.log("the resource cahce produced by the game state loader can not be null", Logger.LogType.ERROR);
 			return;
 		}
 		this.currentState = State.ACTIVE;
 		this.initializeModules();
-		
 	}
 	
 	private void initializeModules()
 	{
 		if(this.currentState != State.LOADING)
 		{
-			System.out.println("ERROR: a gameState must have the loading state to initialize");
+			Logger.log("a gameState must have the loading state to initialize", Logger.LogType.ERROR);
 			return;
 		}
 		ArrayList<Module> moduleList = this.initializeMainThreadModules(this.eventDispatcher, this.sceneGraph);
 		if(moduleList == null)
 		{
-			System.out.println("ERROR: a child clas of GameState must return a non-null list of modules on an InitializeModules() call");
+			Logger.log("a child clas of GameState must return a non-null list of modules on an InitializeModules() call", Logger.LogType.ERROR);
 			return;
 		}
 		ThreadManager threadManager = new ThreadManager(moduleList);

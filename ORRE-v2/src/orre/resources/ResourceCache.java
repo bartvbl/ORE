@@ -1,7 +1,7 @@
 package orre.resources;
 
 public class ResourceCache {
-	private ResourceCache()
+	public ResourceCache()
 	{
 		
 	}

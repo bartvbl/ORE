@@ -13,6 +13,7 @@ import java.util.List;
 
 import orre.core.GameWindow;
 import orre.gl.texture.Texture;
+import orre.gl.texture.TextureLoader;
 import openrr.test.Button;
 import openrr.test.MouseEvent;
 import java.util.ArrayList;
@@ -27,8 +28,6 @@ public class Main {
 	
 	public static void main (String args[]) {
 		
-		MenuManager menuManager = new MenuManager();
-		ui = new UI(menuManager);
 		
 		try {
 			Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
@@ -36,16 +35,23 @@ public class Main {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
-		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
+		//glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
+		glClearColor(1, 1, 1, 1);
 		gluOrtho2D(0f, 640f, 0f, 480f);
 		glEnable (GL_BLEND);
 		glDepthFunc(GL_NEVER);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		MenuManager menuManager = new MenuManager();
+		ui = new UI(menuManager);
 		loadGUI();
+		Texture tex = TextureLoader.loadTextureFromFile("res/icon.png");
 		while(!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			glEnable(GL_TEXTURE_2D);
 			set2DMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
+			
+			tex.blit(0, 0, 100, 100);
+			
 			for (Button button : buttons) {
 				button.draw();
 				}

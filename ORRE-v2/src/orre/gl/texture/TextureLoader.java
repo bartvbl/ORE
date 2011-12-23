@@ -119,10 +119,10 @@ public class TextureLoader {
 	private static int[] convertPixelToRGBAArray(int pixel)
 	{
 		int[] pixelArr = new int[4];
-		pixelArr[0] = (pixel >> 24) & 0xFF; //red
-		pixelArr[1] = (pixel >> 16) & 0xFF;	//green
-		pixelArr[2] = (pixel >> 8) & 0xFF;	//blue
-		pixelArr[3] = (pixel >> 0) & 0xFF;	//alpha
+		pixelArr[0] = (pixel >> 16) & 0xFF;	//red
+		pixelArr[1] = (pixel >> 8) & 0xFF;	//green
+		pixelArr[2] = (pixel >> 0) & 0xFF;	//blue
+		pixelArr[3] = (pixel >> 24) & 0xFF; //alpha
 		return pixelArr;
 	}
 	
