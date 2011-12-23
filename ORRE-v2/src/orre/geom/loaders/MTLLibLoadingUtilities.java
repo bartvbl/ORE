@@ -5,13 +5,14 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import orre.gl.Material;
 import orre.util.FeedbackProvider;
 import orre.util.StringUtils;
 
 public class MTLLibLoadingUtilities {
-	public static void parseMaterialLibFile(String src, ArrayList<Material> materialList)
+	public static void parseMaterialLibFile(String src, HashMap<String, Material> materialMap)
 	{
 		Material currentMaterial = new Material("<invalid material file>");
 		try {
@@ -21,7 +22,7 @@ public class MTLLibLoadingUtilities {
 			{
 				String line = bufferedReader.readLine();
 				line = StringUtils.stripString(line);
-				readMaterialLibLine(line, currentMaterial, materialList);
+				readMaterialLibLine(line, currentMaterial, materialMap);
 			}
 		} catch (FileNotFoundException e) {
 			FeedbackProvider.showLoadOBJFileNotFoundMessage(src);
@@ -32,21 +33,21 @@ public class MTLLibLoadingUtilities {
 		}
 	}
 	
-	public static void readNewMtlLine(String line, Material material, ArrayList<Material> materialList)
+	public static void readNewMtlLine(String line, Material material, HashMap<String, Material> materialMap)
 	{
 		String[] split = line.split(" ");
 		material = new Material(split[1]);
-		materialList.add(material);
+		materialMap.put(material.name, material);
 	}
 	
-	private static void readMaterialLibLine(String line, Material material, ArrayList<Material> materialList)
+	private static void readMaterialLibLine(String line, Material material, HashMap<String, Material> materialMap)
 	{
 		if(line.charAt(0) == '#')
 		{
 			return;
 		} else if(line.startsWith("newmtl"))
 		{
-			MTLLibLoadingUtilities.readNewMtlLine(line, material, materialList);
+			MTLLibLoadingUtilities.readNewMtlLine(line, material, materialMap);
 		} else if(line.startsWith("Ka"))
 		{
 			MTLLibLoadingUtilities.readAmbientColourLine(line, material);
