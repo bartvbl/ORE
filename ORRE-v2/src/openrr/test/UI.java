@@ -24,7 +24,17 @@ public class UI {
 			 handle2D(event);
 		 }
 		 else {
-			 handle3D(event);
+			 if (event.type==MouseEvent.RELEASE) {
+				 handle2D(event);
+				 buttonInteractingWith = null;
+			 }
+			 else {
+				 if (buttonInteractingWith!=null && buttonInteractingWith.getState()!=Button.PRESSED) {
+					 buttonInteractingWith.setState(Button.NORMAL);
+					 buttonInteractingWith = null;
+				 }
+				 handle3D(event);
+			 }
 		 }
 	}
 	
@@ -37,14 +47,16 @@ public class UI {
 				}
 			}
 			else {
-				if (!buttonInteractingWith.inBounds(event.x, event.y)) {
-					set2DMouseData(event.x, event.y);
-					if (buttonInteractingWith!=null) {
-						buttonInteractingWith.hoveredOver();
+				if (!(buttonInteractingWith.getState()==Button.PRESSED)) {
+					if (!buttonInteractingWith.inBounds(event.x, event.y)) {
+						buttonInteractingWith.setState(Button.NORMAL);
+						set2DMouseData(event.x, event.y);
+						if (buttonInteractingWith!=null) {
+							buttonInteractingWith.hoveredOver();
+						}
 					}
 				}
 			}
-			
 		}
 		else{
 			if (event.type==MouseEvent.PRESS) {
@@ -57,6 +69,10 @@ public class UI {
 				if (event.type==MouseEvent.RELEASE && buttonInteractingWith!=null) {
 					if (buttonInteractingWith.inBounds(event.x, event.y)) {
 						buttonInteractingWith.clicked();
+						buttonInteractingWith = null;
+					}
+					else {
+						buttonInteractingWith.setState(Button.NORMAL);
 						buttonInteractingWith = null;
 					}
 				}
