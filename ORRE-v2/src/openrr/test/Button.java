@@ -86,6 +86,7 @@ public class Button {
 		if (state==HOVER && stateImages.get(HOVER)!=null) {
 			Texture hoverOverlay = stateImages.get(HOVER);
 			hoverOverlay.blit(x,y,hoverOverlay.getWidth(),hoverOverlay.getHeight());
+			
 		}
 	}
 	
@@ -104,11 +105,9 @@ public class Button {
 			}
 			
 			if (filePath!=null) {
-				System.out.println(path+types[i]+file+" LOADED!");
 				stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(path+types[i]+file)));
 			}
 			else {
-				System.out.println(path+types[i]+file+" NOT LOADED!");
 				stateImages.add(null);
 			}
 		}
@@ -150,5 +149,14 @@ public class Button {
 			}
 		}
 	}
+	
+	public void changeX(int xShift) {
+		xOffset = xOffset+xShift;
+		setPosition();
+	}
 
+	public void changeY(int yShift) {
+		yOffset = yOffset+yShift;
+		setPosition();
+	}
 }

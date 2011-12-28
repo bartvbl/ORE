@@ -20,10 +20,7 @@ import java.util.ArrayList;
 import openrr.test.UI;
 
 public class Main {
-	
-	static XMLDocument doc = new XMLDocument("res/defaultGUI.xml");
-	static ArrayList<Button> buttons = new ArrayList<Button>();
-	
+
 	static UI ui;
 	
 	public static void main (String args[]) {
@@ -41,17 +38,13 @@ public class Main {
 		glDepthFunc(GL_NEVER);		
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		
-		MenuManager menuManager = new MenuManager();
+		MenuManager menuManager = new MenuManager(new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT});
 		ui = new UI(menuManager);
-		//loadGUI();
+		Button button = menuManager.getButtonInBounds(962, 604);
 		while(!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			glEnable(GL_TEXTURE_2D);
 			set2DMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
-			
-			for (Button button : buttons) {
-				button.draw();
-			}
 				
 			if (Mouse.next()==true) {
 				if (Mouse.getEventButton()!=-1) {
@@ -83,33 +76,6 @@ public class Main {
 		gluOrtho2D(0, width, 0, height);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-	}
-	
-	
-	public static void loadGUI() {
-		List<Node> menuNodes = doc.document.selectNodes("/ORRDefaultGUI/menus/*");
-		for (Node menuNode : menuNodes) {
-			List<Node> itemNodes = menuNode.selectNodes(menuNode.getPath()+"/*");
-			int i = 0;
-			for (Node itemNode : itemNodes) {
-				buttons.add(new Button(Integer.parseInt(itemNode.valueOf("@x")),Integer.parseInt(itemNode.valueOf("@y")), new int[] {800,600}, itemNode.valueOf("@align")));
-				buttons.get(i).loadImages(itemNode.valueOf("@path"), itemNode.valueOf("@fileName"), itemNode.valueOf("@hoverPath"));
-				i++;
-			}
-		}
-	}
-	
-	
-	public String searchNode(String name) {
-		String path;
-		int nodeSize=doc.getNumChilds("/ORRDefaultSounds/sounds");
-		for (int i=0; i<nodeSize; i++) {
-			if (doc.getAttribute("/ORRDefaultSounds/sounds/sound["+(i+1)+"]","name").equals(name)) {
-				path = "src/res/sounds/"+doc.getAttribute("/ORRDefaultSounds/sounds/sound["+(i+1)+"]","src");
-				return path;
-			}
-		}
-		return "";
 	}
 
 }

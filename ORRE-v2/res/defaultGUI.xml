@@ -9,10 +9,30 @@
 		<pathPrefix value="src/res/images/"/>
 	</config>
 	<menus>
-		<main>
-			<button x="100" y="100" align="left" path="res/images/menus/main/" fileName="raider.bmp" hoverPath="res/images/hover.png"/>
+		<main x="-86" y="-192" bg="res/images/menus/slot4wo.png" align="right" startState="open" animFrames="3" animDist="86" >
+			<container x="-77" y="-178" w="40" h="160" align="right">
+				<button x="-77" y="-58" align="right" path="res/images/menus/main/" fileName="raider.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-98" align="right" path="res/images/menus/main/" fileName="building.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-138" align="right" path="res/images/menus/main/" fileName="svehicle.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-178" align="right" path="res/images/menus/main/" fileName="lvehicle.bmp" hoverPath="res/images/hover.png"/>
+			</container>
 		</main>
-		<radar/>
-		<svehicles/>
+		<building x="-111" y="-432" bg="res/images/menus/slot10.png" align="right" startState="closed" animFrames="3" animDist="111" >
+			<container x="-107" y="-50" w="27" h="28" align="right"> 
+				<button x="-107" y="-50" align="right" path="res/images/menus/" fileName="back.bmp" hoverPath="res/images/menus/hback.bmp"/>
+			</container>
+			<container x="-77" y="-418" w="40" h="400" align="right">
+				<button x="-77" y="-58" align="right" path="res/images/menus/building/" fileName="toolstore.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-98" align="right" path="res/images/menus/building/" fileName="steleporter.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-138" align="right" path="res/images/menus/building/" fileName="dock.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-178" align="right" path="res/images/menus/building/" fileName="pstation.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-218" align="right" path="res/images/menus/building/" fileName="support.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-258" align="right" path="res/images/menus/building/" fileName="upgrade.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-298" align="right" path="res/images/menus/building/" fileName="geo.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-338" align="right" path="res/images/menus/building/" fileName="refinery.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-378" align="right" path="res/images/menus/building/" fileName="laser.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-418" align="right" path="res/images/menus/building/" fileName="lteleporter.bmp" hoverPath="res/images/hover.png"/>
+			</container>
+		</building>
 	</menus>
 </ORRDefaultGUI>
