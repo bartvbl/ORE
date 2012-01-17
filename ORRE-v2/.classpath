@@ -11,5 +11,6 @@
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ORRE-v2/natives"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="jars/lzma.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

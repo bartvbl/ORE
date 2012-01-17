@@ -1,4 +1,4 @@
-package orre.gl.texture;
+package orre.resources.loaders;
 
 import static org.lwjgl.opengl.GL11.*;
 
@@ -15,6 +15,7 @@ import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
 
+import orre.gl.texture.Texture;
 import orre.util.FeedbackProvider;
 
 public class TextureLoader {

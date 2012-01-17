@@ -1,8 +1,13 @@
 package orre.resources;
 
 public class ResourceLoader {
-	public ResourceCache load(String filePath)
+	public ResourceLoader()
 	{
-		return null;
+		
+	}
+	
+	public void setLoadingScreen()
+	{
+		
 	}
 }

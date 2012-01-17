@@ -3,7 +3,7 @@ package openrr.test;
 import java.util.ArrayList;
 
 import orre.gl.texture.Texture;
-import orre.gl.texture.TextureLoader;
+import orre.resources.loaders.TextureLoader;
 
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
@@ -90,7 +90,7 @@ public class Button {
 		}
 	}
 	
-	public void loadImages(String path, String file, String hoverFile) {
+	public void loadImages(String pathPrefix, String file, String hoverFile) {
 		String[] types = new String[3];
 		types[0] = "";
 		types[1] = "p";
@@ -98,14 +98,14 @@ public class Button {
 		FileInputStream filePath;
 		for (int i=0; i<3;i++) {
 			try {
-				filePath = new FileInputStream(path+types[i]+file);
+				filePath = new FileInputStream(pathPrefix+types[i]+file);
 				
 			} catch (FileNotFoundException e) {
 				filePath = null;
 			}
 			
 			if (filePath!=null) {
-				stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(path+types[i]+file)));
+				stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(pathPrefix+types[i]+file)));
 			}
 			else {
 				stateImages.add(null);

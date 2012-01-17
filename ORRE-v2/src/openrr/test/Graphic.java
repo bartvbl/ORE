@@ -1,7 +1,7 @@
 package openrr.test;
 
 import orre.gl.texture.Texture;
-import orre.gl.texture.TextureLoader;
+import orre.resources.loaders.TextureLoader;
 
 public class Graphic {
 	

@@ -1,0 +1,16 @@
+<ORRModel>
+	<partStructure>
+		<part name="torso" nameInModelFile="torso">
+			<part name="leftArm_top" nameInModelFile="arm_l" xOffset="">
+				<virtualPart name="leftArm_bottom" shaderSource="">
+					<part name="leftHand" nameInModelFile="hand1" xOffset=""/>
+				</virtualPart>
+			</part>
+			
+			<part name="rightHand" nameInModelFile="hand1" xOffset=""/>
+			<part name="leftHand" nameInModelFile="hand1" xOffset=""/>
+			<part name="leftHand" nameInModelFile="hand1" xOffset=""/>
+			<part name="head" nameInModelFile="hand1" xOffset=""/>
+		</part>
+	</partStructure>
+</ORRModel>

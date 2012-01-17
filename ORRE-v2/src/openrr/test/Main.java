@@ -1,5 +1,6 @@
 package openrr.test;
 
+import orre.resources.loaders.TextureLoader;
 import orre.util.XMLDocument;
 import org.dom4j.Node;
 import org.lwjgl.LWJGLException;
@@ -13,7 +14,6 @@ import java.util.List;
 
 import orre.core.GameWindow;
 import orre.gl.texture.Texture;
-import orre.gl.texture.TextureLoader;
 import openrr.test.Button;
 import openrr.test.MouseEvent;
 import java.util.ArrayList;

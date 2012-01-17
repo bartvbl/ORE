@@ -1,4 +1,4 @@
-package orre.geom.loaders;
+package orre.resources.loaders;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

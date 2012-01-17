@@ -1,0 +1,7 @@
+#OpenRR map
+[meta]
+name:Sandbox map
+version:1.0
+author:bartvbl
+[map]
+size:100x100

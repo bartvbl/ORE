@@ -50,6 +50,12 @@ public class XMLDocument {
 			return false;
 		}
 	}
+	
+	public static List<Node> getAllChildNodes(Node parentNode)
+	{
+		return parentNode.selectNodes("*");
+	}
+	
 	public boolean nodeExists(String path, String attribute)
 	{
 		Node node = this.document.selectSingleNode(path);
@@ -78,6 +84,11 @@ public class XMLDocument {
 		}
 		return null;
 	}
+	public List<Node> getNodesByPath(String path)
+	{
+		return this.document.selectNodes(path);
+	}
+	
 	private void loadXMLFile(String src) throws DocumentException
 	{
 		SAXReader xmlReader = new SAXReader();

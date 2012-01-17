@@ -16,7 +16,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import orre.gl.texture.Texture;
-import orre.gl.texture.TextureLoader;
+import orre.resources.loaders.TextureLoader;
 
 public class GameWindow {
 	public static final String WINDOW_TITLE = "Open Rock Raiders - Delta";

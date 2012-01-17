@@ -88,43 +88,8 @@ public class MenuManager {
 
 	public void loadGUI(int[] screenSize) {
 		XMLDocument doc = new XMLDocument("res/defaultGUI.xml");
-		List<Node> menuNodes = doc.document.selectNodes("/ORRDefaultGUI/menus/*");
-		int j = 0;
-		for (Node menuNode : menuNodes) {
-			List<Node> containerNodes = menuNode.selectNodes(menuNode.getPath()+"/*");
-			ArrayList<Container> containers = new ArrayList<Container>();
-			int k = 0;
-			for (Node containerNode : containerNodes) {
-				List<Node> itemNodes = menuNode.selectNodes(containerNode.getPath()+"/*");
-				System.out.println(containerNode.selectNodes(containerNode.getPath()+"/*").size());
-				ArrayList<Button> buttons = new ArrayList<Button>();
-				int i = 0;
-				for (Node itemNode : itemNodes) {
-					buttons.add(new Button(Integer.parseInt(itemNode.valueOf("@x")),Integer.parseInt(itemNode.valueOf("@y")), screenSize, itemNode.valueOf("@align")));
-					buttons.get(i).loadImages(itemNode.valueOf("@path"), itemNode.valueOf("@fileName"), itemNode.valueOf("@hoverPath"));
-					i++;
-				}
-				containers.add(new Container(Integer.parseInt(containerNode.valueOf("@x")), Integer.parseInt(containerNode.valueOf("@y")), 
-						Integer.parseInt(containerNode.valueOf("@w")), Integer.parseInt(containerNode.valueOf("@h")), 
-						screenSize, containerNode.valueOf("@align") ));
-				containers.get(k).addChildren(buttons);
-				k++;
-			}
-			menus.add(new Menu(containers, Integer.parseInt(menuNode.valueOf("@x")), Integer.parseInt(menuNode.valueOf("@y")),
-					screenSize, menuNode.valueOf("@bg"), menuNode.valueOf("@align")));
-			if (!menuNode.valueOf("@startState").equals("none")) {
-				int state = Menu.CLOSED;
-				if (menuNode.valueOf("@startState").equals("open")) {
-					state = Menu.OPEN;
-				}
-				menus.get(j).setAnimationVals(state,Integer.parseInt(menuNode.valueOf("@animFrames")),Integer.parseInt(menuNode.valueOf("@animDist")));
-			}
-			j++;
-		}
-		activeMenus.add(menus.get(1));
-		//for (Container con : menus.get(1).getContainers()) {
-		//	System.out.println(con.items.size());
-		//}
+		this.menus = MenuDefinitionFileLoader.getMenuNodes(doc, screenSize);
+		this.activeMenus.add(menus.get(1));
 	}
 
 
