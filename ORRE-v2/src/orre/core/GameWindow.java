@@ -49,6 +49,8 @@ public class GameWindow {
 		Display.setLocation(100, 100);
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
 		Display.setResizable(true);
+		Display.setTitle(WINDOW_TITLE);
+		System.out.println("-- OpenRR v0.01 (java " + System.getProperty("java.version") + " running on " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", "+System.getProperty("os.arch")+")) --");
 		Display.create();
 	}
 	private void setIcon()

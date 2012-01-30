@@ -3,25 +3,39 @@ package orre.resources;
 import java.util.ArrayList;
 
 import orre.gui.LoadingScreenDrawer;
+import orre.util.Queue;
 
 public class ResourceLoader {
-	private int totalItemsToLoad = 0;
-	private int totalItemsLoaded = 0;
-	private LoadingScreenDrawer loadingScreenDrawer = null;
-	private ArrayList<Finalizable> finalizationQueue = new ArrayList<Finalizable>();
+	
 	private ResourceCache resourceCache;
+	private LoadingScreenDrawer loadingScreenDrawer = null;
+	private ProgressTracker progressTracker;
+	private ResourceQueue resourceQueue;
+	private boolean hasStartedParsing = false;
+	private boolean hasStartedLoading = false;
 	
 	public ResourceLoader()
 	{
 		this.resourceCache = new ResourceCache();
+		this.progressTracker = new ProgressTracker();
+		this.resourceQueue = new ResourceQueue();
 	}
 	
 	public void update()
 	{
-		
+		if(!hasStartedParsing)
+		{
+			hasStartedParsing = true;
+			this.resourceQueue.parseResourceFiles();
+		} else if(!hasStartedLoading && hasStartedParsing){
+			hasStartedLoading = true;
+			this.resourceQueue.startLoading();
+		} else {
+			
+		}
 		if(this.loadingScreenDrawer != null)
 		{
-			this.loadingScreenDrawer.draw((float) this.totalItemsLoaded / (float) this.totalItemsToLoad);
+			this.loadingScreenDrawer.draw(this.progressTracker.getProgress());
 		}
 	}
 	
@@ -30,21 +44,12 @@ public class ResourceLoader {
 		this.loadingScreenDrawer = loadingScreen;
 	}
 	
-	public void incrementLoadedItemsCount()
+	public void enqueueResourceFileToBeLoaded(String src)
 	{
-		this.totalItemsLoaded++;
+		this.resourceQueue.enqueueResourceFile(src);
 	}
-	
-	public synchronized void addItemsToTotalItemsToLoad(int numberOfItems)
-	{
-		this.totalItemsToLoad += numberOfItems;
-	}
-	
-	public synchronized void enqueueObjectForFinalization(Finalizable object)
-	{
-		synchronized(this.finalizationQueue)
-		{
-			this.finalizationQueue.add(object);
-		}
+
+	public boolean isFinished() {
+		return this.progressTracker.isFinished();
 	}
 }
