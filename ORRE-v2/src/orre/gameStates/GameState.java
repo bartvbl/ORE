@@ -7,12 +7,13 @@ import orre.events.EventDispatcher;
 import orre.events.EventType;
 import orre.modules.Module;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceLoader;
 import orre.scene.Scene;
 import orre.sceneGraph.SceneGraph;
 import orre.threads.ThreadManager;
 import orre.util.Logger;
 
-public class GameState {
+public abstract class GameState {
 	public static final int STARTUP 		= 0;
 	public static final int MAIN_MENU 		= 1;
 	public static final int PAUSE_MENU 		= 2;
@@ -21,6 +22,7 @@ public class GameState {
 	
 	private static enum State {INACTIVE, LOADING, ACTIVE};
 	private State currentState = State.INACTIVE;
+	private ResourceLoader resourceLoader = new ResourceLoader();
 	
 	protected ThreadManager threadManager;
 	protected Scene sceneGraph;
@@ -33,24 +35,22 @@ public class GameState {
 		this.main = main;
 	}
 	
-	protected ArrayList<Module> initializeMainThreadModules(EventDispatcher eventDispatcher, Scene scene){return null;}
-	protected ArrayList<ArrayList<Module>> initializeWorkerThreadModules(EventDispatcher eventDispatcher, Scene scene) {return null;}
-	protected ArrayList<ArrayList<Module>> initializeContinuousThreadModules(EventDispatcher eventDispatcher, Scene scene) {return null;}
-	
-	protected void executeLoadingFrame(long frameNumber) {}
-	protected void executeFrame(long frameNumber){}
-	protected void unloadState() {}
+	protected abstract ArrayList<Module> initializeMainThreadModules(EventDispatcher eventDispatcher, Scene scene);
+	protected abstract ArrayList<ArrayList<Module>> initializeWorkerThreadModules(EventDispatcher eventDispatcher, Scene scene);
+	protected abstract ArrayList<ArrayList<Module>> initializeContinuousThreadModules(EventDispatcher eventDispatcher, Scene scene);
+
+	protected abstract void executeFrame(long frameNumber);
+	protected abstract void unloadState();
 	
 	public void tick(long frameNumber)
 	{
-		this.forwardGameEvents();
 		if(this.currentState == State.ACTIVE)
 		{
 			this.executeFrame(frameNumber);
 			return;
 		} else if(this.currentState == State.LOADING)
 		{
-			this.executeLoadingFrame(frameNumber);
+			this.resourceLoader.update();
 			return;
 		}
 		Logger.log("tried calling an inactive game state.", Logger.LogType.ERROR);
@@ -116,10 +116,5 @@ public class GameState {
 		}
 		
 		this.threadManager = threadManager;
-	}
-	
-	private void forwardGameEvents() 
-	{
-		
 	}
 }
