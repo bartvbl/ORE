@@ -4,37 +4,33 @@ import java.util.List;
 
 import org.dom4j.Node;
 
-import orre.resources.loaders.ModelLoader;
 import orre.util.XMLDocument;
 
 public class ResourceListFileParser {
-	private ResourceQueue resourceQueue;
-	
 	public static void parseFile(String filePath, ResourceQueue queue)
 	{
 		XMLDocument resourceList = new XMLDocument(filePath);
-		parseResourceFile(resourceList);
+		parseResourceFile(resourceList, queue);
 	}
 	
-	private static void parseResourceFile(XMLDocument document)
+	private static void parseResourceFile(XMLDocument document, ResourceQueue queue)
 	{
-		loadSounds(document);
-		loadModels(document);
-		loadAnimations(document);
+		queueNodeList(document, queue, "/resList/animations", ResourceFile.ANIMATION_FILE);
+		queueNodeList(document, queue, "/resList/models", ResourceFile.MODEL_FILE);
+		queueNodeList(document, queue, "/resList/sounds", ResourceFile.SOUND_FILE);
+		queueNodeList(document, queue, "/resList/menuTextures", ResourceFile.MENU_TEXTURE_FILE);
 	}
-
-	private static void loadAnimations(XMLDocument document) {
-		List<Node> animationsToLoad = document.getNodesByPath("/resList/animations/*");
+	
+	private static void queueNodeList(XMLDocument document, ResourceQueue queue, String path, ResourceFile fileType) {
+		Node mainNode = document.getSingleNode(path);
+		String pathPrefix = mainNode.valueOf("@pathPrefix");
 		
-	}
-
-	private static void loadModels(XMLDocument document) {
-		List<Node> modelsToLoad = document.getNodesByPath("/resList/models/*");
-		
-	}
-
-	private static void loadSounds(XMLDocument document) {
-		List<Node> soundsToLoad = document.getNodesByPath("/resList/sounds/*");
-		
+		List<Node> animationsToLoad = document.getNodesByPath(path+"/*");
+		for(Node node : animationsToLoad)
+		{
+			FileToLoad file = new FileToLoad(node, fileType);
+			file.pathPrefix = pathPrefix;
+			queue.enqueueNodeForLoading(file);
+		}
 	}
 }

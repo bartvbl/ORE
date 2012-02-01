@@ -56,6 +56,8 @@ public class XMLDocument {
 		return parentNode.selectNodes("*");
 	}
 	
+	
+	
 	public boolean nodeExists(String path, String attribute)
 	{
 		Node node = this.document.selectSingleNode(path);
@@ -81,6 +83,17 @@ public class XMLDocument {
 		catch(Exception e)
 		{
 			System.out.println("error reading XML document: " + e.getMessage() + ", path: " + path + ", value: " + value);
+		}
+		return null;
+	}
+	public Node getSingleNode(String path)
+	{
+		try {
+			return this.document.selectSingleNode(path);
+		}
+		catch(Exception e)
+		{
+			System.out.println("error reading XML document: " + e.getMessage() + ", path: " + path);
 		}
 		return null;
 	}

@@ -8,11 +8,11 @@
 		<model name="rock raider" src="minifig.mdl"/>
 	</models>
 	
-	<menuTextures pathprefix="res/menu/">
+	<menuTextures pathPrefix="res/menu/">
 		<menuTexture name="teleport new rock raider button" src="rockraider.png"/>
 	</menuTextures>
 	
-	<animations pathprefix="res/anims/">
-	
+	<animations pathPrefix="res/anims/">
+		<animation name="walking" src="walking.anim"/>
 	</animations>
 </resList>
