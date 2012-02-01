@@ -2,6 +2,7 @@ package orre.gameStates;
 
 import orre.core.GameMain;
 import orre.events.EventDispatcher;
+import orre.resources.ResourceFile;
 import orre.resources.ResourceLoader;
 import orre.scene.Scene;
 import orre.threads.ThreadManager;
@@ -16,8 +17,8 @@ public abstract class GameState {
 	
 	private static enum State {INACTIVE, LOADING, ACTIVE};
 	private State currentState = State.INACTIVE;
+	private ResourceLoader resourceLoader = new ResourceLoader();
 	
-	protected ResourceLoader resourceLoader = new ResourceLoader();
 	protected ThreadManager threadManager;
 	protected Scene sceneGraph;
 	protected EventDispatcher eventDispatcher;
@@ -73,6 +74,11 @@ public abstract class GameState {
 		}
 		this.unloadState();
 		this.currentState = State.INACTIVE;
+	}
+	
+	protected void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceListFile)
+	{
+		this.resourceLoader.enqueueResourceFileToBeLoaded(src, resourceListFile);
 	}
 	
 //	private void initializeModules()

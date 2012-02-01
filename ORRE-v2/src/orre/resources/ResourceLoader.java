@@ -1,9 +1,6 @@
 package orre.resources;
 
-import java.util.ArrayList;
-
 import orre.gui.LoadingScreenDrawer;
-import orre.util.Queue;
 
 public class ResourceLoader {
 	
@@ -44,9 +41,9 @@ public class ResourceLoader {
 		this.loadingScreenDrawer = loadingScreen;
 	}
 	
-	public void enqueueResourceFileToBeLoaded(String src)
+	public void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceListFile)
 	{
-		this.resourceQueue.enqueueResourceFile(src);
+		this.resourceQueue.enqueueResourceFile(src, resourceListFile);
 	}
 
 	public boolean isFinished() {
