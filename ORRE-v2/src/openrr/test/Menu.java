@@ -26,8 +26,7 @@ public class Menu {
 	private int animMod;
 	private double  animX;
 	
-	public Menu(ArrayList<Container> containers, int x, int y, int[] screenSize, String bgFilePath, String bgAlign) {
-		itemContainers = containers;
+	public Menu(int x, int y, int[] screenSize, String bgFilePath, String bgAlign) {
 		align = bgAlign;
 		if (bgFilePath.equals("")) {
 			background = null;
@@ -35,6 +34,11 @@ public class Menu {
 		else {
 			background = new Graphic(x, y, screenSize, bgFilePath, bgAlign);
 		}
+	}
+	
+	public void addContainer(Container container)
+	{
+		this.itemContainers.add(container);
 	}
 	
 	public void draw() {
