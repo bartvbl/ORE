@@ -1,0 +1,18 @@
+<resList>
+	<meta author="Bart" version="1.1" name="default" />
+	<sounds pathPrefix="res/sounds/">
+		<sound name="teleport" src="teleport.wav"/>
+	</sounds>
+	
+	<models pathPrefix="res/mesh/">
+		<model name="rock raider" src="minifig.mdl"/>
+	</models>
+	
+	<menuTextures pathPrefix="res/images/menus/main/">
+		<menuTexture name="teleport new rock raider button" src="raider.bmp"/>
+	</menuTextures>
+	
+	<animations pathPrefix="res/anims/">
+		<animation name="walking" src="walking.anim"/>
+	</animations>
+</resList>

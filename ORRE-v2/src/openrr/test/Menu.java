@@ -3,7 +3,7 @@ package openrr.test;
 import java.util.ArrayList;
 
 import orre.gl.texture.Texture;
-import orre.gl.texture.TextureLoader;
+import orre.resources.loaders.TextureLoader;
 
 public class Menu {
 	

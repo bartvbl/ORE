@@ -25,7 +25,22 @@ public class GameRunning extends GameState {
 	}
 	public void execute(long gameFrame)
 	{
-		this.threadManager.tick();
+		
 	}
 	
+	protected void executeFrame(long frameNumber) {
+		
+	}
+
+	protected void unloadState() {
+		
+	}
+
+	protected void doPreload() {
+		
+	}
+
+	protected void doPostLoad() {
+		
+	}
 }

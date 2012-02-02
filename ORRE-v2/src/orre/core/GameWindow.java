@@ -16,17 +16,12 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
 import orre.gl.texture.Texture;
-import orre.gl.texture.TextureLoader;
+import orre.resources.loaders.TextureLoader;
 
 public class GameWindow {
 	public static final String WINDOW_TITLE = "Open Rock Raiders - Delta";
 	public static final int DEFAULT_WINDOW_WIDTH = 1024;
 	public static final int DEFAULT_WINDOW_HEIGHT = 768;
-	
-	private JFrame jframe;
-	private Canvas canvas;
-	
-	private AtomicReference<Dimension> canvasSize = new AtomicReference<Dimension>();
 	
 	public GameWindow()
 	{
@@ -45,49 +40,22 @@ public class GameWindow {
 	}
 	private void doInitialization() throws LWJGLException
 	{
-		this.createJFrame();
-		this.makeWindowResizable();
 		this.createDisplay();
 		this.setIcon();
 		this.initOpenGL();
-	}
-	public void resize()
-	{
-		Dimension dim = this.canvas.getSize();
-		canvasSize.set(dim);
-		dim = null;
-	}
-	private void createJFrame()
-	{
-		Canvas canvas = new Canvas();
-		JFrame frame = new JFrame(GameWindow.WINDOW_TITLE);
-		this.canvas = canvas;
-		this.jframe = frame;
-		frame.setSize(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().add(canvas);
-		frame.setVisible(true);
-	}
-	private void makeWindowResizable()
-	{
-		ComponentAdapter adapter = new ComponentAdapter() {
-			public void componentResized(ComponentEvent e) {
-				resize();
-			}
-		};
-		this.canvas.addComponentListener(adapter);
-		this.canvas.setIgnoreRepaint(true);
 	}
 	private void createDisplay() throws LWJGLException
 	{
 		Display.setLocation(100, 100);
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
-		Display.setParent(canvas);
+		Display.setResizable(true);
+		Display.setTitle(WINDOW_TITLE);
+		System.out.println("-- OpenRR v0.01 (java " + System.getProperty("java.version") + " running on " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", "+System.getProperty("os.arch")+")) --");
 		Display.create();
 	}
 	private void setIcon()
 	{
-		this.jframe.setIconImage(TextureLoader.loadImageFromFile("res/icon.png"));
+		//Display.setIcon(TextureLoader.loadImageFromFile("res/icon.png"));
 	}
 	private void initOpenGL()
 	{
