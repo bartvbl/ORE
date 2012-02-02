@@ -15,7 +15,7 @@ public class ResourceLoader {
 	{
 		this.resourceCache = new ResourceCache();
 		this.progressTracker = new ProgressTracker();
-		this.resourceQueue = new ResourceQueue();
+		this.resourceQueue = new ResourceQueue(this.progressTracker, this.resourceCache);
 	}
 	
 	public void update()

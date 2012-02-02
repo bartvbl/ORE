@@ -22,7 +22,7 @@ public class ResourceFileParsingThread extends Thread{
 			this.parseResourceFile(src);
 			src = this.remainingItemsQueue.dequeue();
 		}
-		
+		this.resourceQueue.startLoading();
 	}
 
 	private void parseResourceFile(String src) {

@@ -16,9 +16,17 @@ import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
 
 import orre.gl.texture.Texture;
+import orre.resources.FileToLoad;
+import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import orre.util.FeedbackProvider;
 
 public class TextureLoader {
+	public static PartiallyLoadableTexture loadTextureFromFile(FileToLoad file) {
+		BufferedImage image = loadImageFromFile(file.pathPrefix + file.nodeFile.valueOf("@src"));
+		byte[] imageData = getImageDataBytes(image);
+		return new PartiallyLoadableTexture(imageData, image.getWidth(), image.getHeight());
+	}
+	
 	public static Texture loadTextureFromFile(String src)
 	{
 		BufferedImage image = loadImageFromFile(src);
@@ -103,20 +111,6 @@ public class TextureLoader {
         return bytes;
 	}
 	
-	private static int[][] getRGBAPixels(BufferedImage image)
-	{
-		int[] pixelsARGB = getPixels(image);
-		if(pixelsARGB == null)
-		{
-			return null;
-		}
-        int[][] RGBAPixels = new int[pixelsARGB.length][4];
-        for (int i = 0; i < 4 * pixelsARGB.length; i += 4) {
-            RGBAPixels[i] = convertPixelToRGBAArray(pixelsARGB[i/4]);
-        }
-        return RGBAPixels;
-	}
-	
 	private static int[] convertPixelToRGBAArray(int pixel)
 	{
 		int[] pixelArr = new int[4];
@@ -127,12 +121,7 @@ public class TextureLoader {
 		return pixelArr;
 	}
 	
-//	public int[] getPixelAt(int x, int y)
-//	{
-//		return this.RGBAPixels[width*x + y];
-//	}
-	
-	private static int createTexture(byte[] imageData, int width, int height)
+	public static int createTexture(byte[] imageData, int width, int height)
 	{
 		IntBuffer textureHandle = ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder()).asIntBuffer();
 		ByteBuffer bb = ByteBuffer.allocateDirect(imageData.length).order(ByteOrder.nativeOrder());
@@ -149,4 +138,6 @@ public class TextureLoader {
 		glPopAttrib();
 		return texRef;
 	}
+
+	
 }
