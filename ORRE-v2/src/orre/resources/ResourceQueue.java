@@ -49,7 +49,7 @@ public class ResourceQueue {
 		}
 	}
 	
-	public synchronized void queueResourceForFInalization(Finalizable finalizable)
+	public synchronized void queueResourceForFinalization(Finalizable finalizable)
 	{
 		
 	}

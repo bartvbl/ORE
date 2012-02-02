@@ -25,8 +25,8 @@ public class ResourceListFileParser {
 		Node mainNode = document.getSingleNode(path);
 		String pathPrefix = mainNode.valueOf("@pathPrefix");
 		
-		List<Node> animationsToLoad = document.getNodesByPath(path+"/*");
-		for(Node node : animationsToLoad)
+		List<Node> filesToLoad = document.getNodesByPath(path+"/*");
+		for(Node node : filesToLoad)
 		{
 			FileToLoad file = new FileToLoad(node, fileType);
 			file.pathPrefix = pathPrefix;
