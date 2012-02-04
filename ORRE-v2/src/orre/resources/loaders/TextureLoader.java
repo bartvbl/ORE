@@ -32,8 +32,7 @@ public class TextureLoader {
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
 		if((image != null) && (imageData != null))
 		{
-			int textureID = createTexture(imageData, image.getWidth(), image.getHeight());
-			return new Texture(textureID, image.getWidth(), image.getHeight());
+			return createTexture(imageData, image.getWidth(), image.getHeight());
 		} else {
 			return null;
 		}
@@ -70,7 +69,7 @@ public class TextureLoader {
 		return image;
 	}
 	
-	public static int createTexture(byte[] imageData, int width, int height)
+	public static Texture createTexture(byte[] imageData, int width, int height)
 	{
 		IntBuffer textureHandle = ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder()).asIntBuffer();
 		ByteBuffer bb = ByteBuffer.allocateDirect(imageData.length).order(ByteOrder.nativeOrder());
@@ -85,7 +84,7 @@ public class TextureLoader {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bb);
 		glPopAttrib();
-		return texRef;
+		return new Texture(texRef, width, height);
 	}
 
 	

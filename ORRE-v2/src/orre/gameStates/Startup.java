@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import orre.core.GameMain;
 import orre.events.EventDispatcher;
+import orre.gui.DefaultLoadingScreen;
 import orre.modules.Module;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceFile;
@@ -27,6 +28,7 @@ public class Startup extends GameState {
 
 	protected void doPreload() {
 		this.enqueueResourceFileToBeLoaded("res/reslist.xml", ResourceFile.RESOURCE_LIST_FILE);
+		this.setLoadingScreen(new DefaultLoadingScreen());
 	}
 
 	protected void doPostLoad() {

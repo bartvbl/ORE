@@ -1,5 +1,5 @@
 package orre.resources;
 
 public interface Finalizable {
-	public void finalizeResource();
+	public void finalizeResource(ResourceCache cache);
 }

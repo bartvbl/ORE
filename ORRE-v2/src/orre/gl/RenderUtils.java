@@ -4,6 +4,8 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
+import org.lwjgl.opengl.Display;
+
 public class RenderUtils {
 	public static final float NEAR_POINT = 0.1f;
 	public static final float FAR_POINT = 10000f;
@@ -11,6 +13,7 @@ public class RenderUtils {
 	public static void newFrame()
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
+		glViewport(0, 0, Display.getWidth(), Display.getHeight()); 
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 	}
@@ -25,7 +28,7 @@ public class RenderUtils {
 		glLoadIdentity();
 	}
 	
-	public void set2DMode(float width, float height)
+	public static void set2DMode(float width, float height)
 	{
 		glDisable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);

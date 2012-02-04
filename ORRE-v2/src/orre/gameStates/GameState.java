@@ -2,6 +2,7 @@ package orre.gameStates;
 
 import orre.core.GameMain;
 import orre.events.EventDispatcher;
+import orre.gui.LoadingScreenDrawer;
 import orre.resources.ResourceFile;
 import orre.resources.ResourceLoader;
 import orre.scene.Scene;
@@ -23,7 +24,6 @@ public abstract class GameState {
 	protected Scene sceneGraph;
 	protected EventDispatcher eventDispatcher;
 	protected final GameMain main;
-	
 	
 	public GameState(GameMain main)
 	{
@@ -79,6 +79,11 @@ public abstract class GameState {
 	protected void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceListFile)
 	{
 		this.resourceLoader.enqueueResourceFileToBeLoaded(src, resourceListFile);
+	}
+	
+	protected void setLoadingScreen(LoadingScreenDrawer screenDrawer)
+	{
+		this.resourceLoader.setLoadingScreen(screenDrawer);
 	}
 	
 //	private void initializeModules()

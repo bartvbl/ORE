@@ -15,7 +15,12 @@ public class ResourceLoader {
 	{
 		this.resourceCache = new ResourceCache();
 		this.progressTracker = new ProgressTracker();
-		this.resourceQueue = new ResourceQueue(this.progressTracker, this.resourceCache);
+		this.resourceQueue = new ResourceQueue(this.progressTracker, this.resourceCache, this);
+	}
+	
+	public void registerStartedLoading()
+	{
+		this.hasStartedLoading = true;
 	}
 	
 	public void update()
@@ -24,11 +29,8 @@ public class ResourceLoader {
 		{
 			hasStartedParsing = true;
 			this.resourceQueue.parseResourceFiles();
-		} else if(!hasStartedLoading && hasStartedParsing){
-			hasStartedLoading = true;
-			this.resourceQueue.startLoading();
-		} else {
-			
+		} else if(this.hasStartedLoading){
+			this.resourceQueue.getNextFinalizable();
 		}
 		if(this.loadingScreenDrawer != null)
 		{
@@ -47,6 +49,6 @@ public class ResourceLoader {
 	}
 
 	public boolean isFinished() {
-		return this.progressTracker.isFinished();
+		return this.progressTracker.isFinished() && this.resourceQueue.finalizableQueueIsEmpty() && this.hasStartedLoading;
 	}
 }

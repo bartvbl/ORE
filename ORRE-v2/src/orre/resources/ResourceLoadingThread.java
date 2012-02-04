@@ -5,10 +5,12 @@ import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
 public class ResourceLoadingThread extends Thread {
 	private ResourceQueue resourceQueue;
+	private ProgressTracker tracker;
 
-	public ResourceLoadingThread(ResourceQueue queue)
+	public ResourceLoadingThread(ResourceQueue queue, ProgressTracker tracker)
 	{
 		this.resourceQueue = queue;
+		this.tracker = tracker;
 	}
 	
 	public void run()
@@ -20,9 +22,9 @@ public class ResourceLoadingThread extends Thread {
 			{
 				PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(currentFile);
 				this.resourceQueue.queueResourceForFinalization(texture);
-				System.out.println("loaded texture");
 			}
 			currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();
+			this.tracker.registerFileLoaded();
 		}
 	}
 }

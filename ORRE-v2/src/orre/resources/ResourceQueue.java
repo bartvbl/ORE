@@ -15,13 +15,16 @@ public class ResourceQueue {
 	private ProgressTracker tracker;
 
 	private ResourceCache resourceCache;
+
+	private ResourceLoader resourceLoader;
 	
-	public ResourceQueue(ProgressTracker tracker, ResourceCache cache)
+	public ResourceQueue(ProgressTracker tracker, ResourceCache cache, ResourceLoader loader)
 	{
 		this.itemsToLoadQueue = new Queue<String>();
 		this.itemsTypeQueue = new Queue<ResourceFile>();
 		this.filesToLoadQueue = new Queue<FileToLoad>();
 		this.resourcesToFinalizeQueue = new Queue<Finalizable>();
+		this.resourceLoader = loader;
 		
 		this.tracker = tracker;
 		this.resourceCache = cache;
@@ -45,22 +48,27 @@ public class ResourceQueue {
 	public void startLoading() {
 		for(int i = 0; i < NUMBER_OF_LOADING_THREADS; i++)
 		{
-			new ResourceLoadingThread(this).start();
+			new ResourceLoadingThread(this, this.tracker).start();
 		}
+		this.resourceLoader.registerStartedLoading();
 	}
 	
 	public synchronized void queueResourceForFinalization(Finalizable finalizable)
 	{
-		
+		this.resourcesToFinalizeQueue.enqueue(finalizable);
 	}
 	
 	public synchronized Finalizable getNextFinalizable()
 	{
-		return null;
+		return this.resourcesToFinalizeQueue.dequeue();
 	}
 	
 	public synchronized FileToLoad getNextEnqueuedFileToLoad()
 	{
 		return this.filesToLoadQueue.dequeue();
+	}
+	
+	public boolean finalizableQueueIsEmpty(){
+		return this.resourcesToFinalizeQueue.isEmpty();
 	}
 }

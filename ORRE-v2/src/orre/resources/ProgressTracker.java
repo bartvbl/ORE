@@ -6,20 +6,20 @@ public class ProgressTracker {
 	
 	public double getProgress()
 	{
-		return 0.3;
+		return (double)totalFilesLoaded / (double)totalFilesToLoad;
 	}
 	
 	public void addFileToLoad()
 	{
-		
+		this.totalFilesToLoad++;
 	}
 	
-	public void registerFileLoaded()
+	public synchronized void registerFileLoaded()
 	{
-		
+		this.totalFilesLoaded++;
 	}
 
 	public boolean isFinished() {
-		return false;
+		return totalFilesToLoad == totalFilesLoaded;
 	}
 }
