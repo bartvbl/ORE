@@ -19,7 +19,7 @@ public class Startup extends GameState {
 	protected void executeFrame(long frameNumber)
 	{
 		
-		this.main.setGameState(GameState.MAIN_MENU);
+		//this.main.setGameState(GameState.MAIN_MENU);
 	}
 
 	protected void unloadState() {

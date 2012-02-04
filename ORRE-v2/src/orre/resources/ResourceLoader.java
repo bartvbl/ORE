@@ -10,12 +10,14 @@ public class ResourceLoader {
 	private ResourceQueue resourceQueue;
 	private boolean hasStartedParsing = false;
 	private boolean hasStartedLoading = false;
+	private ResourceFinalizer resourceFinalizer;
 	
 	public ResourceLoader()
 	{
 		this.resourceCache = new ResourceCache();
 		this.progressTracker = new ProgressTracker();
 		this.resourceQueue = new ResourceQueue(this.progressTracker, this.resourceCache, this);
+		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue, this.resourceCache);
 	}
 	
 	public void registerStartedLoading()
@@ -30,7 +32,7 @@ public class ResourceLoader {
 			hasStartedParsing = true;
 			this.resourceQueue.parseResourceFiles();
 		} else if(this.hasStartedLoading){
-			this.resourceQueue.getNextFinalizable();
+			this.resourceFinalizer.doFinalizations();
 		}
 		if(this.loadingScreenDrawer != null)
 		{

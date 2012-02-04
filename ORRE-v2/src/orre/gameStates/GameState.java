@@ -48,6 +48,7 @@ public abstract class GameState {
 			{
 				this.currentState = State.ACTIVE;
 				this.doPostLoad();
+				System.out.println("loading finished");
 			}
 			return;
 		}

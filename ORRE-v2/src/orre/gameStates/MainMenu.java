@@ -13,7 +13,7 @@ public class MainMenu extends GameState {
 		super(main);	
 	}
 	protected void executeFrame(long frameNumber) {
-		this.main.setGameState(GameState.MAIN_MENU);
+		
 	}
 
 	protected void unloadState() {}
