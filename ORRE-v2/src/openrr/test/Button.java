@@ -120,9 +120,11 @@ public class Button {
 		}
 		
 		if (filePath!=null) {
+			System.out.println("\t\t\t\t"+hoverFile+" LOADED");
 			stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(hoverFile)));
 		}
 		else {
+			System.out.println("\t\t\t\t"+hoverFile+" NOT LOADED");
 			stateImages.add(null);
 		}
 		setState(NORMAL);

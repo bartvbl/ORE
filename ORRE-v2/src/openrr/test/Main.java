@@ -40,7 +40,10 @@ public class Main {
 		
 		MenuManager menuManager = new MenuManager(new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT});
 		ui = new UI(menuManager);
-		Button button = menuManager.getButtonInBounds(962, 604);
+		/*XMLDocument doc = new XMLDocument("res/defaultGUI.xml");
+		List<Node> menuNodes = doc.document.selectNodes("/ORRDefaultGUI/menus/*");
+		Node containerNode = menuNodes.get(0).selectNodes("["+0+"]");*/
+		
 		while(!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			glEnable(GL_TEXTURE_2D);

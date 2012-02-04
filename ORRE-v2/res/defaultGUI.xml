@@ -11,17 +11,40 @@
 	<menus>
 		<main x="-86" y="-192" bg="res/images/menus/slot4wo.png" align="right" startState="open" animFrames="3" animDist="86" >
 			<container x="-77" y="-178" w="40" h="160" align="right" pathPrefix="res/images/menus/main/">
+<<<<<<< HEAD
+				<button x="-77" y="-58" align="right" fileName="raider.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-98" align="right" fileName="building.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-138" align="right" fileName="svehicle.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-178" align="right" fileName="lvehicle.bmp" hoverPath="res/images/hover.png"/>
+=======
 				<button x="-77" y="-58" align="right" fileName="raider.bmp" hoverPath="hover.png"/>
 				<button x="-77" y="-98" align="right" fileName="building.bmp" hoverPath="hover.png"/>
 				<button x="-77" y="-138" align="right" fileName="svehicle.bmp" hoverPath="hover.png"/>
 				<button x="-77" y="-178" align="right" fileName="lvehicle.bmp" hoverPath="hover.png"/>
+>>>>>>> branch 'master' of ssh+git://git@github.com/bartvbl/ORRE-V2.git
 			</container>
 		</main>
 		<building x="-111" y="-432" bg="res/images/menus/slot10.png" align="right" startState="closed" animFrames="3" animDist="111" >
 			<container x="-107" y="-50" w="27" h="28" align="right" pathPrefix="res/images/menus/"> 
+<<<<<<< HEAD
+				<button x="-107" y="-50" align="right" fileName="back.bmp" hoverPath="res/images/menus/hback.bmp"/>
+=======
 				<button x="-107" y="-50" align="right" fileName="back.bmp" hoverPath="back.bmp"/>
+>>>>>>> branch 'master' of ssh+git://git@github.com/bartvbl/ORRE-V2.git
 			</container>
 			<container x="-77" y="-418" w="40" h="400" align="right" pathPrefix="res/images/menus/building/">
+<<<<<<< HEAD
+				<button x="-77" y="-58" align="right" fileName="toolstore.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-98" align="right" fileName="steleporter.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-138" align="right" fileName="dock.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-178" align="right" fileName="pstation.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-218" align="right" fileName="support.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-258" align="right" fileName="upgrade.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-298" align="right" fileName="geo.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-338" align="right" fileName="refinery.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-378" align="right" fileName="laser.bmp" hoverPath="res/images/hover.png"/>
+				<button x="-77" y="-418" align="right" fileName="lteleporter.bmp" hoverPath="res/images/hover.png"/>
+=======
 				<button x="-77" y="-58" align="right" fileName="toolstore.bmp" hoverPath="hover.png"/>
 				<button x="-77" y="-98" align="right" fileName="steleporter.bmp" hoverPath="hover.png"/>
 				<button x="-77" y="-138" align="right" fileName="dock.bmp" hoverPath="hover.png"/>
@@ -32,6 +55,7 @@
 				<button x="-77" y="-338" align="right" fileName="refinery.bmp" hoverPath="hover.png"/>
 				<button x="-77" y="-378" align="right" fileName="laser.bmp" hoverPath="hover.png"/>
 				<button x="-77" y="-418" align="right" fileName="lteleporter.bmp" hoverPath="hover.png"/>
+>>>>>>> branch 'master' of ssh+git://git@github.com/bartvbl/ORRE-V2.git
 			</container>
 		</building>
 	</menus>
