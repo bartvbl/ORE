@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.events.Event;
-import orre.events.EventDispatcher;
+import orre.events.ConcurrentEventDispatcher;
 import orre.events.EventType;
 import orre.scene.Scene;
 
@@ -15,7 +15,7 @@ public class Input extends Module{
 	private HashMap<Integer, Boolean> keyStates = new HashMap<Integer, Boolean>();
 	private HashMap<Integer, Integer> numberOfListeners = new HashMap<Integer, Integer>();
 	
-	public Input(EventDispatcher eventDispatcher, Scene sceneGraph) {
+	public Input(ConcurrentEventDispatcher eventDispatcher, Scene sceneGraph) {
 		super(eventDispatcher, sceneGraph);
 	}
 	

@@ -3,6 +3,7 @@ package orre.gameStates;
 import java.util.ArrayList;
 
 import orre.core.GameMain;
+import orre.events.ConcurrentEventDispatcher;
 import orre.events.EventDispatcher;
 import orre.gameStates.GameState;
 import orre.modules.Module;
@@ -10,24 +11,26 @@ import orre.scene.Scene;
 
 public class PauseMenu extends GameState {
 
-	public PauseMenu(GameMain main) {
-		super(main);
+	public PauseMenu(GameMain main, EventDispatcher eventDispatcher) {
+		super(main, eventDispatcher);
 	}
 
 	protected void executeFrame(long frameNumber) {
 		
 	}
 
-	protected void unloadState() {
+	@Override
+	public void set() {
+		// TODO Auto-generated method stub
 		
 	}
 
-	protected void doPreload() {
+	@Override
+	public void unset() {
+		// TODO Auto-generated method stub
 		
 	}
 
-	protected void doPostLoad() {
-		
-	}
+
 
 }

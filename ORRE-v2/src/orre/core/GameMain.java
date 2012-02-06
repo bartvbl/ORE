@@ -1,24 +1,26 @@
 package orre.core;
 
-import java.util.ArrayList;
-
 import org.lwjgl.opengl.Display;
 
+import orre.events.ConcurrentEventDispatcher;
+import orre.events.Event;
 import orre.events.EventDispatcher;
+import orre.events.EventHandler;
+import orre.events.GlobalEventType;
 import orre.gameStates.*;
 import orre.gl.RenderUtils;
 
 
-public class GameMain extends EventDispatcher{
+public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 	private boolean gameIsRunning = true;
 	private long frameNumber = 0;
-	private GameState currentGameState = null;
-	private ArrayList<GameState> gameStates = new ArrayList<GameState>();
-	private GameWindow mainWindow;
+	private AbstractGameState currentGameState = null;
+	private EventDispatcher globalEventDispatcher;
 	
 	public GameMain() 
 	{
-		mainWindow = new GameWindow();
+		this.globalEventDispatcher = new EventDispatcher();
+		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 	}
 
 	public void run()
@@ -43,29 +45,31 @@ public class GameMain extends EventDispatcher{
 		return this.frameNumber;
 	}
 	
-	public synchronized void setGameState(int newStateID)
+	private void setGameState(AbstractGameState newState)
 	{
-		GameState newState = this.gameStates.get(newStateID);
-		if(newState != null)
+		if(this.currentGameState != null)
 		{
-			if(this.currentGameState != null)
-			{
-				this.currentGameState.unset();
-			}
-			this.currentGameState = newState;
-			newState.set();
+			this.currentGameState.unset();
 		}
+		this.currentGameState = newState;
+		newState.set();
 	}
 	
 	public void initialize()
 	{
-		this.mainWindow.create();
-		
-		this.gameStates.add(GameState.STARTUP, 		new Startup(this));
-		this.gameStates.add(GameState.MAIN_MENU, 	new MainMenu(this));
-		this.gameStates.add(GameState.PAUSE_MENU, 	new PauseMenu(this));
-		this.gameStates.add(GameState.GAME, 		new GameRunning(this));
-		
-		this.setGameState(GameState.STARTUP);
+		GameWindow.create();
+		AbstractGameState startState = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
+		this.setGameState(startState);
+	}
+
+	public void handleEvent(Event<?> event) {
+		if(event.eventType.equals(GlobalEventType.CHANGE_GAME_STATE))
+		{
+			if((event.getEventParameterObject() == null) || !(event.getEventParameterObject() instanceof AbstractGameState))
+			{
+				return;
+			}
+			this.setGameState((AbstractGameState) event.getEventParameterObject());
+		}
 	}
 }

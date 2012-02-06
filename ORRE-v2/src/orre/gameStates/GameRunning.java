@@ -3,44 +3,40 @@ package orre.gameStates;
 import java.util.ArrayList;
 
 import orre.core.GameMain;
+import orre.events.ConcurrentEventDispatcher;
 import orre.events.EventDispatcher;
 import orre.modules.Input;
 import orre.modules.Module;
 import orre.scene.Scene;
 
 public class GameRunning extends GameState {
-	public GameRunning(GameMain main)
+	public GameRunning(GameMain main, EventDispatcher eventDispatcher)
 	{
-		super(main);
+		super(main, eventDispatcher);
 	}
 	public void initialize()
 	{
 		
 	}
-	protected ArrayList<Module> initializeModules(EventDispatcher eventDispatcher, Scene scene)
+	protected ArrayList<Module> initializeModules(ConcurrentEventDispatcher eventDispatcher, Scene scene)
 	{
 		ArrayList<Module> moduleList = new ArrayList<Module>();
 		moduleList.add(new Input(eventDispatcher, scene));
 		return moduleList;
 	}
-	public void execute(long gameFrame)
-	{
-		
-	}
 	
 	protected void executeFrame(long frameNumber) {
 		
 	}
-
-	protected void unloadState() {
+	
+	@Override
+	public void set() {
+		// TODO Auto-generated method stub
 		
 	}
-
-	protected void doPreload() {
-		
-	}
-
-	protected void doPostLoad() {
+	@Override
+	public void unset() {
+		// TODO Auto-generated method stub
 		
 	}
 }

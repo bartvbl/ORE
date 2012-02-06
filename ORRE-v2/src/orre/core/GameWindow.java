@@ -23,28 +23,30 @@ public class GameWindow {
 	public static final int DEFAULT_WINDOW_WIDTH = 1024;
 	public static final int DEFAULT_WINDOW_HEIGHT = 768;
 	
-	public GameWindow()
-	{
-		
-	}
-	public void create()
+	public static void create()
 	{
 		try
 		{
-			this.doInitialization();
+			doInitialization();
 		}
 		catch(LWJGLException e)
 		{
 			e.printStackTrace();
 		}
 	}
-	private void doInitialization() throws LWJGLException
+	
+	public static void destroy()
 	{
-		this.createDisplay();
-		this.setIcon();
-		this.initOpenGL();
+		Display.destroy();
 	}
-	private void createDisplay() throws LWJGLException
+	
+	private static void doInitialization() throws LWJGLException
+	{
+		createDisplay();
+		setIcon();
+		initOpenGL();
+	}
+	private static void createDisplay() throws LWJGLException
 	{
 		Display.setLocation(100, 100);
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
@@ -53,11 +55,11 @@ public class GameWindow {
 		System.out.println("-- OpenRR v0.01 (java " + System.getProperty("java.version") + " running on " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", "+System.getProperty("os.arch")+")) --");
 		Display.create();
 	}
-	private void setIcon()
+	private static void setIcon()
 	{
 		//Display.setIcon(TextureLoader.loadImageFromFile("res/icon.png"));
 	}
-	private void initOpenGL()
+	private static void initOpenGL()
 	{
 		glViewport(0, 0, GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
 		glMatrixMode(GL_PROJECTION);

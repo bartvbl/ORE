@@ -3,7 +3,7 @@ package orre.events;
 public class Event<EventParamsDataType> 
 {
 	private EventParamsDataType eventParameter = null;
-	private String eventType;
+	public final String eventType;
 	
 	public Event(String eventType)
 	{

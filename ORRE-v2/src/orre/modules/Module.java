@@ -1,6 +1,6 @@
 package orre.modules;
 
-import orre.events.EventDispatcher;
+import orre.events.ConcurrentEventDispatcher;
 import orre.scene.Scene;
 
 public class Module {
@@ -14,10 +14,10 @@ public class Module {
 	
 	public static final int TOTAL_NUMBER_OF_MODULES = 7;
 	
-	protected final EventDispatcher eventDispatcher;
+	protected final ConcurrentEventDispatcher eventDispatcher;
 	protected final Scene sceneGraph;
 	 
-	public Module(EventDispatcher eventDispatcher, Scene sceneGraph)
+	public Module(ConcurrentEventDispatcher eventDispatcher, Scene sceneGraph)
 	{
 		this.eventDispatcher = eventDispatcher;
 		this.sceneGraph = sceneGraph;
