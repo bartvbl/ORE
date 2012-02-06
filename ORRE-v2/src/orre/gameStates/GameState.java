@@ -24,13 +24,6 @@ public abstract class GameState implements AbstractGameState {
 		this.globalEventDispatcher = eventDispatcher;
 	}
 	
-	protected abstract void executeFrame(long frameNumber);
-	
-	public void tick(long frameNumber)
-	{
-		this.executeFrame(frameNumber);
-	}
-	
 //	private void initializeModules()
 //	{
 //		if(this.currentState != State.LOADING)

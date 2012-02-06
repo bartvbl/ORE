@@ -13,7 +13,7 @@ public class MainMenu extends GameState {
 	public MainMenu(GameMain main, EventDispatcher eventDispatcher) {
 		super(main, eventDispatcher);
 	}
-	protected void executeFrame(long frameNumber) {
+	public void executeFrame(long frameNumber) {
 		
 	}
 	@Override

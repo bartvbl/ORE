@@ -53,7 +53,7 @@ public class ResourceQueue {
 		this.resourceLoader.registerStartedLoading();
 	}
 	
-	public synchronized void queueResourceForFinalization(Finalizable finalizable)
+	public synchronized void enqueueResourceForFinalization(Finalizable finalizable)
 	{
 		this.resourcesToFinalizeQueue.enqueue(finalizable);
 	}

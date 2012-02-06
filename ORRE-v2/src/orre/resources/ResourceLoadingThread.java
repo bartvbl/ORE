@@ -21,7 +21,10 @@ public class ResourceLoadingThread extends Thread {
 			if((currentFile.fileType == ResourceFile.MENU_TEXTURE_FILE) || (currentFile.fileType == ResourceFile.TEXTURE_FILE))
 			{
 				PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(currentFile);
-				this.resourceQueue.queueResourceForFinalization(texture);
+				this.resourceQueue.enqueueResourceForFinalization(texture);
+			} else if(currentFile.fileType == ResourceFile.MODEL_FILE)
+			{
+				System.out.println("model file: " + currentFile.nodeFile.valueOf("@src"));
 			}
 			currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();
 			this.tracker.registerFileLoaded();

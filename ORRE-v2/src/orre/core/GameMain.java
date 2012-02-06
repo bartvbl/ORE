@@ -33,7 +33,7 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 		while(!Display.isCloseRequested() && gameIsRunning)
 		{
 			RenderUtils.newFrame();
-			this.currentGameState.tick(this.frameNumber);
+			this.currentGameState.executeFrame(this.frameNumber);
 			this.frameNumber++;
 			Display.update();
 			Display.sync(60);

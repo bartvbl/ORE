@@ -22,15 +22,10 @@ public class Startup extends SequencableGameState {
 	}
 
 	@Override
-	public void tick(long frameNumber) {
+	public void executeFrame(long frameNumber) {
 		// TODO Auto-generated method stub
 
 	}
 
-	@Override
-	protected void executeFrame(long frameNumber) {
-		// TODO Auto-generated method stub
-
-	}
 
 }

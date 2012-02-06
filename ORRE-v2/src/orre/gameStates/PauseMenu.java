@@ -15,7 +15,7 @@ public class PauseMenu extends GameState {
 		super(main, eventDispatcher);
 	}
 
-	protected void executeFrame(long frameNumber) {
+	public void executeFrame(long frameNumber) {
 		
 	}
 

@@ -12,7 +12,7 @@ public abstract class SequencableGameState implements AbstractGameState {
 		this.globalEventDispatcher = eventDispatcher;
 	}
 	
-	protected abstract void executeFrame(long frameNumber);
+	public abstract void executeFrame(long frameNumber);
 	
 	protected void setNextState(AbstractGameState nextState)
 	{

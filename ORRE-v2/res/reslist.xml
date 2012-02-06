@@ -5,7 +5,7 @@
 	</sounds>
 	
 	<models pathPrefix="res/mesh/">
-		<model name="rock raider" src="minifig.mdl"/>
+		<model name="rockRaider" src="minifig.mdl"/>
 	</models>
 	
 	<menuTextures pathPrefix="res/images/menus/">
@@ -65,4 +65,8 @@
 	<animations pathPrefix="res/anims/">
 		<animation name="walking" src="walking.anim"/>
 	</animations>
+	
+	<shaders pathPrefix="res/shaders/">
+		<shader name="boneShader" geomSrc="boneShader.geom" fragSrc="boneShader.frag" />
+	</shaders>
 </resList>

@@ -25,7 +25,7 @@ public class GameRunning extends GameState {
 		return moduleList;
 	}
 	
-	protected void executeFrame(long frameNumber) {
+	public void executeFrame(long frameNumber) {
 		
 	}
 	
