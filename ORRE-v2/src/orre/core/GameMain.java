@@ -59,7 +59,6 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 	{
 		GameWindow.create();
 		AbstractGameState startState = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
-		System.out.println("initializing");
 		this.setGameState(startState);
 	}
 
