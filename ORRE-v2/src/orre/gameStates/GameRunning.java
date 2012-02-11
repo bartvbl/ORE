@@ -10,9 +10,9 @@ import orre.modules.Module;
 import orre.scene.Scene;
 
 public class GameRunning extends GameState {
-	public GameRunning(GameMain main, EventDispatcher eventDispatcher)
+	public GameRunning(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName)
 	{
-		super(main, eventDispatcher);
+		super(main, eventDispatcher, stateName);
 	}
 	public void initialize()
 	{

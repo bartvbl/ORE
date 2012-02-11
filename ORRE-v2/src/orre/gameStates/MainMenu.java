@@ -1,17 +1,12 @@
 package orre.gameStates;
 
-import java.util.ArrayList;
-
 import orre.core.GameMain;
-import orre.events.ConcurrentEventDispatcher;
 import orre.events.EventDispatcher;
-import orre.modules.Module;
-import orre.scene.Scene;
 
 public class MainMenu extends GameState {
 
-	public MainMenu(GameMain main, EventDispatcher eventDispatcher) {
-		super(main, eventDispatcher);
+	public MainMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
+		super(main, eventDispatcher, stateName);
 	}
 	public void executeFrame(long frameNumber) {
 		

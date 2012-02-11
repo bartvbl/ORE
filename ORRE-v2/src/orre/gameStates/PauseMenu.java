@@ -1,18 +1,13 @@
 package orre.gameStates;
 
-import java.util.ArrayList;
-
 import orre.core.GameMain;
-import orre.events.ConcurrentEventDispatcher;
 import orre.events.EventDispatcher;
 import orre.gameStates.GameState;
-import orre.modules.Module;
-import orre.scene.Scene;
 
 public class PauseMenu extends GameState {
 
-	public PauseMenu(GameMain main, EventDispatcher eventDispatcher) {
-		super(main, eventDispatcher);
+	public PauseMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
+		super(main, eventDispatcher, stateName);
 	}
 
 	public void executeFrame(long frameNumber) {

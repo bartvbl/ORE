@@ -14,8 +14,8 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 	private ResourceLoader resourceLoader;
 	private final String enqueueResourceEventType;
 
-	public LoadingScreen(GameMain main, EventDispatcher globalEventDispatcher, String enqueueResourceEventType) {
-		super(main, globalEventDispatcher);
+	public LoadingScreen(GameMain main, EventDispatcher globalEventDispatcher, String enqueueResourceEventType, GameState.State stateName) {
+		super(main, globalEventDispatcher, stateName);
 		globalEventDispatcher.addEventListener(this, enqueueResourceEventType);
 		this.enqueueResourceEventType = enqueueResourceEventType;
 	}

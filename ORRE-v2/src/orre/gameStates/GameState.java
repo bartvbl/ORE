@@ -3,12 +3,14 @@ package orre.gameStates;
 import orre.core.GameMain;
 import orre.events.ConcurrentEventDispatcher;
 import orre.events.EventDispatcher;
+import orre.gameStates.GameState.State;
 import orre.resources.ResourceCache;
 import orre.scene.Scene;
 import orre.threads.ThreadManager;
 
 public abstract class GameState implements AbstractGameState {
 	public static final int MINIMUM_COMTINUOUS_THREAD_SLEEP_TIME = 10;
+	public static enum State {STARTUP_LOADING, MAIN_MENU, GAME_LOADING, GAME_RUNNING, PAUSE_MENU, MAIN_MENU_LOADING};
 	
 	protected ThreadManager threadManager;
 	protected Scene sceneGraph;
@@ -17,11 +19,13 @@ public abstract class GameState implements AbstractGameState {
 	
 	protected final GameMain main;
 	protected final EventDispatcher globalEventDispatcher;
+	private final State stateName;
 	
-	public GameState(GameMain main, EventDispatcher eventDispatcher)
+	public GameState(GameMain main, EventDispatcher eventDispatcher, State stateName)
 	{
 		this.main = main;
 		this.globalEventDispatcher = eventDispatcher;
+		this.stateName = stateName;
 	}
 	
 //	private void initializeModules()

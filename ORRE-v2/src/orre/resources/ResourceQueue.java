@@ -14,11 +14,9 @@ public class ResourceQueue {
 
 	private ProgressTracker tracker;
 
-	private ResourceCache resourceCache;
-
 	private ResourceLoader resourceLoader;
 	
-	public ResourceQueue(ProgressTracker tracker, ResourceCache cache, ResourceLoader loader)
+	public ResourceQueue(ProgressTracker tracker, ResourceLoader loader)
 	{
 		this.itemsToLoadQueue = new Queue<String>();
 		this.itemsTypeQueue = new Queue<ResourceFile>();
@@ -27,7 +25,6 @@ public class ResourceQueue {
 		this.resourceLoader = loader;
 		
 		this.tracker = tracker;
-		this.resourceCache = cache;
 	}
 	
 	public void enqueueResourceFile(String src, ResourceFile resourceListFile) {
