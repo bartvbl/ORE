@@ -7,18 +7,14 @@ import org.lwjgl.util.Timer;
 import orre.util.Queue;
 
 public class ResourceFinalizer {
-	private Queue<Finalizable> finalizationQueue = new Queue<Finalizable>();
-
 	private Timer finalizationTimer;
 	private ResourceQueue resourceQueue;
-	private ResourceCache resourceCache;
 
 	private static final float ALLOWED_TIME_FOR_FINALIZATIONS = 0.014f;
 	
-	public ResourceFinalizer(ResourceQueue resourceQueue, ResourceCache cache) {
+	public ResourceFinalizer(ResourceQueue resourceQueue) {
 		this.resourceQueue = resourceQueue;
 		this.finalizationTimer = new Timer();
-		this.resourceCache = cache;
 	}
 	
 	public void doFinalizations()
@@ -32,7 +28,7 @@ public class ResourceFinalizer {
 			{
 				break;
 			}
-			resourceToFinalize.finalizeResource(this.resourceCache);
+			resourceToFinalize.finalizeResource();
 			Timer.tick();
 		}
 	}

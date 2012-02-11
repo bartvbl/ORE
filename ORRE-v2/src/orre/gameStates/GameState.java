@@ -26,6 +26,7 @@ public abstract class GameState implements AbstractGameState {
 		this.main = main;
 		this.globalEventDispatcher = eventDispatcher;
 		this.stateName = stateName;
+		this.resourceCache = new ResourceCache();
 	}
 	
 //	private void initializeModules()

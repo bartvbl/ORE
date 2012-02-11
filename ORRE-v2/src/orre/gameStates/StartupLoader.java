@@ -13,16 +13,4 @@ public class StartupLoader extends LoadingScreen {
 		this.setLoadingScreen(new DefaultLoadingScreen());
 	}
 
-	@Override
-	public void set() {
-		// TODO Auto-generated method stub
-
-	}
-
-	@Override
-	public void unset() {
-		// TODO Auto-generated method stub
-
-	}
-
 }

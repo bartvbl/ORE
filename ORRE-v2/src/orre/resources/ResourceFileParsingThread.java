@@ -4,33 +4,30 @@ import orre.util.Queue;
 
 public class ResourceFileParsingThread extends Thread{
 
-	private Queue<String> remainingItemsQueue;
-	private Queue<ResourceFile> itemsTypeQueue;
+	private Queue<FileToLoad> remainingItemsQueue;
 	private ResourceQueue resourceQueue;
 
-	public ResourceFileParsingThread(ResourceQueue queue, Queue<String> itemsToLoadQueue, Queue<ResourceFile> itemsTypeQueue) {
+	public ResourceFileParsingThread(ResourceQueue queue, Queue<FileToLoad> itemsToLoadQueue) {
 		this.remainingItemsQueue = itemsToLoadQueue;
-		this.itemsTypeQueue = itemsTypeQueue;
 		this.resourceQueue = queue;
 	}
-	
+
 	public void run()
 	{
-		String src = this.remainingItemsQueue.dequeue();
-		while(src != null)
+		System.out.println(this.remainingItemsQueue);
+		FileToLoad file = this.remainingItemsQueue.dequeue();
+		while(file != null)
 		{
-			this.parseResourceFile(src);
-			src = this.remainingItemsQueue.dequeue();
+			this.parseResourceFile(file);
+			file = this.remainingItemsQueue.dequeue();
 		}
 		this.resourceQueue.startLoading();
 	}
 
-	private void parseResourceFile(String src) {
-		final ResourceFile fileTypeToParse = this.itemsTypeQueue.dequeue();
-		if(fileTypeToParse == ResourceFile.RESOURCE_LIST_FILE)
+	private void parseResourceFile(FileToLoad file) {
+		if(file.fileType == ResourceFile.RESOURCE_LIST_FILE)
 		{
-			System.out.println("loading file " + src);
-			ResourceListFileParser.parseFile(src, this.resourceQueue);
+			ResourceListFileParser.parseFile(file, this.resourceQueue);
 		}
 	}
 }

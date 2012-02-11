@@ -1,5 +1,17 @@
 package orre.resources;
 
-public interface Finalizable {
-	public void finalizeResource(ResourceCache cache);
+public abstract class Finalizable {
+	protected ResourceCache destinationCache = null;
+	
+	public void setDestinationCache(ResourceCache destinationCache)
+	{
+		this.destinationCache = destinationCache;
+	}
+	
+	public void finalizeAndSendToCache()
+	{
+		this.finalizeResource();
+	}
+	
+	public abstract void finalizeResource();
 }

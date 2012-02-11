@@ -7,8 +7,7 @@ import orre.util.Queue;
 public class ResourceQueue {
 	private static final int NUMBER_OF_LOADING_THREADS = 3;
 	
-	private Queue<String> itemsToLoadQueue;
-	private Queue<ResourceFile> itemsTypeQueue;
+	private Queue<FileToLoad> itemsToLoadQueue;
 	private Queue<FileToLoad> filesToLoadQueue;
 	private Queue<Finalizable> resourcesToFinalizeQueue;
 
@@ -18,8 +17,7 @@ public class ResourceQueue {
 	
 	public ResourceQueue(ProgressTracker tracker, ResourceLoader loader)
 	{
-		this.itemsToLoadQueue = new Queue<String>();
-		this.itemsTypeQueue = new Queue<ResourceFile>();
+		this.itemsToLoadQueue = new Queue<FileToLoad>();
 		this.filesToLoadQueue = new Queue<FileToLoad>();
 		this.resourcesToFinalizeQueue = new Queue<Finalizable>();
 		this.resourceLoader = loader;
@@ -27,13 +25,12 @@ public class ResourceQueue {
 		this.tracker = tracker;
 	}
 	
-	public void enqueueResourceFile(String src, ResourceFile resourceListFile) {
-		this.itemsToLoadQueue.enqueue(src);
-		this.itemsTypeQueue.enqueue(resourceListFile);
+	public void enqueueResourceFile(String src, ResourceFile fileType, ResourceCache destinationCache) {
+		this.itemsToLoadQueue.enqueue(new FileToLoad(fileType, destinationCache, src));
 	}
 
 	public void parseResourceFiles() {
-		new ResourceFileParsingThread(this, this.itemsToLoadQueue, this.itemsTypeQueue).start();
+		new ResourceFileParsingThread(this, this.itemsToLoadQueue).start();
 	}
 	
 	public void enqueueNodeForLoading(FileToLoad fileToLoad)

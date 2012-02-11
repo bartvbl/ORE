@@ -4,7 +4,6 @@ import orre.gui.LoadingScreenDrawer;
 
 public class ResourceLoader {
 	
-	private ResourceCache resourceCache;
 	private LoadingScreenDrawer loadingScreenDrawer = null;
 	private ProgressTracker progressTracker;
 	private ResourceQueue resourceQueue;
@@ -14,10 +13,9 @@ public class ResourceLoader {
 	
 	public ResourceLoader()
 	{
-		this.resourceCache = new ResourceCache();
 		this.progressTracker = new ProgressTracker();
 		this.resourceQueue = new ResourceQueue(this.progressTracker, this);
-		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue, this.resourceCache);
+		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue);
 	}
 	
 	public void registerStartedLoading()
@@ -45,9 +43,9 @@ public class ResourceLoader {
 		this.loadingScreenDrawer = loadingScreen;
 	}
 	
-	public void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceListFile)
+	public void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceFileType, ResourceCache destinationCache)
 	{
-		this.resourceQueue.enqueueResourceFile(src, resourceListFile);
+		this.resourceQueue.enqueueResourceFile(src, resourceFileType, destinationCache);
 	}
 
 	public boolean isFinished() {

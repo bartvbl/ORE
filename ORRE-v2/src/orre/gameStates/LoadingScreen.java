@@ -6,6 +6,7 @@ import orre.events.EventDispatcher;
 import orre.events.EventHandler;
 import orre.gui.LoadingScreenDrawer;
 import orre.resources.FileToLoad;
+import orre.resources.ResourceCache;
 import orre.resources.ResourceFile;
 import orre.resources.ResourceLoader;
 
@@ -18,8 +19,14 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 		super(main, globalEventDispatcher, stateName);
 		globalEventDispatcher.addEventListener(this, enqueueResourceEventType);
 		this.enqueueResourceEventType = enqueueResourceEventType;
+		this.resourceLoader = new ResourceLoader();
 	}
-	public void set() {}
+	public void set() {
+		if(this.resourceLoader == null)
+		{
+			this.resourceLoader = new ResourceLoader();
+		}
+	}
 	
 	public void unset() {
 		this.resourceLoader = null;
@@ -34,9 +41,9 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 		return;
 	}
 	
-	protected void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceListFile)
+	protected void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceListFile, ResourceCache destinationCache)
 	{
-		this.resourceLoader.enqueueResourceFileToBeLoaded(src, resourceListFile);
+		this.resourceLoader.enqueueResourceFileToBeLoaded(src, resourceListFile, destinationCache);
 	}
 	
 	protected void setLoadingScreen(LoadingScreenDrawer screenDrawer)
@@ -52,7 +59,7 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 				return;
 			}
 			FileToLoad file = (FileToLoad) event.getEventParameterObject();
-			this.enqueueResourceFileToBeLoaded(file.pathPrefix + file.nodeFile.valueOf("@src"), file.fileType);
+			this.enqueueResourceFileToBeLoaded(file.src, file.fileType, file.destinationCache);
 		}
 	}
 

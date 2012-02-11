@@ -5,7 +5,7 @@ import orre.resources.Finalizable;
 import orre.resources.ResourceCache;
 import orre.resources.loaders.TextureLoader;
 
-public class PartiallyLoadableTexture implements Finalizable{
+public class PartiallyLoadableTexture extends Finalizable{
 	private final byte[] imageData;
 	private final int width;
 	private final int height;
@@ -16,9 +16,9 @@ public class PartiallyLoadableTexture implements Finalizable{
 		this.height = height;
 	}
 
-	public void finalizeResource(ResourceCache cache) {
+	public void finalizeResource() {
 		Texture tex = TextureLoader.createTexture(imageData, width, height);
-		cache.addTexture(tex);
+		this.destinationCache.addTexture(tex);
 	}
 
 }
