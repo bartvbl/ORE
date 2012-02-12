@@ -1,4 +1,5 @@
 <ORRModel>
+	<modelFile src="res/mesh/objects3D/minifig.obj"/>
 	<partStructure>
 		<part name="torso" nameInModelFile="torso">
 			<part name="leftArm_top" nameInModelFile="arm_l" xOffset="0" yOffset="0" zOffset ="0">

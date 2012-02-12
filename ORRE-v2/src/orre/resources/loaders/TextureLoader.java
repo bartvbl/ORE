@@ -38,6 +38,15 @@ public class TextureLoader {
 		}
 	}
 	
+	public static ByteBuffer getImageData(String src)
+	{
+		BufferedImage image = loadImageFromFile(src);
+		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
+		ByteBuffer bb = ByteBuffer.allocateDirect(imageData.length).order(ByteOrder.nativeOrder());
+		bb.put(imageData).flip();
+		return bb;
+	}
+	
 	public static BufferedImage loadImageFromFile(String src)
 	{
 		BufferedImage img = null;

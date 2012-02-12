@@ -7,6 +7,7 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
+import java.nio.ByteBuffer;
 import java.util.concurrent.atomic.AtomicReference;
 
 import javax.swing.JFrame;
@@ -43,7 +44,6 @@ public class GameWindow {
 	private static void doInitialization() throws LWJGLException
 	{
 		createDisplay();
-		setIcon();
 		initOpenGL();
 	}
 	private static void createDisplay() throws LWJGLException
@@ -52,12 +52,9 @@ public class GameWindow {
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
 		Display.setResizable(true);
 		Display.setTitle(WINDOW_TITLE);
+		Display.setIcon(new ByteBuffer[]{TextureLoader.getImageData("res/icon.png"), TextureLoader.getImageData("res/icon.png")});
 		System.out.println("-- OpenRR v0.01 (java " + System.getProperty("java.version") + " running on " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", "+System.getProperty("os.arch")+")) --");
 		Display.create();
-	}
-	private static void setIcon()
-	{
-		//Display.setIcon(TextureLoader.loadImageFromFile("res/icon.png"));
 	}
 	private static void initOpenGL()
 	{

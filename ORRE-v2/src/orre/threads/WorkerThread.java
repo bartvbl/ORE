@@ -16,6 +16,7 @@ public class WorkerThread extends Thread {
 	public WorkerThread(ArrayList<Module> moduleCue)
 	{
 		this.moduleCue = new ModuleCue(moduleCue);
+		this.setName("game worker thread " + this.getId());
 	}
 	
 	public void updateBarrierReferences(CyclicBarrier frameStartBarrier, CyclicBarrier frameEndBarrier)

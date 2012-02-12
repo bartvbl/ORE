@@ -1,5 +1,7 @@
 package orre.resources;
 
+import orre.sceneGraph.SceneNode;
+
 public abstract class Finalizable {
 	protected ResourceCache destinationCache = null;
 	
@@ -14,4 +16,6 @@ public abstract class Finalizable {
 	}
 	
 	public abstract void finalizeResource();
+	public abstract SceneNode createSceneNode();
+	public abstract void addToCache();
 }

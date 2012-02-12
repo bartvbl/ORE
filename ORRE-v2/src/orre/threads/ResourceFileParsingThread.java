@@ -1,5 +1,9 @@
-package orre.resources;
+package orre.threads;
 
+import orre.resources.FileToLoad;
+import orre.resources.ResourceFile;
+import orre.resources.ResourceListFileParser;
+import orre.resources.ResourceQueue;
 import orre.util.Queue;
 
 public class ResourceFileParsingThread extends Thread{
