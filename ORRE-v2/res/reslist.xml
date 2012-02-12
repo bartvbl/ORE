@@ -5,7 +5,7 @@
 	</sounds>
 	
 	<models pathPrefix="res/mesh/">
-		
+		<!--<model name="rockRaider" src="minifig.mdl"/>-->
 	</models>
 	
 	<menuTextures pathPrefix="res/images/menus/">
