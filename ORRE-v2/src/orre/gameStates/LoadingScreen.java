@@ -4,11 +4,13 @@ import orre.core.GameMain;
 import orre.events.Event;
 import orre.events.EventDispatcher;
 import orre.events.EventHandler;
+import orre.gl.texture.Texture;
 import orre.gui.LoadingScreenDrawer;
 import orre.resources.FileToLoad;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceFile;
 import orre.resources.ResourceLoader;
+import orre.resources.loaders.TextureLoader;
 
 public class LoadingScreen extends SequencableGameState implements EventHandler {
 
@@ -20,6 +22,8 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 		globalEventDispatcher.addEventListener(this, enqueueResourceEventType);
 		this.enqueueResourceEventType = enqueueResourceEventType;
 		this.resourceLoader = new ResourceLoader();
+		
+		
 	}
 	public void set() {
 		if(this.resourceLoader == null)
@@ -36,7 +40,7 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 		this.resourceLoader.update();
 		if(this.resourceLoader.isFinished())
 		{
-			this.finish();
+			//this.finish();
 		}
 		return;
 	}

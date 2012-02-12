@@ -28,14 +28,15 @@ public class RenderUtils {
 		glLoadIdentity();
 	}
 	
-	public static void set2DMode(float width, float height)
+	public static void set2DMode()
 	{
 		glDisable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluOrtho2D(0, width, 0, height);
+		gluOrtho2D(0, Display.getWidth(), 0, Display.getHeight());
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+		glEnable(GL_TEXTURE_2D);
 	}
 	
 	

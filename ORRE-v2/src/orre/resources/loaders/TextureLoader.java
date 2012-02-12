@@ -47,6 +47,11 @@ public class TextureLoader {
 		return bb;
 	}
 	
+	public static Texture loadTextureFromFile(String src)
+	{
+		return createTextureFromImage(loadImageFromFile(src));
+	}
+	
 	public static BufferedImage loadImageFromFile(String src)
 	{
 		BufferedImage img = null;

@@ -1,8 +1,8 @@
 package orre.resources.partiallyLoadables;
 
 import orre.geom.mesh.BlueprintModel;
-import orre.geom.mesh.ModelPart;
 import orre.resources.Finalizable;
+import orre.resources.loaders.ModelPart;
 import orre.sceneGraph.SceneNode;
 
 public class PartiallyLoadableModel extends Finalizable {
