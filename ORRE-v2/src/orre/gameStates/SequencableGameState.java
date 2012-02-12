@@ -10,7 +10,7 @@ public abstract class SequencableGameState implements AbstractGameState {
 	private GameMain main;
 	protected final EventDispatcher globalEventDispatcher;
 	private final State stateName;
-	private AbstractGameState nextState;
+	private GameState.State nextState;
 
 	public SequencableGameState(GameMain main, EventDispatcher eventDispatcher, State stateName) {
 		this.main = main;
@@ -20,9 +20,9 @@ public abstract class SequencableGameState implements AbstractGameState {
 	
 	public abstract void executeFrame(long frameNumber);
 	
-	public void setNextState(AbstractGameState nextState)
+	public void setNextState(State mainMenu)
 	{
-		this.nextState = nextState;
+		this.nextState = mainMenu;
 	}
 	
 	protected void finish()

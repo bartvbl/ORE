@@ -1,5 +1,7 @@
 package orre.core;
 
+import java.util.HashMap;
+
 import org.lwjgl.opengl.Display;
 
 import orre.events.ConcurrentEventDispatcher;
@@ -8,6 +10,7 @@ import orre.events.EventDispatcher;
 import orre.events.EventHandler;
 import orre.events.GlobalEventType;
 import orre.gameStates.*;
+import orre.gameStates.GameState.State;
 import orre.gl.RenderUtils;
 
 
@@ -16,6 +19,7 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 	private long frameNumber = 0;
 	private AbstractGameState currentGameState = null;
 	private EventDispatcher globalEventDispatcher;
+	private HashMap<State, AbstractGameState> stateMap;
 	
 	public GameMain() 
 	{
@@ -45,31 +49,33 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 		return this.frameNumber;
 	}
 	
-	private void setGameState(AbstractGameState newState)
+	private void setGameState(State newState)
 	{
 		if(this.currentGameState != null)
 		{
 			this.currentGameState.unset();
 		}
-		this.currentGameState = newState;
-		newState.set();
+		AbstractGameState stateToSet = this.stateMap.get(newState);
+		this.currentGameState = stateToSet;
+		stateToSet.set();
 	}
 	
 	public void initialize()
 	{
 		GameWindow.create();
-		AbstractGameState startState = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
-		this.setGameState(startState);
+		HashMap<GameState.State, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
+		this.stateMap = stateMap;
+		this.setGameState(GameState.State.STARTUP_LOADING);
 	}
 
 	public void handleEvent(Event<?> event) {
 		if(event.eventType.equals(GlobalEventType.CHANGE_GAME_STATE))
 		{
-			if((event.getEventParameterObject() == null) || !(event.getEventParameterObject() instanceof AbstractGameState))
+			if((event.getEventParameterObject() == null) || !(event.getEventParameterObject() instanceof GameState.State))
 			{
 				return;
 			}
-			this.setGameState((AbstractGameState) event.getEventParameterObject());
+			this.setGameState((GameState.State) event.getEventParameterObject());
 		}
 	}
 }
