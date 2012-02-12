@@ -37,6 +37,7 @@ public class RenderUtils {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_TEXTURE_2D);
+		glDisable(GL_LIGHTING);
 	}
 	
 	
