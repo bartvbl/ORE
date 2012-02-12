@@ -1,0 +1,37 @@
+<ORRDefaultGUI>
+	<meta>
+		<author>Ramius Antillies</author>
+		<name>Default ORR-Delta Button Events</name>
+		<description>The default Button Events for OpenRR-Delta</description>
+		<version>1.0</version>
+	</meta>
+	<menus>
+		<main>
+			<button/>
+			<button>
+				<event type="menu close" target="main" targetType="menu"/>
+				<event type="menu open" target="building" targetType="menu">
+					<condition target="building" targetType="menu" att="state" flag="1"/>
+				</event>
+			</button>
+			<button/>
+			<button/>
+			<button/>
+		</main>
+		<building>
+			<button>
+				<event type="menu open" target="building" targetType="menu"/>
+				<event type="menu close" target="main" targetType="menu"/>
+			<button/>
+			<button/>
+			<button/>
+			<button/>
+			<button/>
+			<button/>
+			<button/>
+			<button/>
+			<button/>
+			<button/>
+		</building>
+	</menus>
+</ORRDefaultGUI>
