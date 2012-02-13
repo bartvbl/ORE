@@ -9,7 +9,6 @@ public class MainMenu extends GameState {
 		super(main, eventDispatcher, stateName);
 	}
 	public void executeFrame(long frameNumber) {
-		
 	}
 	@Override
 	public void set() {
