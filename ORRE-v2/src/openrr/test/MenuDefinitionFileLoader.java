@@ -75,9 +75,12 @@ public class MenuDefinitionFileLoader {
 
 	private static void parseItemNode(Container container, Node itemNode,
 			int[] screenSize, String pathPrefix) {
-		Button newButton = new Button(Integer.parseInt(itemNode.valueOf("@x")),Integer.parseInt(itemNode.valueOf("@y")), screenSize, itemNode.valueOf("@align"));
-		newButton.loadImages(pathPrefix, itemNode.valueOf("@fileName"), itemNode.valueOf("@hoverPath"));
-		container.addChild(newButton);
+		if (itemNode.valueOf("@type").equals("image")) {
+			ImageButton newButton = new ImageButton(Integer.parseInt(itemNode.valueOf("@x")),Integer.parseInt(itemNode.valueOf("@y")), screenSize, itemNode.valueOf("@align"));
+			newButton.loadImages(pathPrefix, itemNode.valueOf("@fileName"), itemNode.valueOf("@hoverPath"));
+			container.addChild(newButton);
+		}
+		
 		System.out.println("\t\t\tcreating button");
 	}
 
