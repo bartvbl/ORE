@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.util.ArrayList;
 
+import orre.gl.RenderUtils;
 import orre.gl.texture.Texture;
 import orre.resources.loaders.TextureLoader;
 
@@ -69,9 +70,10 @@ public class TextButton extends Button {
 	}
 	
 	public void draw() {
-		glTranslatef(0f, 2*y, 0f);
-		glScalef(1, -1, 1);
+		RenderUtils.set2DMode();
 		glDisable(GL_CULL_FACE);
-		font.drawString(x, y, text);
+		glTranslatef(0f, 24 - 2*y, 0f);//24 = font size (I think)
+		glScalef(1, -1, 1);
+		font.drawString(x, y, "test");
 	}
 }

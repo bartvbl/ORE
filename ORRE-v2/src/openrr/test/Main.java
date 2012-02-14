@@ -72,9 +72,9 @@ public class Main {
 				}
 			}
 			menuManager.draw();
+			but.draw();
 			Display.update();
 			Display.sync(50);
-			but.draw();
 		}
 		
 	}
