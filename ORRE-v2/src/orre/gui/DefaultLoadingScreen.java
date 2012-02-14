@@ -25,7 +25,19 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 		this.loadingScreen.blit(0, 0, Display.getWidth(), Display.getHeight());
 		int x = (int)(0.223f*Display.getWidth());
 		int y = (int)(0.046f*Display.getHeight());
-		this.loadingBar.blit(x, y, (int)((Display.getWidth() - 2.02f*x) * progress), 12);
+		int width = (int)((Display.getWidth() - 2.02f*x) * progress);
+		
+		this.loadingBar.bind();
+		glBegin(GL_QUADS);
+		glTexCoord2f(0,0);
+		glVertex2f(x,y);
+		glTexCoord2f((float)progress,0);
+		glVertex2f(x+width,y);
+		glTexCoord2f((float)progress,1);
+		glVertex2f(x+width,y+12);
+		glTexCoord2f(0,1);
+		glVertex2f(x,y+12);
+		glEnd();
 	}
 	
 }

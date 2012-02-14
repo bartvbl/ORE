@@ -1,10 +1,6 @@
 package orre.resources;
 
-import java.util.ArrayList;
-
 import org.lwjgl.util.Timer;
-
-import orre.util.Queue;
 
 public class ResourceFinalizer {
 	private Timer finalizationTimer;
@@ -29,6 +25,7 @@ public class ResourceFinalizer {
 				break;
 			}
 			resourceToFinalize.finalizeResource();
+			resourceToFinalize.addToCache();
 			Timer.tick();
 		}
 	}

@@ -26,6 +26,7 @@ public class RenderUtils {
 		gluPerspective(60.0f, (width/height), RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
+		glEnable(GL_CULL_FACE); 
 	}
 	
 	public static void set2DMode()
@@ -37,6 +38,8 @@ public class RenderUtils {
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_TEXTURE_2D);
+		glDisable(GL_LIGHTING);
+		glDisable(GL_CULL_FACE); 
 	}
 	
 	

@@ -64,18 +64,14 @@ public class GameWindow {
 		gluPerspective(60.0f, (float)(GameWindow.DEFAULT_WINDOW_WIDTH/GameWindow.DEFAULT_WINDOW_HEIGHT), 0.1f, 10000.0f);
 		glMatrixMode(GL_MODELVIEW);
 		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
-//		glClearDepth(1.0);
-//		glShadeModel(GL_SMOOTH);
-//		glEnable(GL_DEPTH_TEST);
-//		glDepthFunc(GL_LEQUAL);
-		//glEnable(GL_CULL_FACE); 
-//		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-//		glEnable(GL_BLEND);
-//		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		//glEnable(GL_ALPHA_TEST);
-		//glAlphaFunc(GL_GREATER,0.0f);
-		//glEnable(GL_LIGHTING);
-		//glEnable(GL_LIGHT1); 
-//		glEnable(GL_CULL_FACE);	
+		glClearDepth(1.0);
+		glShadeModel(GL_SMOOTH);
+		glEnable(GL_DEPTH_TEST);
+		glDepthFunc(GL_LEQUAL);
+		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+		glEnable(GL_LIGHTING);
+		glEnable(GL_LIGHT1); 
 	}
 }
