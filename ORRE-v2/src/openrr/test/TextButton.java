@@ -1,49 +1,42 @@
 package openrr.test;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import java.util.ArrayList;
 
 import orre.gl.texture.Texture;
 import orre.resources.loaders.TextureLoader;
 
+import java.awt.Font;
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 
 import org.lwjgl.util.Rectangle;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 
-public class TextButton {
+public class TextButton extends Button {
 	
-	public static int NORMAL = 0;
-	public static int PRESSED = 1;
-	public static int INACTIVE = 2;
-	public static int HOVER = 3;
+	String text;
+	UnicodeFont font;
 	
-	private int x;
-	private int y;
-	private int xOffset;
-	private int yOffset;
-	
-	private int[] screenDims;
-	
-	private Texture image;
-	private Texture hoverText;
-	
-	private ArrayList<Texture> stateImages = new ArrayList<Texture>();
-	
-	private int state;
-	
-	private String align;
-	
-	private Container parent;
-	
-	public TextButton(int x, int y, int screenSize[], String inAlign) {
-		xOffset = x;
-		yOffset = y;
-		screenDims = screenSize;
-		align = inAlign;
+	public TextButton(int x, int y, int screenSize[], String inAlign, String inText) {
+		super(x, y, screenSize, inAlign);
+		font = new UnicodeFont(new Font("Arial", Font.BOLD, 24));
+		font.addAsciiGlyphs();
+		font.getEffects().add(new ColorEffect(java.awt.Color.WHITE)); 
+		try {
+			font.loadGlyphs();
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		text = inText;
 	}
 	
 	public boolean inBounds(int cX, int cY) {
-		return (x <= cX && cX <= x+image.getWidth()) && (y <= cY && cY <= y+image.getHeight());
+		return (x <= cX && cX <= x+width) && (y <= cY && cY <= y+height);
 	}
 	
 	public int getState() {
@@ -60,12 +53,6 @@ public class TextButton {
 	
 	public void setState(int newState) {
 		state = newState;
-		if (state==HOVER) {
-			image = stateImages.get(NORMAL);
-		}
-		else {
-			image = stateImages.get(state);
-		}
 	}
 	
 	public void pressed() {
@@ -82,82 +69,9 @@ public class TextButton {
 	}
 	
 	public void draw() {
-		image.blit(x, y, image.getWidth(), image.getHeight());
-		if (state==HOVER && stateImages.get(HOVER)!=null) {
-			Texture hoverOverlay = stateImages.get(HOVER);
-			hoverOverlay.blit(x,y,hoverOverlay.getWidth(),hoverOverlay.getHeight());
-		}
-	}
-	
-	public void loadImages(String pathPrefix, String file, String hoverFile) {
-		String[] types = new String[3];
-		types[0] = "";
-		types[1] = "p";
-		types[2] = "n";
-		FileInputStream filePath;
-		for (int i=0; i<3;i++) {
-			try {
-				filePath = new FileInputStream(pathPrefix+types[i]+file);
-				
-			} catch (FileNotFoundException e) {
-				filePath = null;
-			}
-			
-			if (filePath!=null) {
-				stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(pathPrefix+types[i]+file)));
-			}
-			else {
-				stateImages.add(null);
-			}
-		}
-		
-		try {
-			filePath = new FileInputStream(hoverFile);
-			
-		} catch (FileNotFoundException e) {
-			filePath = null;
-		}
-		
-		if (filePath!=null) {
-			System.out.println("\t\t\t\t"+hoverFile+" LOADED");
-			stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(hoverFile)));
-		}
-		else {
-			System.out.println("\t\t\t\t"+hoverFile+" NOT LOADED");
-			stateImages.add(null);
-		}
-		setState(NORMAL);
-		setPosition();
-	}
-	
-	public void setPosition() {
-		if (yOffset>0) {
-			y = yOffset;
-		}
-		else {
-			y = screenDims[1]+yOffset;
-		}
-		
-		if (align.equals("left")) {
-			x = xOffset;
-		}
-		else {
-			if (align.equals("right")) {
-				x = screenDims[0]+xOffset;
-			}
-			else {
-				x = (screenDims[0]/2)+(image.getWidth()/2);
-			}
-		}
-	}
-	
-	public void changeX(int xShift) {
-		xOffset = xOffset+xShift;
-		setPosition();
-	}
-
-	public void changeY(int yShift) {
-		yOffset = yOffset+yShift;
-		setPosition();
+		glTranslatef(0f, 2*y, 0f);
+		glScalef(1, -1, 1);
+		glDisable(GL_CULL_FACE);
+		font.drawString(x, y, text);
 	}
 }

@@ -9,7 +9,12 @@ import org.lwjgl.opengl.DisplayMode;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.*;
 import org.lwjgl.input.Mouse;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
 
+
+import java.awt.Font;
 import java.util.List;
 
 import orre.core.GameWindow;
@@ -44,6 +49,8 @@ public class Main {
 		List<Node> menuNodes = doc.document.selectNodes("/ORRDefaultGUI/menus/*");
 		Node containerNode = menuNodes.get(0).selectNodes("["+0+"]");*/
 		
+		TextButton but = new TextButton(100,100, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT}, "left","FIRE");
+		
 		while(!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 			glEnable(GL_TEXTURE_2D);
@@ -67,6 +74,7 @@ public class Main {
 			menuManager.draw();
 			Display.update();
 			Display.sync(50);
+			but.draw();
 		}
 		
 	}
