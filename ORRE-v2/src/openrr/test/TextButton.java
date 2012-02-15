@@ -24,7 +24,7 @@ public class TextButton extends Button {
 	
 	public TextButton(int x, int y, int screenSize[], String inAlign, String inText) {
 		super(x, y, screenSize, inAlign);
-		font = new UnicodeFont(new Font("Arial", Font.BOLD, 24));
+		font = new UnicodeFont(new Font("Arial", Font.PLAIN, 24));
 		font.addAsciiGlyphs();
 		font.getEffects().add(new ColorEffect(java.awt.Color.WHITE)); 
 		try {
@@ -34,46 +34,28 @@ public class TextButton extends Button {
 			e.printStackTrace();
 		}
 		text = inText;
-	}
-	
-	public boolean inBounds(int cX, int cY) {
-		return (x <= cX && cX <= x+width) && (y <= cY && cY <= y+height);
-	}
-	
-	public int getState() {
-		return state;
-	}
-	
-	public Container getParent() {
-		return parent;
-	}
-	
-	public void addParent(Container c) {
-		parent = c;
+		width = font.getWidth(text);
+		height = font.getHeight(text);
+		setPosition();
 	}
 	
 	public void setState(int newState) {
 		state = newState;
-	}
-	
-	public void pressed() {
-		setState(PRESSED);
-	}
-	
-	public void clicked() {
-		setState(NORMAL);
-		//Action
-	}
-	
-	public void hoveredOver() {
-		setState(HOVER);
+		if (state==HOVER) {
+			text = "BLARGH";
+			font.getEffects().add(new ColorEffect(java.awt.Color.BLUE)); 
+		}
+		else {
+			font.getEffects().add(new ColorEffect(java.awt.Color.WHITE)); 
+			text = "TEST";
+		}
 	}
 	
 	public void draw() {
 		RenderUtils.set2DMode();
 		glDisable(GL_CULL_FACE);
-		glTranslatef(0f, 24 - 2*y, 0f);//24 = font size (I think)
+		glTranslatef(0f, 24 - 2*-y, 0f);//24 = font size (I think)
 		glScalef(1, -1, 1);
-		font.drawString(x, y, "test");
+		font.drawString(x, y, text);
 	}
 }

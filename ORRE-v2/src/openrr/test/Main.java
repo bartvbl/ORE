@@ -49,7 +49,7 @@ public class Main {
 		List<Node> menuNodes = doc.document.selectNodes("/ORRDefaultGUI/menus/*");
 		Node containerNode = menuNodes.get(0).selectNodes("["+0+"]");*/
 		
-		TextButton but = new TextButton(100,100, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT}, "left","FIRE");
+		//TextButton but = new TextButton(200,200, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT}, "left","FIRE");
 		
 		while(!Display.isCloseRequested()) {
 			glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
@@ -72,7 +72,7 @@ public class Main {
 				}
 			}
 			menuManager.draw();
-			but.draw();
+			//but.draw();
 			Display.update();
 			Display.sync(50);
 		}

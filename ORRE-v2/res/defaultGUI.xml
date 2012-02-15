@@ -34,5 +34,10 @@
 				<button type="image" x="-77" y="-418" align="right" fileName="lteleporter.bmp" hoverPath="res/images/menus/building/hover.png"/>
 			</container>
 		</building>
+		<text x="100" y ="100" bg="" align="left" startState="open" animFrames="0" animDist="0">
+			<container x="100" y="100" w="100" h="100" align="left">
+				<button type="text" x="100" y="100" align="left" text="TEST"/>
+			</container>
+		</text>
 	</menus>
 </ORRDefaultGUI>

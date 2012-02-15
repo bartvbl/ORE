@@ -80,6 +80,11 @@ public class MenuDefinitionFileLoader {
 			newButton.loadImages(pathPrefix, itemNode.valueOf("@fileName"), itemNode.valueOf("@hoverPath"));
 			container.addChild(newButton);
 		}
+		else {
+			TextButton newButton = new TextButton(Integer.parseInt(itemNode.valueOf("@x")),Integer.parseInt(itemNode.valueOf("@y")), screenSize, 
+					itemNode.valueOf("@align"), itemNode.valueOf("@text"));
+			container.addChild(newButton);
+		}
 		
 		System.out.println("\t\t\tcreating button");
 	}

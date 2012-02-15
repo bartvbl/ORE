@@ -90,7 +90,7 @@ public class MenuManager {
 		XMLDocument doc = new XMLDocument("res/defaultGUI.xml");
 		this.menus = MenuDefinitionFileLoader.getMenuNodes(doc, screenSize);
 		this.activeMenus.add(menus.get(1));
-
+		this.activeMenus.add(menus.get(2));
 	}
 	
 	public void loadButtonEvents() {

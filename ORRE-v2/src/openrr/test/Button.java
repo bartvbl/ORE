@@ -40,7 +40,6 @@ public class Button {
 	}
 	
 	public boolean inBounds(int cX, int cY) {
-		System.out.println(cX+" "+cY+", "+x+" "+y);
 		return (x <= cX && cX <= x+width) && (y <= cY && cY <= y+height);
 	}
 	
