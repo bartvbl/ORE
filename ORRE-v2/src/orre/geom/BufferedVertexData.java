@@ -25,25 +25,6 @@ public class BufferedVertexData {
 		this.vertexBuffers.add(this.createBuffer());
 		this.vertElements.add(this.createBuffer());
 	}
-	public void destroy()
-	{
-		IntBuffer vertexBuffers = BufferUtils.createIntBuffer(this.vertexBuffers.size());
-		for(int i = 0; i < this.vertexBuffers.size(); i++)
-		{
-			vertexBuffers.put(this.vertexBuffers.get(i));
-		}
-		vertexBuffers.rewind();
-		
-		IntBuffer vertElementsBuffers = BufferUtils.createIntBuffer(this.vertElements.size());
-		for(int i = 0; i < this.vertElements.size(); i++)
-		{
-			vertElementsBuffers.put(this.vertElements.get(i));
-		}
-		vertElementsBuffers.rewind();
-		
-		ARBVertexBufferObject.glDeleteBuffersARB(vertexBuffers);
-		ARBVertexBufferObject.glDeleteBuffersARB(vertElementsBuffers);
-	}
 	public void addVertex(float x, float y, float z, float texX, float texY, float normalX, float normalY, float normalZ)
 	{
 		this.vertices.add(new float[] {x, y, z, normalX, normalY, normalZ, texX, texY});
@@ -61,13 +42,14 @@ public class BufferedVertexData {
 		float[] vertex;
 		for(int i = 0; i < this.vertices.size(); i++)
 		{
-			vertex = this.vertices.get(i);
+			vertex = this.vertices.remove(0);
 			geometryData.put(vertex[0]).put(vertex[1]).put(vertex[2]).put(vertex[3]).put(vertex[4]).put(vertex[5]).put(vertex[6]).put(vertex[7]);
 			indexes.put(vertexCount);
 			this.vertexCount++;
 			if(this.vertexCount >= BufferedVertexData.MAX_ITEMS)
 			{
 				this.fillBuffers(geometryData, indexes);
+				this.vertexCount = 0;
 			}
 		}
 		if(this.vertexCount != 0)
@@ -104,5 +86,24 @@ public class BufferedVertexData {
 			return buffer.get(0);
 		}
 		return 0;
+	}
+	public void destroy()
+	{
+		IntBuffer vertexBuffers = BufferUtils.createIntBuffer(this.vertexBuffers.size());
+		for(int i = 0; i < this.vertexBuffers.size(); i++)
+		{
+			vertexBuffers.put(this.vertexBuffers.get(i));
+		}
+		vertexBuffers.rewind();
+		
+		IntBuffer vertElementsBuffers = BufferUtils.createIntBuffer(this.vertElements.size());
+		for(int i = 0; i < this.vertElements.size(); i++)
+		{
+			vertElementsBuffers.put(this.vertElements.get(i));
+		}
+		vertElementsBuffers.rewind();
+		
+		ARBVertexBufferObject.glDeleteBuffersARB(vertexBuffers);
+		ARBVertexBufferObject.glDeleteBuffersARB(vertElementsBuffers);
 	}
 }

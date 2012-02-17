@@ -6,28 +6,23 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import orre.gl.Material;
 import orre.resources.ResourceCache;
+import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.sceneGraph.Mesh3D;
 import orre.util.FeedbackProvider;
 import orre.util.StringUtils;
 
 public class OBJLoader {
-	public static Mesh3D load(String src, ResourceCache cache)
+	public static List<PartiallyLoadableModelPart> load(String src)
 	{
-		Mesh3D mesh = new Mesh3D();
-		HashMap<String, Material> materials = new HashMap<String, Material>(30);
 		
 		try {
 			FileReader fileReader = new FileReader(src);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			while(bufferedReader.ready())
-			{
-				String line = bufferedReader.readLine();
-				line = StringUtils.stripString(line);
-				readOBJLine(line, materials);
-			}
+			return parseOBJFile(bufferedReader);
 		} catch (FileNotFoundException e) {
 			FeedbackProvider.showLoadOBJFileNotFoundMessage(src);
 			e.printStackTrace();
@@ -35,14 +30,31 @@ public class OBJLoader {
 			FeedbackProvider.showLoadOBJFileFailedMessage(src);
 			e.printStackTrace();
 		}
-		return mesh;
+		return null;
+	}
+	
+	
+
+	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader) throws IOException {
+		HashMap<String, Material> materials = new HashMap<String, Material>(5);
+		ArrayList<PartiallyLoadableModelPart> modelParts = new ArrayList<PartiallyLoadableModelPart>();
+		while(bufferedReader.ready())
+		{
+			String line = bufferedReader.readLine();
+			line = StringUtils.stripString(line);
+			readOBJLine(line, materials, modelParts);
+		}
+		return modelParts;
 	}
 
-	private static void readOBJLine(String line, HashMap<String, Material> materials) {
+
+
+	private static void readOBJLine(String line, HashMap<String, Material> materials, ArrayList<PartiallyLoadableModelPart> modelParts) {
 		if(line.charAt(0) == 'v')
 		{
 			readVertexLine();
 		}
+		
 	}
 
 	private static void readVertexLine() {

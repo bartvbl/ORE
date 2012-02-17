@@ -1,12 +1,9 @@
 package orre.resources.partiallyLoadables;
 
-
 import orre.resources.Finalizable;
-import orre.resources.data.BlueprintModel;
 import orre.sceneGraph.SceneNode;
 
-public class PartiallyLoadableModel extends Finalizable {
-	private BlueprintModel model;
+public class PartiallyLoadableModelPart extends Finalizable {
 
 	@Override
 	public void finalizeResource() {
@@ -22,6 +19,8 @@ public class PartiallyLoadableModel extends Finalizable {
 
 	@Override
 	public void addToCache() {
-		this.destinationCache.addModel(this.model);
+		// TODO Auto-generated method stub
+		
 	}
-} 
+
+}
