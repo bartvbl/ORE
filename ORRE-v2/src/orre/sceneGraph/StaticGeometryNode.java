@@ -1,6 +1,6 @@
 package orre.sceneGraph;
 
-public class StaticMesh3D  extends SimpleSceneNode implements SceneNode 
+public class StaticGeometryNode  extends SimpleSceneNode implements SceneNode 
 {
 	
 	public void render() 

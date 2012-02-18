@@ -1,4 +1,4 @@
-package orre.resources.loaders;
+package orre.resources.loaders.obj;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

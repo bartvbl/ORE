@@ -1,4 +1,4 @@
-package orre.resources.loaders;
+package orre.resources.loaders.obj;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -18,7 +18,6 @@ import orre.util.StringUtils;
 public class OBJLoader {
 	public static List<PartiallyLoadableModelPart> load(String src)
 	{
-		
 		try {
 			FileReader fileReader = new FileReader(src);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
@@ -32,8 +31,6 @@ public class OBJLoader {
 		}
 		return null;
 	}
-	
-	
 
 	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader) throws IOException {
 		HashMap<String, Material> materials = new HashMap<String, Material>(5);
@@ -47,18 +44,18 @@ public class OBJLoader {
 		return modelParts;
 	}
 
-
-
 	private static void readOBJLine(String line, HashMap<String, Material> materials, ArrayList<PartiallyLoadableModelPart> modelParts) {
+		if((line.length() == 0) || (line.charAt(0) == '#'))
+		{
+			return;
+		}
 		if(line.charAt(0) == 'v')
 		{
 			readVertexLine();
 		}
-		
 	}
 
 	private static void readVertexLine() {
-		// TODO Auto-generated method stub
 		
 	}
 }

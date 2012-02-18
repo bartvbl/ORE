@@ -1,4 +1,4 @@
-package orre.resources.loaders;
+package orre.resources.loaders.obj;
 
 import java.util.List;
 
@@ -29,9 +29,7 @@ public class ModelLoader {
 	}
 	
 	private static void loadOBJFile(BlueprintModel model, XMLDocument modelXMLDocument) {
-		List<Node> objFilesToLoad = modelXMLDocument.getNodesByPath("/ORRModel/modelFile");
-		for(Node currentnode : objFilesToLoad) {
-			
-		}
+		Node objFileToLoad = modelXMLDocument.getSingleNode("/ORRModel/modelFile");
+		OBJLoader.load(objFileToLoad.valueOf("@src"));
 	}
 }
