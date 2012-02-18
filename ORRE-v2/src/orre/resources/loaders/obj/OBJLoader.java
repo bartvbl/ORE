@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+import orre.geom.vbo.BufferDataFormatType;
 import orre.gl.Material;
 import orre.resources.ResourceCache;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
@@ -51,11 +52,12 @@ public class OBJLoader {
 		}
 		if(line.charAt(0) == 'v')
 		{
-			readVertexLine();
+			if(modelParts.isEmpty())
+			{
+				BufferDataFormatType vertexFormat = OBJFileLineReader.readVertexFormat();
+			//	OBJLoadingUtils.createNewModelPart
+			}
+			OBJFileLineReader.readVertexLine(line);
 		}
-	}
-
-	private static void readVertexLine() {
-		
 	}
 }

@@ -1,26 +1,30 @@
 package orre.resources.partiallyLoadables;
 
+import orre.geom.vbo.GeometryBuffer;
 import orre.resources.Finalizable;
+import orre.resources.loaders.obj.BlueprintMaterial;
 import orre.sceneGraph.SceneNode;
+import static org.lwjgl.opengl.GL11.*;
 
 public class PartiallyLoadableModelPart extends Finalizable {
+	private final GeometryBuffer geometryBuffer;
+	private final BlueprintMaterial blueprintMaterial;
+	private int displayListID = 0;
 
-	@Override
+	public PartiallyLoadableModelPart(GeometryBuffer geometryBuffer, BlueprintMaterial material) {
+		this.geometryBuffer = geometryBuffer;
+		this.blueprintMaterial = material;
+	}
+		
 	public void finalizeResource() {
-		// TODO Auto-generated method stub
+		this.displayListID = glGenLists(1);
 		
-	}
-
-	@Override
-	public SceneNode createSceneNode() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public void addToCache() {
-		// TODO Auto-generated method stub
 		
+		glNewList(this.displayListID, GL_COMPILE);
+		
+		glEndList();
 	}
 
+	public SceneNode createSceneNode() {return null;}
+	public void addToCache() {}
 }

@@ -25,7 +25,3 @@ public class StoredModelPart {
 		return this.childList;
 	}
 }
-
-enum ModelPartType {
-	PHYSICAL, VIRTUAL
-}
