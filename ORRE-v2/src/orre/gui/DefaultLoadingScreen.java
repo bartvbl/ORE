@@ -27,6 +27,7 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 		RenderUtils.set2DMode();
 		glPushMatrix();
 		glColor4f(1, 1, 1, 1);
+		
 		this.loadingScreen.blit(0, 0, Display.getWidth(), Display.getHeight());
 		int x = (int)(0.223f*Display.getWidth());
 		int y = (int)(0.046f*Display.getHeight());
@@ -44,6 +45,7 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 		glTexCoord2f(0,1);
 		glVertex2f(x,y+height);
 		glEnd();
+		
 		this.loadingIcon.bind();
 		rotation += 3;
 		glTranslatef(100, 50, 0);
@@ -58,6 +60,7 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 		glTexCoord2f(0, 1);
 		glVertex2f(-50, 50);
 		glEnd();
+		glShadeModel(GL_SMOOTH);
 		glPopMatrix();
 	}
 	

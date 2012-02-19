@@ -12,6 +12,7 @@ import org.lwjgl.BufferUtils;
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
 
+@Deprecated
 public class DataBufferGenerator {
 	private ArrayList<Integer> indexBuffers = new ArrayList<Integer>();
 	private ArrayList<Integer> vertexBuffers = new ArrayList<Integer>();
