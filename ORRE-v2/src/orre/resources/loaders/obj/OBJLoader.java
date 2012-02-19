@@ -36,14 +36,10 @@ public class OBJLoader {
 	}
 
 	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader, OBJLoadingContext context) throws IOException {
-		
-		int lineNum = 0;
 		while(bufferedReader.ready())
 		{
-			lineNum++;
 			String line = bufferedReader.readLine();
 			line = StringUtils.stripString(line);
-			//System.out.println("OBJ (" + lineNum + ") " + line);
 			context.setLine(line);
 			readOBJLine(context);
 		}

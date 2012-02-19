@@ -11,5 +11,18 @@ public class OBJLoadingUtils {
 		return floatLine;
 	}
 	
-	
+	public static int[] parseIntString(String line, char separator)
+	{
+		String[] parts = line.split(Character.toString(separator));
+		int[] intArray = new int[parts.length];
+		for(int i = 0; i < parts.length; i++) {
+			if(parts[i].length() == 0)
+			{
+				intArray[i] = 0;
+			} else {				
+				intArray[i] = Integer.parseInt(parts[i]);
+			}
+		}
+		return intArray;
+	}
 }

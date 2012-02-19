@@ -53,7 +53,9 @@ public class OBJFileLineReader {
 		
 	}
 	private static void parseFaceLine(OBJLoadingContext context) {
-		// TODO Auto-generated method stub
-		
+		String[] parts = context.getLine().split(" ");
+		for(int i = 1; i < parts.length; i++) {
+			OBJLoadingUtils.parseIntString(parts[i], '/');
+		}
 	}
 }

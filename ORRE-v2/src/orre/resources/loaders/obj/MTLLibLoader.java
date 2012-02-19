@@ -19,12 +19,9 @@ public class MTLLibLoader {
 			String source = context.getContainingDirectory().getPath() + File.separator + src;
 			FileReader fileReader = new FileReader(source);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			int lineNumber = 0;
 			while(bufferedReader.ready())
 			{
-				lineNumber++;
 				String line = bufferedReader.readLine();
-				//System.out.println("MTLLIB ("+lineNumber+") " + line);
 				line = StringUtils.stripString(line);
 				readMaterialLibLine(line, context);
 			}
