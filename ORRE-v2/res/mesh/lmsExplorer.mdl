@@ -1,0 +1,6 @@
+<ORRModel>
+	<modelFile src="res/mesh/objects3D/lmsExplorer.obj"/>
+	<partStructure>
+		<part name="Inst3D" nameInModelFile="Inst3D"/>
+	</partStructure>
+</ORRModel>

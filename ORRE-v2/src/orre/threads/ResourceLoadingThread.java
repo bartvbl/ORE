@@ -4,8 +4,8 @@ import orre.resources.FileToLoad;
 import orre.resources.ProgressTracker;
 import orre.resources.ResourceFile;
 import orre.resources.ResourceQueue;
-import orre.resources.loaders.ModelLoader;
 import orre.resources.loaders.TextureLoader;
+import orre.resources.loaders.obj.ModelLoader;
 import orre.resources.partiallyLoadables.PartiallyLoadableModel;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 

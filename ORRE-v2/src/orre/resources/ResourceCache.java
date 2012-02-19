@@ -1,7 +1,7 @@
 package orre.resources;
 
-import orre.geom.mesh.BlueprintModel;
 import orre.gl.texture.Texture;
+import orre.resources.data.BlueprintModel;
 
 public class ResourceCache {
 	public ResourceCache()
@@ -11,7 +11,7 @@ public class ResourceCache {
 	
 	public void addTexture(Texture tex)
 	{
-		System.out.println("storing texture in cache: " + tex);
+		
 	}
 
 	public void addModel(BlueprintModel model) {
