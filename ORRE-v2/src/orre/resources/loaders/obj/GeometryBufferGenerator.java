@@ -1,16 +1,15 @@
-package orre.resources.loaders;
+package orre.resources.loaders.obj;
 
 import java.util.ArrayList;
 
 import orre.geom.vbo.BufferDataFormatType;
-import orre.resources.loaders.obj.VBOUtils;
 
 public class GeometryBufferGenerator {
 	private ArrayList<float[]> vertices = new ArrayList<float[]>();
-	private ArrayList<Integer> indices = new ArrayList<Integer>();
+	private ArrayList<float[]> textureCoordinates = new ArrayList<float[]>();
+	private ArrayList<float[]> normals = new ArrayList<float[]>();
+	private ArrayList<int[]> indices = new ArrayList<int[]>();
 
-	private boolean isPacked = false;
-	
 	private ArrayList<Integer> indexBuffers;
 	private ArrayList<Integer> vertexBuffers;
 	private BufferDataFormatType dataFormat;
@@ -21,22 +20,24 @@ public class GeometryBufferGenerator {
 		this.indexBuffers.add(VBOUtils.createBuffer());
 		this.dataFormat = dataFormat;
 	}
-	public void addVertex(float x, float y, float z, float texX, float texY, float normalX, float normalY, float normalZ)
+	public void addVertex(float x, float y, float z)
 	{
-		this.vertices.add(new float[] {x, y, z, normalX, normalY, normalZ, texX, texY});
+		this.vertices.add(new float[] {x, y, z});
 	}
-	public void addIndex(int index)
+	public void addTextureCoordinate(float x, float y)
 	{
-		this.indices.add(index);
+		this.textureCoordinates.add(new float[]{x, y});
+	}
+	public void addNormal(float x, float y, float z)
+	{
+		this.normals.add(new float[] {x, y, z});
+	}
+	public void addFace(int vertexIndex, int textureIndex, int normalIndex)
+	{
+		this.indices.add(new int[]{vertexIndex, textureIndex, normalIndex});
 	}
 	public void pack()
 	{	
-		if(this.isPacked)
-		{
-			System.out.println("ERROR: tried to repack a BufferedVertexData instance");
-			return;
-		}
-		this.isPacked = true;
 		DataBufferGenerator generator = new DataBufferGenerator();
 		generator.storeDataInVBOs(vertices, indices, this.dataFormat);
 		generator.getGeometryBuffer();

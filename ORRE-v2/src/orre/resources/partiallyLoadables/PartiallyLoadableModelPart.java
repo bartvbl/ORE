@@ -17,12 +17,7 @@ public class PartiallyLoadableModelPart extends Finalizable {
 	}
 		
 	public void finalizeResource() {
-		this.displayListID = glGenLists(1);
 		
-		
-		glNewList(this.displayListID, GL_COMPILE);
-		
-		glEndList();
 	}
 
 	public SceneNode createSceneNode() {return null;}

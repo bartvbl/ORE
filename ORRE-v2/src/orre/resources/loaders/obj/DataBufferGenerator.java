@@ -1,4 +1,4 @@
-package orre.resources.loaders;
+package orre.resources.loaders.obj;
 
 import static org.lwjgl.opengl.GL12.GL_MAX_ELEMENTS_INDICES;
 import static org.lwjgl.opengl.GL12.GL_MAX_ELEMENTS_VERTICES;
@@ -11,7 +11,6 @@ import org.lwjgl.BufferUtils;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
-import orre.resources.loaders.obj.VBOUtils;
 
 public class DataBufferGenerator {
 	private ArrayList<Integer> indexBuffers = new ArrayList<Integer>();
