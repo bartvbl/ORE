@@ -6,6 +6,7 @@
 	
 	<models pathPrefix="res/mesh/">
 		<model name="rockRaider" src="minifig.mdl"/>
+		<model name="lmsExplorer" src="lmsExplorer.mdl"/>
 	</models>
 	
 	<menuTextures pathPrefix="res/images/menus/">

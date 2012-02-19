@@ -17,7 +17,7 @@ public class ModelLoader {
 		List<StoredModelPart> topLevelParts = ModelPartTreeBuilder.generatePartTree(modelXMLDocument);
 		BlueprintModel model = createBlueprintModel(topLevelParts);
 		loadOBJFile(model, modelXMLDocument);
-		return null;
+		return new PartiallyLoadableModel();
 	}
 
 	private static BlueprintModel createBlueprintModel(List<StoredModelPart> topLevelParts) {

@@ -1,6 +1,7 @@
 package orre.resources.loaders.obj;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -19,10 +20,11 @@ import orre.util.StringUtils;
 public class OBJLoader {
 	public static List<PartiallyLoadableModelPart> load(String src)
 	{
+		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile());
 		try {
 			FileReader fileReader = new FileReader(src);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			return parseOBJFile(bufferedReader);
+			return parseOBJFile(bufferedReader, context);
 		} catch (FileNotFoundException e) {
 			FeedbackProvider.showLoadOBJFileNotFoundMessage(src);
 			e.printStackTrace();
@@ -33,31 +35,26 @@ public class OBJLoader {
 		return null;
 	}
 
-	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader) throws IOException {
-		HashMap<String, Material> materials = new HashMap<String, Material>(5);
-		ArrayList<PartiallyLoadableModelPart> modelParts = new ArrayList<PartiallyLoadableModelPart>();
+	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader, OBJLoadingContext context) throws IOException {
+		
+		int lineNum = 0;
 		while(bufferedReader.ready())
 		{
+			lineNum++;
 			String line = bufferedReader.readLine();
 			line = StringUtils.stripString(line);
-			readOBJLine(line, materials, modelParts);
+			//System.out.println("OBJ (" + lineNum + ") " + line);
+			context.setLine(line);
+			readOBJLine(context);
 		}
-		return modelParts;
+		return context.getModelParts();
 	}
 
-	private static void readOBJLine(String line, HashMap<String, Material> materials, ArrayList<PartiallyLoadableModelPart> modelParts) {
-		if((line.length() == 0) || (line.charAt(0) == '#'))
+	private static void readOBJLine(OBJLoadingContext context) {
+		if((context.getLine().length() == 0) || (context.getLine().charAt(0) == '#'))
 		{
 			return;
 		}
-		if(line.charAt(0) == 'v')
-		{
-			if(modelParts.isEmpty())
-			{
-				BufferDataFormatType vertexFormat = OBJFileLineReader.readVertexFormat();
-			//	OBJLoadingUtils.createNewModelPart
-			}
-			OBJFileLineReader.readVertexLine(line);
-		}
+		OBJFileLineReader.readOBJLine(context);
 	}
 }

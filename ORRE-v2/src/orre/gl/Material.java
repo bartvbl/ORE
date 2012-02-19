@@ -1,5 +1,6 @@
 package orre.gl;
 
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -38,17 +39,28 @@ public class Material extends SimpleSceneNode implements SceneNode {
 	
 	public void setAmbientColour(float[] colour)
 	{
+		colour = formatColour(colour);
 		this.ambientColour.setAsRGBAArray(colour);
 	}
 	
 	public void setDiffuseColour(float[] colour)
 	{
+		colour = formatColour(colour);
 		this.diffuseColour.setAsRGBAArray(colour);
 	}
 	
 	public void setSpecularColour(float[] colour)
 	{
+		colour = formatColour(colour);
 		this.specularColour.setAsRGBAArray(colour);
+	}
+	private float[] formatColour(float[] colour)
+	{
+		if(colour.length == 3)
+		{
+			return new float[]{colour[0], colour[1], colour[2], 1};
+		}
+		return colour;
 	}
 	
 	public void setMaterialAsColourMaterial(boolean isColourMaterial)

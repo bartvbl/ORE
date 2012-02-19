@@ -2,6 +2,8 @@ package orre.util;
 
 import javax.swing.JOptionPane;
 
+import org.lwjgl.opengl.Display;
+
 public class FeedbackProvider {
 	private static void showErrorMessage(String message) {
 		JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
