@@ -36,7 +36,8 @@
 		</building>
 		<text x="100" y ="100" bg="" align="left" startState="open" animFrames="0" animDist="0">
 			<container x="100" y="100" w="100" h="100" align="left">
-				<button type="text" x="100" y="100" align="left" text="TEST"/>
+				<button type="text" state="0" x="100" y="100" align="left" font="Arial" size="24" text="Start Game@Start Game@Start Game@Start Game" colors="0@127@127@0@127@127@0@127@127@255@216@0"/>
+				<button type="text" state="0" x="100" y="50" align="left" font="Arial" size="24" text="Load Game@Load Game@Load Game@Load Game" colors="0@127@127@0@127@127@0@127@127@255@216@0"/>
 			</container>
 		</text>
 	</menus>

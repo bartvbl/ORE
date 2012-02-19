@@ -83,6 +83,7 @@ public class MenuDefinitionFileLoader {
 		else {
 			TextButton newButton = new TextButton(Integer.parseInt(itemNode.valueOf("@x")),Integer.parseInt(itemNode.valueOf("@y")), screenSize, 
 					itemNode.valueOf("@align"), itemNode.valueOf("@text"));
+			newButton.loadData(Integer.parseInt(itemNode.valueOf("@state")), itemNode.valueOf("@font"), Integer.parseInt(itemNode.valueOf("@size")), itemNode.valueOf("@text").split("@"), itemNode.valueOf("@colors").split("@"));
 			container.addChild(newButton);
 		}
 		
