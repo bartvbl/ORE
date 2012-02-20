@@ -1,35 +1,31 @@
-package orre.gl;
+package orre.resources.partiallyLoadables;
 
-import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
+import orre.gl.Colour;
+import orre.gl.materials.AbstractMaterial;
 import orre.gl.texture.Texture;
+import orre.resources.Finalizable;
 import orre.sceneGraph.SceneNode;
-import orre.sceneGraph.SimpleSceneNode;
-import static org.lwjgl.opengl.GL11.*;
 
-public class Material extends SimpleSceneNode implements SceneNode {
+public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
+
 	public final String name;
 	private Colour ambientColour;
 	private Colour diffuseColour;
 	private Colour specularColour;
-	private AtomicBoolean isColourMaterial = new AtomicBoolean(false);
-	private AtomicReference<Float> alpha;
+	private boolean isColourMaterial = false;
+	private float alpha;
 	private Texture texture;
 	
-	public Material(String name)
+	public BlueprintMaterial(String name)
 	{
 		this.name = name;
 		this.ambientColour = new Colour(0.2f, 0.2f, 0.2f, 1.0f);
 		this.diffuseColour = new Colour(0.8f, 0.8f, 0.8f, 1.0f);
 		this.specularColour = new Colour(1.0f, 1.0f, 1.0f, 1.0f);
-		this.alpha = new AtomicReference<Float>();
-	}
-	
-	public void setTexture(Texture texture)
-	{
-		
+		this.alpha = 1.0f;
 	}
 	
 	public void setAmbientTexture(Texture texture)
@@ -65,23 +61,42 @@ public class Material extends SimpleSceneNode implements SceneNode {
 	
 	public void setMaterialAsColourMaterial(boolean isColourMaterial)
 	{
-		this.isColourMaterial.set(isColourMaterial);
+		this.isColourMaterial = isColourMaterial;
 	}
 	
 	public void setAlpha(float alpha)
 	{
-		this.alpha.set(alpha);
+		this.alpha = alpha;
 	}
 	
-	public void render() 
-	{
-		this.texture.bind();
-		this.renderChildren();
-		//glMaterial(GL_FRONT, GL_AMBIENT, );
-	}
-	
-	public void destroy() 
-	{
+	@Override
+	public void finalizeResource() {
+		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public SceneNode createSceneNode() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void addToCache() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setDiffuseTexture(Texture texture) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setSpecularTexture(Texture texture) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

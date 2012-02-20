@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import orre.geom.vbo.BufferDataFormatType;
-import orre.gl.Material;
+import orre.gl.materials.Material;
 import orre.resources.ResourceCache;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.sceneGraph.Mesh3D;

@@ -8,7 +8,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import orre.gl.Material;
+import orre.gl.materials.Material;
+import orre.resources.partiallyLoadables.BlueprintMaterial;
 import orre.util.FeedbackProvider;
 import orre.util.StringUtils;
 
@@ -36,51 +37,51 @@ public class MTLLibLoader {
 	
 	private static void readMaterialLibLine(String line, OBJLoadingContext context)
 	{
-		if((line.length() == 0) || (line.charAt(0) == '#'))
-		{
+		if((line.length() == 0) || (line.charAt(0) == '#')) {
 			return;
-		} else if(line.startsWith("newmtl"))
-		{
+		} else if(line.startsWith("newmtl")) {
 			MTLLibLoader.readNewMtlLine(line, context);
-		} else if(line.startsWith("Ka"))
-		{
+		} else if(line.startsWith("Ka")) {
 			MTLLibLoader.readAmbientColourLine(line, context);
-		} else if(line.startsWith("Kd"))
-		{
+		} else if(line.startsWith("Kd")) {
 			MTLLibLoader.readDiffuseColourLine(line, context);
-		} else if(line.startsWith("Ks"))
-		{
+		} else if(line.startsWith("Ks")) {
 			MTLLibLoader.readSpecularColourLine(line, context);
-		} else if(line.startsWith("Tr") || line.startsWith("d"))
-		{
+		} else if(line.startsWith("Tr") || line.startsWith("d")) {
 			MTLLibLoader.readTransparencyLine(line, context);
+		} else if(line.startsWith("map_Ka")) {
+			
+		} else if(line.startsWith("map_Kd")) {
+			
+		} else if(line.startsWith("map_Ks")) {
+			
 		}
 	}
 	private static void readNewMtlLine(String line, OBJLoadingContext context) {
 		String materialName = line.split(" ")[1];
-		Material material = new Material(materialName);
+		BlueprintMaterial material = new BlueprintMaterial(materialName);
 		context.addMaterial(material);
 		context.setMaterial(materialName);
 	}
 
 	private static void readAmbientColourLine(String line, OBJLoadingContext context) {
-		Material currentMaterial = context.getCurrentMaterial();
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setAmbientColour(OBJLoadingUtils.parseFloatLine(line));
 	}
 
 	private static void readDiffuseColourLine(String line, OBJLoadingContext context) {
-		Material currentMaterial = context.getCurrentMaterial();
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setDiffuseColour(OBJLoadingUtils.parseFloatLine(line));
 	}
 
 	private static void readSpecularColourLine(String line, OBJLoadingContext context) {
-		Material currentMaterial = context.getCurrentMaterial();
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setSpecularColour(OBJLoadingUtils.parseFloatLine(line));
 	}
 
 	private static void readTransparencyLine(String line, OBJLoadingContext context) {
 		String alphaValue = line.split(" ")[1];
-		Material currentMaterial = context.getCurrentMaterial();
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setAlpha(Float.parseFloat(alphaValue));
 	}
 }

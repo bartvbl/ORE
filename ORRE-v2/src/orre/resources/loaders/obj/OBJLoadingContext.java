@@ -5,21 +5,23 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.geom.vbo.BufferDataFormatType;
-import orre.gl.Material;
+import orre.gl.materials.Material;
+import orre.resources.partiallyLoadables.BlueprintMaterial;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 
 public class OBJLoadingContext {
 	private String currentLine;
-	private Material currentMaterial;
-	private HashMap<String, Material> materials;
-	private BufferDataFormatType formatType;
+	private BlueprintMaterial currentMaterial;
+	private HashMap<String, BlueprintMaterial> materials;
 	private ArrayList<PartiallyLoadableModelPart> modelParts;
-	public final GeometryBufferGenerator geometryBufferGenerator;
+	private GeometryBufferGenerator geometryBufferGenerator;
 	private File containingDirectory;
+	private PartiallyLoadableModelPart currentModelPart = null;
+	private boolean bufferDataTypeHasBeenSet = false;
 	
 	public OBJLoadingContext(File containingDirectory)
 	{
-		this.materials = new HashMap<String, Material>(5);
+		this.materials = new HashMap<String, BlueprintMaterial>(5);
 		this.modelParts = new ArrayList<PartiallyLoadableModelPart>();
 		this.geometryBufferGenerator = new GeometryBufferGenerator();
 		this.containingDirectory = containingDirectory;
@@ -32,21 +34,43 @@ public class OBJLoadingContext {
 		return this.currentLine;
 	}
 	
-	public void addMaterial(Material material) {
+	public void setBufferDataFormat(BufferDataFormatType dataType) {
+		this.geometryBufferGenerator.setBufferDataFormat(dataType);
+		this.bufferDataTypeHasBeenSet = true;
+	}
+	
+	public void addMaterial(BlueprintMaterial material) {
 		this.materials.put(material.name, material);
 	}
 	public void setMaterial(String materialName) {
 		this.currentMaterial = this.materials.get(materialName);
 	}
-	public Material getCurrentMaterial() {
+	public BlueprintMaterial getCurrentMaterial() {
 		return this.currentMaterial;
+	}
+	
+	public void addAndUseModelPart(PartiallyLoadableModelPart part) {
+		this.modelParts.add(part);
+		this.currentModelPart = part;
+		part.addMaterial(this.currentMaterial);
+	}
+	public ArrayList<PartiallyLoadableModelPart> getModelParts() {
+		return this.modelParts;
 	}
 	
 	public File getContainingDirectory() {
 		return this.containingDirectory;
 	}
 	
-	public ArrayList<PartiallyLoadableModelPart> getModelParts() {
-		return this.modelParts;
+	public GeometryBufferGenerator getBuffergenerator() {
+		return this.geometryBufferGenerator;
+	}
+	
+	public boolean bufferDataTypeHasBeenSet() {
+		return this.bufferDataTypeHasBeenSet;
+	}
+
+	public void addVertexToCurrentModelPart(float[] vertex) {
+		this.currentModelPart.addVertex(vertex);
 	}
 }

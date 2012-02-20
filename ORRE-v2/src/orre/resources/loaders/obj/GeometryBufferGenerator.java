@@ -1,6 +1,7 @@
 package orre.resources.loaders.obj;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import orre.geom.vbo.BufferDataFormatType;
 
@@ -61,13 +62,13 @@ public class GeometryBufferGenerator {
 		vertex[4] = texCoord[1];
 	}
 	private void insertNormalAfterVertexCoord(float[] vertex, int normalIndex) {
-		float[] vert = this.vertices.get(normalIndex-1);
+		float[] vert = this.normals.get(normalIndex-1);
 		vertex[3] = vert[0];
 		vertex[4] = vert[1];
 		vertex[5] = vert[2];
 	}
 	private void insertNormalAfterTextureCoord(float[] vertex, int normalIndex) {
-		float[] vert = this.vertices.get(normalIndex-1);
+		float[] vert = this.normals.get(normalIndex-1);
 		vertex[5] = vert[0];
 		vertex[6] = vert[1];
 		vertex[7] = vert[2];

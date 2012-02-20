@@ -1,5 +1,7 @@
 package orre.resources.loaders.obj;
 
+import orre.geom.vbo.BufferDataFormatType;
+
 public class OBJLoadingUtils {
 	public static float[] parseFloatLine(String line) {
 		String[] parts = line.split(" ");
@@ -24,5 +26,23 @@ public class OBJLoadingUtils {
 			}
 		}
 		return intArray;
+	}
+
+	public static void parseFaceFormat(OBJLoadingContext context) {
+		if(context.bufferDataTypeHasBeenSet()){return;}
+		String face = context.getLine().split(" ")[1];
+		String[] parts = face.split("/");
+		if(parts[1].length() == 0) {
+			if(parts[2].length() == 0) {
+				context.setBufferDataFormat(BufferDataFormatType.VERTICES);				
+			} else {
+				context.setBufferDataFormat(BufferDataFormatType.VERTICES_AND_NORMALS);
+			}
+		} else if(parts[2].length() == 0)
+		{
+			context.setBufferDataFormat(BufferDataFormatType.VERTICES_AND_TEXTURES);
+		} else {
+			context.setBufferDataFormat(BufferDataFormatType.VERTICES_TEXTURES_NORMALS);
+		}
 	}
 }

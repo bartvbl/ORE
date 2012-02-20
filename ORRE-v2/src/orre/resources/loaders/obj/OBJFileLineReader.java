@@ -1,18 +1,18 @@
 package orre.resources.loaders.obj;
 
-import orre.geom.vbo.BufferDataFormatType;
+import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 
 public class OBJFileLineReader {
 	public static void readOBJLine(OBJLoadingContext context) {
-		if(context.getLine().charAt(0) == 'v')
-		{
-			parseVertexLine(context);
-		} else if(context.getLine().startsWith("vt"))
+		if(context.getLine().startsWith("vt"))
 		{
 			parseTextureCoordinateLine(context);
 		} else if(context.getLine().startsWith("vn"))
 		{
 			parseNormalLine(context);
+		} else if(context.getLine().charAt(0) == 'v')
+		{
+			parseVertexLine(context);
 		} else if(context.getLine().startsWith("mtllib"))
 		{
 			parseMtlLibLine(context);
@@ -30,15 +30,15 @@ public class OBJFileLineReader {
 	
 	private static void parseVertexLine(OBJLoadingContext context) {
 		float[] values = OBJLoadingUtils.parseFloatLine(context.getLine());
-		context.geometryBufferGenerator.addVertex(values[0], values[1], values[2]);
+		context.getBuffergenerator().addVertex(values[0], values[1], values[2]);
 	}
 	private static void parseTextureCoordinateLine(OBJLoadingContext context) {
 		float[] values = OBJLoadingUtils.parseFloatLine(context.getLine());
-		context.geometryBufferGenerator.addTextureCoordinate(values[0], values[1]);
+		context.getBuffergenerator().addTextureCoordinate(values[0], values[1]);
 	}
 	private static void parseNormalLine(OBJLoadingContext context) {
 		float[] values = OBJLoadingUtils.parseFloatLine(context.getLine());
-		context.geometryBufferGenerator.addNormal(values[0], values[1], values[2]);
+		context.getBuffergenerator().addNormal(values[0], values[1], values[2]);
 	}
 	private static void parseMtlLibLine(OBJLoadingContext context) {
 		String mtlLibSrc = context.getLine().split(" ")[1];
@@ -49,13 +49,16 @@ public class OBJFileLineReader {
 		context.setMaterial(materialName);
 	}
 	private static void parseGroupLine(OBJLoadingContext context) {
-		// TODO Auto-generated method stub
-		
+		String partName = context.getLine().split(" ")[1];
+		context.addAndUseModelPart(new PartiallyLoadableModelPart(partName));
 	}
 	private static void parseFaceLine(OBJLoadingContext context) {
+		OBJLoadingUtils.parseFaceFormat(context);
 		String[] parts = context.getLine().split(" ");
 		for(int i = 1; i < parts.length; i++) {
-			OBJLoadingUtils.parseIntString(parts[i], '/');
+			int[] face = OBJLoadingUtils.parseIntString(parts[i], '/');
+			float[] vertex = context.getBuffergenerator().getVertex(face[0], face[1], face[2]);
+			context.addVertexToCurrentModelPart(vertex);
 		}
 	}
 }
