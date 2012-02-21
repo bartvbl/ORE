@@ -11,68 +11,50 @@ import org.lwjgl.BufferUtils;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
+import orre.resources.partiallyLoadables.UnpackedGeometryBuffer;
 
-@Deprecated
 public class DataBufferGenerator {
-	private ArrayList<Integer> indexBuffers = new ArrayList<Integer>();
-	private ArrayList<Integer> vertexBuffers = new ArrayList<Integer>();
-	private int elementCount = 0;
-	private int currentBufferIndex = 0;
-	private BufferDataFormatType dataFormat;
 	
-	public void storeDataInVBOs(ArrayList<float[]> vertices, ArrayList<Integer> indices, BufferDataFormatType dataFormat) {
-		this.dataFormat = dataFormat;
-		FloatBuffer geometryData = BufferUtils.createFloatBuffer(vertices.size()*dataFormat.elementSize);
-		IntBuffer indexes = BufferUtils.createIntBuffer(vertices.size());
-		for(int i = 0; i < vertices.size(); i++)
+	public static void storeDataInVBOs(UnpackedGeometryBuffer buffer) {
+		int elementCount = 0;
+		FloatBuffer geometryData = BufferUtils.createFloatBuffer(buffer.getVertices().size()*buffer.dataFormat.elementSize);
+		IntBuffer indexes = BufferUtils.createIntBuffer(buffer.getVertices().size());
+		for(int i = 0; i < buffer.getVertices().size(); i++)
 		{
-			float[] vertex = vertices.get(indices.get(i));
-			this.addVertexToBuffer(vertex, geometryData, dataFormat);
-			indexes.put(indices.get(i));
-			this.elementCount++;
-			if((this.elementCount >= GL_MAX_ELEMENTS_VERTICES) || this.elementCount >= GL_MAX_ELEMENTS_INDICES)
+			float[] vertex = buffer.getVertices().get(i);
+			addVertexToBuffer(vertex, geometryData, buffer.dataFormat);
+			indexes.put(i);
+			elementCount++;
+			if((elementCount >= GL_MAX_ELEMENTS_VERTICES) || elementCount >= GL_MAX_ELEMENTS_INDICES)
 			{
-				fillBuffers(geometryData, indexes);
+				fillBuffers(geometryData, indexes, buffer);
+				elementCount = 0;
 			}
 		}
-		if(this.elementCount != 0)
+		if(elementCount != 0)
 		{
-			fillBuffers(geometryData, indexes);
+			fillBuffers(geometryData, indexes, buffer);
+			elementCount = 0;
 		}
 	}
 	
-	private void addVertexToBuffer(float[] vertex, FloatBuffer geometryData, BufferDataFormatType dataFormat) {
+	private static void addVertexToBuffer(float[] vertex, FloatBuffer geometryData, BufferDataFormatType dataFormat) {
 		for(float element : vertex)
 		{
 			geometryData.put(element);
 		}
 	}
 	
-	private void fillBuffers(FloatBuffer geometryData, IntBuffer indexes)
+	private static void fillBuffers(FloatBuffer geometryData, IntBuffer indexes, UnpackedGeometryBuffer buffer)
 	{
 		geometryData.rewind();
 		indexes.rewind();
 		
-		VBOUtils.storeIndexData(this.vertexBuffers.get(this.currentBufferIndex), indexes);
-		VBOUtils.storeVertexData(this.indexBuffers.get(this.currentBufferIndex), geometryData);
+		int vertexBufferID = VBOUtils.createBuffer();
+		int indexBufferID = VBOUtils.createBuffer();
 		
-		this.elementCount = 0;
-		this.vertexBuffers.add(VBOUtils.createBuffer());
-		this.indexBuffers.add(VBOUtils.createBuffer());
-		this.currentBufferIndex ++;
-	}
-	
-	public ArrayList<Integer> getIndexBufferList()
-	{
-		return this.indexBuffers;
-	}
-	
-	public ArrayList<Integer> getVertexBufferList()
-	{
-		return this.vertexBuffers;
-	}
-
-	public GeometryBuffer getGeometryBuffer() {
-		return new GeometryBuffer(this.indexBuffers, this.vertexBuffers, this.dataFormat);
+		buffer.addVertexBuffer(vertexBufferID, indexBufferID);
+		VBOUtils.storeIndexData(indexBufferID, indexes);
+		VBOUtils.storeVertexData(vertexBufferID, geometryData);
 	}
 }

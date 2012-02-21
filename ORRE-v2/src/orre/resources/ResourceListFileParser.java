@@ -9,7 +9,7 @@ import orre.util.XMLDocument;
 public class ResourceListFileParser {
 	public static void parseFile(FileToLoad file, ResourceQueue queue)
 	{
-		XMLDocument resourceList = new XMLDocument(file.src);
+		XMLDocument resourceList = new XMLDocument(file.getPath());
 		parseResourceFile(resourceList, queue, file.destinationCache);
 	}
 	

@@ -50,13 +50,14 @@ public class MTLLibLoader {
 		} else if(line.startsWith("Tr") || line.startsWith("d")) {
 			MTLLibLoader.readTransparencyLine(line, context);
 		} else if(line.startsWith("map_Ka")) {
-			
+			MTLLibLoader.readAmbientTextureLine(line, context);
 		} else if(line.startsWith("map_Kd")) {
-			
+			MTLLibLoader.readDiffuseTextureLine(line, context);
 		} else if(line.startsWith("map_Ks")) {
-			
+			MTLLibLoader.readSpecularTextureLine(line, context);
 		}
 	}
+
 	private static void readNewMtlLine(String line, OBJLoadingContext context) {
 		String materialName = line.split(" ")[1];
 		BlueprintMaterial material = new BlueprintMaterial(materialName);
@@ -68,20 +69,36 @@ public class MTLLibLoader {
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setAmbientColour(OBJLoadingUtils.parseFloatLine(line));
 	}
-
 	private static void readDiffuseColourLine(String line, OBJLoadingContext context) {
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setDiffuseColour(OBJLoadingUtils.parseFloatLine(line));
 	}
-
 	private static void readSpecularColourLine(String line, OBJLoadingContext context) {
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setSpecularColour(OBJLoadingUtils.parseFloatLine(line));
 	}
-
 	private static void readTransparencyLine(String line, OBJLoadingContext context) {
 		String alphaValue = line.split(" ")[1];
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setAlpha(Float.parseFloat(alphaValue));
 	}
+	
+	private static void readAmbientTextureLine(String line, OBJLoadingContext context) {
+		String textureSrc = line.split(" ")[1];
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		currentMaterial.setAmbientTexture(textureSrc, context);
+	}
+	private static void readDiffuseTextureLine(String line, OBJLoadingContext context) {
+		String textureSrc = line.split(" ")[1];
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		currentMaterial.setDiffuseTexture(textureSrc, context);
+		
+	}
+	private static void readSpecularTextureLine(String line, OBJLoadingContext context) {
+		String textureSrc = line.split(" ")[1];
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		currentMaterial.setSpecularTexture(textureSrc, context);
+	}
+
+
 }

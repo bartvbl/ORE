@@ -50,7 +50,7 @@ public class OBJFileLineReader {
 	}
 	private static void parseGroupLine(OBJLoadingContext context) {
 		String partName = context.getLine().split(" ")[1];
-		context.addAndUseModelPart(new PartiallyLoadableModelPart(partName));
+		context.addAndUseModelPart(new PartiallyLoadableModelPart(partName, context.getBuffergenerator().getBufferDataFormat()));
 	}
 	private static void parseFaceLine(OBJLoadingContext context) {
 		OBJLoadingUtils.parseFaceFormat(context);

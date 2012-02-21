@@ -22,7 +22,7 @@ import orre.util.FeedbackProvider;
 
 public class TextureLoader {
 	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(FileToLoad file) {
-		BufferedImage image = loadImageFromFile(file.pathPrefix + file.nodeFile.valueOf("@src"));
+		BufferedImage image = loadImageFromFile(file.getPath());
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
 		return new PartiallyLoadableTexture(imageData, image.getWidth(), image.getHeight());
 	}

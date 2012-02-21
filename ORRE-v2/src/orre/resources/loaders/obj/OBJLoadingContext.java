@@ -37,6 +37,9 @@ public class OBJLoadingContext {
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
 		this.geometryBufferGenerator.setBufferDataFormat(dataType);
 		this.bufferDataTypeHasBeenSet = true;
+		if(this.currentModelPart != null) {
+			this.currentModelPart.setBufferDataFormat(dataType);
+		}
 	}
 	
 	public void addMaterial(BlueprintMaterial material) {

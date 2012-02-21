@@ -63,7 +63,7 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 				return;
 			}
 			FileToLoad file = (FileToLoad) event.getEventParameterObject();
-			this.enqueueResourceFileToBeLoaded(file.src, file.fileType, file.destinationCache);
+			this.enqueueResourceFileToBeLoaded(file.getPath(), file.fileType, file.destinationCache);
 		}
 	}
 

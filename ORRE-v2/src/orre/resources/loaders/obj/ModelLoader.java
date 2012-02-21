@@ -5,18 +5,20 @@ import java.util.List;
 import org.dom4j.Node;
 
 import orre.resources.FileToLoad;
+import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
 import orre.resources.partiallyLoadables.PartiallyLoadableModel;
+import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.XMLDocument;
 
 public class ModelLoader {
-	public static PartiallyLoadableModel loadModel(FileToLoad file)
+	public static PartiallyLoadableModel loadModel(FileToLoad file, ResourceQueue queue)
 	{
-		System.out.println("loading model: " + file.pathPrefix + file.nodeFile.valueOf("@src"));
 		XMLDocument modelXMLDocument = new XMLDocument(file.pathPrefix + file.nodeFile.valueOf("@src"));
 		List<StoredModelPart> topLevelParts = ModelPartTreeBuilder.generatePartTree(modelXMLDocument);
 		BlueprintModel model = createBlueprintModel(topLevelParts);
-		loadOBJFile(model, modelXMLDocument);
+		List<PartiallyLoadableModelPart> parts = loadOBJFile(model, modelXMLDocument);
+		addPartsToFinalizationQueue(parts, queue);
 		return new PartiallyLoadableModel();
 	}
 
@@ -28,8 +30,15 @@ public class ModelLoader {
 		return model;
 	}
 	
-	private static void loadOBJFile(BlueprintModel model, XMLDocument modelXMLDocument) {
+	private static List<PartiallyLoadableModelPart> loadOBJFile(BlueprintModel model, XMLDocument modelXMLDocument) {
 		Node objFileToLoad = modelXMLDocument.getSingleNode("/ORRModel/modelFile");
-		OBJLoader.load(objFileToLoad.valueOf("@src"));
+		List<PartiallyLoadableModelPart> parts = OBJLoader.load(objFileToLoad.valueOf("@src"));
+		return parts;
+	}
+	
+	private static void addPartsToFinalizationQueue(List<PartiallyLoadableModelPart> parts, ResourceQueue queue) {
+		for(PartiallyLoadableModelPart part : parts) {
+			queue.enqueueResourceForFinalization(part);
+		}
 	}
 }

@@ -42,11 +42,14 @@ public class GeometryBufferGenerator {
 		switch(this.dataFormat) {
 		case VERTICES_AND_NORMALS:
 			this.insertNormalAfterVertexCoord(vertex, normalIndex);
+			break;
 		case VERTICES_AND_TEXTURES:
 			this.insertTextureCoordinate(vertex, textureIndex);
+			break;
 		case VERTICES_TEXTURES_NORMALS:
 			this.insertTextureCoordinate(vertex, textureIndex);
 			this.insertNormalAfterTextureCoord(vertex, normalIndex);
+			break;
 		}
 		return vertex;
 	}
@@ -72,5 +75,9 @@ public class GeometryBufferGenerator {
 		vertex[5] = vert[0];
 		vertex[6] = vert[1];
 		vertex[7] = vert[2];
+	}
+
+	public BufferDataFormatType getBufferDataFormat() {
+		return this.dataFormat;
 	}
 }

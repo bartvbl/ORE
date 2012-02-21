@@ -32,7 +32,7 @@ public class ResourceLoadingThread extends Thread {
 				this.resourceQueue.enqueueResourceForFinalization(texture);
 			} else if(currentFile.fileType == ResourceFile.MODEL_FILE)
 			{
-				PartiallyLoadableModel model = ModelLoader.loadModel(currentFile);
+				PartiallyLoadableModel model = ModelLoader.loadModel(currentFile, this.resourceQueue);
 				model.setDestinationCache(currentFile.destinationCache);
 				this.resourceQueue.enqueueResourceForFinalization(model);
 			}
