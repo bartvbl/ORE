@@ -18,6 +18,7 @@ public class ModelLoader {
 		List<StoredModelPart> topLevelParts = ModelPartTreeBuilder.generatePartTree(modelXMLDocument);
 		BlueprintModel model = createBlueprintModel(topLevelParts);
 		List<PartiallyLoadableModelPart> parts = loadOBJFile(model, modelXMLDocument);
+		linkPartsToPartTree(model, parts);
 		addPartsToFinalizationQueue(parts, queue);
 		return new PartiallyLoadableModel();
 	}
@@ -34,6 +35,12 @@ public class ModelLoader {
 		Node objFileToLoad = modelXMLDocument.getSingleNode("/ORRModel/modelFile");
 		List<PartiallyLoadableModelPart> parts = OBJLoader.load(objFileToLoad.valueOf("@src"));
 		return parts;
+	}
+	
+	private static void linkPartsToPartTree(BlueprintModel model, List<PartiallyLoadableModelPart> parts) {
+		for(PartiallyLoadableModelPart part : parts) {
+			
+		}
 	}
 	
 	private static void addPartsToFinalizationQueue(List<PartiallyLoadableModelPart> parts, ResourceQueue queue) {
