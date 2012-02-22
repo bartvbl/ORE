@@ -3,6 +3,7 @@ package orre.resources.partiallyLoadables;
 import java.util.ArrayList;
 
 import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.GeometryBuffer;
 import orre.resources.Finalizable;
 import orre.resources.loaders.obj.DataBufferGenerator;
 import orre.sceneGraph.SceneNode;
@@ -46,6 +47,11 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	public void addVertexBuffer(int vertexBufferID, int indexBufferID) {
 		this.vertexBuffers.add(vertexBufferID);
 		this.indices.add(indexBufferID);
+	}
+	
+	public GeometryBuffer convertToGeometryBuffer()
+	{
+		return new GeometryBuffer(this.indices, this.vertexBuffers, this.dataFormat);
 	}
 
 }

@@ -76,4 +76,12 @@ public class OBJLoadingContext {
 	public void addVertexToCurrentModelPart(float[] vertex) {
 		this.currentModelPart.addVertex(vertex);
 	}
+
+	public void destroy() {
+		this.geometryBufferGenerator = null;
+		this.modelParts = null;
+		this.materials = null;
+		this.currentMaterial = null;
+		this.currentModelPart = null;
+	}
 }

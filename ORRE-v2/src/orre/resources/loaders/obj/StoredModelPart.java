@@ -2,6 +2,10 @@ package orre.resources.loaders.obj;
 
 import java.util.ArrayList;
 
+import orre.geom.vbo.GeometryBuffer;
+import orre.resources.partiallyLoadables.BlueprintMaterial;
+import orre.resources.partiallyLoadables.UnpackedGeometryBuffer;
+
 public class StoredModelPart {
 	
 	public final ModelPartType partType;
@@ -23,5 +27,10 @@ public class StoredModelPart {
 	public ArrayList<StoredModelPart> getChilds()
 	{
 		return this.childList;
+	}
+
+	public void addBufferCombo(BlueprintMaterial blueprintMaterial, GeometryBuffer convertToGeometryBuffer) {
+		// TODO Auto-generated method stub
+		
 	}
 }

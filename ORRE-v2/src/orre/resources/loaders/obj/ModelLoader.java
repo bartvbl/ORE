@@ -15,20 +15,12 @@ public class ModelLoader {
 	public static PartiallyLoadableModel loadModel(FileToLoad file, ResourceQueue queue)
 	{
 		XMLDocument modelXMLDocument = new XMLDocument(file.pathPrefix + file.nodeFile.valueOf("@src"));
-		List<StoredModelPart> topLevelParts = ModelPartTreeBuilder.generatePartTree(modelXMLDocument);
-		BlueprintModel model = createBlueprintModel(topLevelParts);
+		BlueprintModel model = new BlueprintModel();
+		ModelPartTreeBuilder.generatePartTree(model, modelXMLDocument);
 		List<PartiallyLoadableModelPart> parts = loadOBJFile(model, modelXMLDocument);
 		linkPartsToPartTree(model, parts);
 		addPartsToFinalizationQueue(parts, queue);
 		return new PartiallyLoadableModel();
-	}
-
-	private static BlueprintModel createBlueprintModel(List<StoredModelPart> topLevelParts) {
-		BlueprintModel model = new BlueprintModel();
-		for(StoredModelPart currentPart : topLevelParts) {
-			model.addTopLevelPart(currentPart);
-		}
-		return model;
 	}
 	
 	private static List<PartiallyLoadableModelPart> loadOBJFile(BlueprintModel model, XMLDocument modelXMLDocument) {
@@ -39,7 +31,7 @@ public class ModelLoader {
 	
 	private static void linkPartsToPartTree(BlueprintModel model, List<PartiallyLoadableModelPart> parts) {
 		for(PartiallyLoadableModelPart part : parts) {
-			
+			model.linkGeometryPartToModelPart(part.name, part);
 		}
 	}
 	

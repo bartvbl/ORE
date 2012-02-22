@@ -24,7 +24,9 @@ public class OBJLoader {
 		try {
 			FileReader fileReader = new FileReader(src);
 			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			return parseOBJFile(bufferedReader, context);
+			List<PartiallyLoadableModelPart> parts = parseOBJFile(bufferedReader, context);
+			context.destroy();
+			return parts;
 		} catch (FileNotFoundException e) {
 			FeedbackProvider.showLoadOBJFileNotFoundMessage(src);
 			e.printStackTrace();

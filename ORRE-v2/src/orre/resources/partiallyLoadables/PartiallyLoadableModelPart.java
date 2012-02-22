@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.resources.Finalizable;
+import orre.resources.loaders.obj.StoredModelPart;
 import orre.sceneGraph.SceneNode;
 
 public class PartiallyLoadableModelPart extends Finalizable {
@@ -12,6 +13,7 @@ public class PartiallyLoadableModelPart extends Finalizable {
 	
 	public final String name;
 	private BufferDataFormatType bufferDataFormat;
+	private StoredModelPart destinationPart;
 
 	public PartiallyLoadableModelPart(String name, BufferDataFormatType bufferDataFormatType) {
 		this.bufferDataFormat = bufferDataFormatType;
@@ -35,9 +37,9 @@ public class PartiallyLoadableModelPart extends Finalizable {
 			} else {
 				this.materials.get(i).finalizeResource();
 				this.geometryBuffers.get(i).finalizeResource();
+				this.destinationPart.addBufferCombo(this.materials.get(i), this.geometryBuffers.get(i).convertToGeometryBuffer());
 			}
 		}
-		//remember to check if the buffer is empty before finalizing it. It may not have been filled with anything when parsing the OBJ file.
 	}
 
 	public SceneNode createSceneNode() {return null;}
@@ -45,6 +47,10 @@ public class PartiallyLoadableModelPart extends Finalizable {
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
 		this.bufferDataFormat = dataType;
+	}
+
+	public void setDestinationPart(StoredModelPart part) {
+		this.destinationPart = part;
 	}
 
 }

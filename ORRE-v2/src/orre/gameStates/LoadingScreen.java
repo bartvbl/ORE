@@ -40,6 +40,7 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 		this.resourceLoader.update();
 		if(this.resourceLoader.isFinished())
 		{
+			this.resourceLoader = null;
 			this.finish();
 		}
 		return;
