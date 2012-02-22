@@ -42,4 +42,8 @@ public class Texture {
 		glVertex2f(x,y+height);
 		glEnd();
 	}
+	
+	public Texture clone() {
+		return new Texture(this.textureReference, this.width, this.height);
+	}
 }

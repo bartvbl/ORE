@@ -7,20 +7,19 @@ import org.dom4j.Node;
 import orre.resources.FileToLoad;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
-import orre.resources.partiallyLoadables.PartiallyLoadableModel;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.XMLDocument;
 
 public class ModelLoader {
-	public static PartiallyLoadableModel loadModel(FileToLoad file, ResourceQueue queue)
+	public static BlueprintModel loadModel(FileToLoad file, ResourceQueue queue)
 	{
 		XMLDocument modelXMLDocument = new XMLDocument(file.pathPrefix + file.nodeFile.valueOf("@src"));
-		BlueprintModel model = new BlueprintModel();
+		BlueprintModel model = new BlueprintModel(file.nodeFile.valueOf("@name"));
 		ModelPartTreeBuilder.generatePartTree(model, modelXMLDocument);
 		List<PartiallyLoadableModelPart> parts = loadOBJFile(model, modelXMLDocument);
 		linkPartsToPartTree(model, parts);
 		addPartsToFinalizationQueue(parts, queue);
-		return new PartiallyLoadableModel();
+		return model;
 	}
 	
 	private static List<PartiallyLoadableModelPart> loadOBJFile(BlueprintModel model, XMLDocument modelXMLDocument) {

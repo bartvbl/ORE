@@ -11,11 +11,13 @@ public class PartiallyLoadableTexture extends Finalizable{
 	private final int width;
 	private final int height;
 	private Texture tex;
+	public final String name;
 
-	public PartiallyLoadableTexture(byte[] imageData, int width, int height) {
+	public PartiallyLoadableTexture(String name, byte[] imageData, int width, int height) {
 		this.imageData = imageData;
 		this.width = width;
 		this.height = height;
+		this.name = name;
 	}
 
 	public void finalizeResource() {
@@ -26,7 +28,7 @@ public class PartiallyLoadableTexture extends Finalizable{
 	
 	public void addToCache()
 	{
-		this.destinationCache.addTexture(tex);
+		this.destinationCache.addTexture(name, tex);
 	}
 	
 	public SceneNode createSceneNode()

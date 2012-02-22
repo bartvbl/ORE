@@ -17,8 +17,7 @@ public class GameRunning extends GameState {
 	public GameRunning(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName)
 	{
 		super(main, eventDispatcher, stateName);
-		FileToLoad mainCache = new FileToLoad(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml");
-		eventDispatcher.dispatchEvent(new Event<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
+		
 	}
 	public void initialize()
 	{

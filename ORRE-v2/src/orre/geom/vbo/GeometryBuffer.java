@@ -8,7 +8,10 @@ import static org.lwjgl.opengl.GL12.*;
 
 import java.util.ArrayList;
 
-public class GeometryBuffer {
+import orre.sceneGraph.EmptySceneNode;
+import orre.sceneGraph.SceneNode;
+
+public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 	private final ArrayList<Integer> indexBuffers;
 	private final ArrayList<Integer> vertexBuffers;
 	private final BufferDataFormatType dataFormat;
@@ -20,7 +23,7 @@ public class GeometryBuffer {
 		this.dataFormat = dataFormat;
 	}
 	
-	public void draw()
+	public void render()
 	{
 		for(int i = 0; i < this.indexBuffers.size(); i++)
 		{
@@ -52,5 +55,11 @@ public class GeometryBuffer {
 				glTexCoordPointer(2, GL_FLOAT, stride, 3 * 4);
 				glNormalPointer(GL_FLOAT, stride, (3 + 3) * 4);			
 		}
+	}
+
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		
 	}
 }

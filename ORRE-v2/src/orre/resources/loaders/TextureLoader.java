@@ -24,7 +24,8 @@ public class TextureLoader {
 	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(FileToLoad file) {
 		BufferedImage image = loadImageFromFile(file.getPath());
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
-		return new PartiallyLoadableTexture(imageData, image.getWidth(), image.getHeight());
+		String name = (file.nodeFile == null) ? "untitled" : file.nodeFile.valueOf("@name");
+		return new PartiallyLoadableTexture(name, imageData, image.getWidth(), image.getHeight());
 	}
 	
 	public static Texture createTextureFromImage(BufferedImage image)

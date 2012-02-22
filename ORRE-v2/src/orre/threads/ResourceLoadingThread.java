@@ -4,9 +4,9 @@ import orre.resources.FileToLoad;
 import orre.resources.ProgressTracker;
 import orre.resources.ResourceFile;
 import orre.resources.ResourceQueue;
+import orre.resources.data.BlueprintModel;
 import orre.resources.loaders.TextureLoader;
 import orre.resources.loaders.obj.ModelLoader;
-import orre.resources.partiallyLoadables.PartiallyLoadableModel;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
 public class ResourceLoadingThread extends Thread {
@@ -32,7 +32,7 @@ public class ResourceLoadingThread extends Thread {
 				this.resourceQueue.enqueueResourceForFinalization(texture);
 			} else if(currentFile.fileType == ResourceFile.MODEL_FILE)
 			{
-				PartiallyLoadableModel model = ModelLoader.loadModel(currentFile, this.resourceQueue);
+				BlueprintModel model = ModelLoader.loadModel(currentFile, this.resourceQueue);
 				model.setDestinationCache(currentFile.destinationCache);
 				this.resourceQueue.enqueueResourceForFinalization(model);
 			}

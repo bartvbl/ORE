@@ -18,15 +18,17 @@ public class RenderUtils {
 		glLoadIdentity();
 	}
 	
-	public static void set3DMode(float width, float height)
+	public static void set3DMode()
 	{
 		glEnable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(60.0f, (width/height), RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
+		gluPerspective(60.0f, ((float)Display.getWidth()/(float)Display.getHeight()), RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_CULL_FACE); 
+		glEnable(GL_TEXTURE_2D);
+		glEnable(GL_LIGHTING);
 	}
 	
 	public static void set2DMode()

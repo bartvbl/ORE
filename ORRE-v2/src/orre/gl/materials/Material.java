@@ -10,58 +10,55 @@ import orre.sceneGraph.SimpleSceneNode;
 
 public class Material extends SimpleSceneNode implements SceneNode, AbstractMaterial {
 	public final String name;
-	private Colour ambientColour;
-	private Colour diffuseColour;
-	private Colour specularColour;
+	private float[] ambientColour;
+	private float[] diffuseColour;
+	private float[] specularColour;
 	private AtomicBoolean isColourMaterial = new AtomicBoolean(false);
 	private AtomicReference<Float> alpha;
-	private Texture texture;
+	private Texture ambientTexture = null;
+	private Texture diffuseTexture = null;
+	private Texture specularTexture = null;
 	
 	public Material(String name)
 	{
 		this.name = name;
-		this.ambientColour = new Colour(0.2f, 0.2f, 0.2f, 1.0f);
-		this.diffuseColour = new Colour(0.8f, 0.8f, 0.8f, 1.0f);
-		this.specularColour = new Colour(1.0f, 1.0f, 1.0f, 1.0f);
+		this.ambientColour = new float[]{0.2f, 0.2f, 0.2f, 1.0f};
+		this.diffuseColour = new float[]{0.8f, 0.8f, 0.8f, 1.0f};
+		this.specularColour = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
 		this.alpha = new AtomicReference<Float>();
-	}
-	
-	public void setTexture(Texture texture)
-	{
-		
 	}
 	
 	public void setAmbientTexture(Texture texture)
 	{
-		
+		this.ambientTexture = texture;
 	}
 	
 	public void setDiffuseTexture(Texture texture)
 	{
-		
+		this.diffuseTexture = texture;
 	}
 	
 	public void setSpecularTexture(Texture texture)
 	{
-		
+		this.specularTexture = texture;
 	}
 	
 	public void setAmbientColour(float[] colour)
 	{
 		colour = formatColour(colour);
-		this.ambientColour.setAsRGBAArray(colour);
+		this.ambientColour = colour;
 	}
 	
 	public void setDiffuseColour(float[] colour)
 	{
 		colour = formatColour(colour);
-		this.diffuseColour.setAsRGBAArray(colour);
+		this.diffuseColour = colour;
 	}
 	
 	public void setSpecularColour(float[] colour)
 	{
 		colour = formatColour(colour);
-		this.specularColour.setAsRGBAArray(colour);
+		this.specularColour = colour;
 	}
 	private float[] formatColour(float[] colour)
 	{
@@ -84,7 +81,7 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	
 	public void render() 
 	{
-		this.texture.bind();
+		this.diffuseTexture.bind();
 		this.renderChildren();
 		//glMaterial(GL_FRONT, GL_AMBIENT, );
 	}
@@ -92,5 +89,18 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	public void destroy() 
 	{
 		
+	}
+	
+	public Material clone() {
+		Material material = new Material(this.name);
+		material.setAlpha(this.alpha.get());
+		material.setAmbientColour(this.ambientColour);
+		material.setDiffuseColour(this.diffuseColour);
+		material.setSpecularColour(this.specularColour);
+		if(this.ambientTexture != null) {material.setAmbientTexture(this.ambientTexture.clone());}
+		if(this.diffuseTexture != null) {material.setDiffuseTexture(this.diffuseTexture.clone());}
+		if(this.specularTexture != null) {material.setSpecularTexture(this.specularTexture.clone());}
+		material.setMaterialAsColourMaterial(this.isColourMaterial.get());
+		return material;
 	}
 }

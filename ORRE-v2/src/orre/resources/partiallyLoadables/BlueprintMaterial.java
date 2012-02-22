@@ -71,6 +71,10 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 	public SceneNode createSceneNode() {
 		return null;
 	}
+	
+	public Material convertToMaterial() {
+		return this.material.clone();
+	}
 
 	public void addToCache() {}
 }
