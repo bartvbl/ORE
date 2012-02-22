@@ -39,7 +39,7 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBufferID);
 		this.setDataPointers();
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
-		glDrawRangeElements(GL_TRIANGLES, 0, 1, 2, GL_UNSIGNED_INT, 0);
+		glDrawRangeElements(GL_TRIANGLES, 0, 80000, 10000, GL_UNSIGNED_INT, 0);
 	}
 
 	private void setDataPointers() {

@@ -24,10 +24,12 @@ public class MainMenu extends GameState {
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
+		glScalef(0.1f, 0.1f, 0.1f);
 		this.rotation += 3;
-		glRotatef(rotation, 1, 1, 0);
-		glTranslatef(0, 0, 10);
+		glTranslatef(0, -2f, -5);
+		glRotatef(rotation, 0, 1, 0);
 		glColor4f(1, 1, 1, 1);
+		glDisable(GL_LIGHTING);
 		this.testNode.render();
 	}
 	@Override
