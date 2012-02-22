@@ -1,5 +1,5 @@
 
-newmtl Material_000001
+newmtl head
 Ka 1 1 1
 Kd 1 1 1
 Ks 0.5 0.5 0.5
@@ -7,7 +7,7 @@ d 1
 Ns 12
 map_Kd textures/face_generic_m_02.png
 
-newmtl Material_0003c5
+newmtl body
 Ka 1 1 1
 Kd 1 1 1
 Ks 0.5 0.5 0.5

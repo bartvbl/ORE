@@ -27,10 +27,9 @@ public class MainMenu extends GameState {
 		glScalef(0.1f, 0.1f, 0.1f);
 		this.rotation += 3;
 		glTranslatef(0, -2f, -5);
-		glRotatef(rotation, 0, 1, 0);
+		glRotatef(Mouse.getY(), 1, 0, 0);
+		glRotatef(Mouse.getX(), 0, 1, 0);
 		glColor4f(1, 1, 1, 1);
-		glDisable(GL_LIGHTING);
-		glDisable(GL_CULL_FACE);
 		this.testNode.render();
 	}
 	@Override

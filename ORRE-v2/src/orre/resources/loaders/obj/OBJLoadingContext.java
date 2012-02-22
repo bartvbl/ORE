@@ -47,6 +47,9 @@ public class OBJLoadingContext {
 	}
 	public void setMaterial(String materialName) {
 		this.currentMaterial = this.materials.get(materialName);
+		if(this.currentModelPart != null) {
+			this.currentModelPart.addMaterial(this.currentMaterial);
+		}
 	}
 	public BlueprintMaterial getCurrentMaterial() {
 		return this.currentMaterial;

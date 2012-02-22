@@ -630,7 +630,7 @@ vt 0.0274 0.9797 0.0000
 # 158 texture coords
 
 g head
-usemtl Material_000001
+usemtl head
 
 s 1
 f 1/1/1 2/2/1 3/1/1 
@@ -1406,7 +1406,7 @@ vt 0.5280 0.2845 0.0000
 # 105 texture coords
 
 g belt
-usemtl Material_0003c5
+usemtl body
 
 
 s 1
@@ -1912,7 +1912,7 @@ vt 0.6674 0.8224 0.0000
 vt 0.9714 0.9251 0.0000
 # 105 texture coords
 g arm_r
-usemtl Material_0003c5
+usemtl body
 
 
 s 1
@@ -2376,7 +2376,7 @@ vt 0.6673 0.8611 0.0000
 vt 0.9819 0.8673 0.0000
 # 99 texture coords
 g arm_l
-usemtl Material_0003c5
+usemtl body
 
 
 s 1
@@ -3179,7 +3179,7 @@ vt 0.7086 0.6066 0.0000
 vt 0.7149 0.6064 0.0000
 # 222 texture coords
 g torso
-usemtl Material_0003c5
+usemtl body
 
 
 s 1
@@ -4001,7 +4001,7 @@ vt 0.0203 0.0367 0.0000
 vt 0.0188 0.0357 0.0000
 # 129 texture coords
 g hand_l
-usemtl Material_000001
+usemtl body
 
 
 s 1
@@ -4750,7 +4750,7 @@ vt 0.0374 0.0353 0.0000
 vt 0.0359 0.0363 0.0000
 # 129 texture coords
 g hand_r
-usemtl Material_000001
+usemtl body
 
 
 s 1
@@ -5785,7 +5785,7 @@ vt 0.5307 0.2721 0.0000
 vt 0.3412 0.1374 0.0000
 # 192 texture coords
 g leg_r
-usemtl Material_0003c5
+usemtl body
 
 
 s 1
@@ -6936,7 +6936,7 @@ vt 0.5307 0.2721 0.0000
 vt 0.3622 0.1381 0.0000
 # 192 texture coords
 g leg_l
-usemtl Material_0003c5
+usemtl body
 
 
 s 1
