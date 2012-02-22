@@ -26,7 +26,7 @@ public class DataBufferGenerator {
 			addVertexToBuffer(vertex, geometryData, buffer.dataFormat);
 			indexes.put(i);
 			elementCount++;
-			if((elementCount >= GL_MAX_ELEMENTS_VERTICES) || elementCount >= GL_MAX_ELEMENTS_INDICES)
+			if((elementCount >= GL_MAX_ELEMENTS_VERTICES - 10) || elementCount >= GL_MAX_ELEMENTS_INDICES - 10)
 			{
 				fillBuffers(geometryData, indexes, buffer);
 				elementCount = 0;

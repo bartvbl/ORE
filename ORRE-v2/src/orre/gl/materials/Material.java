@@ -1,12 +1,17 @@
 package orre.gl.materials;
 
+import java.nio.FloatBuffer;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
+
+import org.lwjgl.BufferUtils;
 
 import orre.gl.Colour;
 import orre.gl.texture.Texture;
 import orre.sceneGraph.SceneNode;
 import orre.sceneGraph.SimpleSceneNode;
+
+import static org.lwjgl.opengl.GL11.*;
 
 public class Material extends SimpleSceneNode implements SceneNode, AbstractMaterial {
 	public final String name;
@@ -18,6 +23,7 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	private Texture ambientTexture = null;
 	private Texture diffuseTexture = null;
 	private Texture specularTexture = null;
+	private FloatBuffer colourBuffer = BufferUtils.createFloatBuffer(4);
 	
 	public Material(String name)
 	{
@@ -81,9 +87,14 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	
 	public void render() 
 	{
-		this.diffuseTexture.bind();
+		if(this.diffuseTexture != null) {
+			glEnable(GL_TEXTURE_2D);
+			this.diffuseTexture.bind();
+		} else {
+			glDisable(GL_TEXTURE_2D);
+		}
+		glMaterial(GL_FRONT, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientColour).rewind());
 		this.renderChildren();
-		//glMaterial(GL_FRONT, GL_AMBIENT, );
 	}
 	
 	public void destroy() 

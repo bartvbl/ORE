@@ -14,6 +14,7 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	
 	private ArrayList<float[]> vertices = new ArrayList<float[]>();
 	public final BufferDataFormatType dataFormat;
+	private int numVertices;
 	
 	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat) {
 		this.dataFormat = bufferDataFormat;
@@ -25,6 +26,7 @@ public class UnpackedGeometryBuffer extends Finalizable{
 
 	public void finalizeResource() {
 		DataBufferGenerator.storeDataInVBOs(this);
+		this.numVertices = this.vertices.size();
 		this.vertices = null;
 	}
 
@@ -51,7 +53,7 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	
 	public GeometryBuffer convertToGeometryBuffer()
 	{
-		return new GeometryBuffer(this.indices, this.vertexBuffers, this.dataFormat);
+		return new GeometryBuffer(this.indices, this.vertexBuffers, this.dataFormat, this.numVertices);
 	}
 
 }

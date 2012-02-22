@@ -7,9 +7,12 @@ import orre.sceneGraph.SimpleSceneNode;
 
 public class ModelPart extends SimpleSceneNode implements SceneNode {
 	
-	public void addMaterialAndGeometryBufferCombo(Material material, GeometryBuffer buffer) {
+	private String name;
+
+	public void addMaterialAndGeometryBufferCombo(Material material, GeometryBuffer buffer, String name) {
 		this.addChild(material);
 		material.addChild(buffer);
+		this.name = name;
 	}
 	
 	public void render() {
@@ -17,5 +20,9 @@ public class ModelPart extends SimpleSceneNode implements SceneNode {
 	}
 
 	public void destroy() {}
+	
+	public String toString() {
+		return "ModelPart " + this.name;
+	}
 	
 }

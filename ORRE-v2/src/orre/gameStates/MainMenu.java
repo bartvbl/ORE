@@ -30,6 +30,7 @@ public class MainMenu extends GameState {
 		glRotatef(rotation, 0, 1, 0);
 		glColor4f(1, 1, 1, 1);
 		glDisable(GL_LIGHTING);
+		glDisable(GL_CULL_FACE);
 		this.testNode.render();
 	}
 	@Override

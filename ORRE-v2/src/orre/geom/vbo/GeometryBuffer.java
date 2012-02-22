@@ -15,9 +15,11 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 	private final ArrayList<Integer> indexBuffers;
 	private final ArrayList<Integer> vertexBuffers;
 	private final BufferDataFormatType dataFormat;
+	private int numberOfVertices;
 
-	public GeometryBuffer(ArrayList<Integer> indexBuffers, ArrayList<Integer> vertexBuffers, BufferDataFormatType dataFormat)
+	public GeometryBuffer(ArrayList<Integer> indexBuffers, ArrayList<Integer> vertexBuffers, BufferDataFormatType dataFormat, int numVertices)
 	{
+		this.numberOfVertices = numVertices;
 		this.indexBuffers = indexBuffers;
 		this.vertexBuffers = vertexBuffers;
 		this.dataFormat = dataFormat;
@@ -39,7 +41,7 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBufferID);
 		this.setDataPointers();
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
-		glDrawRangeElements(GL_TRIANGLES, 0, 80000, 10000, GL_UNSIGNED_INT, 0);
+		glDrawRangeElements(GL_TRIANGLES, 0, this.numberOfVertices*8, this.numberOfVertices, GL_UNSIGNED_INT, 0);
 	}
 
 	private void setDataPointers() {
