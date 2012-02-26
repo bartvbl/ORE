@@ -16,6 +16,7 @@ public class PartiallyLoadableModelPart extends Finalizable {
 	private StoredModelPart destinationPart;
 
 	public PartiallyLoadableModelPart(String name, BufferDataFormatType bufferDataFormatType) {
+		System.out.println("creating model part: " + name);
 		this.bufferDataFormat = bufferDataFormatType;
 		this.name = name;
 	}

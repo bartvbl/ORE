@@ -24,18 +24,19 @@ public class MainMenu extends GameState {
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
-		glScalef(0.1f, 0.1f, 0.1f);
+		glScalef(0.01f, 0.01f, 0.01f);
 		this.rotation += 3;
-		glTranslatef(0, -2f, -5);
+		glTranslatef(0, -2f, -30);
 		glRotatef(Mouse.getY(), 1, 0, 0);
 		glRotatef(Mouse.getX(), 0, 1, 0);
 		glColor4f(1, 1, 1, 1);
+		glEnable(GL_LIGHTING);
 		this.testNode.render();
 	}
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("rockRaider");
+		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");
 	}
 	@Override
 	public void unset() {
