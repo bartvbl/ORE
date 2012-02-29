@@ -1,6 +1,11 @@
 <ORRModel>
-	<modelFile src="res/mesh/objects3D/LMS-mini_2.obj"/>
+	<modelFile src="res/mesh/objects3D/lmsExplorer.obj"/>
 	<partStructure>
-		<part name="Inst3D" nameInModelFile="Inst3D"/>
+		<part name="blackGroup" nameInModelFile="blackGroup"/>
+		<part name="blueishGreenGroup" nameInModelFile="blueishGreenGroup"/>
+		<part name="mediumStoneGreyGroup" nameInModelFile="mediumStoneGreyGroup"/>
+		<part name="darkStoneGreyGroup" nameInModelFile="darkStoneGreyGroup"/>
+		<part name="transparentLightBlueGroup" nameInModelFile="transparentLightBlueGroup"/>
+		<part name="transparentBrightGreenGroup" nameInModelFile="transparentBrightGreenGroup"/>
 	</partStructure>
 </ORRModel>

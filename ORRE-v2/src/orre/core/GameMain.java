@@ -12,6 +12,7 @@ import orre.events.GlobalEventType;
 import orre.gameStates.*;
 import orre.gameStates.GameState.State;
 import orre.gl.RenderUtils;
+import orre.threads.CleanupThread;
 
 
 public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
@@ -29,6 +30,7 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 
 	public void run()
 	{
+		//new CleanupThread().start();
 		this.mainLoop();
 	}
 	
