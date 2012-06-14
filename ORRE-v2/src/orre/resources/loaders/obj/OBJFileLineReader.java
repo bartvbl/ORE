@@ -4,26 +4,19 @@ import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 
 public class OBJFileLineReader {
 	public static void readOBJLine(OBJLoadingContext context) {
-		if(context.getLine().startsWith("vt"))
-		{
+		if(context.getLine().startsWith("vt")){
 			parseTextureCoordinateLine(context);
-		} else if(context.getLine().startsWith("vn"))
-		{
+		} else if(context.getLine().startsWith("vn")){
 			parseNormalLine(context);
-		} else if(context.getLine().charAt(0) == 'v')
-		{
+		} else if(context.getLine().charAt(0) == 'v'){
 			parseVertexLine(context);
-		} else if(context.getLine().startsWith("mtllib"))
-		{
+		} else if(context.getLine().startsWith("mtllib")){
 			parseMtlLibLine(context);
-		} else if(context.getLine().startsWith("usemtl"))
-		{
+		} else if(context.getLine().startsWith("usemtl")){
 			parseUseMtlLine(context);
-		} else if(context.getLine().charAt(0) == 'g')
-		{
+		} else if(context.getLine().charAt(0) == 'g'){
 			parseGroupLine(context);
-		} else if(context.getLine().charAt(0) == 'f')
-		{
+		} else if(context.getLine().charAt(0) == 'f'){
 			parseFaceLine(context);
 		}
 	}

@@ -48,6 +48,9 @@ public class PartiallyLoadableModelPart extends Finalizable {
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
 		this.bufferDataFormat = dataType;
+		for(UnpackedGeometryBuffer buffer : this.geometryBuffers) {
+			buffer.setBufferDataFormat(dataType);
+		}
 	}
 
 	public void setDestinationPart(StoredModelPart part) {
