@@ -53,7 +53,9 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	
 	public GeometryBuffer convertToGeometryBuffer()
 	{
-		return new GeometryBuffer(this.indices, this.vertexBuffers, this.dataFormat, this.numVertices);
+		GeometryBuffer buffer = new GeometryBuffer(this.indices, this.vertexBuffers, this.dataFormat, this.numVertices);
+		this.indices = null;
+		return buffer;
 	}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {

@@ -6,6 +6,7 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -62,6 +63,7 @@ public class TextureLoader {
     		img = ImageIO.read(in);
     	}
     	catch (IOException ioe) {
+                System.out.println(new File(src).getAbsolutePath());
     		FeedbackProvider.showLoadTextureFailedMessage(src, ioe.getMessage()); ioe.printStackTrace();
     		ioe.printStackTrace();
     		if (in != null) {
