@@ -13,7 +13,7 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	private ArrayList<Integer> indices = new ArrayList<Integer>();
 	
 	private ArrayList<float[]> vertices = new ArrayList<float[]>();
-	public final BufferDataFormatType dataFormat;
+	public BufferDataFormatType dataFormat;
 	private int numVertices;
 	
 	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat) {
@@ -32,7 +32,7 @@ public class UnpackedGeometryBuffer extends Finalizable{
 
 	@Override
 	public SceneNode createSceneNode() {
-		// TODO Auto-generated method stub
+		
 		return null;
 	}
 
@@ -54,6 +54,11 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	public GeometryBuffer convertToGeometryBuffer()
 	{
 		return new GeometryBuffer(this.indices, this.vertexBuffers, this.dataFormat, this.numVertices);
+	}
+
+	public void setBufferDataFormat(BufferDataFormatType dataType) {
+		System.out.println("UPDATING DATA TYPE");
+		this.dataFormat = dataType;
 	}
 
 }

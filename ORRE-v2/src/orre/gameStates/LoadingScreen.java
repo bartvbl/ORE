@@ -34,6 +34,7 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 	
 	public void unset() {
 		this.resourceLoader = null;
+		
 	}
 
 	public void executeFrame(long frameNumber) {

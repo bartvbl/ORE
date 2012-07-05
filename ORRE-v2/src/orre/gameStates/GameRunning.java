@@ -36,12 +36,13 @@ public class GameRunning extends GameState {
 	
 	@Override
 	public void set() {
-		// TODO Auto-generated method stub
+		
 		
 	}
 	@Override
 	public void unset() {
-		// TODO Auto-generated method stub
+		
+		
 		
 	}
 }
