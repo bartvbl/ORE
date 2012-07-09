@@ -12,26 +12,22 @@ import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
 
 public class GeometryBuffer extends EmptySceneNode implements SceneNode {
-	private final ArrayList<Integer> indexBuffers;
-	private final ArrayList<Integer> vertexBuffers;
+	private final int indexBuffer;
+	private final int vertexBuffer;
 	private final BufferDataFormatType dataFormat;
 	private int numberOfVertices;
 
-	public GeometryBuffer(ArrayList<Integer> indexBuffers, ArrayList<Integer> vertexBuffers, BufferDataFormatType dataFormat, int numVertices)
+	public GeometryBuffer(int indexBuffer, int vertexBuffer, BufferDataFormatType dataFormat, int numVertices)
 	{
-		this.numberOfVertices = numVertices;
-		this.indexBuffers = indexBuffers;
-		this.vertexBuffers = vertexBuffers;
+		this.indexBuffer = indexBuffer;
+		this.vertexBuffer = vertexBuffer;
 		this.dataFormat = dataFormat;
-		System.out.println("data format: " + dataFormat + " index/vertices: " + indexBuffers.size() + ", " + vertexBuffers.size() + ", num vertices: " + numVertices);
+		this.numberOfVertices = numVertices;
 	}
 	
 	public void render()
 	{
-		for(int i = 0; i < this.indexBuffers.size(); i++)
-		{
-			this.drawBufferCombo(this.indexBuffers.get(i), this.vertexBuffers.get(i));
-		}
+		this.drawBufferCombo(this.indexBuffer, this.vertexBuffer);
 	}
 	
 	private void drawBufferCombo(int indexBufferID, int vertexBufferID)

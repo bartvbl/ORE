@@ -9,8 +9,8 @@ import orre.resources.loaders.obj.DataBufferGenerator;
 import orre.sceneGraph.SceneNode;
 
 public class UnpackedGeometryBuffer extends Finalizable{
-	private ArrayList<Integer> vertexBuffers = new ArrayList<Integer>();
-	private ArrayList<Integer> indices = new ArrayList<Integer>();
+	private int vertexBuffer = 0;
+	private int indexBuffer = 0;
 	
 	private ArrayList<float[]> vertices = new ArrayList<float[]>();
 	public BufferDataFormatType dataFormat;
@@ -47,13 +47,13 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	}
 
 	public void addVertexBuffer(int vertexBufferID, int indexBufferID) {
-		this.vertexBuffers.add(vertexBufferID);
-		this.indices.add(indexBufferID);
+//		this.vertexBuffers.add(vertexBufferID);
+//		this.indices.add(indexBufferID);
 	}
 	
 	public GeometryBuffer convertToGeometryBuffer()
 	{
-		return new GeometryBuffer(this.indices, this.vertexBuffers, this.dataFormat, this.numVertices);
+		return new GeometryBuffer(this.indexBuffer, this.vertexBuffer, this.dataFormat, this.numVertices);
 	}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
