@@ -9,6 +9,6 @@ public class Main {
 		new Logger();
 		GameMain game = new GameMain();
 		game.initialize();
-		game.run();
+		game.run(); 
 	}
 }

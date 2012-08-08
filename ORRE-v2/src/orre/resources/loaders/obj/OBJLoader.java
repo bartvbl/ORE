@@ -5,13 +5,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
-import orre.geom.vbo.BufferDataFormatType;
-import orre.gl.materials.Material;
-import orre.resources.ResourceCache;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.FeedbackProvider;
 import orre.util.StringUtils;
@@ -19,13 +14,8 @@ import orre.util.StringUtils;
 public class OBJLoader {
 	public static List<PartiallyLoadableModelPart> load(String src)
 	{
-		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile());
 		try {
-			FileReader fileReader = new FileReader(src);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			List<PartiallyLoadableModelPart> parts = parseOBJFile(bufferedReader, context);
-			context.destroy();
-			return parts;
+			loadObjFile(src);
 		} catch (FileNotFoundException e) {
 			FeedbackProvider.showLoadOBJFileNotFoundMessage(src);
 			e.printStackTrace();
@@ -35,19 +25,49 @@ public class OBJLoader {
 		}
 		return null;
 	}
+	
+	private static List<PartiallyLoadableModelPart> loadObjFile(String src) throws FileNotFoundException, IOException {
+		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile());
+		
+		BufferedReader objFileAnalysisReader = openObjFile(src);
+		analyseObjFile(objFileAnalysisReader, context);
+		objFileAnalysisReader.close();
+		
+		BufferedReader objFileParsingReader = openObjFile(src);
+		List<PartiallyLoadableModelPart> parts = parseOBJFile(objFileParsingReader, context);
+		objFileParsingReader.close();
+		
+		context.destroy();
+		return parts;
+	}
 
+	private static BufferedReader openObjFile(String src) throws FileNotFoundException {
+		FileReader fileReader = new FileReader(src);
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		return bufferedReader;
+	}
+	
+	private static void analyseObjFile(BufferedReader bufferedReader, OBJLoadingContext context) throws IOException {
+		while(bufferedReader.ready())
+		{
+			String line = bufferedReader.readLine();
+			line = StringUtils.stripString(line);
+			
+		}
+	}
+	
 	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader, OBJLoadingContext context) throws IOException {
 		while(bufferedReader.ready())
 		{
 			String line = bufferedReader.readLine();
 			line = StringUtils.stripString(line);
 			context.setLine(line);
-			readOBJLine(context);
+			parseOBJLine(context);
 		}
 		return context.getModelParts();
 	}
 
-	private static void readOBJLine(OBJLoadingContext context) {
+	private static void parseOBJLine(OBJLoadingContext context) {
 		if((context.getLine().length() == 0) || (context.getLine().charAt(0) == '#'))
 		{
 			return;
