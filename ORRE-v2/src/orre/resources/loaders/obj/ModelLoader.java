@@ -37,6 +37,7 @@ public class ModelLoader {
 	private static void addPartsToFinalizationQueue(List<PartiallyLoadableModelPart> parts, ResourceQueue queue) {
 		for(PartiallyLoadableModelPart part : parts) {
 			queue.enqueueResourceForFinalization(part);
+			
 		}
 	}
 }
