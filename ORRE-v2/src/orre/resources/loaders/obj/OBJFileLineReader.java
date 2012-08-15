@@ -46,7 +46,6 @@ public class OBJFileLineReader {
 		context.setCurrentModelPart(partName);
 	}
 	private static void parseFaceLine(OBJLoadingContext context) {
-		OBJLoadingUtils.parseFaceFormat(context);
 		String[] parts = context.getCurrentLine().split(" ");
 		for(int i = 1; i < parts.length; i++) {
 			int[] face = OBJLoadingUtils.parseIntString(parts[i], '/');

@@ -28,9 +28,9 @@ public class OBJLoadingUtils {
 		return intArray;
 	}
 
-	public static void parseFaceFormat(OBJLoadingContext context) {
+	public static void parseFaceFormat(OBJStatsContext context, String line) {
 		if(context.bufferDataTypeHasBeenSet()){return;}
-		String face = context.getCurrentLine().split(" ")[1];
+		String face = line.split(" ")[1];
 		String[] parts = face.split("/");
 		if(parts[1].length() == 0) {
 			if(parts[2].length() == 0) {
