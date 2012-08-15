@@ -1,83 +1,49 @@
 package orre.resources.loaders.obj;
 
-import java.util.ArrayList;
-import java.util.Arrays;
+import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
+import org.lwjgl.BufferUtils;
 
 import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.GeometryBuffer;
+import orre.resources.partiallyLoadables.UnpackedGeometryBuffer;
 
 public class GeometryBufferGenerator {
-	private ArrayList<float[]> vertices = new ArrayList<float[]>();
-	private ArrayList<float[]> textureCoordinates = new ArrayList<float[]>();
-	private ArrayList<float[]> normals = new ArrayList<float[]>();
-
-	private BufferDataFormatType dataFormat;
 	
-	public GeometryBufferGenerator()
-	{
-		this.dataFormat = BufferDataFormatType.VERTICES_TEXTURES_NORMALS;
-	}
-	
-	public void setBufferDataFormat(BufferDataFormatType dataFormat)
-	{
-		this.dataFormat = dataFormat;
-	}
-	public void addVertex(float x, float y, float z)
-	{
-		this.vertices.add(new float[] {x, y, z});
-	}
-	public void addTextureCoordinate(float x, float y) 
-	{
-		this.textureCoordinates.add(new float[]{x, y});
-	}
-	public void addNormal(float x, float y, float z) 
-	{
-		this.normals.add(new float[] {x, y, z});
+	public static GeometryBuffer generateGeometryBuffer(BufferDataFormatType dataFormat, float[] vertices, int vertexCount) {
+		int elementsPerVertex = dataFormat.elementsPerVertex;
+		FloatBuffer geometryData = BufferUtils.createFloatBuffer(vertexCount*elementsPerVertex);
+		IntBuffer indexes = BufferUtils.createIntBuffer(vertexCount);
+		
+		putVerticesInBuffers(vertices, geometryData, indexes, elementsPerVertex);
+		
+		GeometryBuffer geometryBuffer = storeBuffersInVRAM(geometryData, indexes, dataFormat, vertexCount);
+		
+		return geometryBuffer;
 	}
 	
-	public float[] getVertex(int vertexIndex, int textureIndex, int normalIndex)
-	{
-		float[] vertex = new float[this.dataFormat.elementSize]; //allocate a vertex that will be able to hold all data
-		this.insertVertex(vertex, vertexIndex);
-
-		switch(this.dataFormat) {
-		case VERTICES_AND_NORMALS:
-			this.insertNormalAfterVertexCoord(vertex, normalIndex);
-			break;
-		case VERTICES_AND_TEXTURES:
-			this.insertTextureCoordinate(vertex, textureIndex);
-			break;
-		case VERTICES_TEXTURES_NORMALS:
-			this.insertTextureCoordinate(vertex, textureIndex);
-			this.insertNormalAfterTextureCoord(vertex, normalIndex);
-			break;
+	private static void putVerticesInBuffers(float[] vertices, FloatBuffer geometryData, IntBuffer indexes, int elementsPerVertex) {
+		int vertexCount = 0;
+		for(int vertexStartIndex = 0; vertexStartIndex < vertices.length; vertexStartIndex += elementsPerVertex) {
+			indexes.put(vertexCount);
+			vertexCount++;
+			for(int vertexIndex = vertexStartIndex; vertexIndex < vertexStartIndex + elementsPerVertex; vertexIndex++) {
+				geometryData.put(vertices[vertexIndex]);
+			}
 		}
-		return vertex;
-	}
-	private void insertVertex(float[] vertex, int vertexIndex) {
-		float[] vert = this.vertices.get(vertexIndex-1); //-1 as OBJ files are 1-indexed
-		vertex[0] = vert[0];
-		vertex[1] = vert[1];
-		vertex[2] = vert[2];
-	}
-	private void insertTextureCoordinate(float[] vertex, int textureIndex) {
-		float[] texCoord = this.textureCoordinates.get(textureIndex-1);
-		vertex[3] = texCoord[0];
-		vertex[4] = texCoord[1];
-	}
-	private void insertNormalAfterVertexCoord(float[] vertex, int normalIndex) {
-		float[] vert = this.normals.get(normalIndex-1);
-		vertex[3] = vert[0];
-		vertex[4] = vert[1];
-		vertex[5] = vert[2];
-	}
-	private void insertNormalAfterTextureCoord(float[] vertex, int normalIndex) {
-		float[] vert = this.normals.get(normalIndex-1);
-		vertex[5] = vert[0];
-		vertex[6] = vert[1];
-		vertex[7] = vert[2];
 	}
 
-	public BufferDataFormatType getBufferDataFormat() {
-		return this.dataFormat;
+	private static GeometryBuffer storeBuffersInVRAM(FloatBuffer geometryData, IntBuffer indexes, BufferDataFormatType dataFormat, int vertexCount)
+	{
+		geometryData.rewind();
+		indexes.rewind();
+		
+		int vertexBufferID = VBOUtils.createBuffer();
+		int indexBufferID = VBOUtils.createBuffer();
+		
+		VBOUtils.storeIndexData(indexBufferID, indexes);
+		VBOUtils.storeVertexData(vertexBufferID, geometryData);
+		
+		return new GeometryBuffer(indexBufferID, vertexBufferID, dataFormat, vertexCount);
 	}
 }

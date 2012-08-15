@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?> 
-<java version="1.6.0_26" class="java.beans.XMLDecoder"> 
+<java version="1.6.0_31" class="java.beans.XMLDecoder"> 
  <object class="com.horstmann.violet.ClassDiagramGraph"> 
   <void method="addNode"> 
    <object id="ClassNode0" class="com.horstmann.violet.ClassNode"> 
@@ -372,8 +372,8 @@ destroy()</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>1051.0</double> 
-     <double>434.0</double> 
+     <double>1062.0</double> 
+     <double>435.0</double> 
     </void> 
    </object> 
   </void> 
@@ -387,8 +387,8 @@ destroy()</string>
    </object> 
    <object class="java.awt.geom.Point2D$Double"> 
     <void method="setLocation"> 
-     <double>1212.0</double> 
-     <double>458.0</double> 
+     <double>1213.0</double> 
+     <double>471.0</double> 
     </void> 
    </object> 
   </void> 

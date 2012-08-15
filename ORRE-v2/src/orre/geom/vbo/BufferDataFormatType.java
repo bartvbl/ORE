@@ -6,10 +6,10 @@ public enum BufferDataFormatType {
 	VERTICES_AND_NORMALS (6),
 	VERTICES_TEXTURES_NORMALS (8);
 	
-	public final int elementSize;
+	public final int elementsPerVertex;
 
 	private BufferDataFormatType(int elementSize)
 	{
-		this.elementSize = elementSize;
+		this.elementsPerVertex = elementSize;
 	}
 }

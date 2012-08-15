@@ -14,7 +14,7 @@ public class OBJLoadingContext {
 	private BlueprintMaterial currentMaterial;
 	private HashMap<String, BlueprintMaterial> materials;
 	private ArrayList<PartiallyLoadableModelPart> modelParts;
-	private GeometryBufferGenerator geometryBufferGenerator;
+	private TemporaryVertexBuffer geometryBufferGenerator;
 	private File containingDirectory;
 	private PartiallyLoadableModelPart currentModelPart = null;
 	private boolean bufferDataTypeHasBeenSet = false;
@@ -23,14 +23,14 @@ public class OBJLoadingContext {
 	{
 		this.materials = new HashMap<String, BlueprintMaterial>(5);
 		this.modelParts = new ArrayList<PartiallyLoadableModelPart>();
-		this.geometryBufferGenerator = new GeometryBufferGenerator();
+		this.geometryBufferGenerator = new TemporaryVertexBuffer(0, 0, 0);
 		this.containingDirectory = containingDirectory;
 	}
 
-	public void setLine(String line) {
+	public void setCurrentLine(String line) {
 		this.currentLine = line;
 	}
-	public String getLine() {
+	public String getCurrentLine() {
 		return this.currentLine;
 	}
 	
@@ -48,17 +48,25 @@ public class OBJLoadingContext {
 	public void setMaterial(String materialName) {
 		this.currentMaterial = this.materials.get(materialName);
 		if(this.currentModelPart != null) {
-			this.currentModelPart.addMaterial(this.currentMaterial);
+			this.currentModelPart.setMaterial(this.currentMaterial);
 		}
 	}
 	public BlueprintMaterial getCurrentMaterial() {
 		return this.currentMaterial;
 	}
 	
-	public void addAndUseModelPart(PartiallyLoadableModelPart part) {
+	public void addModelPart(PartiallyLoadableModelPart part) {
+		//use as reference for constructor: new PartiallyLoadableModelPart(partName, context.getBuffergenerator().getBufferDataFormat())
 		this.modelParts.add(part);
-		this.currentModelPart = part;
-		part.addMaterial(this.currentMaterial);
+	}
+	public void setCurrentModelPart(String partName) {
+		for(PartiallyLoadableModelPart part : this.modelParts) {
+			if(part.name.equals(partName)) {
+				this.currentModelPart = part;
+				part.setMaterial(this.currentMaterial);
+				return;
+			}
+		}
 	}
 	public ArrayList<PartiallyLoadableModelPart> getModelParts() {
 		return this.modelParts;
@@ -68,7 +76,7 @@ public class OBJLoadingContext {
 		return this.containingDirectory;
 	}
 	
-	public GeometryBufferGenerator getBuffergenerator() {
+	public TemporaryVertexBuffer getBuffergenerator() {
 		return this.geometryBufferGenerator;
 	}
 	

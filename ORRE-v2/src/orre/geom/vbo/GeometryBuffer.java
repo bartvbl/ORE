@@ -38,11 +38,11 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBufferID);
 		this.setDataPointers();
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
-		glDrawRangeElements(GL_TRIANGLES, 0, this.numberOfVertices*this.dataFormat.elementSize, this.numberOfVertices, GL_UNSIGNED_INT, 0);
+		glDrawRangeElements(GL_TRIANGLES, 0, this.numberOfVertices*this.dataFormat.elementsPerVertex, this.numberOfVertices, GL_UNSIGNED_INT, 0);
 	}
 
 	private void setDataPointers() {
-		int stride = this.dataFormat.elementSize * 4;
+		int stride = this.dataFormat.elementsPerVertex * 4;
 		glVertexPointer(3, GL_FLOAT, stride, 0 * 4);
 		switch(this.dataFormat)
 		{

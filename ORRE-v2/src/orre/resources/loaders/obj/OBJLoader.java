@@ -27,13 +27,15 @@ public class OBJLoader {
 	}
 	
 	private static List<PartiallyLoadableModelPart> loadObjFile(String src) throws FileNotFoundException, IOException {
-		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile());
+		
 		
 		BufferedReader objFileAnalysisReader = openObjFile(src);
-		analyseObjFile(objFileAnalysisReader, context);
+		OBJStatsContext statsContext = new OBJStatsContext();
+		analyseObjFile(objFileAnalysisReader);
 		objFileAnalysisReader.close();
 		
 		BufferedReader objFileParsingReader = openObjFile(src);
+		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile());
 		List<PartiallyLoadableModelPart> parts = parseOBJFile(objFileParsingReader, context);
 		objFileParsingReader.close();
 		
@@ -47,7 +49,7 @@ public class OBJLoader {
 		return bufferedReader;
 	}
 	
-	private static void analyseObjFile(BufferedReader bufferedReader, OBJLoadingContext context) throws IOException {
+	private static void analyseObjFile(BufferedReader bufferedReader) throws IOException {
 		while(bufferedReader.ready())
 		{
 			String line = bufferedReader.readLine();
@@ -61,14 +63,14 @@ public class OBJLoader {
 		{
 			String line = bufferedReader.readLine();
 			line = StringUtils.stripString(line);
-			context.setLine(line);
+			context.setCurrentLine(line);
 			parseOBJLine(context);
 		}
 		return context.getModelParts();
 	}
 
 	private static void parseOBJLine(OBJLoadingContext context) {
-		if((context.getLine().length() == 0) || (context.getLine().charAt(0) == '#'))
+		if((context.getCurrentLine().length() == 0) || (context.getCurrentLine().charAt(0) == '#'))
 		{
 			return;
 		}

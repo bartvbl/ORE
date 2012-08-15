@@ -1,64 +1,60 @@
 package orre.resources.partiallyLoadables;
 
-import java.util.ArrayList;
-
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
 import orre.resources.Finalizable;
-import orre.resources.loaders.obj.DataBufferGenerator;
+import orre.resources.loaders.obj.GeometryBufferGenerator;
 import orre.sceneGraph.SceneNode;
 
 public class UnpackedGeometryBuffer extends Finalizable{
-	private int vertexBuffer = 0;
-	private int indexBuffer = 0;
-	
-	private ArrayList<float[]> vertices = new ArrayList<float[]>();
-	public BufferDataFormatType dataFormat;
+	private float[] vertices;
+	private BufferDataFormatType dataFormat;
 	private int numVertices;
+	private int bufferPosition = 0;
+	private int numIndicesPerVertex;
 	
-	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat) {
+	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat, int numVertices) {
 		this.dataFormat = bufferDataFormat;
+		this.numVertices = numVertices;
+		
+		int vertexBufferSize = bufferDataFormat.elementsPerVertex*numVertices;
+		this.vertices = new float[vertexBufferSize];
+		this.numIndicesPerVertex = bufferDataFormat.elementsPerVertex;
 	}
 	
 	public void addVertex(float[] vertex) {
-		this.vertices.add(vertex);
+		for(int i = 0; i < numIndicesPerVertex; i++) {			
+			this.vertices[bufferPosition + i] = vertex[i];
+		}
+		this.bufferPosition += numIndicesPerVertex;
 	}
 
-	public void finalizeResource() {
-		DataBufferGenerator.storeDataInVBOs(this);
-		this.numVertices = this.vertices.size();
-		this.vertices = null;
-	}
+	public void finalizeResource() {}
 
 	@Override
 	public SceneNode createSceneNode() {
-		
 		return null;
 	}
 
 	public void addToCache() {}
 
-	public boolean isEmpty() {
-		return this.vertices.isEmpty();
-	}
-
-	public ArrayList<float[]> getVertices() {
+	public float[] getVertices() {
 		return this.vertices;
-	}
-
-	public void addVertexBuffer(int vertexBufferID, int indexBufferID) {
-//		this.vertexBuffers.add(vertexBufferID);
-//		this.indices.add(indexBufferID);
-	}
-	
-	public GeometryBuffer convertToGeometryBuffer()
-	{
-		return new GeometryBuffer(this.indexBuffer, this.vertexBuffer, this.dataFormat, this.numVertices);
 	}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
 		System.out.println("UPDATING DATA TYPE");
 		this.dataFormat = dataType;
+	}
+
+	public GeometryBuffer convertToGeometryBuffer() {
+		GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, this.vertices, this.numVertices);
+		this.vertices = null;
+		return null;
+	}
+
+	public int getVertexCount() {
+		return this.numVertices;
 	}
 
 }

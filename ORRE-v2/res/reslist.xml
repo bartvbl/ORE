@@ -4,13 +4,8 @@
 		<sound name="teleport" src="teleport.wav"/>
 	</sounds>
 	
-<<<<<<< HEAD
 	<models pathPrefix="res/mesh/">
 		<!--<model name="lmsExplorer" src="lmsExplorer.mdl"/>-->
-=======
-	<models pathPrefix="res/mesh/">
-		<!--<model name="lmsExplorer" src="lmsExplorer.mdl"/>-->
->>>>>>> branch 'master' of ssh+git://git@github.com/bartvbl/ORRE-V2.git
 		<model name="rockRaider" src="minifig.mdl"/>
 		
 	</models>
