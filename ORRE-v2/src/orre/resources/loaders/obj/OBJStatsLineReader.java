@@ -2,6 +2,7 @@ package orre.resources.loaders.obj;
 
 public class OBJStatsLineReader {
 	public static void readOBJLine(OBJStatsContext context, String line) {
+		if(line.length() == 0){return;}
 		if(line.startsWith("vt")){
 			parseTextureCoordinateLine(context);
 		} else if(line.startsWith("vn")){
@@ -20,13 +21,13 @@ public class OBJStatsLineReader {
 	}
 	
 	private static void parseVertexLine(OBJStatsContext context) {
-		
+		context.registerVertex();
 	}
 	private static void parseTextureCoordinateLine(OBJStatsContext context) {
-		
+		context.registerTexCoord();
 	}
 	private static void parseNormalLine(OBJStatsContext context) {
-		
+		context.registerNormal();
 	}
 	private static void parseMtlLibLine(OBJStatsContext context) {
 		
@@ -37,5 +38,6 @@ public class OBJStatsLineReader {
 	}
 	private static void parseFaceLine(OBJStatsContext context, String line) {
 		OBJLoadingUtils.parseFaceFormat(context, line);
+		context.registerFace();
 	}
 }

@@ -27,15 +27,13 @@ public class OBJLoader {
 	}
 	
 	private static List<PartiallyLoadableModelPart> loadObjFile(String src) throws FileNotFoundException, IOException {
-		
-		
 		BufferedReader objFileAnalysisReader = openObjFile(src);
 		OBJStatsContext statsContext = new OBJStatsContext();
-		analyseObjFile(objFileAnalysisReader);
+		analyseObjFile(objFileAnalysisReader, statsContext);
 		objFileAnalysisReader.close();
 		
 		BufferedReader objFileParsingReader = openObjFile(src);
-		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile());
+		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile(), statsContext);
 		List<PartiallyLoadableModelPart> parts = parseOBJFile(objFileParsingReader, context);
 		objFileParsingReader.close();
 		
@@ -49,13 +47,17 @@ public class OBJLoader {
 		return bufferedReader;
 	}
 	
-	private static void analyseObjFile(BufferedReader bufferedReader) throws IOException {
+	private static void analyseObjFile(BufferedReader bufferedReader, OBJStatsContext context) throws IOException {
 		while(bufferedReader.ready())
 		{
 			String line = bufferedReader.readLine();
 			line = StringUtils.stripString(line);
-			
+			OBJStatsLineReader.readOBJLine(context, line);
 		}
+		System.out.println("model stats: ");
+		System.out.println(context.getTotalVertices() + " vertices");
+		System.out.println(context.getTotalTexCoords() + " tex coords");
+		System.out.println(context.getTotalNormals() + " normals");
 	}
 	
 	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader, OBJLoadingContext context) throws IOException {

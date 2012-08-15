@@ -17,10 +17,10 @@ public class OBJLoadingContext {
 	private TemporaryVertexBuffer geometryBufferGenerator;
 	private File containingDirectory;
 	private PartiallyLoadableModelPart currentModelPart = null;
-	private boolean bufferDataTypeHasBeenSet = false;
 	
-	public OBJLoadingContext(File containingDirectory)
+	public OBJLoadingContext(File containingDirectory, OBJStatsContext statsContext)
 	{
+		this.geometryBufferGenerator.setBufferDataFormat(statsContext.getBufferDataFormat());
 		this.materials = new HashMap<String, BlueprintMaterial>(5);
 		this.modelParts = new ArrayList<PartiallyLoadableModelPart>();
 		this.geometryBufferGenerator = new TemporaryVertexBuffer(0, 0, 0);
@@ -32,14 +32,6 @@ public class OBJLoadingContext {
 	}
 	public String getCurrentLine() {
 		return this.currentLine;
-	}
-	
-	public void setBufferDataFormat(BufferDataFormatType dataType) {
-		this.geometryBufferGenerator.setBufferDataFormat(dataType);
-		this.bufferDataTypeHasBeenSet = true;
-		if(this.currentModelPart != null) {
-			this.currentModelPart.setBufferDataFormat(dataType);
-		}
 	}
 	
 	public void addMaterial(BlueprintMaterial material) {
@@ -55,10 +47,6 @@ public class OBJLoadingContext {
 		return this.currentMaterial;
 	}
 	
-	public void addModelPart(PartiallyLoadableModelPart part) {
-		//use as reference for constructor: new PartiallyLoadableModelPart(partName, context.getBuffergenerator().getBufferDataFormat())
-		this.modelParts.add(part);
-	}
 	public void setCurrentModelPart(String partName) {
 		for(PartiallyLoadableModelPart part : this.modelParts) {
 			if(part.name.equals(partName)) {
@@ -78,10 +66,6 @@ public class OBJLoadingContext {
 	
 	public TemporaryVertexBuffer getBuffergenerator() {
 		return this.geometryBufferGenerator;
-	}
-	
-	public boolean bufferDataTypeHasBeenSet() {
-		return this.bufferDataTypeHasBeenSet;
 	}
 
 	public void addVertexToCurrentModelPart(float[] vertex) {
