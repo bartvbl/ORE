@@ -36,7 +36,7 @@ public class MainMenu extends GameState {
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("rockRaider");
+		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");
 	}
 	@Override
 	public void unset() {

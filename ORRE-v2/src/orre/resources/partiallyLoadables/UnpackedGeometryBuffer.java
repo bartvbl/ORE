@@ -52,9 +52,9 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	}
 
 	public GeometryBuffer convertToGeometryBuffer() {
-		GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, this.vertices, this.numVertices);
+		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, this.vertices, this.numVertices);
 		this.vertices = null;
-		return null;
+		return buffer;
 	}
 
 	public int getVertexCount() {
