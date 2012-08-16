@@ -3,6 +3,7 @@ package orre.resources.loaders.obj;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.gl.materials.Material;
@@ -13,17 +14,17 @@ public class OBJLoadingContext {
 	private String currentLine;
 	private BlueprintMaterial currentMaterial;
 	private HashMap<String, BlueprintMaterial> materials;
-	private ArrayList<PartiallyLoadableModelPart> modelParts;
+	private List<PartiallyLoadableModelPart> modelParts;
 	private TemporaryVertexBuffer geometryBufferGenerator;
 	private File containingDirectory;
 	private PartiallyLoadableModelPart currentModelPart = null;
 	
 	public OBJLoadingContext(File containingDirectory, OBJStatsContext statsContext)
 	{
+		this.geometryBufferGenerator = new TemporaryVertexBuffer(statsContext.getTotalVertices(), statsContext.getTotalTexCoords(), statsContext.getTotalNormals());
 		this.geometryBufferGenerator.setBufferDataFormat(statsContext.getBufferDataFormat());
 		this.materials = new HashMap<String, BlueprintMaterial>(5);
-		this.modelParts = new ArrayList<PartiallyLoadableModelPart>();
-		this.geometryBufferGenerator = new TemporaryVertexBuffer(0, 0, 0);
+		this.modelParts = statsContext.generateModelParts();
 		this.containingDirectory = containingDirectory;
 	}
 
@@ -56,7 +57,7 @@ public class OBJLoadingContext {
 			}
 		}
 	}
-	public ArrayList<PartiallyLoadableModelPart> getModelParts() {
+	public List<PartiallyLoadableModelPart> getModelParts() {
 		return this.modelParts;
 	}
 	

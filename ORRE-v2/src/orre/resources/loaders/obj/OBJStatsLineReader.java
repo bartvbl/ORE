@@ -14,7 +14,7 @@ public class OBJStatsLineReader {
 		} else if(line.startsWith("usemtl")){
 			parseUseMtlLine(context);
 		} else if(line.charAt(0) == 'g'){
-			parseGroupLine(context);
+			parseGroupLine(context, line);
 		} else if(line.charAt(0) == 'f'){
 			parseFaceLine(context, line);
 		}
@@ -29,15 +29,16 @@ public class OBJStatsLineReader {
 	private static void parseNormalLine(OBJStatsContext context) {
 		context.registerNormal();
 	}
-	private static void parseMtlLibLine(OBJStatsContext context) {
-		
-	}
+	private static void parseMtlLibLine(OBJStatsContext context) {}
 	private static void parseUseMtlLine(OBJStatsContext context) {}
-	private static void parseGroupLine(OBJStatsContext context) {
-		
+	private static void parseGroupLine(OBJStatsContext context, String line) {
+		String[] parts = line.split(" ");
+		context.setModelPart(parts[1]);
 	}
 	private static void parseFaceLine(OBJStatsContext context, String line) {
-		OBJLoadingUtils.parseFaceFormat(context, line);
+		if(!context.bufferDataTypeHasBeenSet()) {
+			OBJLoadingUtils.parseFaceFormat(context, line);
+		}
 		context.registerFace();
 	}
 }

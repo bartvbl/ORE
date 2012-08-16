@@ -22,6 +22,9 @@ public class TemporaryVertexBuffer {
 	public TemporaryVertexBuffer(int numVertices, int numTexCoords, int numNormals)
 	{
 		this.setBufferDataFormat(BufferDataFormatType.VERTICES_TEXTURES_NORMALS);
+		this.vertices = new float[ELEMENTS_PER_VERTEX * numVertices];
+		this.textureCoordinates = new float[ELEMENTS_PER_TEXCOORD * numTexCoords];
+		this.normals = new float[ELEMENTS_PER_NORMAL * numNormals];
 	}
 	
 	public void addVertex(float x, float y, float z)

@@ -14,15 +14,18 @@ public class ModelPartStatTracker {
 	private ArrayList<Integer> verticesInPart = new ArrayList<Integer>();
 	
 	public void setModelPart(String name) {
-		this.updateCurrentPartRecord();
-		
+		if(this.verticesInPart.size() != 0) {			
+			this.updateCurrentPartRecord();
+		}
 		int index = this.getPartIndexByName(name);
-		String currentPartName = this.partNames.get(index);
 		if(index != -1) {
+			String currentPartName = this.partNames.get(index);
 			this.currentPartName = currentPartName;
 			this.verticesInCurrentPart = this.verticesInPart.get(index);			
-		} else {		
+		} else {
+			System.out.println("created new part: " + name);
 			this.createNewPart(name);
+			this.currentPartName = name;
 		}
 	}
 	
@@ -38,6 +41,7 @@ public class ModelPartStatTracker {
 				return i;
 			}
 		}
+		System.out.println("no results found for " + name);
 		return -1;
 	}
 

@@ -1,6 +1,7 @@
 package orre.resources.loaders.obj;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
@@ -39,11 +40,13 @@ public class OBJStatsContext {
 	public boolean bufferDataTypeHasBeenSet() {
 		return this.bufferDataTypeHasBeenSet;
 	}
-	public void setBufferDataFormat(BufferDataFormatType vertices) {
-		
+	public void setBufferDataFormat(BufferDataFormatType dataFormat) {
+		System.out.println("setting buffer data format: " + dataFormat);
+		this.dataFormat = dataFormat;
+		this.bufferDataTypeHasBeenSet = true;
 	}
 	public BufferDataFormatType getBufferDataFormat() {
-		return null;
+		return this.dataFormat;
 	}
 
 	public int getTotalVertices() {
@@ -54,5 +57,9 @@ public class OBJStatsContext {
 	}
 	public int getTotalNormals() {
 		return this.totalNormals;
+	}
+
+	public List<PartiallyLoadableModelPart> generateModelParts() {
+		return this.modelPartTracker.generateModelParts(this.dataFormat);
 	}
 }
