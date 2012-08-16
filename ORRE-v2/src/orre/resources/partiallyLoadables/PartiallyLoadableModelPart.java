@@ -13,7 +13,6 @@ public class PartiallyLoadableModelPart extends Finalizable {
 	private StoredModelPart destinationPart;
 
 	public PartiallyLoadableModelPart(String name, int numVertices, BufferDataFormatType bufferDataFormatType) {
-		System.out.println("creating model part: " + name);
 		this.geometryBuffer = new UnpackedGeometryBuffer(bufferDataFormatType, numVertices);
 		this.name = name;
 	}
@@ -40,7 +39,6 @@ public class PartiallyLoadableModelPart extends Finalizable {
 	}
 
 	public void setDestinationPart(StoredModelPart part) {
-		System.out.println("destination part: " + part.name);
 		this.destinationPart = part;
 	}
 

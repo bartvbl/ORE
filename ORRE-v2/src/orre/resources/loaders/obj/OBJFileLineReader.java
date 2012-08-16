@@ -1,7 +1,5 @@
 package orre.resources.loaders.obj;
 
-import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
-
 public class OBJFileLineReader {
 	public static void readOBJLine(OBJLoadingContext context) {
 		if(context.getCurrentLine().startsWith("vt")){

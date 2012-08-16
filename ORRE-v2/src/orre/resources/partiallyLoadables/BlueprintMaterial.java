@@ -19,7 +19,6 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 	
 	public BlueprintMaterial(String name)
 	{
-		System.out.println("creating new material: " + name);
 		this.name = name;
 		this.material = new Material(name);
 	}

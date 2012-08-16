@@ -20,7 +20,6 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat, int numVertices) {
 		this.dataFormat = bufferDataFormat;
 		this.numVertices = numVertices;
-		System.out.println("   -> " + numVertices + " vertices");
 		int vertexBufferSize = bufferDataFormat.elementsPerVertex*numVertices;
 		this.vertices = new float[vertexBufferSize];
 		this.numIndicesPerVertex = bufferDataFormat.elementsPerVertex;
@@ -49,7 +48,6 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
-		System.out.println("UPDATING DATA TYPE");
 		this.dataFormat = dataType;
 	}
 

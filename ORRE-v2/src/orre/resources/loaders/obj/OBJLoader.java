@@ -54,10 +54,6 @@ public class OBJLoader {
 			line = StringUtils.stripString(line);
 			OBJStatsLineReader.readOBJLine(context, line);
 		}
-		System.out.println("model stats: ");
-		System.out.println(context.getTotalVertices() + " vertices");
-		System.out.println(context.getTotalTexCoords() + " tex coords");
-		System.out.println(context.getTotalNormals() + " normals");
 	}
 	
 	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader, OBJLoadingContext context) throws IOException {

@@ -23,7 +23,6 @@ public class ModelPartStatTracker {
 			this.currentPartName = currentPartName;
 			this.verticesInCurrentPart = this.verticesInPart.get(index);			
 		} else {
-			System.out.println("created new part: " + name);
 			this.createNewPart(name);
 			this.currentPartName = name;
 		}
@@ -41,7 +40,6 @@ public class ModelPartStatTracker {
 				return i;
 			}
 		}
-		System.out.println("no results found for " + name);
 		return -1;
 	}
 

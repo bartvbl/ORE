@@ -41,7 +41,6 @@ public class OBJStatsContext {
 		return this.bufferDataTypeHasBeenSet;
 	}
 	public void setBufferDataFormat(BufferDataFormatType dataFormat) {
-		System.out.println("setting buffer data format: " + dataFormat);
 		this.dataFormat = dataFormat;
 		this.bufferDataTypeHasBeenSet = true;
 	}
