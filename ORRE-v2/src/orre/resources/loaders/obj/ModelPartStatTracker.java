@@ -62,6 +62,6 @@ public class ModelPartStatTracker {
 		for(int i = 0; i < this.partNames.size(); i++) {
 			modelParts.add(new PartiallyLoadableModelPart(this.partNames.get(i), this.verticesInPart.get(i), dataFormat));
 		}
-		return null;
+		return modelParts;
 	}
 }

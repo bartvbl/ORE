@@ -1,5 +1,7 @@
 package orre.resources.partiallyLoadables;
 
+import java.util.Arrays;
+
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
 import orre.resources.Finalizable;
@@ -12,20 +14,23 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	private int numVertices;
 	private int bufferPosition = 0;
 	private int numIndicesPerVertex;
+	private int numVerticesAdded = 0;
 	
 	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat, int numVertices) {
 		this.dataFormat = bufferDataFormat;
 		this.numVertices = numVertices;
-		
+		System.out.println("   -> " + numVertices + " vertices");
 		int vertexBufferSize = bufferDataFormat.elementsPerVertex*numVertices;
 		this.vertices = new float[vertexBufferSize];
 		this.numIndicesPerVertex = bufferDataFormat.elementsPerVertex;
 	}
 	
 	public void addVertex(float[] vertex) {
+		//System.out.println("buffer position: " + bufferPosition + ", " + numVerticesAdded);
 		for(int i = 0; i < numIndicesPerVertex; i++) {			
 			this.vertices[bufferPosition + i] = vertex[i];
 		}
+		this.numVerticesAdded++;
 		this.bufferPosition += numIndicesPerVertex;
 	}
 

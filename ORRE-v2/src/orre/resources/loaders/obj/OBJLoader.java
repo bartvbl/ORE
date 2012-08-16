@@ -15,7 +15,7 @@ public class OBJLoader {
 	public static List<PartiallyLoadableModelPart> load(String src)
 	{
 		try {
-			loadObjFile(src);
+			return loadObjFile(src);
 		} catch (FileNotFoundException e) {
 			FeedbackProvider.showLoadOBJFileNotFoundMessage(src);
 			e.printStackTrace();
