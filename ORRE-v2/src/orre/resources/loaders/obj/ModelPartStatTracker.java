@@ -60,7 +60,7 @@ public class ModelPartStatTracker {
 		
 		ArrayList<PartiallyLoadableModelPart> modelParts = new ArrayList<PartiallyLoadableModelPart>();
 		for(int i = 0; i < this.partNames.size(); i++) {
-			modelParts.add(new PartiallyLoadableModelPart(this.partNames.get(i), this.verticesInPart.get(i), dataFormat));
+			modelParts.add(new PartiallyLoadableModelPart(this.partNames.get(i), this.verticesInPart.get(i)*OBJConstants.VERTICES_PER_FACE, dataFormat));
 		}
 		return modelParts;
 	}

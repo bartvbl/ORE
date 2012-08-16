@@ -6,6 +6,7 @@ import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
 import orre.resources.Finalizable;
 import orre.resources.loaders.obj.GeometryBufferGenerator;
+import orre.resources.loaders.obj.OBJConstants;
 import orre.sceneGraph.SceneNode;
 
 public class UnpackedGeometryBuffer extends Finalizable{
