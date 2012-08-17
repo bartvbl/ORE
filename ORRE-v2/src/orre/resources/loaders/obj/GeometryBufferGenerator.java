@@ -2,6 +2,8 @@ package orre.resources.loaders.obj;
 
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
+import java.util.Arrays;
+
 import org.lwjgl.BufferUtils;
 
 import orre.geom.vbo.BufferDataFormatType;
@@ -23,6 +25,7 @@ public class GeometryBufferGenerator {
 	}
 	
 	private static void putVerticesInBuffers(float[] vertices, FloatBuffer geometryData, IntBuffer indexes, int elementsPerVertex) {
+//		System.out.println(Arrays.toString(vertices));
 		int vertexCount = 0;
 		for(int vertexStartIndex = 0; vertexStartIndex < vertices.length; vertexStartIndex += elementsPerVertex) {
 			indexes.put(vertexCount);

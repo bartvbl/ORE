@@ -1,5 +1,7 @@
 package orre.resources.loaders.obj;
 
+import java.util.Arrays;
+
 import orre.geom.vbo.BufferDataFormatType;
 
 public class TemporaryVertexBuffer {
@@ -19,12 +21,13 @@ public class TemporaryVertexBuffer {
 
 	private BufferDataFormatType dataFormat;
 	
-	public TemporaryVertexBuffer(int numVertices, int numTexCoords, int numNormals)
+	public TemporaryVertexBuffer(int numVertices, int numTexCoords, int numNormals, BufferDataFormatType dataFormat)
 	{
-		this.setBufferDataFormat(BufferDataFormatType.VERTICES_TEXTURES_NORMALS);
+		this.dataFormat = dataFormat;
 		this.vertices = new float[ELEMENTS_PER_VERTEX * numVertices];
 		this.textureCoordinates = new float[ELEMENTS_PER_TEXCOORD * numTexCoords];
 		this.normals = new float[ELEMENTS_PER_NORMAL * numNormals];
+		this.vertex = new float[dataFormat.elementsPerVertex];
 	}
 	
 	public void addVertex(float x, float y, float z)
@@ -50,18 +53,17 @@ public class TemporaryVertexBuffer {
 	
 	public float[] getVertex(int vertexIndex, int textureIndex, int normalIndex)
 	{
-		copyVertexIntoVertexArray(0, vertexIndex);//the temporary texture array is formatted such that the vertex always comes first no matter the texture/normal format of the OBJ file
-
+		copyVertexIntoVertexArray(0, ELEMENTS_PER_VERTEX*vertexIndex);//the temporary texture array is formatted such that the vertex always comes first no matter the texture/normal format of the OBJ file
 		switch(this.dataFormat) {
 		case VERTICES_AND_NORMALS:
-			copyNormalIntoVertexArray(ELEMENTS_PER_VERTEX, normalIndex);
+			copyNormalIntoVertexArray(ELEMENTS_PER_VERTEX, ELEMENTS_PER_NORMAL*normalIndex);
 			break;
 		case VERTICES_AND_TEXTURES:
-			copyTextureCoordsIntoVertexArray(ELEMENTS_PER_VERTEX, textureIndex);
+			copyTextureCoordsIntoVertexArray(ELEMENTS_PER_VERTEX, ELEMENTS_PER_TEXCOORD*textureIndex);
 			break;
 		case VERTICES_TEXTURES_NORMALS:
-			copyTextureCoordsIntoVertexArray(ELEMENTS_PER_VERTEX, textureIndex);
-			copyNormalIntoVertexArray(ELEMENTS_PER_VERTEX + ELEMENTS_PER_TEXCOORD, normalIndex);
+			copyTextureCoordsIntoVertexArray(ELEMENTS_PER_VERTEX, ELEMENTS_PER_TEXCOORD*textureIndex);
+			copyNormalIntoVertexArray(ELEMENTS_PER_VERTEX + ELEMENTS_PER_TEXCOORD, ELEMENTS_PER_NORMAL*normalIndex);
 			break;
 		}
 		return vertex;
@@ -69,7 +71,7 @@ public class TemporaryVertexBuffer {
 	
 	private void copyVertexIntoVertexArray(int tmpVertexStartIndex, int vertexStartIndex) {
 		for(int i = 0; i < ELEMENTS_PER_VERTEX; i++) {
-			vertex[tmpVertexStartIndex + i] = this.normals[vertexStartIndex + i];
+			vertex[tmpVertexStartIndex + i] = this.vertices[vertexStartIndex + i];
 		}
 	}
 	
@@ -81,13 +83,7 @@ public class TemporaryVertexBuffer {
 	
 	private void copyTextureCoordsIntoVertexArray(int vertexStartIndex, int textureCoordStartIndex) {
 		for(int i = 0; i < ELEMENTS_PER_TEXCOORD; i++) {
-			vertex[vertexStartIndex + i] = this.normals[textureCoordStartIndex + i];
+			vertex[vertexStartIndex + i] = this.textureCoordinates[textureCoordStartIndex + i];
 		}
-	}
-	
-	public void setBufferDataFormat(BufferDataFormatType dataFormat)
-	{
-		this.dataFormat = dataFormat;
-		this.vertex = new float[dataFormat.elementsPerVertex];
 	}
 }

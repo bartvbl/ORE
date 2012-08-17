@@ -1,5 +1,8 @@
 package orre.gameStates;
 
+import java.nio.FloatBuffer;
+
+import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Mouse;
 
 import orre.core.GameMain;
@@ -17,18 +20,25 @@ public class MainMenu extends GameState {
 
 	private Mesh3D testNode;
 	private int rotation;
+	
+	private FloatBuffer buffer;
+	
 	public MainMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
 		super(main, eventDispatcher, stateName);
+		this.buffer = BufferUtils.createFloatBuffer(4);
 		FileToLoad mainCache = new FileToLoad(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml");
 		eventDispatcher.dispatchEvent(new Event<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
-		glScalef(0.01f, 0.01f, 0.01f);
+		//glScalef(0.1f, 0.1f, 0.1f);
 		this.rotation += 3;
-		glTranslatef(0, -2f, -30);
+		//glEnable(GL_LIGHT0);
+		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{100, 100, 100, 1}).rewind());
+		glTranslatef(0, -2f, -50);
 		glRotatef(Mouse.getY(), 1, 0, 0);
 		glRotatef(Mouse.getX(), 0, 1, 0);
+		
 		glColor4f(1, 1, 1, 1);
 		glEnable(GL_LIGHTING);
 		this.testNode.render();

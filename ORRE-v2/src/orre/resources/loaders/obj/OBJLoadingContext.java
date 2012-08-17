@@ -21,8 +21,7 @@ public class OBJLoadingContext {
 	
 	public OBJLoadingContext(File containingDirectory, OBJStatsContext statsContext)
 	{
-		this.geometryBufferGenerator = new TemporaryVertexBuffer(statsContext.getTotalVertices(), statsContext.getTotalTexCoords(), statsContext.getTotalNormals());
-		this.geometryBufferGenerator.setBufferDataFormat(statsContext.getBufferDataFormat());
+		this.geometryBufferGenerator = new TemporaryVertexBuffer(statsContext.getTotalVertices(), statsContext.getTotalTexCoords(), statsContext.getTotalNormals(), statsContext.getBufferDataFormat());
 		this.materials = new HashMap<String, BlueprintMaterial>(5);
 		this.modelParts = statsContext.generateModelParts();
 		this.containingDirectory = containingDirectory;

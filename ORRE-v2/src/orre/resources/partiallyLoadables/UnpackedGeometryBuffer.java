@@ -26,7 +26,6 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	}
 	
 	public void addVertex(float[] vertex) {
-		//System.out.println("buffer position: " + bufferPosition + ", " + numVerticesAdded);
 		for(int i = 0; i < numIndicesPerVertex; i++) {			
 			this.vertices[bufferPosition + i] = vertex[i];
 		}

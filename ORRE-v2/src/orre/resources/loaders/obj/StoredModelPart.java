@@ -28,7 +28,7 @@ public class StoredModelPart {
 		this.childList.add(child);
 	}
 	
-	public ArrayList<StoredModelPart> getChilds()
+	public ArrayList<StoredModelPart> getChildren()
 	{
 		return this.childList;
 	}
