@@ -33,6 +33,7 @@ public class RenderUtils {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_ALPHA_TEST);
 		glAlphaFunc(GL_GREATER,0.0f);
+		glShadeModel(GL_FLAT);
 		glEnable(GL_NORMALIZE);
 	}
 	

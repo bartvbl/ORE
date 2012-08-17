@@ -3,6 +3,7 @@ package orre.gameStates;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
 import orre.core.GameMain;
@@ -19,7 +20,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class MainMenu extends GameState {
 
 	private Mesh3D testNode;
-	private int rotation;
+	private float rotationX, rotationY;
 	
 	private FloatBuffer buffer;
 	
@@ -32,12 +33,15 @@ public class MainMenu extends GameState {
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
 		//glScalef(0.1f, 0.1f, 0.1f);
-		this.rotation += 3;
+		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {this.rotationY += 2;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {this.rotationY -= 2;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {this.rotationX += 1.9;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {this.rotationX -= 1.9;}
 		glEnable(GL_LIGHT0);
 		//glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{100, 100, 100, 1}).rewind());
-		glTranslatef(0, -2f, -50);
-		glRotatef(Mouse.getY(), 1, 0, 0);
-		glRotatef(Mouse.getX(), 0, 1, 0);
+		glTranslatef(20, -2f, -50);
+		glRotatef(rotationX, 1, 0, 0);
+		glRotatef(rotationY, 0, 1, 0);
 		
 		glColor4f(1, 1, 1, 1);
 		glEnable(GL_LIGHTING);

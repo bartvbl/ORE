@@ -1,6 +1,7 @@
 package orre.gl.materials;
 
 import java.nio.FloatBuffer;
+import java.util.Arrays;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
@@ -32,6 +33,7 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 		this.diffuseColour = new float[]{0.8f, 0.8f, 0.8f, 1.0f};
 		this.specularColour = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
 		this.alpha = new AtomicReference<Float>();
+		this.alpha.set(1f);
 	}
 	
 	public void setAmbientTexture(Texture texture)
@@ -70,7 +72,7 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	{
 		if(colour.length == 3)
 		{
-			return new float[]{colour[0], colour[1], colour[2], 1};
+			return new float[]{colour[0], colour[1], colour[2], 1f};
 		}
 		return colour;
 	}
@@ -83,15 +85,14 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	public void setAlpha(float alpha)
 	{
 		this.alpha.set(alpha);
-		this.ambientColour[3] = alpha;
 	}
 	
 	public void render() 
 	{
 		if(1 == 1) {
 			glEnable(GL_COLOR_MATERIAL);
-			glColorMaterial(GL_FRONT, GL_DIFFUSE);
-			glColor4f(0.5f, 0.5f, 0.5f, 1);
+			glColorMaterial(GL_FRONT, GL_DIFFUSE);				
+			glColor4f(this.ambientColour[0], this.ambientColour[1], this.ambientColour[2], this.alpha.get());
 		}
 		if(this.diffuseTexture != null) {
 			glEnable(GL_TEXTURE_2D);
@@ -103,9 +104,9 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 		glMaterial(GL_FRONT, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientColour).rewind());
 		glMaterial(GL_FRONT, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseColour).rewind());
 		glMaterial(GL_FRONT, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularColour).rewind());
-		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientColour).rewind());
+		//glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientColour).rewind());
 		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseColour).rewind());
-		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularColour).rewind());
+		//glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularColour).rewind());
 		this.renderChildren();
 		glDisable(GL_COLOR_MATERIAL);
 	}
