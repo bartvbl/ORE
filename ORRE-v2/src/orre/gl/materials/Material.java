@@ -83,23 +83,31 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	public void setAlpha(float alpha)
 	{
 		this.alpha.set(alpha);
+		this.ambientColour[3] = alpha;
 	}
 	
 	public void render() 
 	{
+		if(1 == 1) {
+			glEnable(GL_COLOR_MATERIAL);
+			glColorMaterial(GL_FRONT, GL_DIFFUSE);
+			glColor4f(0.5f, 0.5f, 0.5f, 1);
+		}
 		if(this.diffuseTexture != null) {
 			glEnable(GL_TEXTURE_2D);
 			this.diffuseTexture.bind();
 		} else {
 			glDisable(GL_TEXTURE_2D);
 		}
+		glMaterialf(GL_FRONT, GL_SHININESS, 0.01f);
 		glMaterial(GL_FRONT, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientColour).rewind());
 		glMaterial(GL_FRONT, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseColour).rewind());
 		glMaterial(GL_FRONT, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularColour).rewind());
 		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientColour).rewind());
 		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseColour).rewind());
-		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularColour[0]/3).put(this.specularColour[1]/3).put(this.specularColour[2]/3).rewind());
+		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularColour).rewind());
 		this.renderChildren();
+		glDisable(GL_COLOR_MATERIAL);
 	}
 	
 	public void destroy() 

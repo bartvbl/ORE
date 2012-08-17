@@ -9,7 +9,7 @@ newmtl mediumStoneGrey
 	illum 2
 	Ka 0.6392 0.6353 0.6431
 	Kd 0.6392 0.6353 0.6431
-	Ks 0.0100 0.0100 0.0100
+	Ks 0.0000 0.0000 0.0000
 	Ke 0.0000 0.0000 0.0000
 
 newmtl blueishGreen

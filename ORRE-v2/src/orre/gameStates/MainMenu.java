@@ -33,8 +33,8 @@ public class MainMenu extends GameState {
 		RenderUtils.set3DMode();
 		//glScalef(0.1f, 0.1f, 0.1f);
 		this.rotation += 3;
-		//glEnable(GL_LIGHT0);
-		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{100, 100, 100, 1}).rewind());
+		glEnable(GL_LIGHT0);
+		//glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{100, 100, 100, 1}).rewind());
 		glTranslatef(0, -2f, -50);
 		glRotatef(Mouse.getY(), 1, 0, 0);
 		glRotatef(Mouse.getX(), 0, 1, 0);
