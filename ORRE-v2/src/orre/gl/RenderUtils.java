@@ -31,10 +31,8 @@ public class RenderUtils {
 		glEnable(GL_LIGHTING);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-		glEnable(GL_ALPHA_TEST);
-		glAlphaFunc(GL_GREATER,0.0f);
-		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
-		glHint(GL_POLYGON_SMOOTH_HINT, GL_NICEST);
+//		glEnable(GL_ALPHA_TEST);
+//		glAlphaFunc(GL_GREATER,0.0f);
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_NORMALIZE);
 	}

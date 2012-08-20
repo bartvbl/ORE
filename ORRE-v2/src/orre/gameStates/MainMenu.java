@@ -38,8 +38,8 @@ public class MainMenu extends GameState {
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {this.rotationX += 1.9;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {this.rotationX -= 1.9;}
 		glEnable(GL_LIGHT0);
-		//glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{100, 100, 100, 1}).rewind());
-		glTranslatef(0, -2f, -60);
+		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, 100, 1}).rewind());
+		glTranslatef(0, -2f, -20);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
 		
@@ -50,7 +50,7 @@ public class MainMenu extends GameState {
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");
+		this.testNode = this.resourceCache.createModelInstace("toolStore");
 	}
 	@Override
 	public void unset() {

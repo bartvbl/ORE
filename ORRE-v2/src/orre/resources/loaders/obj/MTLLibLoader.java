@@ -55,6 +55,8 @@ public class MTLLibLoader {
 			MTLLibLoader.readDiffuseTextureLine(line, context);
 		} else if(line.startsWith("map_Ks")) {
 			MTLLibLoader.readSpecularTextureLine(line, context);
+		} else if(line.startsWith("illum")) {
+			MTLLibLoader.readIlluminationLine(line, context);
 		}
 	}
 
@@ -99,6 +101,12 @@ public class MTLLibLoader {
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setSpecularTexture(textureSrc, context);
 	}
-
-
+	
+	private static void readIlluminationLine(String line, OBJLoadingContext context) {
+		int illuminationModelID = Integer.parseInt(line.split(" ")[1]);
+		if(illuminationModelID == 1) { //colour material
+			BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+			currentMaterial.setMaterialAsColourMaterial(true);
+		}
+	}
 }

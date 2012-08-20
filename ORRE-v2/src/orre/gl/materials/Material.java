@@ -89,9 +89,9 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	
 	public void render() 
 	{
-		if(1 == 1) {
-			glEnable(GL_COLOR_MATERIAL);
-			glColorMaterial(GL_FRONT, GL_DIFFUSE);				
+		if(this.isColourMaterial.get()) {
+			glEnable(GL_COLOR_MATERIAL);				
+			glColorMaterial(GL_FRONT, GL_DIFFUSE);							
 			glColor4f(this.ambientColour[0], this.ambientColour[1], this.ambientColour[2], this.alpha.get());
 		}
 		if(this.diffuseTexture != null) {
@@ -100,7 +100,7 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 		} else {
 			glDisable(GL_TEXTURE_2D);
 		}
-		glMaterialf(GL_FRONT, GL_SHININESS, 0.5f);
+		glMaterialf(GL_FRONT, GL_SHININESS, 0.05f);
 		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientColour).rewind());
 		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseColour).rewind());
 		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularColour).rewind());
