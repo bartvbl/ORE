@@ -45,12 +45,22 @@ public class MainMenu extends GameState {
 		
 		glColor4f(1, 1, 1, 1);
 		glEnable(GL_LIGHTING);
-		this.testNode.render();
+		for(int z = 0; z < 10; z++) {
+			for(int i = 0; i < 10; i++) {
+				for(int j = 0; j < 10; j++) {
+					glPushMatrix();
+					glTranslated(j*2*Math.random(), z*-3*Math.random(), i*2*Math.random());
+					this.testNode.render();
+					glPopMatrix();
+				}
+			}
+		}
 	}
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("toolStore");
+		this.testNode = this.resourceCache.createModelInstace("chrystal");
+		
 	}
 	@Override
 	public void unset() {

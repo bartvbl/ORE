@@ -1,2 +1,6 @@
-Todo:
-- switch around the structure of textures and groups. They should match the structure of OBJ's.
+Wishlist:
+- Support for mutliple materials per group in the OBJ file
+
+
+Low-priority:
+- Make a mesh share more vertex buffers; right now a lot of buffers are spammed that don't get filled very much.

@@ -30,7 +30,6 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 
 	public void run()
 	{
-		//new CleanupThread().start();
 		this.mainLoop();
 	}
 	

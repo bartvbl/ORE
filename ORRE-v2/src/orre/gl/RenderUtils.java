@@ -26,13 +26,13 @@ public class RenderUtils {
 		gluPerspective(60.0f, ((float)Display.getWidth()/(float)Display.getHeight()), RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
-		glEnable(GL_CULL_FACE); 
+		//glEnable(GL_CULL_FACE); //something in this makes visible surfaces disappear.. not exactly what it was meant for
 		glEnable(GL_TEXTURE_2D);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-//		glEnable(GL_ALPHA_TEST);
-//		glAlphaFunc(GL_GREATER,0.0f);
+		//glEnable(GL_ALPHA_TEST);
+		//glAlphaFunc(GL_GREATER,0.0f);
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_NORMALIZE);
 	}
@@ -49,6 +49,4 @@ public class RenderUtils {
 		glDisable(GL_LIGHTING);
 		glDisable(GL_CULL_FACE); 
 	}
-	
-	
 }
