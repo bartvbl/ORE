@@ -23,6 +23,7 @@ public class MainMenu extends GameState {
 	private float rotationX, rotationY;
 	
 	private FloatBuffer buffer;
+	private int displayListID;
 	
 	public MainMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
 		super(main, eventDispatcher, stateName);
@@ -45,22 +46,23 @@ public class MainMenu extends GameState {
 		
 		glColor4f(1, 1, 1, 1);
 		glEnable(GL_LIGHTING);
-		for(int z = 0; z < 10; z++) {
-			for(int i = 0; i < 10; i++) {
-				for(int j = 0; j < 10; j++) {
-					glPushMatrix();
-					glTranslated(j*2*(Math.random() - 0.5), z*-3*(Math.random() - 0.5), i*2*(Math.random() - 0.5));
-					this.testNode.render();
-					glPopMatrix();
-				}
-			}
-		}
+		glCallList(this.displayListID);
 	}
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("chrystal");
-		
+		this.testNode = this.resourceCache.createModelInstace("toolStore");
+		this.displayListID = glGenLists(1);
+		glNewList(this.displayListID, GL_COMPILE);
+		for(int i = 0; i < 10; i++) {
+			for(int j = 0; j < 10; j++) {
+				glPushMatrix();
+				glTranslated(j*15, 0, i*15);
+				this.testNode.render();
+				glPopMatrix();
+			}
+		}
+		glEndList();
 	}
 	@Override
 	public void unset() {
