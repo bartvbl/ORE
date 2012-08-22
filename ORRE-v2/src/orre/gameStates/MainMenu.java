@@ -49,7 +49,7 @@ public class MainMenu extends GameState {
 			for(int i = 0; i < 10; i++) {
 				for(int j = 0; j < 10; j++) {
 					glPushMatrix();
-					glTranslated(j*2*Math.random(), z*-3*Math.random(), i*2*Math.random());
+					glTranslated(j*2*(Math.random() - 0.5), z*-3*(Math.random() - 0.5), i*2*(Math.random() - 0.5));
 					this.testNode.render();
 					glPopMatrix();
 				}

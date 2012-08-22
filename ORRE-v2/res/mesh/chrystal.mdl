@@ -1,0 +1,6 @@
+<ORRModel>
+	<modelFile src="res/mesh/objects3D/chrystal.obj"/>
+	<partStructure>
+		<part name="chrystal" nameInModelFile="chrystal"/>
+	</partStructure>
+</ORRModel>
