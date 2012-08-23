@@ -18,7 +18,6 @@ public class ResourceFileParsingThread extends Thread{
 
 	public void run()
 	{
-		System.out.println(this.remainingItemsQueue);
 		FileToLoad file = this.remainingItemsQueue.dequeue();
 		while(file != null)
 		{
