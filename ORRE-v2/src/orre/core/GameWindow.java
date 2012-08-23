@@ -68,11 +68,11 @@ public class GameWindow {
 		glClearDepth(1.0);
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);
-		glDepthFunc(GL_LEQUAL);
-		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+		//glDepthFunc(GL_LEQUAL);
+		//glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT1); 
+		//glEnable(GL_LIGHT1); 
 	}
 }

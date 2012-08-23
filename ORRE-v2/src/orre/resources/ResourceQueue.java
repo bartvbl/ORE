@@ -1,7 +1,5 @@
 package orre.resources;
 
-import org.dom4j.Node;
-
 import orre.threads.ResourceFileParsingThread;
 import orre.threads.ResourceLoadingThread;
 import orre.util.Queue;
