@@ -92,8 +92,8 @@ newmtl Yellow
 newmtl 21___Default
 	Ns 10.0000
 	Ni 1.5000
-	d 0.5000
-	Tr 0.7000
+	d 0.4000
+	Tr 0.4000
 	Tf 0.5000 0.5000 0.5000 
 	illum 2
 	Ka 0.9647 1.0000 0.0000
@@ -104,8 +104,8 @@ newmtl 21___Default
 newmtl 13___Default
 	Ns 10.0000
 	Ni 1.5000
-	d 0.5000
-	Tr 0.7000
+	d 0.4000
+	Tr 0.4000
 	Tf 0.5000 0.5000 0.5000 
 	illum 2
 	Ka 1.0000 0.2353 0.0000
@@ -116,8 +116,8 @@ newmtl 13___Default
 newmtl Trans_Neon_Green
 	Ns 10.0000
 	Ni 1.5000
-	d 0.5000
-	Tr 0.5000
+	d 0.4000
+	Tr 0.4000
 	Tf 0.5000 0.5000 0.5000 
 	illum 2
 	Ka 0.3569 1.0000 0.0353
