@@ -29,7 +29,7 @@ public class RenderUtils {
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glEnable(GL_LIGHTING);
-		glEnable(GL_NORMALIZE);
+		//glEnable(GL_NORMALIZE);
 	}
 	
 	public static void set2DMode()

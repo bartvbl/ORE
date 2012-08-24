@@ -43,7 +43,7 @@ public class MainMenu extends GameState {
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {this.rotationX += 1.9;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {this.rotationX -= 1.9;}
 		glEnable(GL_LIGHT0);
-		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, -5, 0, 1}).rewind());
+		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
 		glTranslated(0, 0, -20);
