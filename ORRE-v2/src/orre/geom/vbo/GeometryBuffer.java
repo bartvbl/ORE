@@ -34,7 +34,7 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 	{
 		glEnableClientState(GL_VERTEX_ARRAY);
 		glEnableClientState(GL_NORMAL_ARRAY);
-		glEnableClientState(GL_TEXTURE_COORD_ARRAY);
+		//glEnableClientState(GL_TEXTURE_COORD_ARRAY);
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBufferID);
 		this.setDataPointers();
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
@@ -44,17 +44,22 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 
 	private void setDataPointers() {
 		int stride = this.dataFormat.elementsPerVertex * 4;
+		System.out.println(this.dataFormat);
 		glVertexPointer(3, GL_FLOAT, stride, 0 * 4);
-		switch(this.dataFormat)
-		{
-			case VERTICES_AND_TEXTURES:
-				glTexCoordPointer(2, GL_FLOAT, stride, (3)*4);
-			case VERTICES_AND_NORMALS:
-				glNormalPointer(GL_FLOAT, stride, 3 * 4);
-			case VERTICES_TEXTURES_NORMALS:
-				glTexCoordPointer(2, GL_FLOAT, stride, 3 * 4);
-				glNormalPointer(GL_FLOAT, stride, (3 + 3) * 4);			
-		}
+		glNormalPointer(GL_FLOAT, stride, 3 * 4);
+//		switch(this.dataFormat)
+//		{
+//			case VERTICES_AND_TEXTURES:
+//				glTexCoordPointer(2, GL_FLOAT, stride, (3)*4);
+//				break;
+//			case VERTICES_AND_NORMALS:
+//				glNormalPointer(GL_FLOAT, stride, 3 * 4);
+//				break;
+//			case VERTICES_TEXTURES_NORMALS:
+//				glTexCoordPointer(2, GL_FLOAT, stride, 3 * 4);
+//				glNormalPointer(GL_FLOAT, stride, (3 + 3) * 4);	
+//				break;
+//		}
 	}
 
 	@Override
