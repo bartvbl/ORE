@@ -27,6 +27,7 @@ public class MainMenu extends GameState {
 	private FloatBuffer buffer;
 	private int displayListID;
 	private LightTestClass lightTest;
+	private int time = 0;
 	
 	public MainMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
 		super(main, eventDispatcher, stateName);
@@ -42,23 +43,25 @@ public class MainMenu extends GameState {
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {this.rotationX += 1.9;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {this.rotationX -= 1.9;}
 		glEnable(GL_LIGHT0);
-		//glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, -200, 1}).rewind());
-		glTranslatef(0, -2f, -20);
+		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, 0, 1}).rewind());
+		this.time ++;
+		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
+		glTranslated(0, 0, -60);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
-		
-		glColor4f(1, 1, 1, 1);
-		glCallList(this.displayListID);
+		this.lightTest.draw();
+		//glCallList(this.displayListID);
 	}
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("toolStore");
+		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");
 		this.displayListID = glGenLists(1);
 		glNewList(this.displayListID, GL_COMPILE);
 				this.testNode.render();
 
 		glEndList();
+		this.lightTest = new LightTestClass(displayListID);
 	}
 	@Override
 	public void unset() {
