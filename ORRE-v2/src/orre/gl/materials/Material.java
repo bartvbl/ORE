@@ -115,12 +115,20 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseLight).rewind());
 		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularLight).rewind());
 //		glLight(GL_LIGHT0, GL_EMISSION, (FloatBuffer)this.colourBuffer.put(this.emissionLight).rewind());
-		glMaterial(GL_FRONT, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientColour[0]).put(this.ambientColour[1]).put(this.ambientColour[2]).put(this.alpha.get()).rewind());
-		glMaterial(GL_FRONT, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseColour[0]).put(this.diffuseColour[1]).put(this.diffuseColour[2]).put(this.alpha.get()).rewind());
-		glMaterial(GL_FRONT, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularColour[0]).put(this.specularColour[1]).put(this.specularColour[2]).put(this.alpha.get()).rewind());
-		glMaterial(GL_FRONT, GL_EMISSION, (FloatBuffer)this.colourBuffer.put(this.emissionColour).rewind());
+		glMaterial(GL_FRONT, GL_AMBIENT, this.fillColourBuffer(this.ambientColour, this.alpha.get()));
+		glMaterial(GL_FRONT, GL_DIFFUSE, this.fillColourBuffer(this.diffuseColour, this.alpha.get()));
+		glMaterial(GL_FRONT, GL_SPECULAR, this.fillColourBuffer(this.specularColour, this.alpha.get()));
+		glMaterial(GL_FRONT, GL_EMISSION, this.fillColourBuffer(this.emissionColour, this.alpha.get()));
 		this.renderChildren();
 		glDisable(GL_COLOR_MATERIAL);
+	}
+	private FloatBuffer fillColourBuffer(float[] colour, float alpha) {
+		this.colourBuffer.put(colour[0]);
+		this.colourBuffer.put(colour[1]);
+		this.colourBuffer.put(colour[2]);
+		this.colourBuffer.put(alpha);
+		this.colourBuffer.rewind();
+		return this.colourBuffer;
 	}
 	
 	public void destroy() 
