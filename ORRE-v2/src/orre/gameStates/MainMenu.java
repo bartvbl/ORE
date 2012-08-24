@@ -55,7 +55,7 @@ public class MainMenu extends GameState {
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("toolStore");
+		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");
 		this.displayListID = glGenLists(1);
 		glNewList(this.displayListID, GL_COMPILE);
 				this.testNode.render();
