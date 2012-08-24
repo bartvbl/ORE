@@ -49,8 +49,8 @@ public class MainMenu extends GameState {
 		glTranslated(0, 0, -20);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
-		//this.lightTest.draw();
-		glCallList(this.displayListID);
+		this.lightTest.draw();
+		//glCallList(this.displayListID);
 	}
 	@Override
 	public void set() {
@@ -61,7 +61,7 @@ public class MainMenu extends GameState {
 				this.testNode.render();
 
 		glEndList();
-		//this.lightTest = new LightTestClass(displayListID);
+		this.lightTest = new LightTestClass(displayListID);
 	}
 	@Override
 	public void unset() {
