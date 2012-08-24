@@ -47,6 +47,8 @@ public class MTLLibLoader {
 			MTLLibLoader.readDiffuseColourLine(line, context);
 		} else if(line.startsWith("Ks")) {
 			MTLLibLoader.readSpecularColourLine(line, context);
+		} else if(line.startsWith("Ke")) {
+			MTLLibLoader.readEmissionColourLine(line, context);
 		} else if(line.startsWith("Tr") || line.startsWith("d")) {
 			MTLLibLoader.readTransparencyLine(line, context);
 		} else if(line.startsWith("map_Ka")) {
@@ -79,6 +81,10 @@ public class MTLLibLoader {
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setSpecularColour(OBJLoadingUtils.parseFloatLine(line));
 	}
+	private static void readEmissionColourLine(String line, OBJLoadingContext context) {
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		currentMaterial.setEmissionColour(OBJLoadingUtils.parseFloatLine(line));
+	}
 	private static void readTransparencyLine(String line, OBJLoadingContext context) {
 		String alphaValue = line.split(" ")[1];
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
@@ -104,7 +110,7 @@ public class MTLLibLoader {
 	
 	private static void readIlluminationLine(String line, OBJLoadingContext context) {
 		int illuminationModelID = Integer.parseInt(line.split(" ")[1]);
-		if(illuminationModelID == 1) { //colour material
+		if(illuminationModelID <= 2) { //colour material
 			BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 			currentMaterial.setMaterialAsColourMaterial(true);
 		}

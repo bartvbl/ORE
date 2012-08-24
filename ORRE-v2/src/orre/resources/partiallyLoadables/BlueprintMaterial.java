@@ -32,6 +32,9 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 	public void setSpecularColour(float[] colour) {
 		this.material.setSpecularColour(colour);
 	}
+	public void setEmissionColour(float[] colour) {
+		this.material.setEmissionColour(colour);
+	}
 	
 	public void setMaterialAsColourMaterial(boolean isColourMaterial) {
 		this.material.setMaterialAsColourMaterial(isColourMaterial);
@@ -77,4 +80,6 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 	}
 
 	public void addToCache() {}
+
+	
 }

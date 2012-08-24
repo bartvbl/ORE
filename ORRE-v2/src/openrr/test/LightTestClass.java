@@ -78,7 +78,7 @@ public class LightTestClass {
         	return;
         }
         
-        useShader = false;
+        useShader = true;
     }
     
     /*
@@ -90,7 +90,7 @@ public class LightTestClass {
             ARBShaderObjects.glUseProgramObjectARB(program);
         }
         
-        
+        glCallList(this.draw);
         //release the shader
         if(useShader)
         	ARBShaderObjects.glUseProgramObjectARB(0);
