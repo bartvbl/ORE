@@ -1,87 +1,105 @@
 package openrr.test;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
+import openrr.test.guiHandlers.ButtonActionHandler;
+import openrr.test.guiHandlers.HoverTextDecoration;
+import openrr.test.ButtonID;
 import orre.gl.texture.Texture;
 import orre.resources.loaders.TextureLoader;
+import orre.util.StringUtils;
+
 
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
+import java.io.File;
+import java.awt.image.BufferedImage;
+import java.io.IOError;
 
 import org.lwjgl.util.Rectangle;
 
-public class ImageButton extends Button {
+public class ImageButton extends Button implements DrawableElement {
 	
-	private Texture image;
-	private Texture hoverText;
+	//private ArrayList<Texture> stateImages = new ArrayList<Texture>();
+	private HashMap<String, Texture> stateImages= new HashMap<String, Texture>();
+	ArrayList<EventType> releaseEventTypes = new ArrayList<EventType>();
+	HashMap<EventType, Object> releaseEventParameterObjects = new HashMap<EventType, Object>();
+	Enum buttonID;
 	
-	private ArrayList<Texture> stateImages = new ArrayList<Texture>();
-	
-	public ImageButton(int x, int y, int screenSize[], String inAlign) {
-		super(x, y, screenSize, inAlign);
-	}
-	
-	public void setState(int newState) {
-		state = newState;
-		if (state==HOVER) {
-			image = stateImages.get(NORMAL);
-		}
-		else {
-			image = stateImages.get(state);
-		}
+	public ImageButton(int posData[], String startingState, EventDispatcher eventDispatcher, String fileName, String hoverFile, String hoverText, String inButtonID, Frame parent) {
+		super(posData, startingState, eventDispatcher, parent);
+		addImages(fileName, hoverFile);
+		buttonID = ButtonID.valueOf(inButtonID);
+		System.out.println(buttonID);
+		addEventListener(EventType.MOUSE_MOVE, new ButtonActionHandler(this));
+		addEventListener(EventType.MOUSE_MOVE, new HoverTextDecoration(this, hoverText, parent));
 	}
 	
 	public void draw() {
-		image.blit(x, y, image.getWidth(), image.getHeight());
-		if (state==HOVER && stateImages.get(HOVER)!=null) {
-			Texture hoverOverlay = stateImages.get(HOVER);
-			hoverOverlay.blit(x,y,hoverOverlay.getWidth(),hoverOverlay.getHeight());
+		if (stateImages.get(getState())!=null) {
+			stateImages.get(getState()).blit(x, y, w, h);
+		}
+		else {
+			stateImages.get("n").blit(x, y, w, h);
 		}
 	}
 	
-	public void loadImages(String pathPrefix, String file, String hoverFile) {
-		String[] types = new String[3];
-		types[0] = "";
-		types[1] = "p";
-		types[2] = "n";
-		FileInputStream filePath;
-		for (int i=0; i<3;i++) {
-			try {
-				filePath = new FileInputStream(pathPrefix+types[i]+file);
-				
-			} catch (FileNotFoundException e) {
-				filePath = null;
-			}
-			
-			if (filePath!=null) {
-				stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(pathPrefix+types[i]+file)));
-				System.out.println("\t\t\t\t"+filePath+" LOADED");
-			}
-			else {
-				stateImages.add(null);
-				System.out.println("\t\t\t\t"+filePath+" NOT LOADED");
-			}
-		}
-		
-		try {
-			filePath = new FileInputStream(hoverFile);
-			
-		} catch (FileNotFoundException e) {
-			filePath = null;
-		}
-		
-		if (filePath!=null) {
-			System.out.println("\t\t\t\t"+hoverFile+" LOADED");
-			stateImages.add(TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(hoverFile)));
+	public boolean addImage(String state, String imageFile) {
+		if (fileExists(imageFile)) {
+			stateImages.put(state, loadImage(imageFile));
+			return true;
 		}
 		else {
-			System.out.println("\t\t\t\t"+hoverFile+" NOT LOADED");
-			stateImages.add(null);
+			stateImages.put(state, null);
+			return false;
 		}
-		setState(NORMAL);
-		setWidth(image.getWidth());
-		setHeight(image.getHeight());
-		setPosition();
-		
+	}
+	
+	public void addImages(String imageFile, String hoverFile) {
+		stateImages.put("n", loadImage(imageFile));
+		String[] dirs = imageFile.split("/");
+		String[] dirsWanted = new String[dirs.length-1];
+		for (int i=0; i<dirs.length-1; i++) {
+			dirsWanted[i] = dirs[i];
+		}
+		String basePath = StringUtils.join(dirsWanted, "/");
+		String fileName = dirs[dirs.length-1];
+		addImage("p", basePath+"/p"+fileName);
+		if (!addImage("h", basePath+"/h"+fileName) && hoverFile!="") {
+			addHoverImage(basePath, fileName, hoverFile);
+		}
+		addImage("i", basePath+"/i"+fileName);
+	}
+	
+	public boolean fileExists(String fileName) {
+		try {
+			FileInputStream filePath = new FileInputStream(fileName);
+			return true;
+			
+		} catch (FileNotFoundException e) {
+			return false;
+		}
+	}
+	
+	public Texture loadImage(String fileName) {
+		return TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(fileName));
+	}
+	
+	public void addHoverImage(String basePath, String fileName, String hoverFilePath) {
+		try {
+			BufferedImage base = ImageIO.read(new File(basePath+"/"+fileName));
+			BufferedImage hoverOverlay = ImageIO.read(new File(hoverFilePath));
+			BufferedImage hoverImage = new BufferedImage(40, 40, BufferedImage.TYPE_INT_RGB);
+			hoverImage.createGraphics().drawImage(base, 0, 0, null); 
+			hoverImage.createGraphics().drawImage(hoverOverlay, 0, 0, null);
+			ImageIO.write(hoverImage, "bmp", new File(basePath+"/h"+fileName));
+			addImage("h", basePath+"/h"+fileName);
+		} catch (IOException ioe) {
+			System.out.println("CREATION OF HOVER IMAGE @ '"+basePath+"/"+fileName+"' FAILED");
+		}
 	}
 }

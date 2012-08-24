@@ -6,22 +6,16 @@ public class MouseEvent {
 	public static int RELEASE = 1;
 	public static int MOVE = 2;
 	
-	
 	int x;
 	int y;
-	int dX;
-	int dY;
 	
 	int type;
 	
 	boolean handled = false;
-	
 
 	public MouseEvent(int inX, int inY, int inType) {
 		x = inX;
 		y = inY;
-		//dX = inDX;
-		//dY = inDY;
 		type = inType;
 	}
 	
@@ -29,5 +23,12 @@ public class MouseEvent {
 		handled = true;
 	}
 	
+	public int getType() {
+		return type;
+	}
+	
+	public int[] getPosData() {
+		return new int[] {x, y};
+	}
 	
 }

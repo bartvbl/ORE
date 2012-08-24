@@ -1,14 +1,21 @@
 package openrr.test;
 
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.UnicodeFont;
+import org.newdawn.slick.font.effects.ColorEffect;
+
 
 import org.dom4j.Node;
 
 import orre.core.GameWindow;
 import orre.util.XMLDocument;
 
-import openrr.test.Container;
+import openrr.test.Image;
 
 
 public class MenuManager {
@@ -16,74 +23,59 @@ public class MenuManager {
 	ArrayList<Menu> menus = new ArrayList<Menu>();
 	ArrayList<Menu> activeMenus = new ArrayList<Menu>();
 	ArrayList<Menu> inactiveMenus = new ArrayList<Menu>();
+	EventDispatcher guiEventManager;
+	ArrayList<GUIElement> children  = new ArrayList<GUIElement>();
+	HoverText x;
 	
 	public MenuManager(int[] screenSize) {
-		/*Button button = new Button(100,100, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT},"left");
-		button.loadImages("res/images/menus/main/", "raider.bmp", "res/images/hover.png");
-		Button button2 = new Button(100,140, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT},"left");
-		button2.loadImages("res/images/menus/main/", "building.bmp", "res/images/hover.png");
-		Container container = new Container(100,100,40,80, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT}, "left");
-		container.addChild(button);
-		container.addChild(button2);
-		Button button3 = new Button(55,100, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT},"left");
-		button3.loadImages("res/images/menus/main/", "svehicle.bmp", "res/images/hover.png");
-		Container container2 = new Container(55,100,40,40, new int[] {GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT}, "left");
-		container2.addChild(button3);
-		menus.add(container);
-		menus.add(container2);*/
-		loadGUI(screenSize);
+		guiEventManager = new EventDispatcher();
+		Menu testFrame = new Menu (new int[] {0,0,60,184});
+		testFrame.addChild(new Image(new int[] {0,0,60,184}, "res/images/menus/slot4wo.png", null));
+		ImageButton b = new ImageButton(new int[] {10,15,40,40}, "n", guiEventManager, "res/images/menus/main/raider.bmp", "res/images/menus/hover.png", "Teleport Rock Raider to Planet", "TELEPORT_ROCK_RAIDER", testFrame);
+		b.
+		testFrame.addChild(b);
+		testFrame.addChild(new ImageButton(new int[] {10,55,40,40}, "n", guiEventManager, "res/images/menus/main/building.bmp", "res/images/menus/hover.png", "Buildings", "BUILDINGS", testFrame));
+		testFrame.addChild(new ImageButton(new int[] {10,95,40,40}, "n", guiEventManager, "res/images/menus/main/svehicle.bmp", "res/images/menus/hover.png", "Small Vehicles", "SMALL_VEHICLES", testFrame));
+		testFrame.addChild(new ImageButton(new int[] {10,135,40,40}, "n", guiEventManager, "res/images/menus/main/lvehicle.bmp", "res/images/menus/hover.png", "Large Vehicles", "LARGE_VEHICLES", testFrame));
+		children.add(testFrame);
+		//x = new HoverText(new int[] {30,300,0,0}, "Ice Monster", "Arial", new Color(255, 255, 255), 12, null);
 	}
 	
-	public void draw () {
-		for (Menu menu : activeMenus) {
-			menu.draw();
-		}
-	}
 	
-	public boolean mouseIsInMenuBounds(int x, int y) {
-		for (Menu menu : activeMenus) {
-			for (Container container : menu.getContainers()) {
-				if (container.inBounds(x,y)) {
-					return true;
-				}
+	public void draw() {
+		for (GUIElement child : children) {
+			if (child instanceof DrawableElement) {
+				((DrawableElement) child).draw();
 			}
 		}
-		return false;
+		//x.draw();
 	}
 	
-	public Button getButtonInBounds(int x, int y) {
-		for (Menu menu : activeMenus) {
-			for (Container container : menu.getContainers()) {
-				if (container.inBounds(x,y)) {
-					return container.getButtonInBounds(x, y);
+	public EventDispatcher getDispatcher() {
+		return guiEventManager;
+	}
+	
+	public Button getButton(int[] coords) {
+		for (GUIElement child : children) {
+			if (child instanceof Button && child.inCoords(coords)) {
+				return (Button) child;
+			}
+			else {
+				if (child instanceof Frame && child.inCoords(coords)) {
+					GUIElement frameChild = ((Frame) child).findChild(coords);
+					while (frameChild instanceof Frame) {
+						frameChild = ((Frame) frameChild).findChild(coords);
+					}
+					if (frameChild!=null && frameChild instanceof Button) {
+						return (Button) frameChild;
+					}
+					else {
+						return null;
+					}
 				}
 			}
 		}
 		return null;
-	}
-	
-	public void changeMenuZ(Menu menu, float val) {
-		menu.changeZ(val);
-		//Sort menus
-	}
-	
-	public void sortMenusByZ() {
-		int i=0;
-		while (i<activeMenus.size()) {
-			int j = 0;
-			for (int k=i+1; k<activeMenus.size(); k++) {
-				if (activeMenus.get(i).getZ()>activeMenus.get(k).getZ()) {
-					j=k;
-				}
-			}
-			if (j!=0) {
-				activeMenus.add(j+1, activeMenus.get(i));
-				activeMenus.remove(i);
-			}
-			else {
-				i++;
-			}
-		}
 	}
 
 	public void loadGUI(int[] screenSize) {

@@ -20,7 +20,8 @@ public class UI {
 	}
 	
 	public void handleUI(MouseEvent event) {
-		 if (menuManager.mouseIsInMenuBounds(event.x, event.y)) {
+		 handle2D(event);
+		/* if (menuManager.mouseIsInMenuBounds(event.x, event.y)) {
 			 handle2D(event);
 		 }
 		 else {
@@ -29,65 +30,60 @@ public class UI {
 				 buttonInteractingWith = null;
 			 }
 			 else {
-				 if (buttonInteractingWith!=null && buttonInteractingWith.getState()!=Button.PRESSED) {
-					 buttonInteractingWith.setState(Button.NORMAL);
+				 if (buttonInteractingWith!=null && buttonInteractingWith.getState()!="p") {
+					 buttonInteractingWith.setState("n");
 					 buttonInteractingWith = null;
 				 }
 				 handle3D(event);
 			 }
-		 }
+		 }*/
 	}
 	
 	public void handle2D(MouseEvent event) {
-		if (event.type==MouseEvent.MOVE) {
+		if (event.getType()==MouseEvent.MOVE) {
 			if (buttonInteractingWith==null) {
-				set2DMouseData(event.x, event.y);
+				buttonInteractingWith = menuManager.getButton(event.getPosData());
+				menuManager.getDispatcher().dispatchEvent(new Event(EventType.MOUSE_MOVE, buttonInteractingWith));
+			} else {
+				if (!(buttonInteractingWith.getState()=="p") && !(buttonInteractingWith.inCoords(event.getPosData()))) {
+					buttonInteractingWith.setState("n");
+					buttonInteractingWith = menuManager.getButton(event.getPosData());
+					if (buttonInteractingWith!=null) {
+						menuManager.getDispatcher().dispatchEvent(new Event(EventType.MOUSE_MOVE, buttonInteractingWith));
+						//buttonInteractingWith.hover();
+					}
+				}
+			}
+					
+		}
+		else {
+			if (event.getType()==MouseEvent.PRESS) {
+				buttonInteractingWith = menuManager.getButton(event.getPosData());
 				if (buttonInteractingWith!=null) {
-					buttonInteractingWith.hoveredOver();
+					menuManager.getDispatcher().dispatchEvent(new Event(EventType.MOUSE_PRESS, buttonInteractingWith));
+					//buttonInteractingWith.press();
 				}
 			}
 			else {
-				if (!(buttonInteractingWith.getState()==Button.PRESSED)) {
-					if (!buttonInteractingWith.inBounds(event.x, event.y)) {
-						buttonInteractingWith.setState(Button.NORMAL);
-						set2DMouseData(event.x, event.y);
-						if (buttonInteractingWith!=null) {
-							buttonInteractingWith.hoveredOver();
+				if (event.getType()==MouseEvent.RELEASE) {
+					if (buttonInteractingWith!=null) {
+						if (buttonInteractingWith.inCoords(event.getPosData())) {
+							menuManager.getDispatcher().dispatchEvent(new Event(EventType.MOUSE_RELEASE, buttonInteractingWith));
+							//buttonInteractingWith.release()
+							buttonInteractingWith = null;
+						}
+						else {
+							buttonInteractingWith.setState("n");
+							buttonInteractingWith = null;
 						}
 					}
 				}
 			}
-		}
-		else{
-			if (event.type==MouseEvent.PRESS) {
-				set2DMouseData(event.x, event.y);
-				if (buttonInteractingWith!=null) {
-					buttonInteractingWith.pressed();
-				}
-			}
-			else {
-				if (event.type==MouseEvent.RELEASE && buttonInteractingWith!=null) {
-					if (buttonInteractingWith.inBounds(event.x, event.y)) {
-						buttonInteractingWith.clicked();
-						buttonInteractingWith = null;
-					}
-					else {
-						buttonInteractingWith.setState(Button.NORMAL);
-						buttonInteractingWith = null;
-					}
-				}
-			}
-		}
+		}	
 	}
 	
 	public void handle3D(MouseEvent event) {
 	
-	}
-	
-	public void set2DMouseData(int eX, int eY) {
-		x = eX;
-		y = eY;
-		buttonInteractingWith = menuManager.getButtonInBounds(x, y);
 	}
 	
 	

@@ -5,9 +5,31 @@ import java.util.ArrayList;
 import orre.gl.texture.Texture;
 import orre.resources.loaders.TextureLoader;
 
-public class Menu {
+public class Menu extends Frame implements DrawableElement {
 	
-	public static int OPEN = 0;
+	public Menu(int[] posData) {
+		super(posData, null);
+		
+	}
+	
+	public void draw() {
+		for (GUIElement child : children) {
+			if (child instanceof DrawableElement) {
+				((DrawableElement) child).draw();
+			}
+		}
+	}
+	
+	public GUIElement findChild(int coords[]) {
+		for (GUIElement child : children) {
+			if (child.inCoords(coords) && child instanceof InteractiveElement) {
+				return child;
+			}
+		}
+		return null;
+	}
+	
+	/*public static int OPEN = 0;
 	public static int CLOSED = 1;
 	public static int OPENING = 2;
 	public static int CLOSING = 3;
@@ -121,6 +143,6 @@ public class Menu {
 	
 	public ArrayList<Container> getContainers() {
 		return itemContainers;
-	}
+	}*/
 
 }

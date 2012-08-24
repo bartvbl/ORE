@@ -12,6 +12,7 @@ import org.lwjgl.input.Mouse;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
+import org.lwjgl.util.Timer;
 
 
 import java.awt.Font;
@@ -72,9 +73,10 @@ public class Main {
 				}
 			}
 			menuManager.draw();
-			//but.draw();
 			Display.update();
 			Display.sync(50);
+			Timer.tick();
+			menuManager.guiEventManager.dispatchEvent(new Event(EventType.TIMER_TICK));
 		}
 		
 	}
