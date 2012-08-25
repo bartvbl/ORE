@@ -31,7 +31,7 @@ public class DelayTimer {
 	}
 	
 	public void destroyTimer() {
-		eventDispatcher.removeEventListener(this, EventType.TIMER_TICK);
+		eventDispatcher.removeEventListener(EventType.TIMER_TICK, this);
 		tickHandler = null;
 	}
 }

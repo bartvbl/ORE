@@ -32,7 +32,7 @@ public class MenuManager {
 		Menu testFrame = new Menu (new int[] {0,0,60,184});
 		testFrame.addChild(new Image(new int[] {0,0,60,184}, "res/images/menus/slot4wo.png", null));
 		ImageButton b = new ImageButton(new int[] {10,15,40,40}, "n", guiEventManager, "res/images/menus/main/raider.bmp", "res/images/menus/hover.png", "Teleport Rock Raider to Planet", "TELEPORT_ROCK_RAIDER", testFrame);
-		b.
+		//b.
 		testFrame.addChild(b);
 		testFrame.addChild(new ImageButton(new int[] {10,55,40,40}, "n", guiEventManager, "res/images/menus/main/building.bmp", "res/images/menus/hover.png", "Buildings", "BUILDINGS", testFrame));
 		testFrame.addChild(new ImageButton(new int[] {10,95,40,40}, "n", guiEventManager, "res/images/menus/main/svehicle.bmp", "res/images/menus/hover.png", "Small Vehicles", "SMALL_VEHICLES", testFrame));
