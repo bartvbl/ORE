@@ -78,7 +78,7 @@ public class LightTestClass {
         	return;
         }
         
-        useShader = true;
+        useShader = false;
     }
     
     /*

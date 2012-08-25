@@ -36,8 +36,8 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 		this.material.setEmissionColour(colour);
 	}
 	
-	public void setMaterialAsColourMaterial(boolean isColourMaterial) {
-		this.material.setMaterialAsColourMaterial(isColourMaterial);
+	public void setShininess(float shininess) {
+		this.material.setShininess(shininess);
 	}
 	
 	public void setAlpha(float alpha) {
@@ -80,6 +80,7 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 	}
 
 	public void addToCache() {}
+
 
 	
 }

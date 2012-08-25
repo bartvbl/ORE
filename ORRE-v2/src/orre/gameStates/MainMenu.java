@@ -46,7 +46,7 @@ public class MainMenu extends GameState {
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
-		glTranslated(0, 0, -60);
+		glTranslated(0, 0, -20);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
 		this.lightTest.draw();
@@ -55,7 +55,7 @@ public class MainMenu extends GameState {
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");
+		this.testNode = this.resourceCache.createModelInstace("toolStore");
 		this.displayListID = glGenLists(1);
 		glNewList(this.displayListID, GL_COMPILE);
 				this.testNode.render();
