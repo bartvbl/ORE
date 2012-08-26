@@ -8,6 +8,7 @@ import openrr.test.Button;
 import openrr.test.Event;
 import openrr.test.EventHandler;
 import openrr.test.EventType;
+import openrr.test.EventDispatcher;
 import openrr.test.Frame;
 import openrr.test.GUIElement;
 import openrr.test.InteractiveElement;
@@ -24,13 +25,13 @@ public class HoverTextDecoration implements EventHandler {
 	Frame parent;
 	Boolean displayingText;
 	
-	public HoverTextDecoration(InteractiveElement target, String text, Frame parentFrame) {
+	public HoverTextDecoration(InteractiveElement target, String text, EventDispatcher eventDispatcher, Frame parentFrame) {
 		target.addEventListener(EventType.MOUSE_MOVE, this);
 		target.addEventListener(EventType.TIMER_EXPIRED, this);
 		target.addEventListener(EventType.NEW_DELAY_HOVER_TIMER, this);
 		element = target;
 		parent = parentFrame;
-		hoverText = new HoverText(text, "Arial", new Color(255, 255, 255), 12, null);
+		hoverText = new HoverText(text, "Arial", new Color(255, 255, 255), 12, eventDispatcher, null);
 		displayingText = false;
 	}
 	

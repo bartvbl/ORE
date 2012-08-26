@@ -8,9 +8,8 @@ public class Frame extends GUIElement {
 	
 	protected ArrayList<GUIElement> children = new ArrayList<GUIElement>();
 	
-	public Frame(int posData[], Frame parent) {
-		super(posData, parent);
-		
+	public Frame(int posData[], EventDispatcher eventDispatcher, Frame parent) {
+		super(posData, eventDispatcher, parent);
 	}
 	
 	public void addChild(GUIElement child) {

@@ -7,10 +7,14 @@ public class GUIElement {
 	protected int w;
 	protected int h;
 	protected Frame parent;
+	protected EventDispatcher eventDispatcher;
+	protected boolean moving = false;
+	protected double[] moveData;
 	
-	public GUIElement(int[] posData, Frame parent) {
+	public GUIElement(int[] posData, EventDispatcher inEventDispatcher, Frame parent) {
 		setPosData(posData);
 		setParent(parent);
+		eventDispatcher = inEventDispatcher;
 	}
 	
 	public void setPosData(int[] posData) {
@@ -31,6 +35,30 @@ public class GUIElement {
 			}
 		}
 		return false;
+	}
+	
+	public void beginMove(int amount, double increments) {
+		moveData = new double[] {amount, amount/increments, 0, x};
+		getEventDispatcher().dispatchEvent(new Event(EventType.GUIELEMENT_MOVING, this));
+	}
+	
+	public void move() {
+		moveData[2] += moveData[1];
+		x += Math.round(moveData[1]);
+		if (moveData[2]==moveData[0]) {
+			x = (int)(moveData[3]+moveData[0]);
+			moveData = null;
+			moving = false;
+			getEventDispatcher().dispatchEvent(new Event(EventType.GUIELEMENT_MOVED, this));
+		}
+	}
+	
+	public boolean isMoving() {
+		return moving;
+	}
+	
+	public EventDispatcher getEventDispatcher() {
+		return eventDispatcher;
 	}
 	
 	public void setParent(Frame newParent) {
