@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<ORRMap>
+	<meta>
+		<name>A cold bath</name>
+		<author>An unknown person</author>
+		<thumbNail src="textures/thumb.png" />
+	</meta>
+	<mapDefinition>
+		<mapDimension width="100" height="100"/>
+		<customTiles>
+			<customTile name="dirtOfDoom" texture="textures/dirt.png" script="scripts/dirt.rrs"/>
+		</customTiles>
+		<heightMap src="heightMap.png">
+			<tile x="24" y="12" zTopLeft="23"/>
+			<tile x="65" y="35" zBottomRight="12"/>
+		</heightMap>
+		<soilMap soilType="ice" src="soilMap.png">
+		
+		</soilMap>
+		<resourceMap>
+			<resource x="23.267" y="58.274" type="chrystal" rotation="0" /> 
+		</resourceMap>
+		<wallMap src="wallMap.png">
+			<row rowNumber="4">1100101000101010011001011001010</row>
+		</wallMap>
+	</mapDefinition>
+	<buildings>
+		<customBuildings>
+		
+		</customBuildings>
+		<building type="toolStore" x="20" y="20"/>
+	</buildings>
+	<entities>
+		<entity type="chromeCrusher" x="34.235" y="143"/>
+	</entities>
+	<effects>
+		<effect type="landSlide" x="24" y="25" progress="345" />
+	</effects>
+	<scripts>
+		<script src="scripts/levelScript.rrs"/>
+	</scripts>
+</ORRMap>
