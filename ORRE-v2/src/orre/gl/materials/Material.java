@@ -1,13 +1,10 @@
 package orre.gl.materials;
 
 import java.nio.FloatBuffer;
-import java.util.Arrays;
-import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.concurrent.atomic.AtomicReference;
 
 import org.lwjgl.BufferUtils;
 
-import orre.gl.Colour;
 import orre.gl.texture.Texture;
 import orre.sceneGraph.SceneNode;
 import orre.sceneGraph.SimpleSceneNode;
@@ -20,16 +17,12 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	private float[] diffuseColour;
 	private float[] specularColour;
 	private float[] emissionColour;
-	private AtomicBoolean isColourMaterial = new AtomicBoolean(false);
-	private AtomicReference<Float> alpha;
+	private float shininess;
+	private float alpha;
 	private Texture ambientTexture = null;
 	private Texture diffuseTexture = null;
 	private Texture specularTexture = null;
 	private FloatBuffer colourBuffer = BufferUtils.createFloatBuffer(4);
-	private static final float[] ambientLight = new float[]{0.1f, 0.1f, 0.1f, 1.0f};
-	private static final float[] diffuseLight = new float[]{0.2f, 0.2f, 0.2f, 1.0f};
-	private static final float[] specularLight = new float[]{0.6f, 0.6f, 0.6f, 1.0f};
-	private static final float[] emissionLight = new float[]{0.2f, 0.2f, 0.2f, 1.0f};
 	
 	public Material(String name)
 	{
@@ -38,8 +31,7 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 		this.diffuseColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 		this.specularColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 		this.emissionColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
-		this.alpha = new AtomicReference<Float>();
-		this.alpha.set(1f);
+		this.alpha = 1f;
 	}
 	
 	public void setAmbientTexture(Texture texture)
@@ -76,6 +68,10 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 		this.emissionColour = colour;
 	}
 	
+	public void setShininess(float shininess) {
+		this.shininess = shininess;
+	}
+	
 	private float[] formatColour(float[] colour)
 	{
 		if(colour.length == 3)
@@ -85,43 +81,31 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 		return colour;
 	}
 	
-	public void setMaterialAsColourMaterial(boolean isColourMaterial)
-	{
-		this.isColourMaterial.set(isColourMaterial);
-	}
-	
 	public void setAlpha(float alpha)
 	{
-		this.alpha.set(alpha);
+		this.alpha = alpha;
 	}
 	
 	public void render() 
 	{
-		if(this.isColourMaterial.get()) {
-			//glEnable(GL_COLOR_MATERIAL);				
-			//glColorMaterial(GL_FRONT, GL_AMBIENT);
-			//glColorMaterial(GL_FRONT, GL_DIFFUSE);
-			//glColorMaterial(GL_FRONT, GL_SPECULAR);
-			//glColor4f(this.ambientColour[0], this.ambientColour[1], this.ambientColour[2], this.alpha.get());
-		}
+		this.bindTexture();
+		glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+		glMaterial(GL_FRONT, GL_AMBIENT, this.fillColourBuffer(this.ambientColour, this.alpha));
+		glMaterial(GL_FRONT, GL_DIFFUSE, this.fillColourBuffer(this.diffuseColour, this.alpha));
+		glMaterial(GL_FRONT, GL_SPECULAR, this.fillColourBuffer(this.specularColour, this.alpha));
+		glMaterial(GL_FRONT, GL_EMISSION, this.fillColourBuffer(this.emissionColour, this.alpha));
+		this.renderChildren();
+	}
+	
+	private void bindTexture() {
 		if(this.diffuseTexture != null) {
 			glEnable(GL_TEXTURE_2D);
 			this.diffuseTexture.bind();
 		} else {
 			glDisable(GL_TEXTURE_2D);
 		}
-		glMaterialf(GL_FRONT, GL_SHININESS, 10f);
-		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientLight).rewind());
-		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseLight).rewind());
-		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularLight).rewind());
-//		glLight(GL_LIGHT0, GL_EMISSION, (FloatBuffer)this.colourBuffer.put(this.emissionLight).rewind());
-		glMaterial(GL_FRONT, GL_AMBIENT, this.fillColourBuffer(this.ambientColour, this.alpha.get()));
-		glMaterial(GL_FRONT, GL_DIFFUSE, this.fillColourBuffer(this.diffuseColour, this.alpha.get()));
-		glMaterial(GL_FRONT, GL_SPECULAR, this.fillColourBuffer(this.specularColour, this.alpha.get()));
-		glMaterial(GL_FRONT, GL_EMISSION, this.fillColourBuffer(this.emissionColour, this.alpha.get()));
-		this.renderChildren();
-		glDisable(GL_COLOR_MATERIAL);
 	}
+
 	private FloatBuffer fillColourBuffer(float[] colour, float alpha) {
 		this.colourBuffer.put(colour[0]);
 		this.colourBuffer.put(colour[1]);
@@ -131,22 +115,20 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 		return this.colourBuffer;
 	}
 	
-	public void destroy() 
-	{
-		
-	}
+	public void destroy(){}
 	
 	public Material clone() {
 		Material material = new Material(this.name);
-		material.setAlpha(this.alpha.get());
+		material.setAlpha(this.alpha);
 		material.setAmbientColour(this.ambientColour);
 		material.setDiffuseColour(this.diffuseColour);
 		material.setSpecularColour(this.specularColour);
 		material.setEmissionColour(this.emissionColour);
+		material.setShininess(this.shininess);
 		if(this.ambientTexture != null) {material.setAmbientTexture(this.ambientTexture.clone());}
 		if(this.diffuseTexture != null) {material.setDiffuseTexture(this.diffuseTexture.clone());}
 		if(this.specularTexture != null) {material.setSpecularTexture(this.specularTexture.clone());}
-		material.setMaterialAsColourMaterial(this.isColourMaterial.get());
 		return material;
 	}
+
 }

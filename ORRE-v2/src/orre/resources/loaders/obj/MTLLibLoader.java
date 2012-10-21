@@ -59,6 +59,8 @@ public class MTLLibLoader {
 			MTLLibLoader.readSpecularTextureLine(line, context);
 		} else if(line.startsWith("illum")) {
 			MTLLibLoader.readIlluminationLine(line, context);
+		} else if(line.startsWith("Ns")) {
+			MTLLibLoader.readShininessLine(line, context);
 		}
 	}
 
@@ -109,10 +111,12 @@ public class MTLLibLoader {
 	}
 	
 	private static void readIlluminationLine(String line, OBJLoadingContext context) {
-		int illuminationModelID = Integer.parseInt(line.split(" ")[1]);
-		if(illuminationModelID <= 2) { //colour material
-			BlueprintMaterial currentMaterial = context.getCurrentMaterial();
-			currentMaterial.setMaterialAsColourMaterial(true);
-		}
+		
+	}
+	
+	private static void readShininessLine(String line, OBJLoadingContext context) {
+		String shininessValue = line.split(" ")[1];
+		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		currentMaterial.setShininess(Float.parseFloat(shininessValue));
 	}
 }

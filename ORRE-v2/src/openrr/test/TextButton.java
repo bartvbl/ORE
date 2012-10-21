@@ -23,7 +23,7 @@ public class TextButton extends Button {
 	private ArrayList<String> stateText = new ArrayList<String>();
 	private ArrayList<Color> stateColors = new ArrayList<Color>();
 	
-	public TextButton(int x, int y, int screenSize[], String inAlign, String inText) {
+	public TextButton(int x, int y, int screenSize[], String inAlign, String inText, EventDispatcher eventDispatcher) {
 		super(x, y, screenSize, inAlign);
 	}
 	
