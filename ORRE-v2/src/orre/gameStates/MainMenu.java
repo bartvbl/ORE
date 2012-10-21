@@ -7,6 +7,7 @@ import openrr.test.LightTestClass;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 
 import orre.core.GameMain;
 import orre.events.Event;
@@ -34,6 +35,7 @@ public class MainMenu extends GameState {
 		this.buffer = BufferUtils.createFloatBuffer(4);
 		FileToLoad mainCache = new FileToLoad(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml");
 		eventDispatcher.dispatchEvent(new Event<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
+		System.out.println(Display.getAdapter());
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
@@ -46,7 +48,7 @@ public class MainMenu extends GameState {
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
-		glTranslated(0, 0, -60);
+		glTranslated(0, 0, -70);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
 		this.lightTest.draw();

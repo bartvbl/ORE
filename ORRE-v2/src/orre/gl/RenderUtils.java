@@ -23,7 +23,7 @@ public class RenderUtils {
 		glEnable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluPerspective(60.0f, ((float)Display.getWidth()/(float)Display.getHeight()), RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
+		gluPerspective(45.0f, ((float)Display.getWidth()/(float)Display.getHeight()), RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_CULL_FACE);
