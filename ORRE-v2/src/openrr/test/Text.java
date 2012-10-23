@@ -23,8 +23,8 @@ public class Text extends GUIElement implements DrawableElement {
 	
 	protected int fontSize;
 	
-	public Text(int[] pos, String inText, String inFont, Color inColor, int inFontSize, Frame parent) {
-		super(new int[] {pos[0], pos[1], 0, 0}, parent);
+	public Text(int[] pos, String inText, String inFont, Color inColor, int inFontSize, EventDispatcher eventDispatcher, Frame parent) {
+		super(new int[] {pos[0], pos[1], 0, 0}, eventDispatcher, parent);
 		text = inText;
 		fontSize = inFontSize;
 		color = inColor;

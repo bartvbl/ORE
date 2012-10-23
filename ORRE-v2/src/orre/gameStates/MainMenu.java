@@ -6,7 +6,7 @@ import openrr.test.LightTestClass;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.input.Mouse;
+import org.lwjgl.opengl.Display;
 
 import orre.core.GameMain;
 import orre.events.Event;
@@ -28,12 +28,13 @@ public class MainMenu extends GameState {
 	private int displayListID;
 	private LightTestClass lightTest;
 	private int time = 0;
-	
+
 	public MainMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
 		super(main, eventDispatcher, stateName);
 		this.buffer = BufferUtils.createFloatBuffer(4);
 		FileToLoad mainCache = new FileToLoad(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml");
 		eventDispatcher.dispatchEvent(new Event<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
+		System.out.println(Display.getAdapter());
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();

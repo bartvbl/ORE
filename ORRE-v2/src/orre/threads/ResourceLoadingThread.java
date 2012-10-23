@@ -6,6 +6,8 @@ import orre.resources.ResourceFile;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
 import orre.resources.loaders.TextureLoader;
+import orre.resources.loaders.map.MapLoader;
+import orre.resources.loaders.map.PartiallyLoadableMap;
 import orre.resources.loaders.obj.ModelLoader;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
@@ -35,6 +37,10 @@ public class ResourceLoadingThread extends Thread {
 				BlueprintModel model = ModelLoader.loadModel(currentFile, this.resourceQueue);
 				model.setDestinationCache(currentFile.destinationCache);
 				this.resourceQueue.enqueueResourceForFinalization(model);
+			} else if(currentFile.fileType == ResourceFile.MAP_FILE) {
+				PartiallyLoadableMap map = MapLoader.loadMap(currentFile);
+				map.setDestinationCache(currentFile.destinationCache);
+				this.resourceQueue.enqueueResourceForFinalization(map);
 			}
 			currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();
 			this.tracker.registerFileLoaded();

@@ -15,5 +15,6 @@
 	<classpathentry kind="lib" path="jars/AppleJavaExtensions.jar"/>
 	<classpathentry kind="lib" path="jars/slick-util.jar"/>
 	<classpathentry kind="lib" path="jars/slick.jar"/>
+	<classpathentry kind="lib" path="jars/xom-1.2.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

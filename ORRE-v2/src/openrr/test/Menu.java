@@ -7,9 +7,12 @@ import orre.resources.loaders.TextureLoader;
 
 public class Menu extends Frame implements DrawableElement {
 	
-	public Menu(int[] posData) {
-		super(posData, null);
-		
+	public Menu(int[] posData, EventDispatcher eventDispatcher) {
+		super(posData, eventDispatcher, null);
+	}
+	
+	public void addEventListener(EventType eventType, EventHandler eventHandler) {
+		eventDispatcher.addEventListener(this, eventType, eventHandler);
 	}
 	
 	public void draw() {
@@ -27,6 +30,47 @@ public class Menu extends Frame implements DrawableElement {
 			}
 		}
 		return null;
+	}
+	
+	public Boolean buttonWithinMenu(Button button) {
+		for (GUIElement child : children) {
+			if (child instanceof Button) {
+				if (child == button) {
+					return true;
+				}
+			}
+		}
+		return false;
+	}
+	
+	public void beginMove(int amount, double increments) {
+		moveData = new double[] {amount, amount/increments, 0, x};
+		for (GUIElement child : children) {
+			child.moveData = new double[] {amount, amount/increments, 0, x};
+			child.moving = true;
+		}
+		getEventDispatcher().dispatchEvent(new Event(EventType.GUIELEMENT_MOVING, this));
+	}
+	
+	public void move() {
+		System.out.println(moveData[0]+" "+moveData[1]+" "+moveData[2]+" "+moveData[3]);
+		moveData[2] += moveData[1];
+		x += Math.round(moveData[1]);
+		for (GUIElement child : children) {
+			child.moveData[2] += child.moveData[1];
+			child.x += Math.round(child.moveData[1]);
+		}
+		if (moveData[2]==moveData[0]) {
+			for (GUIElement child : children) {
+				child.x = (int)(child.moveData[3]+child.moveData[0]);
+				child.moveData = null;
+				child.moving = false;
+			}
+			x = (int)(moveData[3]+moveData[0]);
+			moveData = null;
+			moving = false;
+			getEventDispatcher().dispatchEvent(new Event(EventType.GUIELEMENT_MOVED, this));
+		}
 	}
 	
 	/*public static int OPEN = 0;

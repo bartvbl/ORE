@@ -2,11 +2,8 @@ package openrr.test;
 
 public class InteractiveElement extends GUIElement {
 	
-	protected EventDispatcher eventDispatcher;
-	
-	public InteractiveElement(int[] posData, EventDispatcher inEventDispatcher, Frame parent) {
-		super(posData, parent);
-		eventDispatcher = inEventDispatcher;
+	public InteractiveElement(int[] posData, EventDispatcher eventDispatcher, Frame parent) {
+		super(posData, eventDispatcher, parent);
 	}
 	
 	public void addEventListener(EventType eventType, EventHandler eventHandler) {
@@ -18,8 +15,4 @@ public class InteractiveElement extends GUIElement {
 	public void onMousePress() { }
 	
 	public void onMouseRelease() { }
-	
-	public EventDispatcher getEventDispatcher() {
-		return eventDispatcher;
-	}
 }

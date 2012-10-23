@@ -7,8 +7,8 @@ public class Image extends GUIElement implements DrawableElement {
 	
 	Texture image;
 	
-	public Image(int posData[], String fileName, Frame parent) {
-		super(posData, parent);
+	public Image(int posData[], String fileName, EventDispatcher eventDispatcher, Frame parent) {
+		super(posData, eventDispatcher, parent);
 		image = TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(fileName));
 	}
 	

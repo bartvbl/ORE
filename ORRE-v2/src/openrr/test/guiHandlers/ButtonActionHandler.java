@@ -31,22 +31,4 @@ public class ButtonActionHandler implements EventHandler {
 			}
 		}
 	}
-	
-	private void release() {
-		for (EventType eventType : releaseEventTypes) {
-			button.getEventDispatcher().dispatchEvent(new Event(eventType, releaseEventParameterObjects.get(eventType)));
-		}
-		button.setState("n");
-	}
-	
-	public void addReleaseEvent(EventType eventType) {
-		releaseEventTypes.add(eventType);
-		releaseEventParameterObjects.put(eventType, null);
-	}
-	
-	public void addReleaseEvent(EventType eventType, Object parameter) {
-		releaseEventTypes.add(eventType);
-		releaseEventParameterObjects.put(eventType, parameter);
-	}
-
 }

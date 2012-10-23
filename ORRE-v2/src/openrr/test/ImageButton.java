@@ -28,15 +28,12 @@ public class ImageButton extends Button implements DrawableElement {
 	private HashMap<String, Texture> stateImages= new HashMap<String, Texture>();
 	ArrayList<EventType> releaseEventTypes = new ArrayList<EventType>();
 	HashMap<EventType, Object> releaseEventParameterObjects = new HashMap<EventType, Object>();
-	Enum buttonID;
 	
 	public ImageButton(int posData[], String startingState, EventDispatcher eventDispatcher, String fileName, String hoverFile, String hoverText, String inButtonID, Frame parent) {
-		super(posData, startingState, eventDispatcher, parent);
+		super(posData, startingState, inButtonID, eventDispatcher, parent);
 		addImages(fileName, hoverFile);
-		buttonID = ButtonID.valueOf(inButtonID);
-		System.out.println(buttonID);
 		addEventListener(EventType.MOUSE_MOVE, new ButtonActionHandler(this));
-		addEventListener(EventType.MOUSE_MOVE, new HoverTextDecoration(this, hoverText, parent));
+		addEventListener(EventType.MOUSE_MOVE, new HoverTextDecoration(this, hoverText, getEventDispatcher(), parent));
 	}
 	
 	public void draw() {

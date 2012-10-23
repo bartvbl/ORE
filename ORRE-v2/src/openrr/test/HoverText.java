@@ -11,8 +11,8 @@ public class HoverText extends Text {
 	
 	int screenW, screenH;
 	
-	public HoverText(String inText, String inFont, Color inColor, int inFontSize, Frame parent) {
-		super(new int[] {Mouse.getX(), Mouse.getY(), 0, 0}, inText, inFont, inColor, inFontSize, parent);
+	public HoverText(String inText, String inFont, Color inColor, int inFontSize, EventDispatcher eventDispatcher, Frame parent) {
+		super(new int[] {Mouse.getX(), Mouse.getY(), 0, 0}, inText, inFont, inColor, inFontSize, eventDispatcher, parent);
 		setPosData(new int[] {getPosData()[0], getPosData()[1], w, h});
 		screenW = 800;
 		screenH = 600;
