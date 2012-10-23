@@ -47,10 +47,14 @@ public class MainMenu extends GameState {
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
-		glTranslated(0, 0, -10);
+		glTranslated(0, 0, -60);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
-		this.lightTest.draw();
+//		this.lightTest.draw();
+		glCallList(this.displayListID);
+		glTranslatef(20, 0, 0);
+		glCallList(this.displayListID);
+		glTranslatef(-40, 0, 0);
 		glCallList(this.displayListID);
 	}
 	@Override
