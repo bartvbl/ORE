@@ -1,32 +1,63 @@
-varying vec3 normal, lightDir, eyeVec;
-varying float att;
+uniform vec4 AmbientColor;
+uniform vec4 DiffuseColor;
+uniform vec4 SpecularColor;
+uniform float Shininess;
 
-void main (void)
+varying vec3 LightDir[3];
+varying vec3 Normal;
+varying vec3 ViewDirection;
+
+void main()
 {
-	vec4 final_color = 
-	(gl_FrontLightModelProduct.sceneColor * gl_FrontMaterial.ambient) + 
-	(gl_LightSource[0].ambient * gl_FrontMaterial.ambient)*att;
-							
-	vec3 N = normalize(normal);
-	vec3 L = normalize(lightDir);
+	vec3 n, halfV, lightDir, viewDir, reflection;
+	float NdotL, RdotV;
+	n = normalize(Normal);
+	viewDir = normalize(ViewDirection);
 	
-	float lambertTerm = dot(N,L);
+	vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
 	
-	if(lambertTerm > 0.0)
-	{
-		final_color += gl_LightSource[0].diffuse * 
-		gl_FrontMaterial.diffuse * 
-		lambertTerm * att;	
-		
-		vec3 E = normalize(eyeVec);
-		vec3 R = reflect(-L, N);
-		
-		float specular = pow( max(dot(R, E), 0.0), 
-		gl_FrontMaterial.shininess );
-		
-		final_color += gl_LightSource[0].specular * 
-		gl_FrontMaterial.specular * specular * att;	
-	}
+	//Light 0
+	lightDir = normalize(-LightDir[0]);
+	
+	color += AmbientColor * gl_LightSource[0].ambient;
+	color += gl_LightModel.ambient * AmbientColor;
 
-	gl_FragColor = final_color;			
+	NdotL = max(dot(n, lightDir),0.0);
+	color += DiffuseColor * gl_LightSource[0].diffuse * NdotL;
+
+	reflection = -reflect(lightDir, n);
+	RdotV = max( 0.0, dot( reflection, viewDir ) );
+	color += SpecularColor * gl_LightSource[0].specular * pow(RdotV, Shininess);
+
+
+	//Light 1
+	lightDir = normalize(-LightDir[1]);
+	
+	color += AmbientColor * gl_LightSource[1].ambient;
+	color += gl_LightModel.ambient * AmbientColor;
+
+	NdotL = max(dot(n, lightDir),0.0);
+	color += DiffuseColor * gl_LightSource[1].diffuse * NdotL;
+
+	reflection = -reflect(lightDir, n);
+	RdotV = max( 0.0, dot( reflection, viewDir ) );
+	color += SpecularColor * gl_LightSource[1].specular * pow(RdotV, Shininess);
+
+
+	//Light 2
+	lightDir = normalize(-LightDir[2]);
+	
+	color += AmbientColor * gl_LightSource[2].ambient;
+	color += gl_LightModel.ambient * AmbientColor;
+
+	NdotL = max(dot(n, lightDir),0.0);
+	color += DiffuseColor * gl_LightSource[2].diffuse * NdotL;
+
+	reflection = -reflect(lightDir, n);
+	RdotV = max( 0.0, dot( reflection, viewDir ) );
+	color += SpecularColor * gl_LightSource[2].specular * pow(RdotV, Shininess);
+
+	color.w = DiffuseColor.w;
+	gl_FragColor = color;
+	
 }

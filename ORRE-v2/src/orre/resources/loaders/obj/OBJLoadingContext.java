@@ -15,13 +15,13 @@ public class OBJLoadingContext {
 	private BlueprintMaterial currentMaterial;
 	private HashMap<String, BlueprintMaterial> materials;
 	private List<PartiallyLoadableModelPart> modelParts;
-	private TemporaryVertexBuffer geometryBufferGenerator;
+	private TemporaryVertexBuffer temporaryVertesBuffer;
 	private File containingDirectory;
 	private PartiallyLoadableModelPart currentModelPart = null;
 	
 	public OBJLoadingContext(File containingDirectory, OBJStatsContext statsContext)
 	{
-		this.geometryBufferGenerator = new TemporaryVertexBuffer(statsContext.getTotalVertices(), statsContext.getTotalTexCoords(), statsContext.getTotalNormals(), statsContext.getBufferDataFormat());
+		this.temporaryVertesBuffer = new TemporaryVertexBuffer(statsContext.getTotalVertices(), statsContext.getTotalTexCoords(), statsContext.getTotalNormals(), statsContext.getBufferDataFormat());
 		this.materials = new HashMap<String, BlueprintMaterial>(5);
 		this.modelParts = statsContext.generateModelParts();
 		this.containingDirectory = containingDirectory;
@@ -65,7 +65,7 @@ public class OBJLoadingContext {
 	}
 	
 	public TemporaryVertexBuffer getBuffergenerator() {
-		return this.geometryBufferGenerator;
+		return this.temporaryVertesBuffer;
 	}
 
 	public void addVertexToCurrentModelPart(float[] vertex) {
@@ -73,7 +73,8 @@ public class OBJLoadingContext {
 	}
 
 	public void destroy() {
-		this.geometryBufferGenerator = null;
+		this.temporaryVertesBuffer.destroy();
+		this.temporaryVertesBuffer = null;
 		this.modelParts = null;
 		this.materials = null;
 		this.currentMaterial = null;

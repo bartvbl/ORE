@@ -24,13 +24,7 @@
 		<part name="Inst3D21" nameInModelFile="Inst3D21"/>
 		<part name="Inst3D22" nameInModelFile="Inst3D22"/>
 		<part name="Inst3D23" nameInModelFile="Inst3D23"/>
-		<part name="Inst3D24" nameInModelFile="Inst3D24"/>
-		<part name="Inst3D25" nameInModelFile="Inst3D25"/>
-		<part name="Inst3D26" nameInModelFile="Inst3D26"/>
-		<part name="Inst3D27" nameInModelFile="Inst3D27"/>
-		<part name="Inst3D28" nameInModelFile="Inst3D28"/>
-		<part name="Inst3D29" nameInModelFile="Inst3D29"/>
-		<part name="Inst3D30" nameInModelFile="Inst3D30"/>
+
 		<part name="Inst3D31" nameInModelFile="Inst3D31"/>
 		<part name="Inst3D32" nameInModelFile="Inst3D32"/>
 		<part name="Inst3D33" nameInModelFile="Inst3D33"/>
@@ -40,5 +34,15 @@
 		<part name="Inst3D37" nameInModelFile="Inst3D37"/>
 		<part name="Inst3D38" nameInModelFile="Inst3D38"/>
 		<part name="Inst3D39" nameInModelFile="Inst3D39"/>
+		
+		<!-- transparent objects -->
+		<part name="Inst3D24" nameInModelFile="Inst3D24"/>
+		<part name="Inst3D25" nameInModelFile="Inst3D25"/>
+		<part name="Inst3D26" nameInModelFile="Inst3D26"/>
+		<part name="Inst3D27" nameInModelFile="Inst3D27"/>
+		<part name="Inst3D28" nameInModelFile="Inst3D28"/>
+		<part name="Inst3D29" nameInModelFile="Inst3D29"/>
+		<part name="Inst3D30" nameInModelFile="Inst3D30"/>
+		
 	</partStructure>
 </ORRModel>

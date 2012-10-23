@@ -1,5 +1,7 @@
 package orre.sceneGraph;
 
+import java.util.List;
+
 public interface SceneNode {
 	public void translate(float x, float y, float z);
 	public void rotate(float x, float y, float z);
@@ -10,6 +12,8 @@ public interface SceneNode {
 	
 	public void addChild(SceneNode node);
 	public void removeChild(SceneNode node);
+	//public List<SceneNode> getChildren();
+	
 	public void destroy();
 	
 	public void setVisibility(boolean isVisible);

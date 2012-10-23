@@ -86,4 +86,8 @@ public class TemporaryVertexBuffer {
 			vertex[vertexStartIndex + i] = this.textureCoordinates[textureCoordStartIndex + i];
 		}
 	}
+
+	public void destroy() {
+		this.vertices = this.normals = this.textureCoordinates = this.vertex = null;
+	}
 }

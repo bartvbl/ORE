@@ -1,20 +1,16 @@
-varying vec3 normal, lightDir, eyeVec;
-varying float att;
+varying vec3 LightDir[3];
+varying vec3 Normal;
+varying vec3 ViewDirection;
 
 void main()
 {	
-	normal = gl_NormalMatrix * gl_Normal;
+	Normal = gl_NormalMatrix * gl_Normal;
+	
+	LightDir[0] = normalize(vec3(-gl_LightSource[0].position));
+	LightDir[1] = normalize(vec3(-gl_LightSource[1].position));
+	LightDir[2] = normalize(vec3(-gl_LightSource[2].position));
 
-	vec3 vVertex = vec3(gl_ModelViewMatrix * gl_Vertex);
-	lightDir = vec3(gl_LightSource[0].position.xyz - vVertex);
-	eyeVec = -vVertex;
-	
-	float d = length(lightDir);
-	
-	att = 1.0 / ( gl_LightSource[0].constantAttenuation + 
-	(gl_LightSource[0].linearAttenuation*d) + 
-	(gl_LightSource[0].quadraticAttenuation*d*d) );
-	
-
-	gl_Position = ftransform();		
+	ViewDirection = vec3(gl_ModelViewMatrixInverse[0][3], gl_ModelViewMatrixInverse[1][3], gl_ModelViewMatrixInverse[2][3]) - (gl_ModelViewMatrix * gl_Vertex).xyz;
+				
+	gl_Position = ftransform();
 }
