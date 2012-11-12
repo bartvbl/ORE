@@ -23,7 +23,6 @@ public class ResourceCache {
 	}
 
 	public void addModel(BlueprintModel model) {
-		System.out.println("model added: " + model.name);
 		this.models.put(model.name, model);
 	}
 	

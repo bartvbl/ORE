@@ -16,7 +16,6 @@ public class FileToLoad {
 		this.fileType = fileType;
 		this.src = src;
 		this.destinationCache = destinationCache;
-		System.out.println("file to load: " + name);
 		this.name = name;
 	}
 	
