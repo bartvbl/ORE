@@ -31,6 +31,9 @@ public class ResourceFileParsingThread extends Thread{
 		if(file.fileType == ResourceFile.RESOURCE_LIST_FILE)
 		{
 			ResourceListFileParser.parseFile(file, this.resourceQueue);
+		} else {
+			//any manually enqueued files are just dumped in the resource loading queue. For example; the map file is enqueued separately.
+			this.resourceQueue.enqueueNodeForLoading(file);
 		}
 	}
 }

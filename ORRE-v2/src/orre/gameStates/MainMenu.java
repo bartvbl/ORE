@@ -34,7 +34,8 @@ public class MainMenu extends GameState {
 		this.buffer = BufferUtils.createFloatBuffer(4);
 		FileToLoad mainCache = new FileToLoad(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml");
 		eventDispatcher.dispatchEvent(new Event<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
-		System.out.println(Display.getAdapter());
+		FileToLoad mapFile = new FileToLoad(ResourceFile.MAP_FILE, this.resourceCache, "res/maps/sampleMap.xml");
+		eventDispatcher.dispatchEvent(new Event<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mapFile));
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
@@ -52,10 +53,10 @@ public class MainMenu extends GameState {
 		glRotatef(rotationY, 0, 1, 0);
 //		this.lightTest.draw();
 		glCallList(this.displayListID);
-		glTranslatef(20, 0, 0);
-		glCallList(this.displayListID);
-		glTranslatef(-40, 0, 0);
-		glCallList(this.displayListID);
+		//glTranslatef(20, 0, 0);
+		//glCallList(this.displayListID);
+		//glTranslatef(-40, 0, 0);
+		//glCallList(this.displayListID);
 	}
 	@Override
 	public void set() {
