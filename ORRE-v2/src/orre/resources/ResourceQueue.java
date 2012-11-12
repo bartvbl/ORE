@@ -25,8 +25,8 @@ public class ResourceQueue {
 		this.tracker = tracker;
 	}
 	
-	public void enqueueResourceFile(String src, ResourceFile fileType, ResourceCache destinationCache) {
-		this.itemsToLoadQueue.enqueue(new FileToLoad(fileType, destinationCache, src));
+	public void enqueueResourceFile(String src, String name, ResourceFile fileType, ResourceCache destinationCache) {
+		this.itemsToLoadQueue.enqueue(new FileToLoad(fileType, destinationCache, src, name));
 	}
 
 	public void parseResourceFiles() {

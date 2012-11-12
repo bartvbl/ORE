@@ -47,9 +47,9 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 		return;
 	}
 	
-	protected void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceListFile, ResourceCache destinationCache)
+	protected void enqueueResourceFileToBeLoaded(String src, String name, ResourceFile resourceListFile, ResourceCache destinationCache)
 	{
-		this.resourceLoader.enqueueResourceFileToBeLoaded(src, resourceListFile, destinationCache);
+		this.resourceLoader.enqueueResourceFileToBeLoaded(src, name, resourceListFile, destinationCache);
 	}
 	
 	protected void setLoadingScreen(LoadingScreenDrawer screenDrawer)
@@ -65,7 +65,7 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 				return;
 			}
 			FileToLoad file = (FileToLoad) event.getEventParameterObject();
-			this.enqueueResourceFileToBeLoaded(file.getPath(), file.fileType, file.destinationCache);
+			this.enqueueResourceFileToBeLoaded(file.getPath(), "mainMenuLoadingScreenTexture", file.fileType, file.destinationCache);
 		}
 	}
 

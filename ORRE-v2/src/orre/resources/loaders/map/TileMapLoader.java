@@ -1,5 +1,7 @@
 package orre.resources.loaders.map;
 
+import java.util.zip.ZipFile;
+
 import openrr.map.MapTile;
 import openrr.map.Soil;
 import nu.xom.Attribute;
@@ -7,11 +9,11 @@ import nu.xom.Element;
 
 public class TileMapLoader {
 
-	public static MapTile[][] loadTileMap(Element mapDefinitionElement) {
+	public static MapTile[][] loadTileMap(Element mapDefinitionElement, ZipFile mapFile) {
 		int[] mapSize = parseMapSize(mapDefinitionElement);
 		int width = mapSize[0];
 		int height = mapSize[1];
-		boolean[][] wallMap = WallMapLoader.loadWallMap(mapDefinitionElement, width, height);
+		boolean[][] wallMap = WallMapLoader.loadWallMap(mapFile, mapDefinitionElement, width, height);
 		Soil[][] soilMap = SoilMapLoader.loadSoilMap(mapDefinitionElement, width, height);
 		return createTileMap(wallMap, soilMap, width, height);
 	}

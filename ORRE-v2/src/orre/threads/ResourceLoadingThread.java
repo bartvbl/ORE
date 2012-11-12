@@ -31,6 +31,7 @@ public class ResourceLoadingThread extends Thread {
 			try {
 				loadFile(currentFile);
 			} catch(Exception e) {
+				e.printStackTrace();
 				FatalExceptionHandler.exitWithErrorMessage("Error occurred during file loading. Message:\n" + e.getMessage());
 			}
 			currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();

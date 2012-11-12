@@ -13,8 +13,8 @@ import orre.util.XMLDocument;
 public class ModelLoader {
 	public static BlueprintModel loadModel(FileToLoad file, ResourceQueue queue)
 	{
-		XMLDocument modelXMLDocument = new XMLDocument(file.pathPrefix + file.nodeFile.valueOf("@src"));
-		BlueprintModel model = new BlueprintModel(file.nodeFile.valueOf("@name"));
+		XMLDocument modelXMLDocument = new XMLDocument(file.getPath());
+		BlueprintModel model = new BlueprintModel(file.name);
 		ModelPartTreeBuilder.generatePartTree(model, modelXMLDocument);
 		List<PartiallyLoadableModelPart> parts = loadOBJFile(model, modelXMLDocument);
 		linkPartsToPartTree(model, parts);

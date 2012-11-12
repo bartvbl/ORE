@@ -43,9 +43,9 @@ public class ResourceLoader {
 		this.loadingScreenDrawer = loadingScreen;
 	}
 	
-	public void enqueueResourceFileToBeLoaded(String src, ResourceFile resourceFileType, ResourceCache destinationCache)
+	public void enqueueResourceFileToBeLoaded(String src, String name, ResourceFile resourceFileType, ResourceCache destinationCache)
 	{
-		this.resourceQueue.enqueueResourceFile(src, resourceFileType, destinationCache);
+		this.resourceQueue.enqueueResourceFile(src, name, resourceFileType, destinationCache);
 	}
 
 	public boolean isFinished() {

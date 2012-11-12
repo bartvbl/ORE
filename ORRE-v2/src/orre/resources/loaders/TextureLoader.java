@@ -24,9 +24,8 @@ import orre.util.FeedbackProvider;
 public class TextureLoader {
 	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(FileToLoad file) {
 		BufferedImage image = loadImageFromFile(file.getPath());
-		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
-		String name = (file.nodeFile == null) ? "untitled" : file.nodeFile.valueOf("@name");
-		return new PartiallyLoadableTexture(name, imageData, image.getWidth(), image.getHeight());
+		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);;
+		return new PartiallyLoadableTexture(file.name, imageData, image.getWidth(), image.getHeight());
 	}
 	
 	public static Texture createTextureFromImage(BufferedImage image)

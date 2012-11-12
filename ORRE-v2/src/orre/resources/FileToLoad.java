@@ -5,50 +5,37 @@ import java.io.File;
 import org.dom4j.Node;
 
 public class FileToLoad {
-	public final Node nodeFile;
 	private String src;
 	public final ResourceFile fileType;
 	public final ResourceCache destinationCache;
 	public String pathPrefix = "";
+	public final String name;
 	
-	public FileToLoad(Node nodeFile, ResourceFile fileType, ResourceCache destinationCache)
+	public FileToLoad(ResourceFile fileType, ResourceCache destinationCache, String src, String name)
 	{
-		this.nodeFile = nodeFile;
-		this.fileType = fileType;
-		this.destinationCache = destinationCache;
-		this.src = null;
-	}
-	
-	public FileToLoad(ResourceFile fileType, ResourceCache destinationCache, String src)
-	{
-		this.nodeFile = null;
 		this.fileType = fileType;
 		this.src = src;
 		this.destinationCache = destinationCache;
+		System.out.println("file to load: " + name);
+		this.name = name;
 	}
 	
 	public FileToLoad(String pathPrefix, String src)
 	{
-		this.nodeFile = null;
 		this.fileType = null;
 		this.destinationCache = null;
 		this.src = src;
 		this.pathPrefix = pathPrefix;
+		this.name = "untitled";
 	}
 	
 	public String getPath()
 	{
-		if(this.nodeFile != null)
+		if(this.pathPrefix.length() == 0)
 		{
-			return this.pathPrefix + this.nodeFile.valueOf("@src");
+			return this.src;
 		} else {
-			if(this.pathPrefix.endsWith(File.separator))
-			{
-				return this.pathPrefix + this.src;
-			} else {
-				return this.pathPrefix + File.separator + this.src;
-			}
-			
+			return this.pathPrefix + File.separator + this.src;
 		}
 	}
 	

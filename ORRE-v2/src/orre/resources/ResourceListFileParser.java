@@ -28,7 +28,7 @@ public class ResourceListFileParser {
 		List<Node> filesToLoad = document.getNodesByPath(path+"/*");
 		for(Node node : filesToLoad)
 		{
-			FileToLoad file = new FileToLoad(node, fileType, destinationCache);
+			FileToLoad file = new FileToLoad(fileType, destinationCache, node.valueOf("@src"), node.valueOf("@name"));
 			file.pathPrefix = pathPrefix;
 			queue.enqueueNodeForLoading(file);
 		}
