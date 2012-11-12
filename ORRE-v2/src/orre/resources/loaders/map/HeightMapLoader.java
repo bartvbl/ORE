@@ -20,7 +20,10 @@ public class HeightMapLoader {
 		for(int x = 0; x < heightMap.length; x++) {
 			for(int y = 0; y < heightMap[0].length; y++) {
 				int rgb = image.getRGB(x, y);
-				
+				//select red channel. BufferedImage is formatted as ARGB
+				rgb = rgb & 0x00FF0000;
+				rgb = rgb >> 16;
+				heightMap[x][y] = (double) rgb;
 			}
 		}
 	}
