@@ -15,10 +15,11 @@ public class TileMapLoader {
 		int height = mapSize[1];
 		boolean[][] wallMap = WallMapLoader.loadWallMap(mapFile, mapDefinitionElement, width, height);
 		Soil[][] soilMap = SoilMapLoader.loadSoilMap(mapDefinitionElement, width, height);
-		return createTileMap(wallMap, soilMap, width, height);
+		double[][] heightMap = HeightMapLoader.loadHeightMap(mapFile, mapDefinitionElement, width, height);
+		return createTileMap(wallMap, soilMap, heightMap, width, height);
 	}
 
-	private static MapTile[][] createTileMap(boolean[][] wallMap, Soil[][] soilMap, int width, int height) {
+	private static MapTile[][] createTileMap(boolean[][] wallMap, Soil[][] soilMap, double[][] heightMap, int width, int height) {
 		MapTile[][] tileMap = new MapTile[width][height];
 		return tileMap;
 	}

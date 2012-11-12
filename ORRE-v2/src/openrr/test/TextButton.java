@@ -24,13 +24,14 @@ public class TextButton extends Button {
 	private ArrayList<Color> stateColors = new ArrayList<Color>();
 	
 	public TextButton(int x, int y, int screenSize[], String inAlign, String inText, EventDispatcher eventDispatcher) {
-		super(x, y, screenSize, inAlign);
+//		super(x, y, screenSize, inAlign);
+		super(new int[]{}, "", "", null, null);
 	}
 	
 	public void setState(int newState) {
-		state = newState;
-		color = stateColors.get(state);
-		text = stateText.get(state);
+//		state = newState;
+//		color = stateColors.get(state);
+//		text = stateText.get(state);
 	}
 	
 	public void draw() {
@@ -58,10 +59,10 @@ public class TextButton extends Button {
 		for (String s : inText) {
 			stateText.add(s);
 		}
-		color = stateColors.get(NORMAL);
-		text = stateText.get(NORMAL);
-		width = font.getWidth(text);
-		height = font.getHeight(text);
-		setPosition();
+//		color = stateColors.get(NORMAL);
+//		text = stateText.get(NORMAL);
+//		width = font.getWidth(text);
+//		height = font.getHeight(text);
+//		setPosition();
 	}
 }
