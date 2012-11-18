@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+import openrr.map.Map;
 import openrr.map.MapTile;
 
 import nu.xom.Builder;
@@ -49,7 +50,8 @@ public class MapLoader {
 	private static PartiallyLoadableMap parseMapXML(Document mapXML, ZipFile mapFile) {
 		Element rootElement = mapXML.getRootElement();
 		MapTile[][] tileMap = TileMapLoader.loadTileMap(rootElement.getFirstChildElement("mapDefinition"), mapFile);
-		return new PartiallyLoadableMap();
+		Map map = new Map(tileMap);
+		return new PartiallyLoadableMap(map);
 	}
 
 }

@@ -1,0 +1,6 @@
+<ORRModel>
+	<modelFile src="res/mesh/objects3D/map/stud.obj"/>
+	<partStructure>
+		<part name="map_stud" nameInModelFile="map_stud"/>
+	</partStructure>
+</ORRModel>

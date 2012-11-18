@@ -1,26 +1,25 @@
 package orre.resources.loaders.map;
 
+import openrr.map.Map;
 import orre.resources.Finalizable;
 import orre.sceneGraph.SceneNode;
 
 public class PartiallyLoadableMap extends Finalizable {
 
-	@Override
-	public void finalizeResource() {
-		// TODO Auto-generated method stub
-		
+	private Map map;
+
+	public PartiallyLoadableMap(Map map) {
+		this.map = map;
 	}
 
-	@Override
+	public void finalizeResource() {}
+
 	public SceneNode createSceneNode() {
-		// TODO Auto-generated method stub
-		return null;
+		return map.getSceneNode();
 	}
 
-	@Override
 	public void addToCache() {
-		// TODO Auto-generated method stub
-		
+		this.destinationCache.setMap(map);
 	}
 
 }
