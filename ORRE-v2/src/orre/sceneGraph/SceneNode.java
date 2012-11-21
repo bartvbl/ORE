@@ -1,18 +1,19 @@
 package orre.sceneGraph;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public interface SceneNode {
-	public void translate(float x, float y, float z);
-	public void rotate(float x, float y, float z);
-	public void setLocation(float x, float y, float z);
-	public void setRotation(float rotationX, float rotationY, float rotationZ);
+//	public void translate(float x, float y, float z);
+//	public void rotate(float x, float y, float z);
+//	public void setLocation(float x, float y, float z);
+//	public void setRotation(float rotationX, float rotationY, float rotationZ);
 	
 	public void render();
+	public void setParent(SceneNode parent);
 	
 	public void addChild(SceneNode node);
 	public void removeChild(SceneNode node);
-	//public List<SceneNode> getChildren();
+	public ArrayList<SceneNode> getChildren();
 	
 	public void destroy();
 	

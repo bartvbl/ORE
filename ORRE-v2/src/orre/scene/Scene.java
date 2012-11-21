@@ -1,12 +1,23 @@
 package orre.scene;
 
+import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
 
 public class Scene {
-	//public final SceneNode rootNode;
+	private final SceneNode rootNode;
+	private final SceneNode sceneContentsRoot;
 	
-	public Scene()
+	public Scene(SceneNode rootNode, SceneNode sceneContentsRoot)
 	{
+		this.rootNode = rootNode;
+		this.sceneContentsRoot = sceneContentsRoot;
+	}
+	
+	public void tick() {
+		
+	}
+	
+	public void render() {
 		
 	}
 }

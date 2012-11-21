@@ -11,7 +11,6 @@ public class Map {
 	}
 
 	public SceneNode getSceneNode() {
-		// TODO Auto-generated method stub
-		return null;
+		return chunkCache.getSceneNode();
 	}
 }

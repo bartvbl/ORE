@@ -16,12 +16,13 @@ import orre.geom.mesh.Mesh3D;
 import orre.gl.RenderUtils;
 import orre.resources.FileToLoad;
 import orre.resources.ResourceFile;
+import orre.sceneGraph.SceneNode;
 
 import static org.lwjgl.opengl.GL11.*;
 
 public class MainMenu extends GameState {
 
-	private Mesh3D testNode;
+	private SceneNode testNode;
 	private float rotationX, rotationY;
 	
 	private FloatBuffer buffer;
@@ -61,7 +62,7 @@ public class MainMenu extends GameState {
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");
+		this.testNode = this.resourceCache.getMap().getSceneNode();//createModelInstace("lmsExplorer");
 		this.displayListID = glGenLists(1);
 		glNewList(this.displayListID, GL_COMPILE);
 				this.testNode.render();
