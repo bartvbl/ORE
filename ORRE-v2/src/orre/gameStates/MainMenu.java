@@ -14,6 +14,7 @@ import orre.events.EventDispatcher;
 import orre.events.GlobalEventType;
 import orre.geom.mesh.Mesh3D;
 import orre.gl.RenderUtils;
+import orre.gl.renderer.RenderPass;
 import orre.resources.FileToLoad;
 import orre.resources.ResourceFile;
 import orre.sceneGraph.SceneNode;
@@ -65,8 +66,7 @@ public class MainMenu extends GameState {
 		this.testNode = this.resourceCache.getMap().getSceneNode();//createModelInstace("lmsExplorer");
 		this.displayListID = glGenLists(1);
 		glNewList(this.displayListID, GL_COMPILE);
-				this.testNode.render();
-
+				RenderPass.render(this.testNode);
 		glEndList();
 		this.lightTest = new LightTestClass(displayListID);
 	}

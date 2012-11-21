@@ -1,6 +1,5 @@
 package orre.scene;
 
-import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
 
 public class Scene {
