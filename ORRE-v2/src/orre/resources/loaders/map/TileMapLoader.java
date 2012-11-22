@@ -21,6 +21,17 @@ public class TileMapLoader {
 
 	private static MapTile[][] createTileMap(boolean[][] wallMap, Soil[][] soilMap, int[][] heightMap, int width, int height) {
 		MapTile[][] tileMap = new MapTile[width][height];
+		for(int x = 0; x < width; x++) {
+			for(int y = 0; y < height; y++) {
+				int[][] tileHeight = new int[2][2];
+				tileHeight[0][0] = heightMap[x][y];
+				tileHeight[0][1] = heightMap[x][y + 1];
+				tileHeight[1][0] = heightMap[x + 1][y];
+				tileHeight[1][1] = heightMap[x + 1][y + 1];
+				
+				tileMap[x][y] = new MapTile(wallMap[x][y], soilMap[x][y], tileHeight);
+			}
+		}
 		return tileMap;
 	}
 

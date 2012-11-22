@@ -3,12 +3,16 @@ package orre.resources.loaders.map;
 import java.util.ArrayList;
 
 import openrr.map.Soil;
+import openrr.map.soil.DirtSoil;
 
 public class SoilLibraryBuilder {
-
-	public static ArrayList<Soil> buildSoilLibrary(String string) {
-		// TODO Auto-generated method stub
-		return null;
+//TODO: create the soil library loader. 
+	public static ArrayList<Soil> buildSoilLibrary(String src) {
+		ArrayList<Soil> soilList = new ArrayList<Soil>();
+		
+		soilList.add(new DirtSoil());
+		
+		return soilList;
 	}
 
 }

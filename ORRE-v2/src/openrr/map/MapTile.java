@@ -6,10 +6,12 @@ public class MapTile {
 	private boolean isExplored = false;
 	private boolean isWall;
 	private Soil soil;
+	private int[][] tileHeight;
 	
-	public MapTile(boolean isWall, Soil soil) {
+	public MapTile(boolean isWall, Soil soil, int[][] tileHeight) {
 		this.isWall = isWall;
 		this.soil = soil;
+		this.tileHeight = tileHeight;
 	}
 	
 	public void explore() {

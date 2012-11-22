@@ -1,12 +1,18 @@
 package openrr.map;
 
+import openrr.map.soil.SoilType;
 import orre.entity.Entity;
+import orre.geom.vbo.GeometryBuffer;
 
-public class Soil {
+public abstract class Soil {
 
-	public void handleEntityTouch(Entity entity) {
-		// TODO Auto-generated method stub
-		
+	public final SoilType soilType;
+
+	public Soil(SoilType soilType) {
+		this.soilType = soilType;
 	}
+
+	public abstract void handleEntityTouch(Entity entity);
+	public abstract GeometryBuffer generateGeometry(int[][] tileHeight);
 
 }
