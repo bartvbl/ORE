@@ -1,8 +1,12 @@
 package openrr.map;
 
 import orre.entity.Entity;
+import orre.resources.ResourceCache;
 
 public class MapTile {
+	public static final int TILE_WIDTH = 8;
+	public static final int TILE_HEIGHT = 8;
+	
 	private boolean isExplored = false;
 	private boolean isWall;
 	private Soil soil;
@@ -40,5 +44,9 @@ public class MapTile {
 	
 	public void setSoil(Soil soil) {
 		this.soil = soil;
+	}
+
+	public void render(ResourceCache cache) {
+		this.soil.generateGeometry(tileHeight, cache);
 	}
 }

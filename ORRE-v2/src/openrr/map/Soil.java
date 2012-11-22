@@ -14,6 +14,6 @@ public abstract class Soil {
 	}
 
 	public abstract void handleEntityTouch(Entity entity);
-	public abstract GeometryBuffer generateGeometry(int[][] tileHeight, ResourceCache cache);
+	public abstract void generateGeometry(int[][] tileHeight, ResourceCache cache);
 
 }
