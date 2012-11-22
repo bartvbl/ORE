@@ -11,7 +11,10 @@ public class RenderPass {
 		nodeQueue.push(rootNode);
 		while(!nodeQueue.isEmpty()) {
 			SceneNode currentNode = nodeQueue.pop();
+			
+			currentNode.preRender();
 			currentNode.render();
+			currentNode.postRender();
 			
 			ArrayList<SceneNode> children = currentNode.getChildren();
 			for(SceneNode child : children) {

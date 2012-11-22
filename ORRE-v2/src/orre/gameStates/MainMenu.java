@@ -50,7 +50,7 @@ public class MainMenu extends GameState {
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
-		glTranslated(0, 0, -60);
+		glTranslated(0, 0, -150);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
 //		this.lightTest.draw();
@@ -65,8 +65,10 @@ public class MainMenu extends GameState {
 		
 		this.testNode = this.resourceCache.getMap().createSceneNode(this.resourceCache);//createModelInstace("lmsExplorer");
 		this.displayListID = glGenLists(1);
+		glEnable(GL_COLOR_MATERIAL);
+		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
 		glNewList(this.displayListID, GL_COMPILE);
-				RenderPass.render(this.testNode);
+		RenderPass.render(this.testNode);
 		glEndList();
 		this.lightTest = new LightTestClass(displayListID);
 	}
