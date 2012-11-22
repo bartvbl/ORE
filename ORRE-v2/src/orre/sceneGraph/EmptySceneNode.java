@@ -13,11 +13,6 @@ public class EmptySceneNode implements SceneNode {
 	{
 		return this.renderRadius;
 	}
-	
-	public void translate(float x, float y, float z) {}
-	public void rotate(float x, float y, float z) {}
-	public void setLocation(float x, float y, float z) {}
-	public void setRotation(float rotationX, float rotationY, float rotationZ) {}
 
 	public void addChild(SceneNode node) 
 	{
@@ -67,5 +62,8 @@ public class EmptySceneNode implements SceneNode {
 	public boolean hasParent() {
 		return this.parentHasBeenRegistered;
 	}
+
+	public void preRender() {}
+	public void postRender() {}
 }
 

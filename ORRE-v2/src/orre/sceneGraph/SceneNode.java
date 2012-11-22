@@ -8,7 +8,10 @@ public interface SceneNode {
 //	public void setLocation(float x, float y, float z);
 //	public void setRotation(float rotationX, float rotationY, float rotationZ);
 	
+	public void preRender();
 	public void render();
+	public void postRender();
+	
 	public void setParent(SceneNode parent);
 	public SceneNode getParent();
 	public boolean hasParent();

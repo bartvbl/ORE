@@ -15,7 +15,7 @@ public class ChunkCache {
 		SceneNode mainSceneNode = new EmptySceneNode();
 		for(Chunk chunkRow[] : chunks) {
 			for(Chunk chunk : chunkRow) {
-				mainSceneNode.addChild(chunk.getSceneNode());
+				mainSceneNode.addChild(chunk);
 			}
 		}
 		return mainSceneNode;

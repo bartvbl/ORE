@@ -8,7 +8,7 @@ public class Map {
 	private final ChunkCache chunkCache;
 
 	public Map(MapTile[][] tileMap) {
-		this.chunkCache = ChunkCacheBuilder.buildChunkCache(tileMap);
+		this.chunkCache = ChunkCacheBuilder.buildChunkCache(tileMap, tileMap.length, tileMap[0].length);
 	}
 
 	public SceneNode createSceneNode(ResourceCache cache) {
