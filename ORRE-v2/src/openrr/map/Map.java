@@ -1,5 +1,6 @@
 package openrr.map;
 
+import orre.resources.ResourceCache;
 import orre.sceneGraph.SceneNode;
 
 public class Map {
@@ -10,7 +11,7 @@ public class Map {
 		this.chunkCache = ChunkCacheBuilder.buildChunkCache(tileMap);
 	}
 
-	public SceneNode getSceneNode() {
-		return chunkCache.getSceneNode();
+	public SceneNode createSceneNode(ResourceCache cache) {
+		return chunkCache.createSceneNode(cache);
 	}
 }

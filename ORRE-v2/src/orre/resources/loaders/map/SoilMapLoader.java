@@ -2,6 +2,8 @@ package orre.resources.loaders.map;
 
 import java.util.ArrayList;
 
+import orre.resources.ResourceCache;
+
 import nu.xom.Element;
 import openrr.map.Soil;
 

@@ -10,6 +10,8 @@ public interface SceneNode {
 	
 	public void render();
 	public void setParent(SceneNode parent);
+	public SceneNode getParent();
+	public boolean hasParent();
 	
 	public void addChild(SceneNode node);
 	public void removeChild(SceneNode node);

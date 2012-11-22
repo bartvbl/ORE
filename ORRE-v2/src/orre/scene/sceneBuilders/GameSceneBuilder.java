@@ -10,7 +10,7 @@ public class GameSceneBuilder {
 		EmptySceneNode mapContentsRoot = new EmptySceneNode();
 		Scene scene = new Scene(rootNode, mapContentsRoot);
 		
-		rootNode.addChild(cache.getMap().getSceneNode());
+		rootNode.addChild(cache.getMap().createSceneNode(cache));
 		return scene;
 	}
 }

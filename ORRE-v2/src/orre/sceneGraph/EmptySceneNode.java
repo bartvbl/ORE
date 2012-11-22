@@ -21,6 +21,10 @@ public class EmptySceneNode implements SceneNode {
 
 	public void addChild(SceneNode node) 
 	{
+		if(node.hasParent()) {
+			System.out.println("ERROR: attempted to add a SceneNode that already had a parent somewhere else in the SceneGraph. A node can only have ONE parent.");
+			return;
+		}
 		this.children.add(node);
 		node.setParent(this);
 	}
@@ -43,15 +47,9 @@ public class EmptySceneNode implements SceneNode {
 		}
 	}
 
-	@Override
-	public void render() {
-		// TODO Auto-generated method stub
-		
-	}
+	public void render() {}
 
-	@Override
-	public void destroy() {
-	}
+	public void destroy() {}
 
 	public void setParent(SceneNode parent) {
 		this.parent = parent;
@@ -60,6 +58,14 @@ public class EmptySceneNode implements SceneNode {
 
 	public ArrayList<SceneNode> getChildren() {
 		return this.children;
+	}
+
+	public SceneNode getParent() {
+		return this.parent;
+	}
+
+	public boolean hasParent() {
+		return this.parentHasBeenRegistered;
 	}
 }
 

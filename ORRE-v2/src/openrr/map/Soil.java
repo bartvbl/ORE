@@ -3,6 +3,7 @@ package openrr.map;
 import openrr.map.soil.SoilType;
 import orre.entity.Entity;
 import orre.geom.vbo.GeometryBuffer;
+import orre.resources.ResourceCache;
 
 public abstract class Soil {
 
@@ -13,6 +14,6 @@ public abstract class Soil {
 	}
 
 	public abstract void handleEntityTouch(Entity entity);
-	public abstract GeometryBuffer generateGeometry(int[][] tileHeight);
+	public abstract GeometryBuffer generateGeometry(int[][] tileHeight, ResourceCache cache);
 
 }
