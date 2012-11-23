@@ -31,7 +31,7 @@ public class TileMapLoader {
 				tileHeight[1][0] = heightMap[x + 1][y];
 				tileHeight[1][1] = heightMap[x + 1][y + 1];
 				
-				tileMap[x][y] = new MapTile(wallMap[x][y], soilMap[x][y], tileHeight);
+				tileMap[x][y] = new MapTile(wallMap[x][y], soilMap[x][y], tileHeight, x, y);
 			}
 		}
 		return tileMap;

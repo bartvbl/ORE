@@ -46,4 +46,8 @@ public class Texture {
 	public Texture clone() {
 		return new Texture(this.textureReference, this.width, this.height);
 	}
+	
+	public String toString() {
+		return "Texture with ID " + this.textureReference;
+	}
 }

@@ -12,11 +12,15 @@ public class MapTile {
 	private boolean isWall;
 	private Soil soil;
 	private int[][] tileHeight;
+	private int x;
+	private int y;
 	
-	public MapTile(boolean isWall, Soil soil, int[][] tileHeight) {
+	public MapTile(boolean isWall, Soil soil, int[][] tileHeight, int x, int y) {
 		this.isWall = isWall;
 		this.soil = soil;
 		this.tileHeight = tileHeight;
+		this.x = x;
+		this.y = y;
 	}
 	
 	public void explore() {
@@ -48,6 +52,6 @@ public class MapTile {
 	}
 
 	public void render(ResourceCache cache, MapTile[][] tileMap) {
-		this.soil.generateGeometry(tileHeight, tileMap, cache);
+		this.soil.generateGeometry(tileHeight, tileMap, x, y);
 	}
 }

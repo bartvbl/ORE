@@ -24,7 +24,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class MainMenu extends GameState {
 
 	private SceneNode testNode;
-	private float rotationX = 180, rotationY, zoomLevel = 0, xCoord, yCoord;
+	private float rotationX = 0, rotationY, zoomLevel = -100, xCoord, yCoord;
 	
 	private FloatBuffer buffer;
 	private int displayListID;
@@ -52,8 +52,8 @@ public class MainMenu extends GameState {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {this.xCoord += 4;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {this.yCoord += 4;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord -= 4;}
+		glEnable(GL_LIGHT0);
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
-		glDisable(GL_LIGHT0);
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
 		glRotatef(rotationX, 1, 0, 0);
