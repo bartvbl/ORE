@@ -18,8 +18,4 @@ public class ChrystalSeamSoil extends Soil {
 		
 	}
 
-	public void generateGeometry(int[][] tileHeight, MapTile[][] tiles, ResourceCache cache) {
-		
-	}
-
 }

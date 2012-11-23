@@ -6,27 +6,6 @@ import java.awt.image.PixelGrabber;
 import orre.gl.texture.Texture;
 
 public class TexturePixelConverter {
-	//Leave this!! Needed for loading the map from image files!
-	
-//	private static int[][] getRGBAPixels(BufferedImage image)
-//	{
-//		int[] pixelsARGB = getPixels(image);
-//		if(pixelsARGB == null)
-//		{
-//			return null;
-//		}
-//        int[][] RGBAPixels = new int[pixelsARGB.length][4];
-//        for (int i = 0; i < 4 * pixelsARGB.length; i += 4) {
-//            RGBAPixels[i] = convertPixelToRGBAArray(pixelsARGB[i/4]);
-//        }
-//        return RGBAPixels;
-//	}
-	
-//	public static Texture loadTextureFromFile(String src)
-//	{
-//		BufferedImage image = loadImageFromFile(src);
-//		return createTextureFromImage(image);
-//	}
 	
 	private static int[] getPixels(BufferedImage image)
 	{

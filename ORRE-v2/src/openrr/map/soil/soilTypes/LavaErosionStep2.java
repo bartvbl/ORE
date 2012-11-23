@@ -13,14 +13,9 @@ public class LavaErosionStep2 extends Soil {
 		super(SoilType.LAVA_EROSION_STEP2, textureSet, rgb);
 	}
 
-	@Override
 	public void handleEntityTouch(Entity entity) {
 		
 	}
 
-	@Override
-	public void generateGeometry(int[][] tileHeight, MapTile[][] tiles, ResourceCache cache) {
-		
-	}
 
 }

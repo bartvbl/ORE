@@ -17,8 +17,4 @@ public class LavaErosionStep4 extends Soil {
 		
 	}
 
-	public void generateGeometry(int[][] tileHeight, MapTile[][] tiles,ResourceCache cache) {
-		
-	}
-
 }

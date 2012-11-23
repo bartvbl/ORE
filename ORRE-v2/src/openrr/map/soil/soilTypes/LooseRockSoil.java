@@ -16,8 +16,4 @@ public class LooseRockSoil extends Soil{
 	public void handleEntityTouch(Entity entity) {
 		
 	}
-
-	public void generateGeometry(int[][] tileHeight, MapTile[][] tiles, ResourceCache cache) {
-		
-	}
 }

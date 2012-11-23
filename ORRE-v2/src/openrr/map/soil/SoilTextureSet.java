@@ -8,6 +8,7 @@ public class SoilTextureSet {
 	private SoilTextureType[] soilTextureTypes;
 	private PartiallyLoadableTexture[] partiallyLoadableTextures;
 	private Texture[] textures;
+	private boolean compiled = false;
 
 	public SoilTextureSet(String type) {
 		this.type = type;
@@ -25,11 +26,13 @@ public class SoilTextureSet {
 	}
 	
 	public void finalizeTextures() {
+		if(compiled) return;
 		for(int i = 0; i < partiallyLoadableTextures.length; i++) {
 			partiallyLoadableTextures[i].finalizeResource();
 			textures[i] = partiallyLoadableTextures[i].getTexture();
 		}
 		partiallyLoadableTextures = null;
+		compiled = true;
 	}
 	
 	public SoilTextureSet clone(String typeName) {

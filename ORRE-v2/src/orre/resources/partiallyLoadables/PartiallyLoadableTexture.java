@@ -12,6 +12,7 @@ public class PartiallyLoadableTexture extends Finalizable{
 	private final int height;
 	private Texture tex;
 	public final String name;
+	private boolean hasBeenFinalized = false;
 
 	public PartiallyLoadableTexture(String name, byte[] imageData, int width, int height) {
 		this.imageData = imageData;
@@ -21,6 +22,8 @@ public class PartiallyLoadableTexture extends Finalizable{
 	}
 
 	public void finalizeResource() {
+		if(hasBeenFinalized) return;
+		this.hasBeenFinalized = true;
 		Texture tex = TextureLoader.createTexture(imageData, width, height);
 		this.tex = tex;
 		this.imageData = null;

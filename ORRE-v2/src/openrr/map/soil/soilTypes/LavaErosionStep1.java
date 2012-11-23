@@ -17,8 +17,4 @@ public class LavaErosionStep1 extends Soil { //Make a core class that they inher
 		
 	}
 
-	public void generateGeometry(int[][] tileHeight, MapTile[][] tiles, ResourceCache cache) {
-		
-	}
-
 }
