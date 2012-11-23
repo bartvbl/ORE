@@ -6,6 +6,9 @@ import orre.sceneGraph.SceneNode;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Chunk extends EmptySceneNode implements SceneNode{
+	public static final int CHUNK_WIDTH_TILES = 5;
+	public static final int CHUNK_HEIGHT_TILES = 5;
+	
 	private final MapTile[][] tiles;
 	private boolean requiresRebuild = true;
 	private final int x, y;
@@ -26,8 +29,19 @@ public class Chunk extends EmptySceneNode implements SceneNode{
 	
 	public void render() {
 		glPushMatrix();
-		glTranslatef(this.x * MapTile.TILE_WIDTH, this.y * MapTile.TILE_HEIGHT, 0);
 		glCallList(this.displayListID);
+		
+		glPushMatrix();
+		glTranslatef((float)this.x * MapTile.TILE_WIDTH * Chunk.CHUNK_WIDTH_TILES, (float)this.y * MapTile.TILE_HEIGHT * Chunk.CHUNK_HEIGHT_TILES, 0);
+		for(int i = 0; i < tiles.length; i++) {
+			for(int j = 0; j < tiles[0].length; j++) {
+				glPushMatrix();
+				glTranslatef(i*MapTile.TILE_WIDTH, j*MapTile.TILE_HEIGHT, 0);
+				tiles[i][j].render(cache);
+				glPopMatrix();
+			}
+		}
+		glPopMatrix();
 		glPopMatrix();
 	}
 	
@@ -40,14 +54,7 @@ public class Chunk extends EmptySceneNode implements SceneNode{
 		if(this.displayListID != -1) glDeleteLists(this.displayListID, 1);
 		this.displayListID = glGenLists(1);
 		glNewList(this.displayListID, GL_COMPILE);
-		for(int i = 0; i < tiles.length; i++) {
-			for(int j = 0; j < tiles[0].length; j++) {
-				glPushMatrix();
-				glTranslatef(i*MapTile.TILE_WIDTH, j*MapTile.TILE_HEIGHT, 0);
-				tiles[i][j].render(cache);
-				glPopMatrix();
-			}
-		}
+		
 		glEndList();
 		this.requiresRebuild = false;
 	}

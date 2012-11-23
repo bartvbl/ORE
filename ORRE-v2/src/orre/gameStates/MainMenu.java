@@ -24,7 +24,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class MainMenu extends GameState {
 
 	private SceneNode testNode;
-	private float rotationX, rotationY;
+	private float rotationX = 180, rotationY = 0;
 	
 	private FloatBuffer buffer;
 	private int displayListID;
@@ -50,11 +50,12 @@ public class MainMenu extends GameState {
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
-		glTranslated(0, 0, -150);
 		glRotatef(rotationX, 1, 0, 0);
-		glRotatef(rotationY, 0, 1, 0);
+		glRotatef(rotationY, 0, 0, 1);
+		glTranslated(0, 0, 150);
 //		this.lightTest.draw();
-		glCallList(this.displayListID);
+//		glCallList(this.displayListID);
+		RenderPass.render(this.testNode);
 		//glTranslatef(20, 0, 0);
 		//glCallList(this.displayListID);
 		//glTranslatef(-40, 0, 0);
@@ -67,9 +68,9 @@ public class MainMenu extends GameState {
 		this.displayListID = glGenLists(1);
 		glEnable(GL_COLOR_MATERIAL);
 		glColorMaterial(GL_FRONT_AND_BACK, GL_AMBIENT_AND_DIFFUSE);
-		glNewList(this.displayListID, GL_COMPILE);
-		RenderPass.render(this.testNode);
-		glEndList();
+//		glNewList(this.displayListID, GL_COMPILE);
+//		
+//		glEndList();
 		this.lightTest = new LightTestClass(displayListID);
 	}
 	@Override
