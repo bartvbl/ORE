@@ -46,7 +46,7 @@ public class MapTile {
 		this.soil = soil;
 	}
 
-	public void render(ResourceCache cache) {
-		this.soil.generateGeometry(tileHeight, cache);
+	public void render(ResourceCache cache, MapTile[][] tileMap) {
+		this.soil.generateGeometry(tileHeight, tileMap, cache);
 	}
 }

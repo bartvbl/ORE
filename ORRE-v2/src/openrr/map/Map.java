@@ -14,4 +14,8 @@ public class Map {
 	public SceneNode createSceneNode(ResourceCache cache) {
 		return chunkCache.createSceneNode(cache);
 	}
+	
+	public void tick() {
+		this.chunkCache.update();
+	}
 }

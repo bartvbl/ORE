@@ -13,13 +13,23 @@ public class ChunkCache {
 
 	public SceneNode createSceneNode(ResourceCache cache) {
 		SceneNode mainSceneNode = new EmptySceneNode();
-		for(int i = 0; i < 3; i++) {
-			for(int j = 0; j < 3; j++) {
+		for(int i = 0; i < chunks.length; i++) {
+			for(int j = 0; j < chunks[0].length; j++) {
 				Chunk chunk = chunks[i][j];
 				chunk.setResourceCache(cache);
 				mainSceneNode.addChild(chunk);
 			}
 		}
 		return mainSceneNode;
+	}
+	
+	public void update() {
+		for(int i = 0; i < chunks.length; i++) {
+			for(int j = 0; j < chunks[0].length; j++) {
+				if(chunks[i][j].requiresRebuild()) {
+					chunks[i][j].rebuild();
+				}
+			}
+		}
 	}
 }

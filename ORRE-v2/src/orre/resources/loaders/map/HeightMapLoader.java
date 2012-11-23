@@ -27,6 +27,7 @@ public class HeightMapLoader {
 			parseHeightMap(heightMap, image, width, height);
 		}
 		parseOverrideValues(heightMap, heightMapElement);
+		scaleVerticallyToBrickUnits(heightMap);
 		return heightMap;
 	}
 
@@ -34,10 +35,13 @@ public class HeightMapLoader {
 		for(int x = 0; x < width; x++) {
 			for(int y = 0; y < height; y++) {
 				int rgb = image.getRGB(x, y);
-				//select red channel. BufferedImage is formatted as ARGB
-				rgb = rgb & 0x00FF0000;
-				rgb = rgb >> 16;
-				heightMap[x][y] = rgb;
+				//BufferedImage is formatted as ARGB. I'm taking the average of the RGB channels
+				int r = rgb & 0x00FF0000;
+				r = r >> 16;
+				int g = rgb & 0x0000FF00;
+				g = g >> 8;
+				int b = rgb & 0x000000FF;
+				heightMap[x][y] = (int) (((double)r + (double)g + (double)b) / 3d);
 			}
 		}
 	}
@@ -72,9 +76,18 @@ public class HeightMapLoader {
 		}
 	}
 	
+	private static void scaleVerticallyToBrickUnits(int[][] heightMap) {
+		for(int x = 0; x < heightMap.length; x++) {
+			for(int y = 0; y < heightMap[0].length; y++) {
+				heightMap[x][y] *= 0.375; 
+				//the 1x1 stud has sides of 1 unit. It measures 8mm. The height of the stud itself is 3mm. That gives 0.375 units. 
+			}
+		}
+	}
+	
 	private static boolean hasAttribute(Element element, String attribute) {
 		String value = element.getAttributeValue(attribute);
 		return ((value != null) && (!value.equals("")));
 	}
-
+	
 }

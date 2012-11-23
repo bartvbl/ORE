@@ -38,6 +38,7 @@ public class ResourceCache {
 		return this.map;
 	}
 	
+
 	//createModelInstaceByName()
 	//getSoundBufferByName()
 }
