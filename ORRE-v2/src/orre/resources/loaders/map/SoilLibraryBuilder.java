@@ -5,22 +5,15 @@ import java.util.ArrayList;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
-
-import orre.resources.FileToLoad;
-import orre.resources.ResourceCache;
-import orre.resources.loaders.TextureLoader;
-import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import orre.util.XMLLoader;
-import orre.util.XMLUtils;
-
-import openrr.map.soil.DirtSoil;
 import openrr.map.soil.Soil;
 import openrr.map.soil.SoilTextureSet;
-import openrr.map.soil.SoilTextureType;
+import openrr.map.soil.SoilTextureSetsParser;
+import openrr.map.soil.SoilType;
+import openrr.map.soil.soilTypes.SoilCreator;
 
 public class SoilLibraryBuilder {
 	public static ArrayList<Soil> buildSoilLibrary(String src) {
-		ArrayList<Soil> soilList = new ArrayList<Soil>();
 		
 		Document texturePackXML = XMLLoader.readMapXML(src);
 		Element rootElement = texturePackXML.getRootElement();
@@ -30,46 +23,39 @@ public class SoilLibraryBuilder {
 		Element pathPrefixElement = config.getFirstChildElement("pathPrefix");
 		String pathPrefix = pathPrefixElement.getAttributeValue("value");
 		
-		parseSoilTextureSets(soilList, soilTextureSets, pathPrefix);
+		ArrayList<SoilTextureSet> textureSets = SoilTextureSetsParser.parseSoilTextureSets(soilTextureSets, pathPrefix);
+		
+		ArrayList<Soil> soilList = parseSoilList(textureSets, soilTextureSets);
 		
 		return soilList;
 	}
 
-	private static void parseSoilTextureSets(ArrayList<Soil> soilList, Element soilTextureSets, String pathPrefix) {
-		ArrayList<SoilTextureSet> textureSets = new ArrayList<SoilTextureSet>();
-		Elements textureSetElements = soilTextureSets.getChildElements("soilTextureSet");
-		for(int i = 0; i < textureSetElements.size(); i++) {
-			parseTextureSet(textureSetElements.get(i), textureSets, pathPrefix);
+	private static ArrayList<Soil> parseSoilList(ArrayList<SoilTextureSet> textureSets, Element soilTextureSets) {
+		ArrayList<Soil> soilList = new ArrayList<Soil>();
+		Elements soilTypeElements = soilTextureSets.getChildElements();
+		for(int i = 0; i < soilTypeElements.size(); i++) {
+			parseSoilElement(soilTypeElements.get(i), soilList, textureSets);
 		}
+		return soilList;
 	}
 
-	private static void parseTextureSet(Element textureSetElement, ArrayList<SoilTextureSet> textureSets, String pathPrefix) {
-		SoilTextureSet textureSet = createSoilTextureSet(textureSetElement, textureSets);
-		textureSets.add(textureSet);
-		Elements texturesToParse = textureSetElement.getChildElements("texture");
-		parseTextures(texturesToParse, textureSet, pathPrefix);
-	}
-
-	private static SoilTextureSet createSoilTextureSet(Element textureSetElement, ArrayList<SoilTextureSet> textureSets) {
-		String soilTextureSetType = textureSetElement.getAttributeValue("type");
-		if(XMLUtils.hasAttribute(textureSetElement, "extends")) {
-			String extendsType = textureSetElement.getAttributeValue("extends");
-			for(SoilTextureSet set : textureSets) {
-				if(set.type.equals(extendsType)){
-					return set.clone(soilTextureSetType);
-				}
+	private static void parseSoilElement(Element element, ArrayList<Soil> soilList, ArrayList<SoilTextureSet> textureSets) {
+		try {
+			SoilType type = Enum.valueOf(SoilType.class, element.getAttributeValue("type"));
+			int r = Integer.parseInt(element.getAttributeValue("r"));
+			int g = Integer.parseInt(element.getAttributeValue("g"));
+			int b = Integer.parseInt(element.getAttributeValue("b"));
+			int[] rgb = new int[]{r, g, b};
+			SoilTextureSet textureSet = textureSets.get(0);
+			for(int i = 0; i < textureSets.size(); i++) {
+				if(textureSets.get(i).type.equals(type.toString()))
+					textureSet = textureSets.get(i);
 			}
+			Soil soil = SoilCreator.buildSoilInstance(type, textureSet, rgb);
+			soilList.add(soil);
 		}
-		return new SoilTextureSet(soilTextureSetType);
-	}
-
-	private static void parseTextures(Elements texturesToParse, SoilTextureSet textureSet, String pathPrefix) {
-		for(int i = 0; i < texturesToParse.size(); i++) {
-			Element textureElement = texturesToParse.get(i);
-			SoilTextureType type = Enum.valueOf(SoilTextureType.class, textureElement.getAttributeValue("type"));
-			String textureSrc = textureElement.getAttributeValue("src");
-			PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(new FileToLoad(pathPrefix, textureSrc));
-			textureSet.setTexture(type, texture);
+		catch(IllegalArgumentException e) {
+			System.out.println("unknown tile type in texture pack file (not necessarily a problem): " + element.getAttributeValue("type"));
 		}
 	}
 }

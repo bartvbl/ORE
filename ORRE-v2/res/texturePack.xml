@@ -60,19 +60,16 @@
 			<texture type="wall" src="rock20.png" />
 			<texture type="wallCorner" src="rock20.png" />
 			<texture type="invertedCorner" src="rock20.png" />
-			<texture type="enforced" src="undefined" />
 		</soilTextureSet>
 		<soilTextureSet type="oreSeam" extends="baseTile" r="156" g="65" b="8">
 			<texture type="wall" src="rock40.png" />
-			<texture type="corner" src="rock40.png" />
+			<texture type="wallCorner" src="rock40.png" />
 			<texture type="invertedCorner" src="rock40.png" />
-			<texture type="enforced" src="undefined" />
 		</soilTextureSet>
 		<soilTextureSet type="rechargeSeam" extends="baseTile" r="255" g="255" b="0">
 			<texture type="wall" src="rock67.png" />
-			<texture type="corner" src="rock67.png" />
+			<texture type="wallCorner" src="rock67.png" />
 			<texture type="invertedCorner" src="rock67.png" />
-			<texture type="enforced" src="undefined" />
 		</soilTextureSet>
 		
 		<!-- Ground Types -->
