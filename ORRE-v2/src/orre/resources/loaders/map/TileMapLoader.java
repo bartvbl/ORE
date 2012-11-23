@@ -16,7 +16,7 @@ public class TileMapLoader {
 		int width = mapSize[0];
 		int height = mapSize[1];
 		boolean[][] wallMap = WallMapLoader.loadWallMap(mapFile, mapDefinitionElement, width, height);
-		Soil[][] soilMap = SoilMapLoader.loadSoilMap(mapDefinitionElement, width, height);
+		Soil[][] soilMap = SoilMapLoader.loadSoilMap(mapFile, mapDefinitionElement, width, height);
 		int[][] heightMap = HeightMapLoader.loadHeightMap(mapFile, mapDefinitionElement, width, height);
 		return createTileMap(wallMap, soilMap, heightMap, width, height);
 	}
