@@ -4,11 +4,13 @@ import orre.gl.texture.Texture;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
 public class SoilTextureSet {
+	public final String type;
 	private SoilTextureType[] soilTextureTypes;
 	private PartiallyLoadableTexture[] partiallyLoadableTextures;
 	private Texture[] textures;
 
-	public SoilTextureSet() {
+	public SoilTextureSet(String type) {
+		this.type = type;
 		this.soilTextureTypes = SoilTextureType.values();
 		this.partiallyLoadableTextures = new PartiallyLoadableTexture[soilTextureTypes.length];
 		this.textures = new Texture[soilTextureTypes.length];
@@ -30,8 +32,8 @@ public class SoilTextureSet {
 		partiallyLoadableTextures = null;
 	}
 	
-	public SoilTextureSet clone() {
-		SoilTextureSet newSet = new SoilTextureSet();
+	public SoilTextureSet clone(String typeName) {
+		SoilTextureSet newSet = new SoilTextureSet(typeName);
 		for(int i = 0; i < soilTextureTypes.length; i++) {
 			newSet.setTexture(soilTextureTypes[i], partiallyLoadableTextures[i]);
 		}
