@@ -4,13 +4,12 @@ import orre.entity.Entity;
 import orre.geom.mesh.Mesh3D;
 import orre.resources.ResourceCache;
 import openrr.map.MapTile;
-import openrr.map.Soil;
 import static org.lwjgl.opengl.GL11.*;
 
 public class DirtSoil extends Soil{
 
-	public DirtSoil() {
-		super(SoilType.DIRT);
+	public DirtSoil(SoilTextureSet textureSet) {
+		super(SoilType.DIRT, textureSet);
 	}
 	
 	public void handleEntityTouch(Entity entity) {}

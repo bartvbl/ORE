@@ -1,5 +1,6 @@
 package openrr.map;
 
+import openrr.map.soil.Soil;
 import orre.entity.Entity;
 import orre.resources.ResourceCache;
 

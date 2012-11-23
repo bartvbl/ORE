@@ -5,7 +5,7 @@ import java.util.zip.ZipFile;
 import orre.resources.ResourceCache;
 
 import openrr.map.MapTile;
-import openrr.map.Soil;
+import openrr.map.soil.Soil;
 import nu.xom.Attribute;
 import nu.xom.Element;
 

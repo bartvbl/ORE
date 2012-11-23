@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import orre.resources.ResourceCache;
 
 import nu.xom.Element;
-import openrr.map.Soil;
+import openrr.map.soil.Soil;
 
 public class SoilMapLoader {
 
