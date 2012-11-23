@@ -9,8 +9,8 @@ import orre.resources.ResourceCache;
 
 public class HardRockSoil extends Soil{
 
-	public HardRockSoil(SoilType soilType, SoilTextureSet textureSet, int[] rgb) {
-		super(soilType, textureSet, rgb);
+	public HardRockSoil(SoilTextureSet textureSet, int[] rgb) {
+		super(SoilType.HARD_ROCK, textureSet, rgb);
 	}
 
 	public void handleEntityTouch(Entity entity) {

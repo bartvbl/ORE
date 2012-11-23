@@ -7,17 +7,18 @@ import openrr.map.soil.Soil;
 import openrr.map.soil.SoilTextureSet;
 import openrr.map.soil.SoilType;
 
-public class LooseRockSoil extends Soil{
+public class RubbleStep1Soil extends Soil {
 
-	public LooseRockSoil(SoilTextureSet textureSet, int[] rgb) {
-		super(SoilType.LOOSE_ROCK, textureSet, rgb);
+	public RubbleStep1Soil(SoilTextureSet textureSet, int[] rgb) {
+		super(SoilType.RUBBLE_STEP1, textureSet, rgb);
 	}
 
 	public void handleEntityTouch(Entity entity) {
 		
 	}
 
-	public void generateGeometry(int[][] tileHeight, MapTile[][] tiles, ResourceCache cache) {
+	public void generateGeometry(int[][] tileHeight, MapTile[][] tiles,ResourceCache cache) {
 		
 	}
+
 }
