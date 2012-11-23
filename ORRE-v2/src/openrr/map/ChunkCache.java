@@ -13,8 +13,9 @@ public class ChunkCache {
 
 	public SceneNode createSceneNode(ResourceCache cache) {
 		SceneNode mainSceneNode = new EmptySceneNode();
-		for(Chunk chunkRow[] : chunks) {
-			for(Chunk chunk : chunkRow) {
+		for(int i = 0; i < 3; i++) {
+			for(int j = 0; j < 3; j++) {
+				Chunk chunk = chunks[i][j];
 				chunk.setResourceCache(cache);
 				mainSceneNode.addChild(chunk);
 			}

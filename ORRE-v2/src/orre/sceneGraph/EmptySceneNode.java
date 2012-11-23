@@ -17,8 +17,7 @@ public class EmptySceneNode implements SceneNode {
 	public void addChild(SceneNode node) 
 	{
 		if(node.hasParent()) {
-			System.out.println("ERROR: attempted to add a SceneNode that already had a parent somewhere else in the SceneGraph. A node can only have ONE parent.");
-			return;
+			System.out.println("WARNING: attempted to add a SceneNode that already had a parent somewhere else in the SceneGraph. A node can only have ONE parent.");
 		}
 		this.children.add(node);
 		node.setParent(this);
