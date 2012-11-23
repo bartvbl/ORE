@@ -24,7 +24,7 @@ public class WallMapLoader {
 			int yCoord = 0;
 			for(int j = wallMap[0].length - 1; j >= 0; j--) {
 				int rgb = wallMapImage.getRGB(xCoord, j);
-				boolean isWall = rgb == BLACK;
+				boolean isWall = rgb != BLACK;
 				wallMap[xCoord][yCoord] = isWall;
 				yCoord++;
 			}

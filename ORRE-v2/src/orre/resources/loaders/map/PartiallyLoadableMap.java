@@ -15,7 +15,7 @@ public class PartiallyLoadableMap extends Finalizable {
 	public void finalizeResource() {}
 
 	public SceneNode createSceneNode() {
-		return map.createSceneNode(this.destinationCache);
+		return map.createSceneNode();
 	}
 
 	public void addToCache() {

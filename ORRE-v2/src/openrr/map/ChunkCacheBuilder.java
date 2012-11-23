@@ -30,7 +30,7 @@ public class ChunkCacheBuilder {
 						chunkTiles[i][j] = tileMap[chunkStartX + i][chunkStartY + j];
 					}
 				}
-				chunkMap[chunkX][chunkY] = new Chunk(chunkTiles, chunkX, chunkY);
+				chunkMap[chunkX][chunkY] = new Chunk(chunkTiles, tileMap, chunkX, chunkY);
 			}
 		}
 		

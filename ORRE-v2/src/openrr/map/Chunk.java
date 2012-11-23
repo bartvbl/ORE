@@ -13,12 +13,13 @@ public class Chunk extends EmptySceneNode implements SceneNode{
 	private boolean requiresRebuild = true;
 	private final int x, y;
 	private int displayListID = -1;
-	private ResourceCache cache;
+	private MapTile[][] tileMap;
 
-	public Chunk(MapTile[][] tiles, int x, int y) {
+	public Chunk(MapTile[][] tiles, MapTile[][] tileMap, int x, int y) {
 		this.tiles = tiles;
 		this.x = x;
 		this.y = y;
+		this.tileMap = tileMap;
 	}
 	
 	public void preRender() {
@@ -45,16 +46,11 @@ public class Chunk extends EmptySceneNode implements SceneNode{
 			for(int j = 0; j < tiles[0].length; j++) {
 				glPushMatrix();
 				glTranslatef(i*MapTile.TILE_WIDTH, j*MapTile.TILE_HEIGHT, 0);
-				tiles[i][j].render(cache, tiles);
+				tiles[i][j].render(tileMap);
 				glPopMatrix();
 			}
 		}
 		glEndList();
 		this.requiresRebuild = false;
-	}
-
-	//with a lack of a better way of delivering the resource cache needed for building tiles
-	public void setResourceCache(ResourceCache cache) {
-		this.cache = cache;
-	}
+	} 
 }

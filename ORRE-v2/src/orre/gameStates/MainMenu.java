@@ -71,7 +71,7 @@ public class MainMenu extends GameState {
 	@Override
 	public void set() {
 		
-		this.testNode = this.resourceCache.getMap().createSceneNode(this.resourceCache);
+		this.testNode = this.resourceCache.getMap().createSceneNode();
 		this.resourceCache.getMap().tick();
 		this.displayListID = glGenLists(1);
 		glNewList(this.displayListID, GL_COMPILE);

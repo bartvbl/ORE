@@ -11,12 +11,11 @@ public class ChunkCache {
 		this.chunks = chunks;
 	}
 
-	public SceneNode createSceneNode(ResourceCache cache) {
+	public SceneNode createSceneNode() {
 		SceneNode mainSceneNode = new EmptySceneNode();
 		for(int i = 0; i < chunks.length; i++) {
 			for(int j = 0; j < chunks[0].length; j++) {
 				Chunk chunk = chunks[i][j];
-				chunk.setResourceCache(cache);
 				mainSceneNode.addChild(chunk);
 			}
 		}

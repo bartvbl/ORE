@@ -11,8 +11,8 @@ public class Map {
 		this.chunkCache = ChunkCacheBuilder.buildChunkCache(tileMap, tileMap.length, tileMap[0].length);
 	}
 
-	public SceneNode createSceneNode(ResourceCache cache) {
-		return chunkCache.createSceneNode(cache);
+	public SceneNode createSceneNode() {
+		return chunkCache.createSceneNode();
 	}
 	
 	public void tick() {
