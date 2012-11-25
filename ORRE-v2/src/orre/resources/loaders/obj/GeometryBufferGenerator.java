@@ -12,28 +12,19 @@ import orre.resources.partiallyLoadables.UnpackedGeometryBuffer;
 
 public class GeometryBufferGenerator {
 	
-	public static GeometryBuffer generateGeometryBuffer(BufferDataFormatType dataFormat, float[] vertices, int vertexCount) {
+	public static GeometryBuffer generateGeometryBuffer(BufferDataFormatType dataFormat, float[] vertices, int[] indices) {
 		int elementsPerVertex = dataFormat.elementsPerVertex;
-		FloatBuffer geometryData = BufferUtils.createFloatBuffer(vertexCount*elementsPerVertex);
-		IntBuffer indexes = BufferUtils.createIntBuffer(vertexCount);
+		int vertexCount = vertices.length / elementsPerVertex;
 		
-		putVerticesInBuffers(vertices, geometryData, indexes, elementsPerVertex);
+		FloatBuffer geometryData = BufferUtils.createFloatBuffer(vertices.length);
+		IntBuffer indexes = BufferUtils.createIntBuffer(indices.length);
+		
+		geometryData.put(vertices);
+		indexes.put(indexes);
 		
 		GeometryBuffer geometryBuffer = storeBuffersInVRAM(geometryData, indexes, dataFormat, vertexCount);
 		
 		return geometryBuffer;
-	}
-	
-	private static void putVerticesInBuffers(float[] vertices, FloatBuffer geometryData, IntBuffer indexes, int elementsPerVertex) {
-//		System.out.println(Arrays.toString(vertices));
-		int vertexCount = 0;
-		for(int vertexStartIndex = 0; vertexStartIndex < vertices.length; vertexStartIndex += elementsPerVertex) {
-			indexes.put(vertexCount);
-			vertexCount++;
-			for(int vertexIndex = vertexStartIndex; vertexIndex < vertexStartIndex + elementsPerVertex; vertexIndex++) {
-				geometryData.put(vertices[vertexIndex]);
-			}
-		}
 	}
 
 	private static GeometryBuffer storeBuffersInVRAM(FloatBuffer geometryData, IntBuffer indexes, BufferDataFormatType dataFormat, int vertexCount)

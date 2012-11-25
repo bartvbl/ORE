@@ -51,7 +51,9 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	}
 
 	public GeometryBuffer convertToGeometryBuffer() {
-		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, this.vertices, this.numVertices);
+		int[] indices = new int[this.numVertices];
+		for(int i = 0; i < this.numVertices; i++) indices[i] = i;
+		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, this.vertices, indices);
 		this.vertices = null;
 		return buffer;
 	}
