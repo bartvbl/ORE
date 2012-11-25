@@ -8,35 +8,32 @@ public class MapTile {
 	public static final int TILE_WIDTH = 8;
 	public static final int TILE_HEIGHT = 8;
 	
+	public final int[][] tileHeight;
 	private boolean isExplored = false;
 	private boolean isWall;
 	private Soil soil;
-	private int[][] tileHeight;
-	private int x;
-	private int y;
+	private boolean hasChanged = true;
 	
-	public MapTile(boolean isWall, Soil soil, int[][] tileHeight, int x, int y) {
+	public MapTile(boolean isWall, Soil soil, int[][] tileHeight) {
 		this.isWall = isWall;
 		this.soil = soil;
 		this.tileHeight = tileHeight;
-		this.x = x;
-		this.y = y;
 	}
 	
 	public void explore() {
 		this.isExplored = true;
+		this.hasChanged = true;
+	}
+	public boolean isExplored() {
+		return this.isExplored;
 	}
 	
 	public void digg() {
 		this.isWall = false;
+		this.hasChanged = true;
 	}
-	
 	public boolean isWall() {
 		return this.isWall;
-	}
-	
-	public boolean isExplored() {
-		return this.isExplored;
 	}
 	
 	public void handleEntityTouch(Entity entity) {
@@ -46,16 +43,14 @@ public class MapTile {
 	public Soil getSoil() {
 		return this.soil;
 	}
-	
 	public void setSoil(Soil soil) {
 		this.soil = soil;
+		this.hasChanged = true;
 	}
-
-	public void render(MapTile[][] tileMap) {
-		this.soil.generateGeometry(tileHeight, tileMap, x, y);
-	}
-
-	public int[][] getTileHeights() {
-		return tileHeight;
+	
+	public boolean requiresRedraw() {
+		boolean requiresRedraw = hasChanged;
+		hasChanged = false;
+		return requiresRedraw;
 	}
 }

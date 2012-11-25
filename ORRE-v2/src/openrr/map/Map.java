@@ -5,7 +5,7 @@ import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
 
 public class Map {
-	
+	private MapGeometryCache cache;
 	
 	public Map(MapTile[][] tileMap) {
 		
