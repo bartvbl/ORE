@@ -7,7 +7,7 @@ import nu.xom.Element;
 import nu.xom.Elements;
 
 public class WallMapLoader {
-	private static final int BLACK = 0xFFFFFFFF;
+	private static final int BLACK = 0xFF000000;
 
 	public static boolean[][] loadWallMap(ZipFile mapFile, Element mapDefinitionElement, int width, int height) {
 		boolean[][] wallMap = new boolean[width][height];
@@ -24,7 +24,7 @@ public class WallMapLoader {
 			int yCoord = 0;
 			for(int j = wallMap[0].length - 1; j >= 0; j--) {
 				int rgb = wallMapImage.getRGB(xCoord, j);
-				boolean isWall = rgb != BLACK;
+				boolean isWall = rgb == BLACK;
 				wallMap[xCoord][yCoord] = isWall;
 				yCoord++;
 			}
@@ -37,7 +37,7 @@ public class WallMapLoader {
 			Element row = rows.get(i);
 			String rowValues = row.getValue();
 			int yCoord = Integer.parseInt(row.getAttributeValue("yCoord"));
-			if(yCoord < 0 || yCoord > wallMap[0].length){
+			if(yCoord > 0 && yCoord < wallMap[0].length){
 				if(rowValues.length() == wallMap.length - 1) {
 					for(int j = 0; j < wallMap.length - 1; j++) {
 						char tile = rowValues.charAt(j);
