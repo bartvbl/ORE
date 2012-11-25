@@ -3,18 +3,23 @@ package openrr.map;
 import orre.sceneGraph.SceneNode;
 
 public class MapGeometryCache {
-	private MapTile[][] timeMap;
+	private final MapTile[][] tileMap;
 	private SceneNode rootNode;
+	private MapGeometryBuffer buffer;
 
 	public MapGeometryCache(MapTile[][] tileMap) {
-		this.timeMap = tileMap;
+		this.tileMap = tileMap;
 	}
 	
-	public void rebuild() {
+	public void update() {
 		
 	}
 	
 	public SceneNode getSceneNode() {
 		return rootNode;
+	}
+
+	public void buildAll() {
+		this.buffer = MapBuilder.buildMap(tileMap);
 	}
 }

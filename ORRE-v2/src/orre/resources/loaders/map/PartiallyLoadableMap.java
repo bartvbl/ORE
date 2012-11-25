@@ -12,7 +12,9 @@ public class PartiallyLoadableMap extends Finalizable {
 		this.map = map;
 	}
 
-	public void finalizeResource() {}
+	public void finalizeResource() {
+		map.buildAll();
+	}
 
 	public SceneNode createSceneNode() {
 		return map.createSceneNode();
