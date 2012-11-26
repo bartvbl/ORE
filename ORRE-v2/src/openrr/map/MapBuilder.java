@@ -36,8 +36,8 @@ public class MapBuilder {
 		//(3 xyz coords + 2 texture coords) * 4 vertices per quad * map width * map height
 		double[] vertices = new double[(3 + 2) * width * height];
 		boolean[][] vertexHeights = MapWallParser.createWallHeightMap(tileMap);
-		WallType[][] wallTypeMap = WallTypeMapParser.createWallTypeMap(vertexHeights, width, height);
-		Orientation[][] wallOrientations = MapWallOrientationParser.generateOrientationMap(vertexHeights, wallTypeMap);
+		//WallType[][] wallTypeMap = WallTypeMapParser.createWallTypeMap(vertexHeights, width, height);
+		//Orientation[][] wallOrientations = MapWallOrientationParser.generateOrientationMap(vertexHeights, wallTypeMap);
 		return vertices;
 	}
 

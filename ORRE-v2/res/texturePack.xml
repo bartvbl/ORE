@@ -6,132 +6,159 @@
 		<version>1.0</version>
 	</meta>
 	<config>
-		<fileSpecVersion value="1.1" />
+		<fileSpecVersion value="1.2" />
 		<pathPrefix value="res/textures/"/>
 		<defaultTexture src="res/textures/error.png"/>
 	</config>
+	<textures>
+		<texture name="terrain" src="terrain.png" widthInTextures="8" heightInTextures="8" />
+	</textures>
 	<soilTextureSets>
 		<!-- 	Default ground and roof textures. Using "inheritance" will apply this on other walls
 				When the soil map loader finds a tile that is not recognised by its colour, this tile will be assumed.
 				The default tile is equal to the solid rock tile. 
 				A good convention is to use lowercase letters for soil types that are only used by other soil types, since the game only recognises all uppercase names. -->
 		<soilTextureSet type="baseTile" r="0" g="0" b="0">
-			<texture type="ground" src="rock00.png" />
-			<texture type="wall" src="rock05.png" />
-			<texture type="wallCorner" src="rock55.png" />
-			<texture type="invertedCorner" src="rock35.png" />
-			<texture type="enforced" src="rock25.png" />
-			<texture type="roof" src="rock70.png" />
+			<texture type="ground" texture="terrain" x="0" y="0" />
+			<texture type="wall" texture="terrain" x="5" y="0" />
+			<texture type="wallCorner" texture="terrain" x="5" y="1" />
+			<texture type="invertedCorner" texture="terrain" x="5" y="2" />
+			<texture type="enforced" texture="terrain" x="5" y="3" />
+			<texture type="roof" texture="terrain" x="0" y="1" />
+			<texture type="crevice" texture="terrain" x="1" y="3" />
 		</soilTextureSet>
 		
 		<!-- Basic walls -->
 		<soilTextureSet type="SOIL" extends="baseTile" r="206" g="168" b="237">
-			<texture type="wall" src="rock01.png" />
-			<texture type="wallCorner" src="rock01.png" />
-			<texture type="invertedCorner" src="rock01.png" />
-			<texture type="enforced" src="rock21.png" />
+			<texture type="wall" texture="terrain" x="1" y="0" />
+			<texture type="wallCorner" texture="terrain" x="1" y="1" />
+			<texture type="invertedCorner" texture="terrain" x="1" y="2" />
+			<texture type="enforced" texture="terrain" x="1" y="3" />
 		</soilTextureSet>
 		<soilTextureSet type="DIRT" extends="baseTile" r="173" g="89" b="239">
-			<texture type="wall" src="rock02.png" />
-			<texture type="wallCorner" src="rock52.png" />
-			<texture type="invertedCorner" src="rock32.png" />
-			<texture type="enforced" src="rock22.png" />
+			<texture type="wall" texture="terrain" x="2" y="0" />
+			<texture type="wallCorner" texture="terrain" x="2" y="1" />
+			<texture type="invertedCorner" texture="terrain" x="2" y="2" />
+			<texture type="enforced" texture="terrain" x="2" y="2" />
 		</soilTextureSet>
 		<soilTextureSet type="LOOSE_ROCK" extends="baseTile" r="148" g="60" b="206">
-			<texture type="wall" src="rock03.png" />
-			<texture type="wallCorner" src="rock53.png" />
-			<texture type="invertedCorner" src="rock33.png" />
-			<texture type="enforced" src="rock23.png" />
+			<texture type="wall" texture="terrain" x="3" y="0" />
+			<texture type="wallCorner" texture="terrain" x="3" y="1" />
+			<texture type="invertedCorner" texture="terrain" x="3" y="2" />
+			<texture type="enforced" texture="terrain" x="3" y="3" />
 		</soilTextureSet>
 		<soilTextureSet type="HARD_ROCK" extends="baseTile" r="116" g="28" b="174">
-			<texture type="wall" src="rock04.png" />
-			<texture type="wallCorner" src="rock54.png" />
-			<texture type="invertedCorner" src="rock34.png" />
-			<texture type="enforced" src="rock24.png" />
+			<texture type="wall" texture="terrain" x="4" y="0" />
+			<texture type="wallCorner" texture="terrain" x="4" y="1" />
+			<texture type="invertedCorner" texture="terrain" x="4" y="2" />
+			<texture type="enforced" texture="terrain" x="4" y="3" />
 		</soilTextureSet>
 		<soilTextureSet type="SOLID_ROCK" extends="baseTile" r="82" g="0" b="139">
-			<texture type="wall" src="rock05.png" />
-			<texture type="wallCorner" src="rock55.png" />
-			<texture type="invertedCorner" src="rock35.png" />
-			<texture type="enforced" src="rock25.png" />
+			<texture type="wall" texture="terrain" x="5" y="0" />
+			<texture type="wallCorner" texture="terrain" x="5" y="1" />
+			<texture type="invertedCorner" texture="terrain" x="5" y="2" />
+			<texture type="enforced" texture="terrain" x="5" y="3" />
 		</soilTextureSet>
 		
 		<!-- Ore Seams -->
 		<soilTextureSet type="CHRYSTAL_SEAM" extends="baseTile" r="182" g="255" b="0">
-			<texture type="wall" src="rock20.png" />
-			<texture type="wallCorner" src="rock20.png" />
-			<texture type="invertedCorner" src="rock20.png" />
+			<texture type="wall" texture="terrain" x="7" y="5" />
+			<texture type="wallCorner" texture="terrain" x="7" y="5" />
+			<texture type="invertedCorner" texture="terrain" x="7" y="5" />
 		</soilTextureSet>
 		<soilTextureSet type="ORE_SEAM" extends="baseTile" r="156" g="65" b="8">
-			<texture type="wall" src="rock40.png" />
-			<texture type="wallCorner" src="rock40.png" />
-			<texture type="invertedCorner" src="rock40.png" />
+			<texture type="wall" texture="terrain" x="6" y="5" />
+			<texture type="wallCorner" texture="terrain" x="6" y="5" />
+			<texture type="invertedCorner" texture="terrain" x="6" y="5" />
 		</soilTextureSet>
 		<soilTextureSet type="RECHARGE_SEAM" extends="baseTile" r="255" g="255" b="0">
-			<texture type="wall" src="rock67.png" />
-			<texture type="wallCorner" src="rock67.png" />
-			<texture type="invertedCorner" src="rock67.png" />
+			<texture type="wall" texture="terrain" x="0" y="3" />
+			<texture type="wallCorner" texture="terrain" x="0" y="3" />
+			<texture type="invertedCorner" texture="terrain" x="0" y="3" />
 		</soilTextureSet>
 		
 		<!-- Ground Types -->
 		<soilTextureSet type="LAVA" extends="baseTile" r="254" g="89" b="0">
-			<texture type="ground" src="rock46.png" />
+			<texture type="ground" texture="terrain" x="6" y="4" />
 		</soilTextureSet>
 		<soilTextureSet type="WATER" extends="baseTile" r="0" g="43" b="181">
-			<texture type="ground" src="rock45.png" />
+			<texture type="ground" texture="terrain" x="7" y="4" />
 		</soilTextureSet>
 		
 		<!-- Lava Erosion -->
 		<soilTextureSet type="LAVA_EROSION_STEP1" extends="baseTile" r="1" g="1" b="1">
-			<texture type="ground" src="rock06.png" />
+			<texture type="ground" texture="terrain" x="6" y="0" />
 		</soilTextureSet>
 		<soilTextureSet type="LAVA_EROSION_STEP2" extends="baseTile" r="10" g="10" b="10">
-			<texture type="ground" src="rock16.png" />
+			<texture type="ground" texture="terrain" x="6" y="1" />
 		</soilTextureSet>
 		<soilTextureSet type="LAVA_EROSION_STEP3" extends="baseTile" r="20" g="20" b="20">
-			<texture type="ground" src="rock26.png" />
+			<texture type="ground" texture="terrain" x="6" y="2" />
 		</soilTextureSet>
 		<soilTextureSet type="LAVA_EROSION_STEP4" extends="baseTile" r="30" g="30" b="30">
-			<texture type="ground" src="rock36.png" />
+			<texture type="ground" texture="terrain" x="6" y="3" />
 		</soilTextureSet>
 		
 		<!-- Power Path tiles -->
-		<soilTextureSet type="POWER_PATH_SQUARE" extends="baseTile" r="157" g="154" b="1">
-			<texture type="ground" src="rock76.png" />
+		<soilTextureSet type="POWER_PATH_SQUARE_UNPOWERED" extends="baseTile" r="157" g="154" b="1">
+			<texture type="ground" texture="terrain" x="0" y="4" />
 		</soilTextureSet>
-		<soilTextureSet type="POWER_PATH_CROSS" extends="baseTile" r="157" g="154" b="10">
-			<texture type="ground" src="rock60.png" />
+		<soilTextureSet type="POWER_PATH_SQUARE_POWERED" extends="baseTile" r="157" g="154" b="5">
+			<texture type="ground" texture="terrain" x="0" y="5" />
 		</soilTextureSet>
-		<soilTextureSet type="POWER_PATH_STRAIGHT" extends="baseTile" r="157" g="154" b="20">
-			<texture type="ground" src="rock62.png" />
+		
+		<soilTextureSet type="POWER_PATH_CROSS_UNPOWERED" extends="baseTile" r="157" g="154" b="10">
+			<texture type="ground" texture="terrain" x="5" y="4" />
 		</soilTextureSet>
-		<soilTextureSet type="POWER_PATH_CORNER" extends="baseTile" r="157" g="154" b="30">
-			<texture type="ground" src="rock63.png" />
+		<soilTextureSet type="POWER_PATH_CROSS_POWERED" extends="baseTile" r="157" g="154" b="15">
+			<texture type="ground" texture="terrain" x="5" y="5" />
 		</soilTextureSet>
-		<soilTextureSet type="POWER_PATH_TINTERSECTION" extends="baseTile" r="157" g="154" b="40">
-			<texture type="ground" src="rock64.png" />
+		
+		<soilTextureSet type="POWER_PATH_STRAIGHT_UNPOWERED" extends="baseTile" r="157" g="154" b="20">
+			<texture type="ground" texture="terrain" x="3" y="4" />
 		</soilTextureSet>
-		<soilTextureSet type="POWER_PATH_END" extends="baseTile" r="157" g="154" b="50">
-			<texture type="ground" src="rock65.png" />
+		<soilTextureSet type="POWER_PATH_STRAIGHT_POWERED" extends="baseTile" r="157" g="154" b="25">
+			<texture type="ground" texture="terrain" x="3" y="5" />
+		</soilTextureSet>
+		
+		<soilTextureSet type="POWER_PATH_CORNER_UNPOWERED" extends="baseTile" r="157" g="154" b="30">
+			<texture type="ground" texture="terrain" x="2" y="4" />
+		</soilTextureSet>
+		<soilTextureSet type="POWER_PATH_CORNER_POWERED" extends="baseTile" r="157" g="154" b="35">
+			<texture type="ground" texture="terrain" x="2" y="5" />
+		</soilTextureSet>
+		
+		<soilTextureSet type="POWER_PATH_TINTERSECTION_UNPOWERED" extends="baseTile" r="157" g="154" b="40">
+			<texture type="ground" texture="terrain" x="4" y="4" />
+		</soilTextureSet>
+		<soilTextureSet type="POWER_PATH_TINTERSECTION_POWERED" extends="baseTile" r="157" g="154" b="45">
+			<texture type="ground" texture="terrain" x="4" y="5" />
+		</soilTextureSet>
+		
+		<soilTextureSet type="POWER_PATH_END_UNPOWERED" extends="baseTile" r="157" g="154" b="50">
+			<texture type="ground" texture="terrain" x="1" y="4" />
+		</soilTextureSet>
+		<soilTextureSet type="POWER_PATH_END_POWERED" extends="baseTile" r="157" g="154" b="55">
+			<texture type="ground" texture="terrain" x="1" y="5" />
 		</soilTextureSet>
 
 		<!-- Rubble -->
 		<soilTextureSet type="RUBBLE_STEP1" extends="baseTile" r="41" g="1" b="74">
-			<texture type="ground" src="rock10.png" />
+			<texture type="ground" texture="terrain" x="4" y="6" />
 		</soilTextureSet>
 		<soilTextureSet type="RUBBLE_STEP2" extends="baseTile" r="41" g="10" b="74">
-			<texture type="ground" src="rock11.png" />
+			<texture type="ground" texture="terrain" x="3" y="6" />
 		</soilTextureSet>
 		<soilTextureSet type="RUBBLE_STEP3" extends="baseTile" r="41" g="20" b="74">
-			<texture type="ground" src="rock12.png" />
+			<texture type="ground" texture="terrain" x="2" y="6" />
 		</soilTextureSet>
 		<soilTextureSet type="RUBBLE_STEP4" extends="baseTile" r="41" g="30" b="74">
-			<texture type="ground" src="rock13.png" />
+			<texture type="ground" texture="terrain" x="1" y="6" />
 		</soilTextureSet>
 		
 		<!-- Slug Hole -->
 		<soilTextureSet type="SLUG_HOLE" extends="baseTile" r="89" g="0" b="0">
-			<texture type="ground" src="rock30.png" />
+			<texture type="ground" texture="terrain" x="0" y="6" />
 		</soilTextureSet>
 	</soilTextureSets>
 </ORRTexturePack>

@@ -27,13 +27,8 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 		this.globalEventDispatcher = new EventDispatcher();
 		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 	}
-
-	public void run()
-	{
-		this.mainLoop();
-	}
 	
-	private void mainLoop()
+	public void mainLoop()
 	{
 		while(!Display.isCloseRequested() && gameIsRunning)
 		{

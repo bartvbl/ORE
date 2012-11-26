@@ -1,49 +1,50 @@
 package openrr.map.soil;
 
+import openrr.map.WallType;
 import orre.gl.texture.Texture;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
 public class SoilTextureSet {
-	public final String type;
-	private SoilTextureType[] soilTextureTypes;
-	private PartiallyLoadableTexture[] partiallyLoadableTextures;
-	private Texture[] textures;
+	public final SoilType type;
+	private WallType[] soilTextureTypes;
+	private MapTexture[] mapTextures;
 	private boolean compiled = false;
 
-	public SoilTextureSet(String type) {
+	public SoilTextureSet(SoilType type) {
 		this.type = type;
-		this.soilTextureTypes = SoilTextureType.values();
-		this.partiallyLoadableTextures = new PartiallyLoadableTexture[soilTextureTypes.length];
-		this.textures = new Texture[soilTextureTypes.length];
+		this.soilTextureTypes = WallType.values();
+		this.mapTextures = new MapTexture[soilTextureTypes.length];
 	}
 	
-	public void bindTexture(SoilTextureType type) {
-		textures[indexOf(type)].bind();
+	public void bindTexture(WallType type) {
+		mapTextures[indexOf(type)].bind();
 	}
 	
-	public void setTexture(SoilTextureType type, PartiallyLoadableTexture texture) {
-		partiallyLoadableTextures[indexOf(type)] = texture;
+	public void setTexture(WallType type, MapTexture mapTexture) {
+		mapTextures[indexOf(type)] = mapTexture;
+	}
+	
+	public boolean textureEquals(WallType type, MapTexture texture) {
+		return mapTextures[indexOf(type)] == texture;
 	}
 	
 	public void finalizeTextures() {
 		if(compiled) return;
-		for(int i = 0; i < partiallyLoadableTextures.length; i++) {
-			partiallyLoadableTextures[i].finalizeResource();
-			textures[i] = partiallyLoadableTextures[i].getTexture();
+		for(int i = 0; i < mapTextures.length; i++) {
+			mapTextures[i].finalizeTexture();
 		}
-		partiallyLoadableTextures = null;
 		compiled = true;
 	}
 	
-	public SoilTextureSet clone(String typeName) {
+	public SoilTextureSet clone(SoilType typeName) {
 		SoilTextureSet newSet = new SoilTextureSet(typeName);
 		for(int i = 0; i < soilTextureTypes.length; i++) {
-			newSet.setTexture(soilTextureTypes[i], partiallyLoadableTextures[i]);
+			newSet.setTexture(soilTextureTypes[i], mapTextures[i]);
 		}
 		return newSet;
 	}
 	
-	private int indexOf(SoilTextureType type) {
+	private int indexOf(WallType type) {
 		for(int i = 0; i < soilTextureTypes.length; i++) {
 			if(type == soilTextureTypes[i]) return i;
 		}
