@@ -24,7 +24,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class MainMenu extends GameState {
 
 	private SceneNode testNode;
-	private float rotationX = 0, rotationY, zoomLevel = -10, xCoord, yCoord;
+	private float rotationX = 0, rotationY, zoomLevel = -80, xCoord, yCoord;
 	
 	private FloatBuffer buffer;
 	private int displayListID;
@@ -60,7 +60,18 @@ public class MainMenu extends GameState {
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
 //		this.lightTest.draw();
-		glCallList(this.displayListID);
+		glPushMatrix();
+		for(int i = -10; i < 10; i++){
+			for(int j = -10; j < 10; j++) {
+				for(int k = -10; k < 10; k++) {
+					glPushMatrix();
+					glTranslatef(2*i, 2*j, 2*k);
+					glCallList(this.displayListID);
+					glPopMatrix();				
+					
+				}
+			}
+		}
 
 		
 //		glTranslatef(20, 0, 0);
