@@ -64,7 +64,8 @@ public class GameWindow {
 		glLoadIdentity();
 		gluPerspective(60.0f, (float)(GameWindow.DEFAULT_WINDOW_WIDTH/GameWindow.DEFAULT_WINDOW_HEIGHT), 0.1f, 10000.0f);
 		glMatrixMode(GL_MODELVIEW);
-		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
+		glClearColor(0, 0, 0, 0);
+		//glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
 		glClearDepth(1.0);
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);
