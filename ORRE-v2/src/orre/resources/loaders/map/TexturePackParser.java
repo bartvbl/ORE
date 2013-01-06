@@ -3,21 +3,25 @@ package orre.resources.loaders.map;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import orre.entity.Entity;
+
 import nu.xom.Element;
 import nu.xom.Elements;
 import openrr.map.soil.Soil;
 import openrr.map.soil.SoilTextureSet;
 import openrr.map.soil.SoilType;
 
+//TODO: refit the textures of a texture set so that they carry coordinates rather than Texture objects
+
 public class TexturePackParser {
-	public static HashMap<SoilType, Soil> parseTexturePackXML(Element rootElement) {
+	public static SoilLibrary parseTexturePackXML(Element rootElement) {
 		
 		Element soilTextureSetsRootElement = rootElement.getFirstChildElement("soilTextureSets");
-		HashMap<SoilType, Soil> soilLibrary = parseSoilTextureSets(soilTextureSetsRootElement);
+		SoilLibrary soilLibrary = parseSoilTextureSets(soilTextureSetsRootElement);
 		return soilLibrary;
 	}
 
-	private static HashMap<SoilType, Soil> parseSoilTextureSets(Element soilTextureSetsRootElement) {
+	private static SoilLibrary parseSoilTextureSets(Element soilTextureSetsRootElement) {
 		HashMap<String, SoilTextureSet> parsedTextureSets = new HashMap<String, SoilTextureSet>();
 		Elements soilTextureSets = soilTextureSetsRootElement.getChildElements();
 		for(int i = 0; i < soilTextureSets.size(); i++) {
@@ -27,9 +31,25 @@ public class TexturePackParser {
 			String textureSetName = soilTextureSetElement.getAttributeValue("type");
 			parsedTextureSets.put(textureSetName, textureSet);
 		}
-		HashMap<SoilType, Soil> soilLibrary = new HashMap<SoilType, Soil>();
+		SoilLibrary soilLibrary = copyValidTextureSets(parsedTextureSets);
+		
 		return soilLibrary;
 	}
+
+	private static SoilLibrary copyValidTextureSets(HashMap<String, SoilTextureSet> parsedTextureSets) {
+		SoilLibrary soilLibrary = new SoilLibrary();
+		for(SoilType soilType : SoilType.values()) {
+			SoilTextureSet textureSet = parsedTextureSets.get(soilType.toString());
+			if(textureSet != null) {
+				Soil soil = new Soil(textureSet, new int[]{1,2,3});
+				soilLibrary.setSoil(soilType, soil);
+			}
+		}
+		return soilLibrary;
+	}
+	
+	//Soil parseSoilElement()
+		//SoilTextureSet parseSoilTextureSet()
 
 	private static SoilTextureSet createNewTextureSet(Element soilTextureSetElement, HashMap<String, SoilTextureSet> parsedTextureSets) {
 		String parentSoilType = soilTextureSetElement.getAttributeValue("extends");
@@ -55,7 +75,7 @@ public class TexturePackParser {
 		return false;
 	}
 
-	private static void parseSoilTextureSet(SoilTextureSet textureSet2, Element element) {
-		SoilTextureSet textureSet = new SoilTextureSet();
+	private static void parseSoilTextureSet(SoilTextureSet textureSet, Element element) {
+		
 	}
 }
