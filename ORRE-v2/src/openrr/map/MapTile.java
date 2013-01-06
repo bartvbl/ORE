@@ -37,7 +37,7 @@ public class MapTile {
 	}
 	
 	public void handleEntityTouch(Entity entity) {
-		this.soil.handleEntityTouch(entity);
+		
 	}
 	
 	public Soil getSoil() {
