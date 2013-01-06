@@ -5,65 +5,67 @@
 	</sounds>
 	
 	<models pathPrefix="res/mesh/">
-		<!--<model name="lmsExplorer" src="lmsExplorer.mdl"/>
+		<model name="lmsExplorer" src="lmsExplorer.mdl"/>
 		<model name="rockRaider" src="minifig.mdl"/>
-		<model name="toolStore" src="toolStore.mdl"/>-->
+		<model name="toolStore" src="toolStore.mdl"/>
 		<model name="chrystal" src="chrystal.mdl"/>
 		<!--<model name="map_stud" src="stud.mdl"/>-->
 	</models>
 	
-	<menuTextures pathPrefix="res/images/menus/">
-		<menuTexture name="teleportNewRockRaiderButton_Up" src="main/raider.bmp"/>
-		<menuTexture name="teleportNewRockRaiderButton_Down" src="main/praider.bmp"/>
-		<menuTexture name="teleportNewRockRaiderButton_Disabled" src="main/nraider.bmp"/>
-		<menuTexture name="buildingMenu_Up" src="main/building.bmp"/>
-		<menuTexture name="buildingMenu_Down" src="main/pbuilding.bmp"/>
-		<menuTexture name="buildingMenu_Disabled" src="main/nbuilding.bmp"/>
-		<menuTexture name="smallVehicleMenu_Up" src="main/svehicle.bmp"/>
-		<menuTexture name="smallVehicleMenu_Down" src="main/psvehicle.bmp"/>
-		<menuTexture name="smallVehicleMenu_Disabled" src="main/nsvehicle.bmp"/>
-		<menuTexture name="largeVehicleMenu_Up" src="main/lvehicle.bmp"/>
-		<menuTexture name="largeVehicleMenu_Down" src="main/plvehicle.bmp"/>
-		<menuTexture name="largeVehicleMenu_Disabled" src="main/nlvehicle.bmp"/>
-		<menuTexture name="ingameMainMenu_Hover" src="main/hover.png"/>
+	<menuTextures pathPrefix="res/images/">
+		<menuTexture name="mainMenu_skybox" src="mainMenu/skybox.jpg" />
+	
+		<menuTexture name="teleportNewRockRaiderButton_Up" src="menus/main/raider.bmp"/>
+		<menuTexture name="teleportNewRockRaiderButton_Down" src="menus/main/praider.bmp"/>
+		<menuTexture name="teleportNewRockRaiderButton_Disabled" src="menus/main/nraider.bmp"/>
+		<menuTexture name="buildingMenu_Up" src="menus/main/building.bmp"/>
+		<menuTexture name="buildingMenu_Down" src="menus/main/pbuilding.bmp"/>
+		<menuTexture name="buildingMenu_Disabled" src="menus/main/nbuilding.bmp"/>
+		<menuTexture name="smallVehicleMenu_Up" src="menus/main/svehicle.bmp"/>
+		<menuTexture name="smallVehicleMenu_Down" src="menus/main/psvehicle.bmp"/>
+		<menuTexture name="smallVehicleMenu_Disabled" src="menus/main/nsvehicle.bmp"/>
+		<menuTexture name="largeVehicleMenu_Up" src="menus/main/lvehicle.bmp"/>
+		<menuTexture name="largeVehicleMenu_Down" src="menus/main/plvehicle.bmp"/>
+		<menuTexture name="largeVehicleMenu_Disabled" src="menus/main/nlvehicle.bmp"/>
+		<menuTexture name="ingameMainMenu_Hover" src="menus/main/hover.png"/>
 		
-		<menuTexture name="buildingMenu_Dock_Up" src="building/dock.bmp"/>
-		<menuTexture name="buildingMenu_Dock_Down" src="building/pdock.bmp"/>
-		<menuTexture name="buildingMenu_Dock_Disabled" src="building/ndock.bmp"/>
-		<menuTexture name="buildingMenu_Geo_Up" src="building/geo.bmp"/>
-		<menuTexture name="buildingMenu_Geo_Down" src="building/pgeo.bmp"/>
-		<menuTexture name="buildingMenu_Geo_Disabled" src="building/ngeo.bmp"/>
-		<menuTexture name="buildingMenu_Laser_Up" src="building/laser.bmp"/>
-		<menuTexture name="buildingMenu_Laser_Down" src="building/plaser.bmp"/>
-		<menuTexture name="buildingMenu_Laser_Disabled" src="building/nlaser.bmp"/>
-		<menuTexture name="buildingMenu_SuperTeleport_Up" src="building/lteleporter.bmp"/>
-		<menuTexture name="buildingMenu_SuperTeleport_Down" src="building/plteleporter.bmp"/>
-		<menuTexture name="buildingMenu_SuperTeleport_Disabled" src="building/nlteleporter.bmp"/>
-		<menuTexture name="buildingMenu_PowerStation_Up" src="building/pstation.bmp"/>
-		<menuTexture name="buildingMenu_PowerStation_Down" src="building/ppstation.bmp"/>
-		<menuTexture name="buildingMenu_PowerStation_Disabled" src="building/npstation.bmp"/>
-		<menuTexture name="buildingMenu_Refinery_Up" src="building/refinery.bmp"/>
-		<menuTexture name="buildingMenu_Refinery_Down" src="building/prefinery.bmp"/>
-		<menuTexture name="buildingMenu_Refinery_Disabled" src="building/nrefinery.bmp"/>
-		<menuTexture name="buildingMenu_SmallTeleport_Up" src="building/steleporter.bmp"/>
-		<menuTexture name="buildingMenu_SmallTeleport_Down" src="building/psteleporter.bmp"/>
-		<menuTexture name="buildingMenu_SmallTeleport_Disabled" src="building/nsteleporter.bmp"/>
-		<menuTexture name="buildingMenu_SupportStation_Up" src="building/support.bmp"/>
-		<menuTexture name="buildingMenu_SupportStation_Down" src="building/psupport.bmp"/>
-		<menuTexture name="buildingMenu_SupportStation_Disabled" src="building/nsupport.bmp"/>
-		<menuTexture name="buildingMenu_ToolStore_Up" src="building/toolstore.bmp"/>
-		<menuTexture name="buildingMenu_ToolStore_Down" src="building/ptoolstore.bmp"/>
-		<menuTexture name="buildingMenu_ToolStore_Disabled" src="building/ntoolstore.bmp"/>
-		<menuTexture name="buildingMenu_UpgradeStation_Up" src="building/upgrade.bmp"/>
-		<menuTexture name="buildingMenu_UpgradeStation_Down" src="building/pupgrade.bmp"/>
-		<menuTexture name="buildingMenu_UpgradeStation_Disabled" src="building/nupgrade.bmp"/>
-		<menuTexture name="buildingMenu_Hover" src="building/hover.png"/>
+		<menuTexture name="buildingMenu_Dock_Up" src="menus/building/dock.bmp"/>
+		<menuTexture name="buildingMenu_Dock_Down" src="menus/building/pdock.bmp"/>
+		<menuTexture name="buildingMenu_Dock_Disabled" src="menus/building/ndock.bmp"/>
+		<menuTexture name="buildingMenu_Geo_Up" src="menus/building/geo.bmp"/>
+		<menuTexture name="buildingMenu_Geo_Down" src="menus/building/pgeo.bmp"/>
+		<menuTexture name="buildingMenu_Geo_Disabled" src="menus/building/ngeo.bmp"/>
+		<menuTexture name="buildingMenu_Laser_Up" src="menus/building/laser.bmp"/>
+		<menuTexture name="buildingMenu_Laser_Down" src="menus/building/plaser.bmp"/>
+		<menuTexture name="buildingMenu_Laser_Disabled" src="menus/building/nlaser.bmp"/>
+		<menuTexture name="buildingMenu_SuperTeleport_Up" src="menus/building/lteleporter.bmp"/>
+		<menuTexture name="buildingMenu_SuperTeleport_Down" src="menus/building/plteleporter.bmp"/>
+		<menuTexture name="buildingMenu_SuperTeleport_Disabled" src="menus/building/nlteleporter.bmp"/>
+		<menuTexture name="buildingMenu_PowerStation_Up" src="menus/building/pstation.bmp"/>
+		<menuTexture name="buildingMenu_PowerStation_Down" src="menus/building/ppstation.bmp"/>
+		<menuTexture name="buildingMenu_PowerStation_Disabled" src="menus/building/npstation.bmp"/>
+		<menuTexture name="buildingMenu_Refinery_Up" src="menus/building/refinery.bmp"/>
+		<menuTexture name="buildingMenu_Refinery_Down" src="menus/building/prefinery.bmp"/>
+		<menuTexture name="buildingMenu_Refinery_Disabled" src="menus/building/nrefinery.bmp"/>
+		<menuTexture name="buildingMenu_SmallTeleport_Up" src="menus/building/steleporter.bmp"/>
+		<menuTexture name="buildingMenu_SmallTeleport_Down" src="menus/building/psteleporter.bmp"/>
+		<menuTexture name="buildingMenu_SmallTeleport_Disabled" src="menus/building/nsteleporter.bmp"/>
+		<menuTexture name="buildingMenu_SupportStation_Up" src="menus/building/support.bmp"/>
+		<menuTexture name="buildingMenu_SupportStation_Down" src="menus/building/psupport.bmp"/>
+		<menuTexture name="buildingMenu_SupportStation_Disabled" src="menus/building/nsupport.bmp"/>
+		<menuTexture name="buildingMenu_ToolStore_Up" src="menus/building/toolstore.bmp"/>
+		<menuTexture name="buildingMenu_ToolStore_Down" src="menus/building/ptoolstore.bmp"/>
+		<menuTexture name="buildingMenu_ToolStore_Disabled" src="menus/building/ntoolstore.bmp"/>
+		<menuTexture name="buildingMenu_UpgradeStation_Up" src="menus/building/upgrade.bmp"/>
+		<menuTexture name="buildingMenu_UpgradeStation_Down" src="menus/building/pupgrade.bmp"/>
+		<menuTexture name="buildingMenu_UpgradeStation_Disabled" src="menus/building/nupgrade.bmp"/>
+		<menuTexture name="buildingMenu_Hover" src="menus/building/hover.png"/>
 		
-		<menuTexture name="ingameMenu_General_BackButton_Up" src="back.bmp"/>
-		<menuTexture name="ingameMenu_General_BackButton_Hover" src="hback.bmp"/>
-		<menuTexture name="ingameMenu_General_BackButton_Down" src="pback.bmp"/>
-		<menuTexture name="ingameMenu_General_MenuBackground_10" src="slot10.png"/>
-		<menuTexture name="ingameMenu_General_MenuBackground_4" src="slot4wo.png"/>
+		<menuTexture name="ingameMenu_General_BackButton_Up" src="menus/back.bmp"/>
+		<menuTexture name="ingameMenu_General_BackButton_Hover" src="menus/hback.bmp"/>
+		<menuTexture name="ingameMenu_General_BackButton_Down" src="menus/pback.bmp"/>
+		<menuTexture name="ingameMenu_General_MenuBackground_10" src="menus/slot10.png"/>
+		<menuTexture name="ingameMenu_General_MenuBackground_4" src="menus/slot4wo.png"/>
 	</menuTextures>
 	
 	<animations pathPrefix="res/anims/">

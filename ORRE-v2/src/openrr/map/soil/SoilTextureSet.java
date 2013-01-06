@@ -5,13 +5,11 @@ import orre.gl.texture.Texture;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
 public class SoilTextureSet {
-	public final SoilType type;
 	private WallType[] soilTextureTypes;
 	private MapTexture[] mapTextures;
 	private boolean compiled = false;
 
-	public SoilTextureSet(SoilType type) {
-		this.type = type;
+	public SoilTextureSet() {
 		this.soilTextureTypes = WallType.values();
 		this.mapTextures = new MapTexture[soilTextureTypes.length];
 	}
@@ -37,7 +35,7 @@ public class SoilTextureSet {
 	}
 	
 	public SoilTextureSet clone(SoilType typeName) {
-		SoilTextureSet newSet = new SoilTextureSet(typeName);
+		SoilTextureSet newSet = new SoilTextureSet();
 		for(int i = 0; i < soilTextureTypes.length; i++) {
 			newSet.setTexture(soilTextureTypes[i], mapTextures[i]);
 		}

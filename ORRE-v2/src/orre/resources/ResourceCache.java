@@ -21,6 +21,10 @@ public class ResourceCache {
 	public void addTexture(String name, Texture tex) {
 		this.textures.put(name, tex);
 	}
+	
+	public Texture getTexture(String name) {
+		return textures.get(name);
+	}
 
 	public void addModel(BlueprintModel model) {
 		this.models.put(model.name, model);

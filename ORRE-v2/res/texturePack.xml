@@ -15,8 +15,8 @@
 	</textures>
 	<soilTextureSets>
 		<!-- 	Default ground and roof textures. Using "inheritance" will apply this on other walls
-				When the soil map loader finds a tile that is not recognised by its colour, this tile will be assumed.
-				The default tile is equal to the solid rock tile. 
+				The default tile is equal to the solid rock tile.
+				Note that the loader parses the file from top to bottom, and does not allow a child soil type to inherit from a parent soil type before the parent has already been defined.
 				A good convention is to use lowercase letters for soil types that are only used by other soil types, since the game only recognises all uppercase names. -->
 		<soilTextureSet type="baseTile" r="0" g="0" b="0">
 			<texture type="ground" texture="terrain" x="0" y="0" />

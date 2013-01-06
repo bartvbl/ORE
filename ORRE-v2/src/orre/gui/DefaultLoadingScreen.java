@@ -7,6 +7,7 @@ import org.lwjgl.opengl.Display;
 import orre.gl.RenderUtils;
 import orre.gl.texture.Texture;
 import orre.resources.loaders.TextureLoader;
+import orre.resources.loaders.obj.OBJLoader;
 
 public class DefaultLoadingScreen implements LoadingScreenDrawer {
 	
@@ -48,17 +49,18 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 		
 		this.loadingIcon.bind();
 		rotation += 3;
-		glTranslatef(100, 50, 0);
+		int size = 50;
+		glTranslatef(80, 80, 0);
 		glRotatef(rotation, 0, 0, 1);
 		glBegin(GL_QUADS);
 		glTexCoord2f(0, 0);
-		glVertex2f(-50, -50);
+		glVertex2f(-size, -size);
 		glTexCoord2f(1, 0);
-		glVertex2f(50, -50);
+		glVertex2f(size, -size);
 		glTexCoord2f(1, 1);
-		glVertex2f(50, 50);
+		glVertex2f(size, size);
 		glTexCoord2f(0, 1);
-		glVertex2f(-50, 50);
+		glVertex2f(-size, size);
 		glEnd();
 		glShadeModel(GL_SMOOTH);
 		glPopMatrix();

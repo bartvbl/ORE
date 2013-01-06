@@ -3,18 +3,20 @@ package orre.resources.loaders.map;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.zip.ZipFile;
 
 import orre.resources.ResourceCache;
 
 import nu.xom.Element;
 import openrr.map.soil.Soil;
+import openrr.map.soil.SoilType;
 
 public class SoilMapLoader {
 
 	public static Soil[][] loadSoilMap(ZipFile mapFile, Element mapDefinitionElement, int width, int height) {
 		//1. load soil library
-		ArrayList<Soil> soilLibrary = SoilLibraryBuilder.buildSoilLibrary("res/texturePack.xml");
+		HashMap<SoilType, Soil> soilLibrary = SoilLibraryBuilder.buildSoilLibrary();
 		//2. load custom tiles
 		//TODO: implement loading of custom tiles
 		//3. load soil map
@@ -31,14 +33,14 @@ public class SoilMapLoader {
 		return soilMap;
 	}
 	
-	private static Soil getSoilByARGB(int argb, ArrayList<Soil> soilLibrary) {
+	private static Soil getSoilByARGB(int argb, HashMap<SoilType, Soil> soilLibrary) {
 		int r = argb & 0x00FF0000;
 		r = r >> 16;
 		int g = argb & 0x0000FF00;
 		g = g >> 8;
 		int b = argb & 0x000000FF;
 		int[] rgb = new int[]{r, g, b};
-		for(Soil soil : soilLibrary) {
+		for(Soil soil : soilLibrary.values()) {
 			if(Arrays.equals(rgb, soil.rgb)) {
 				return soil;
 			}
