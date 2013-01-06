@@ -22,13 +22,27 @@ public class TexturePackParser {
 		Elements soilTextureSets = soilTextureSetsRootElement.getChildElements();
 		for(int i = 0; i < soilTextureSets.size(); i++) {
 			Element soilTextureSetElement = soilTextureSets.get(i);
-			SoilTextureSet textureSet = parseSoilTextureSet(soilTextureSetElement);
+			SoilTextureSet textureSet = createNewTextureSet(soilTextureSetElement, parsedTextureSets);
+			parseSoilTextureSet(textureSet, soilTextureSetElement);
 			String textureSetName = soilTextureSetElement.getAttributeValue("type");
 			parsedTextureSets.put(textureSetName, textureSet);
-			
 		}
 		HashMap<SoilType, Soil> soilLibrary = new HashMap<SoilType, Soil>();
 		return soilLibrary;
+	}
+
+	private static SoilTextureSet createNewTextureSet(Element soilTextureSetElement, HashMap<String, SoilTextureSet> parsedTextureSets) {
+		String parentSoilType = soilTextureSetElement.getAttributeValue("extends");
+		if(parentSoilType != null) {
+			SoilTextureSet textureSet = parsedTextureSets.get(parentSoilType);
+			if(textureSet != null) {
+				return textureSet.cloneTextureSet();
+			} else {
+				return new SoilTextureSet();
+			}
+		} else {
+			return new SoilTextureSet();
+		}
 	}
 
 	private static boolean soilTypeNameExists(String soilName) {
@@ -41,8 +55,7 @@ public class TexturePackParser {
 		return false;
 	}
 
-	private static SoilTextureSet parseSoilTextureSet(Element element) {
+	private static void parseSoilTextureSet(SoilTextureSet textureSet2, Element element) {
 		SoilTextureSet textureSet = new SoilTextureSet();
-		return textureSet;
 	}
 }

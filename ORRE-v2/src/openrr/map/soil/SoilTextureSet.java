@@ -34,7 +34,7 @@ public class SoilTextureSet {
 		compiled = true;
 	}
 	
-	public SoilTextureSet clone(SoilType typeName) {
+	public SoilTextureSet cloneTextureSet() {
 		SoilTextureSet newSet = new SoilTextureSet();
 		for(int i = 0; i < soilTextureTypes.length; i++) {
 			newSet.setTexture(soilTextureTypes[i], mapTextures[i]);
