@@ -3,16 +3,18 @@ package orre.resources.loaders.map;
 import java.awt.image.BufferedImage;
 import java.util.zip.ZipFile;
 
+import orre.geom.Dimension2D;
+
 import nu.xom.Element;
 import nu.xom.Elements;
 
 public class WallMapLoader {
 	private static final int BLACK = 0xFF000000;
 
-	public static boolean[][] loadWallMap(ZipFile mapFile, Element mapDefinitionElement, int width, int height) {
-		boolean[][] wallMap = new boolean[width][height];
-		Element wallMapElement = mapDefinitionElement.getFirstChildElement("wallMap");
-		parseWallMapImage(mapFile, wallMap, wallMapElement);
+	public static boolean[][] loadWallMap(Element wallMapElement, MapLoadingContext context) {
+		Dimension2D mapSize = context.mapSize;
+		boolean[][] wallMap = new boolean[mapSize.width][mapSize.height];
+		parseWallMapImage(context.mapFile, wallMap, wallMapElement);
 		parseOverrideRules(wallMap, wallMapElement);
 		return wallMap;
 	}

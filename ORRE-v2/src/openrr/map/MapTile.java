@@ -1,6 +1,7 @@
 package openrr.map;
 
 import openrr.map.soil.Soil;
+import openrr.map.soil.SoilType;
 import orre.entity.Entity;
 import orre.resources.ResourceCache;
 
@@ -11,12 +12,12 @@ public class MapTile {
 	public final int[][] tileHeight;
 	private boolean isExplored = false;
 	private boolean isWall;
-	private Soil soil;
+	private SoilType soilType;
 	private boolean hasChanged = true;
 	
-	public MapTile(boolean isWall, Soil soil, int[][] tileHeight) {
+	public MapTile(boolean isWall, SoilType soil, int[][] tileHeight) {
 		this.isWall = isWall;
-		this.soil = soil;
+		this.soilType = soil;
 		this.tileHeight = tileHeight;
 	}
 	
@@ -40,17 +41,7 @@ public class MapTile {
 		
 	}
 	
-	public Soil getSoil() {
-		return this.soil;
-	}
-	public void setSoil(Soil soil) {
-		this.soil = soil;
-		this.hasChanged = true;
-	}
-	
-	public boolean requiresRedraw() {
-		boolean requiresRedraw = hasChanged;
-		hasChanged = false;
-		return requiresRedraw;
+	public SoilType getSoilType() {
+		return this.soilType;
 	}
 }

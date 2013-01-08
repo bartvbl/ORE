@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.zip.ZipFile;
 
+import orre.geom.Dimension2D;
 import orre.resources.ResourceCache;
 
 import nu.xom.Element;
@@ -14,33 +15,34 @@ import openrr.map.soil.SoilType;
 
 public class SoilMapLoader {
 
-	public static Soil[][] loadSoilMap(ZipFile mapFile, Element mapDefinitionElement, int width, int height) {
-		//1. load soil library
-		SoilLibrary soilLibrary = SoilLibraryBuilder.buildSoilLibrary();
-		//2. load custom tiles
+	public static SoilType[][] loadSoilMap(Element soilMapElement, MapLoadingContext context) {
+		
+		//1. load custom tiles
+		
 		//TODO: implement loading of custom tiles
-		//3. load soil map
-		Element soilMapElement = mapDefinitionElement.getFirstChildElement("soilMap");
+		//2. load soil map
+		
 		String mapImageSrc = soilMapElement.getAttributeValue("src");
-		BufferedImage soilMapImage = ZipImageLoader.readImageFromZipFile(mapFile, mapImageSrc);
-		Soil[][] soilMap = new Soil[width][height];
-		for(int x = 0; x < width; x++) {
-			for(int y = 0; y < height; y++) {
+		Dimension2D mapSize = context.mapSize;
+		BufferedImage soilMapImage = ZipImageLoader.readImageFromZipFile(context.mapFile, mapImageSrc);
+		SoilType[][] soilMap = new SoilType[mapSize.width][mapSize.height];
+		for(int x = 0; x < mapSize.width; x++) {
+			for(int y = 0; y < mapSize.height; y++) {
 				int argb = soilMapImage.getRGB(x, y);
-				soilMap[x][y] = getSoilByARGB(argb, soilLibrary);
+				soilMap[x][y] = getSoilByARGB(argb, context.soilLibrary);
 			}
 		}
 		return soilMap;
 	}
 	
-	private static Soil getSoilByARGB(int argb, SoilLibrary soilLibrary) {
+	private static SoilType getSoilByARGB(int argb, SoilLibrary soilLibrary) {
 		int r = argb & 0x00FF0000;
 		r = r >> 16;
 		int g = argb & 0x0000FF00;
 		g = g >> 8;
 		int b = argb & 0x000000FF;
 		int[] rgb = new int[]{r, g, b};
-		return soilLibrary.getSoilByRGB(rgb);
+		return soilLibrary.getSoilTypeByRGB(rgb);
 	}
 
 }

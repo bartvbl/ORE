@@ -20,7 +20,8 @@ public class MapLoader {
 		String mapSrc = currentFile.getPath();
 		ZipFile mapFile = openMap(mapSrc);
 		Document mapXML = readMapXML(mapFile);
-		PartiallyLoadableMap map = parseMapXML(mapXML, mapFile);
+		MapLoadingContext context = new MapLoadingContext(mapXML, mapFile);
+		PartiallyLoadableMap map = parseMapXML(context);
 		return map;
 	}
 	
@@ -47,9 +48,8 @@ public class MapLoader {
 		return null;
 	}
 
-	private static PartiallyLoadableMap parseMapXML(Document mapXML, ZipFile mapFile) {
-		Element rootElement = mapXML.getRootElement();
-		MapTile[][] tileMap = TileMapLoader.loadTileMap(rootElement.getFirstChildElement("mapDefinition"), mapFile);
+	private static PartiallyLoadableMap parseMapXML(MapLoadingContext context) {
+		MapTile[][] tileMap = TileMapLoader.loadTileMap(context);
 		Map map = new Map(tileMap);
 		return new PartiallyLoadableMap(map);
 	}

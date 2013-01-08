@@ -3,6 +3,8 @@ package orre.resources.loaders.map;
 import java.awt.image.BufferedImage;
 import java.util.zip.ZipFile;
 
+import orre.geom.Dimension2D;
+
 import nu.xom.Element;
 import nu.xom.Elements;
 
@@ -18,22 +20,26 @@ public class HeightMapLoader {
 	private static final String zTopLeft = "zTopLeft";
 	private static final String zTopRight = "zTopRight";
 	
-	public static int[][] loadHeightMap(ZipFile mapFile, Element mapDefinitionElement, int width, int height) {
-		int[][] heightMap = new int[width + 1][height + 1];
-		Element heightMapElement = mapDefinitionElement.getFirstChildElement("heightMap");
+	public static int[][] loadHeightMap(Element heightMapElement, MapLoadingContext context) {
+		Dimension2D mapSize = context.mapSize;
+		
+		int[][] heightMap = new int[mapSize.width + 1][mapSize.height + 1];
+		
 		if(hasAttribute(heightMapElement, "src")) {			
 			String src = heightMapElement.getAttributeValue("src");
-			BufferedImage image = ZipImageLoader.readImageFromZipFile(mapFile, src);
-			parseHeightMap(heightMap, image, width, height);
+			BufferedImage image = ZipImageLoader.readImageFromZipFile(context.mapFile, src);
+			parseHeightMap(heightMap, image, context);
 		}
 		parseOverrideValues(heightMap, heightMapElement);
 		scaleVerticallyToBrickUnits(heightMap);
 		return heightMap;
 	}
 
-	private static void parseHeightMap(int[][] heightMap, BufferedImage image, int width, int height) {
-		for(int x = 0; x < width; x++) {
-			for(int y = 0; y < height; y++) {
+	private static int[][] parseHeightMap(int[][] heightMap, BufferedImage image, MapLoadingContext context) {
+		Dimension2D mapSize = context.mapSize;
+		
+		for(int x = 0; x < mapSize.width; x++) {
+			for(int y = 0; y < mapSize.height; y++) {
 				int rgb = image.getRGB(x, y);
 				//BufferedImage is formatted as ARGB. I'm taking the average of the RGB channels
 				int r = rgb & 0x00FF0000;
@@ -44,6 +50,7 @@ public class HeightMapLoader {
 				heightMap[x][y] = (int) (((double)r + (double)g + (double)b) / 3d);
 			}
 		}
+		return heightMap;
 	}
 	
 	private static void parseOverrideValues(int[][] heightMap, Element heightMapElement) {
