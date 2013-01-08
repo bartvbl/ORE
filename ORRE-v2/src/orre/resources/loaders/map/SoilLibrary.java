@@ -23,10 +23,11 @@ public class SoilLibrary {
 	}
 	
 	public SoilType getSoilTypeByRGB(int[] rgb) {
-		SoilType[] soilTypes = SoilType.values();
+		SoilType[] soilTypes = soilMap.keySet().toArray(new SoilType[1]);
 		for(SoilType soilType : soilTypes) {
 			Soil soilMapEntry = this.soilMap.get(soilType);
 			if(Arrays.equals(soilMapEntry.rgb, rgb)) {
+				System.out.println("soil type: " + soilType);
 				return soilType;
 			}
 		}
