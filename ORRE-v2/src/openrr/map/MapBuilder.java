@@ -3,31 +3,34 @@ package openrr.map;
 import java.util.Arrays;
 
 import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.GeometryBuffer;
 import orre.resources.loaders.obj.GeometryBufferGenerator;
 
 public class MapBuilder {
 
-	public static MapGeometryBuffer buildMapGeometry(MapTile[][] tileMap) {
+	public static GeometryBuffer buildMapGeometry(MapTile[][] tileMap) {
 		int width = tileMap.length;
 		int height = tileMap[0].length;
 		int[] indices = generateIndexBuffer(width, height);
 		double[] vertices = generateVertexBuffer(tileMap); 
-		GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_AND_TEXTURES, vertices, indices);
-		return null;
+		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_AND_TEXTURES, vertices, indices);
+		return buffer;
 	}
 
-	
-
 	private static int[] generateIndexBuffer(int width, int height) {
-		int[] indices = new int[width * height * 4];
+		int[] indices = new int[width * height * 6];
 		int counter = 0;
 		for(int y = 0; y < width; y++) {
 			for(int x = 0; x < height; x++) {
+				//indices to draw two triangles.
 				indices[counter] 	 = height*y + x;
 				indices[counter + 1] = height*y + x + 1;
 				indices[counter + 2] = height*(y + 1) + x + 1;
-				indices[counter + 3] = height*(y + 1) + x;
-				counter += 4;
+				
+				indices[counter + 3] = height*y + x + 1;
+				indices[counter + 4] = height*(y + 1) + x + 1;
+				indices[counter + 5] = height*(y + 1) + x;
+				counter += 6;
 			}
 		}
 		return indices;

@@ -14,7 +14,7 @@ public class Map {
 	}
 
 	public SceneNode createSceneNode() {
-		return new EmptySceneNode();
+		return cache.getSceneNode();
 	}
 	
 	public void tick() {

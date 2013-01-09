@@ -1,11 +1,13 @@
 package openrr.map;
 
+import orre.geom.vbo.GeometryBuffer;
+import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
 
 public class MapGeometryCache {
 	private final MapTile[][] tileMap;
 	private SceneNode rootNode;
-	private MapGeometryBuffer buffer;
+	private GeometryBuffer buffer;
 
 	public MapGeometryCache(MapTile[][] tileMap) {
 		this.tileMap = tileMap;
@@ -21,5 +23,8 @@ public class MapGeometryCache {
 
 	public void buildAll() {
 		this.buffer = MapBuilder.buildMapGeometry(tileMap);
+		//TODO: remove the child, then add the new one so that the 
+		rootNode = new EmptySceneNode();
+		rootNode.addChild(buffer);
 	}
 }
