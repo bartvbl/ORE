@@ -2,11 +2,11 @@ package openrr.map.soil;
 
 import openrr.map.WallType;
 
-public class SoilTextureSet {
+public class SoilTextureCoordinateSet {
 	private WallType[] soilTextureTypes;
 	private MapTextureCoordinate[] mapTextureCoordinates;
 
-	public SoilTextureSet() {
+	public SoilTextureCoordinateSet() {
 		this.soilTextureTypes = WallType.values();
 		this.mapTextureCoordinates = new MapTextureCoordinate[soilTextureTypes.length];
 	}
@@ -19,8 +19,8 @@ public class SoilTextureSet {
 		mapTextureCoordinates[indexOf(type)] = mapTexture;
 	}
 	
-	public SoilTextureSet cloneTextureSet() {
-		SoilTextureSet newSet = new SoilTextureSet();
+	public SoilTextureCoordinateSet cloneTextureSet() {
+		SoilTextureCoordinateSet newSet = new SoilTextureCoordinateSet();
 		for(int i = 0; i < soilTextureTypes.length; i++) {
 			newSet.setTexture(soilTextureTypes[i], mapTextureCoordinates[i]);
 		}

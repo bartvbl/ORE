@@ -4,9 +4,9 @@ import orre.entity.Entity;
 
 public class Soil {
 	public final int[] rgb;
-	public final SoilTextureSet textureSet;
+	public final SoilTextureCoordinateSet textureSet;
 
-	public Soil(SoilTextureSet textureSet, int[] rgb) {
+	public Soil(SoilTextureCoordinateSet textureSet, int[] rgb) {
 		this.textureSet = textureSet;
 		this.rgb = rgb;
 	}

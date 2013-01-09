@@ -9,7 +9,7 @@ import orre.entity.Entity;
 import nu.xom.Element;
 import nu.xom.Elements;
 import openrr.map.soil.Soil;
-import openrr.map.soil.SoilTextureSet;
+import openrr.map.soil.SoilTextureCoordinateSet;
 import openrr.map.soil.SoilType;
 
 //TODO: refit the textures of a texture set so that they carry coordinates rather than Texture objects
@@ -22,22 +22,27 @@ public class TexturePackParser {
 	}
 
 	private static SoilLibrary parseSoilTextureSets(Element soilTextureSetsRootElement) {
-		HashMap<String, SoilTextureSet> parsedTextureSets = new HashMap<String, SoilTextureSet>();
+		HashMap<String, SoilTextureCoordinateSet> parsedTextureSets = new HashMap<String, SoilTextureCoordinateSet>();
 		HashMap<String, int[]> soilRGBValues = new HashMap<String, int[]>();
 		Elements soilTextureSets = soilTextureSetsRootElement.getChildElements();
 		for(int i = 0; i < soilTextureSets.size(); i++) {
 			Element soilTextureSetElement = soilTextureSets.get(i);
-			SoilTextureSet textureSet = createNewTextureSet(soilTextureSetElement, parsedTextureSets);
-			int[] soilMapRGBColour = parseSoilMapRGBColour(soilTextureSetElement);
-			parseSoilTextureSet(textureSet, soilTextureSetElement);
-			
-			String textureSetName = soilTextureSetElement.getAttributeValue("type");
-			parsedTextureSets.put(textureSetName, textureSet);
-			soilRGBValues.put(textureSetName, soilMapRGBColour);
+			parseTextureSet(parsedTextureSets, soilRGBValues, soilTextureSetElement);
 		}
 		SoilLibrary soilLibrary = copyValidTextureSets(parsedTextureSets, soilRGBValues);
 		
 		return soilLibrary;
+	}
+
+	private static void parseTextureSet(HashMap<String, SoilTextureCoordinateSet> parsedTextureSets, HashMap<String, int[]> soilRGBValues, Element soilTextureSetElement) {
+		SoilTextureCoordinateSet textureSet = createNewTextureSet(soilTextureSetElement, parsedTextureSets);
+		TextureSetParser.parseTextureSet(textureSet, soilTextureSetElement);
+		
+		String textureSetName = soilTextureSetElement.getAttributeValue("type");
+		parsedTextureSets.put(textureSetName, textureSet);
+		
+		int[] soilMapRGBColour = parseSoilMapRGBColour(soilTextureSetElement);
+		soilRGBValues.put(textureSetName, soilMapRGBColour);
 	}
 	
 	private static int[] parseSoilMapRGBColour(Element soilTextureSetElement) {
@@ -48,28 +53,29 @@ public class TexturePackParser {
 		int redValue = Integer.parseInt(redStringValue);
 		int greenValue = Integer.parseInt(greenStringValue);
 		int blueValue = Integer.parseInt(blueStringValue);
+		
 		return new int[]{redValue, greenValue, blueValue};
 	}
 
-	private static SoilTextureSet createNewTextureSet(Element soilTextureSetElement, HashMap<String, SoilTextureSet> parsedTextureSets) {
+	private static SoilTextureCoordinateSet createNewTextureSet(Element soilTextureSetElement, HashMap<String, SoilTextureCoordinateSet> parsedTextureSets) {
 		String parentSoilType = soilTextureSetElement.getAttributeValue("extends");
 		if(parentSoilType != null) {
-			SoilTextureSet textureSet = parsedTextureSets.get(parentSoilType);
+			SoilTextureCoordinateSet textureSet = parsedTextureSets.get(parentSoilType);
 			if(textureSet != null) {
 				return textureSet.cloneTextureSet();
 			} else {
-				return new SoilTextureSet();
+				return new SoilTextureCoordinateSet();
 			}
 		} else {
-			return new SoilTextureSet();
+			return new SoilTextureCoordinateSet();
 		}
 	}
 
-	private static SoilLibrary copyValidTextureSets(HashMap<String, SoilTextureSet> parsedTextureSets, HashMap<String, int[]> soilRGBValues) {
+	private static SoilLibrary copyValidTextureSets(HashMap<String, SoilTextureCoordinateSet> parsedTextureSets, HashMap<String, int[]> soilRGBValues) {
 		SoilLibrary soilLibrary = new SoilLibrary();
 		for(SoilType soilType : SoilType.values()) {
 			String soilTextureSetName = soilType.toString();
-			SoilTextureSet textureSet = parsedTextureSets.get(soilTextureSetName);
+			SoilTextureCoordinateSet textureSet = parsedTextureSets.get(soilTextureSetName);
 			int[] soilMapRGBColour = soilRGBValues.get(soilTextureSetName);
 			if(textureSet != null) {
 				Soil soil = new Soil(textureSet, soilMapRGBColour);
@@ -77,19 +83,5 @@ public class TexturePackParser {
 			}
 		}
 		return soilLibrary;
-	}
-
-	private static boolean soilTypeNameExists(String soilName) {
-		SoilType[] soilTypes = SoilType.values();
-		for(SoilType soilType : soilTypes) {
-			if(soilName.equals(soilType)) {
-				return true;
-			}
-		}
-		return false;
-	}
-
-	private static void parseSoilTextureSet(SoilTextureSet textureSet, Element element) {
-		
 	}
 }

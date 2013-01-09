@@ -27,7 +27,6 @@ public class SoilLibrary {
 		for(SoilType soilType : soilTypes) {
 			Soil soilMapEntry = this.soilMap.get(soilType);
 			if(Arrays.equals(soilMapEntry.rgb, rgb)) {
-				System.out.println("soil type: " + soilType);
 				return soilType;
 			}
 		}
