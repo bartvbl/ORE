@@ -20,6 +20,6 @@ public class MapGeometryCache {
 	}
 
 	public void buildAll() {
-		this.buffer = MapBuilder.buildMap(tileMap);
+		this.buffer = MapBuilder.buildMapGeometry(tileMap);
 	}
 }

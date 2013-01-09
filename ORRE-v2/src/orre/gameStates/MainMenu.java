@@ -72,7 +72,6 @@ public class MainMenu extends GameState {
 	public void set() {
 		
 		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");//this.resourceCache.getMap().createSceneNode();
-		//this.resourceCache.getMap().tick();
 		this.displayListID = glGenLists(1);
 		this.skybox = this.resourceCache.getTexture("mainMenu_skybox");
 		glNewList(this.displayListID, GL_COMPILE);

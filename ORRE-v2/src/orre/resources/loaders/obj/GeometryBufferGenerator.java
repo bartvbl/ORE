@@ -1,5 +1,6 @@
 package orre.resources.loaders.obj;
 
+import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
@@ -9,11 +10,11 @@ import orre.geom.vbo.GeometryBuffer;
 
 public class GeometryBufferGenerator {
 	
-	public static GeometryBuffer generateGeometryBuffer(BufferDataFormatType dataFormat, float[] vertices, int[] indices) {
+	public static GeometryBuffer generateGeometryBuffer(BufferDataFormatType dataFormat, double[] vertices, int[] indices) {
 		int elementsPerVertex = dataFormat.elementsPerVertex;
 		int vertexCount = vertices.length / elementsPerVertex;
 		
-		FloatBuffer geometryData = BufferUtils.createFloatBuffer(vertices.length);
+		DoubleBuffer geometryData = BufferUtils.createDoubleBuffer(vertices.length);
 		IntBuffer indexes = BufferUtils.createIntBuffer(indices.length);
 		
 		geometryData.put(vertices);
@@ -24,7 +25,7 @@ public class GeometryBufferGenerator {
 		return geometryBuffer;
 	}
 
-	private static GeometryBuffer storeBuffersInVRAM(FloatBuffer geometryData, IntBuffer indexes, BufferDataFormatType dataFormat, int vertexCount)
+	private static GeometryBuffer storeBuffersInVRAM(DoubleBuffer geometryData, IntBuffer indexes, BufferDataFormatType dataFormat, int vertexCount)
 	{
 		geometryData.rewind();
 		indexes.rewind();

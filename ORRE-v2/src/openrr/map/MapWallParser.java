@@ -3,6 +3,7 @@ package openrr.map;
 public class MapWallParser {
 
 	public static boolean[][] createWallHeightMap(MapTile[][] tileMap) {
+		System.out.println("building wall height map");
 		int width = tileMap.length;
 		int height = tileMap[0].length;
 		boolean[][] wallHeightMap = new boolean[width + 1][height + 1];

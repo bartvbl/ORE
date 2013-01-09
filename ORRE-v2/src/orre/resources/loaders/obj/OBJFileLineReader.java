@@ -20,15 +20,15 @@ public class OBJFileLineReader {
 	}
 	
 	private static void parseVertexLine(OBJLoadingContext context) {
-		float[] values = OBJLoadingUtils.parseFloatLine(context.getCurrentLine());
+		double[] values = OBJLoadingUtils.parseDoubleLine(context.getCurrentLine());
 		context.getBuffergenerator().addVertex(values[0], values[1], values[2]);
 	}
 	private static void parseTextureCoordinateLine(OBJLoadingContext context) {
-		float[] values = OBJLoadingUtils.parseFloatLine(context.getCurrentLine());
+		double[] values = OBJLoadingUtils.parseDoubleLine(context.getCurrentLine());
 		context.getBuffergenerator().addTextureCoordinate(values[0], values[1]);
 	}
 	private static void parseNormalLine(OBJLoadingContext context) {
-		float[] values = OBJLoadingUtils.parseFloatLine(context.getCurrentLine());
+		double[] values = OBJLoadingUtils.parseDoubleLine(context.getCurrentLine());
 		context.getBuffergenerator().addNormal(values[0], values[1], values[2]);
 	}
 	private static void parseMtlLibLine(OBJLoadingContext context) {
@@ -47,7 +47,7 @@ public class OBJFileLineReader {
 		String[] parts = context.getCurrentLine().split(" ");
 		for(int i = 1; i < parts.length; i++) {
 			int[] face = OBJLoadingUtils.parseIntString(parts[i], '/');
-			float[] vertex = context.getBuffergenerator().getVertex(face[0]-1, face[1]-1, face[2]-1);//OBJ files are 1-indexed. values are stored in the buffer 0-indexed.
+			double[] vertex = context.getBuffergenerator().getVertex(face[0]-1, face[1]-1, face[2]-1);//OBJ files are 1-indexed. values are stored in the buffer 0-indexed.
 			context.addVertexToCurrentModelPart(vertex);
 		}
 	}

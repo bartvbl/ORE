@@ -20,7 +20,7 @@ public class PartiallyLoadableModelPart extends Finalizable {
 	public void setMaterial(BlueprintMaterial newMaterial) {
 		this.material = newMaterial;
 	}
-	public void addVertex(float[] vertex) {
+	public void addVertex(double[] vertex) {
 		this.geometryBuffer.addVertex(vertex); 
 	}
 	

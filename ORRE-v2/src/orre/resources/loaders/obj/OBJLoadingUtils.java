@@ -13,6 +13,16 @@ public class OBJLoadingUtils {
 		return floatLine;
 	}
 	
+	public static double[] parseDoubleLine(String line) {
+		String[] parts = line.split(" ");
+		double[] doubleLine = new double[parts.length-1];//the array from the split string includes the line identifier (f.ex. v, vt, vn, etc) 
+		for(int i = 1; i < parts.length; i++)
+		{
+			doubleLine[i-1] = Double.parseDouble(parts[i]);
+		}
+		return doubleLine;
+	}
+	
 	public static int[] parseIntString(String line, char separator)
 	{
 		String[] parts = line.split(Character.toString(separator));
@@ -45,4 +55,6 @@ public class OBJLoadingUtils {
 			context.setBufferDataFormat(BufferDataFormatType.VERTICES_TEXTURES_NORMALS);
 		}
 	}
+
+	
 }

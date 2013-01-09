@@ -42,26 +42,26 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 	private void setDataPointers() {
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
-		
-		int stride = this.dataFormat.elementsPerVertex * 4;
+		int bytesPerDouble = 8;
+		int stride = this.dataFormat.elementsPerVertex * bytesPerDouble;
 		glEnableClientState(GL_VERTEX_ARRAY);
-		glVertexPointer(3, GL_FLOAT, stride, 0 * 4);
+		glVertexPointer(3, GL_DOUBLE, stride, 0 * bytesPerDouble);
 		switch(this.dataFormat)
 		{
 			case VERTICES_AND_TEXTURES:
 				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-				glTexCoordPointer(2, GL_FLOAT, stride, (3)*4);
+				glTexCoordPointer(2, GL_DOUBLE, stride, (3)*bytesPerDouble);
 				break;
 			case VERTICES_AND_NORMALS:
 				glEnableClientState(GL_NORMAL_ARRAY);
-				glNormalPointer(GL_FLOAT, stride, 3 * 4);
+				glNormalPointer(GL_DOUBLE, stride, 3 * bytesPerDouble);
 				break;
 			case VERTICES_TEXTURES_NORMALS:
 				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-				glTexCoordPointer(2, GL_FLOAT, stride, 3 * 4);
+				glTexCoordPointer(2, GL_DOUBLE, stride, 3 * bytesPerDouble);
 				
 				glEnableClientState(GL_NORMAL_ARRAY);
-				glNormalPointer(GL_FLOAT, stride, (3 + 3) * 4);	
+				glNormalPointer(GL_DOUBLE, stride, (3 + 3) * bytesPerDouble);	
 				break;
 		}
 	}

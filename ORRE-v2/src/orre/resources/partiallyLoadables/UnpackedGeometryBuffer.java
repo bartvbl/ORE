@@ -10,7 +10,7 @@ import orre.resources.loaders.obj.OBJConstants;
 import orre.sceneGraph.SceneNode;
 
 public class UnpackedGeometryBuffer extends Finalizable{
-	private float[] vertices;
+	private double[] vertices;
 	private BufferDataFormatType dataFormat;
 	private int numVertices;
 	private int bufferPosition = 0;
@@ -21,11 +21,11 @@ public class UnpackedGeometryBuffer extends Finalizable{
 		this.dataFormat = bufferDataFormat;
 		this.numVertices = numVertices;
 		int vertexBufferSize = bufferDataFormat.elementsPerVertex*numVertices;
-		this.vertices = new float[vertexBufferSize];
+		this.vertices = new double[vertexBufferSize];
 		this.numIndicesPerVertex = bufferDataFormat.elementsPerVertex;
 	}
 	
-	public void addVertex(float[] vertex) {
+	public void addVertex(double[] vertex) {
 		for(int i = 0; i < numIndicesPerVertex; i++) {			
 			this.vertices[bufferPosition + i] = vertex[i];
 		}
@@ -42,7 +42,7 @@ public class UnpackedGeometryBuffer extends Finalizable{
 
 	public void addToCache() {}
 
-	public float[] getVertices() {
+	public double[] getVertices() {
 		return this.vertices;
 	}
 

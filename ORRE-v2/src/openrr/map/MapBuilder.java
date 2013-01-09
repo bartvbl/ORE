@@ -2,14 +2,17 @@ package openrr.map;
 
 import java.util.Arrays;
 
+import orre.geom.vbo.BufferDataFormatType;
+import orre.resources.loaders.obj.GeometryBufferGenerator;
+
 public class MapBuilder {
 
-	public static MapGeometryBuffer buildMap(MapTile[][] tileMap) {
+	public static MapGeometryBuffer buildMapGeometry(MapTile[][] tileMap) {
 		int width = tileMap.length;
 		int height = tileMap[0].length;
 		int[] indices = generateIndexBuffer(width, height);
-		
 		double[] vertices = generateVertexBuffer(tileMap); 
+		GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_AND_TEXTURES, vertices, indices);
 		return null;
 	}
 
@@ -33,8 +36,8 @@ public class MapBuilder {
 	private static double[] generateVertexBuffer(MapTile[][] tileMap) {
 		int width = tileMap.length;
 		int height = tileMap[0].length;
-		//(3 xyz coords + 2 texture coords) * 4 vertices per quad * map width * map height
-		double[] vertices = new double[(3 + 2) * width * height];
+		//(3 xyz coords + 2 texture coords) * (map width + 1 vertex for the final tile) * (map height + 1 vertex for the final tile)
+		double[] vertices = new double[(3 + 2) * (width + 1) * (height + 1)];
 		boolean[][] vertexHeights = MapWallParser.createWallHeightMap(tileMap);
 		//WallType[][] wallTypeMap = WallTypeMapParser.createWallTypeMap(vertexHeights, width, height);
 		//Orientation[][] wallOrientations = MapWallOrientationParser.generateOrientationMap(vertexHeights, wallTypeMap);

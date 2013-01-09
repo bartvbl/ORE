@@ -68,7 +68,7 @@ public class OBJLoadingContext {
 		return this.temporaryVertesBuffer;
 	}
 
-	public void addVertexToCurrentModelPart(float[] vertex) {
+	public void addVertexToCurrentModelPart(double[] vertex) {
 		this.currentModelPart.addVertex(vertex);
 	}
 

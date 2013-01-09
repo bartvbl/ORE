@@ -1,5 +1,6 @@
 package orre.resources.loaders.obj;
 
+import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
@@ -20,7 +21,7 @@ public class VBOUtils {
 		return 0;
 	}
 	
-	public static void storeVertexData(int bufferIndex, FloatBuffer geometryData) {
+	public static void storeVertexData(int bufferIndex, DoubleBuffer geometryData) {
 		if (supportsBuffers()) 
 		{
 			ARBVertexBufferObject.glBindBufferARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, bufferIndex);
