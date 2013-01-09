@@ -25,13 +25,15 @@ public class MapWallParser {
 	private static boolean[][] exploreNeighbourhood(MapTile[][] tileMap, int x, int y, boolean[][] neighbourhood) {
 		int width = tileMap.length;
 		int height = tileMap[0].length;
-		for(int i = -1; i <= 1; i++) {
-			for(int j = -1; j <= 1; j++) {
-				if		((x + i) < 0) 		neighbourhood[i][j] = true;
-				else if ((x + i) >= width) 	neighbourhood[i][j] = true;
-				else if ((y + i) < 0) 		neighbourhood[i][j] = true;
-				else if ((y + i) >= height) neighbourhood[i][j] = true;
-				else neighbourhood[i][j] = tileMap[i + x][j + y].isWall();
+		for(int i = 0; i <= 2; i++) {
+			for(int j = 0; j <= 2; j++) {
+				int xCoordinate = x + i - 1;
+				int yCoordinate = y + j - 1;
+				if		((xCoordinate) < 0) 		neighbourhood[i][j] = true;
+				else if ((xCoordinate) >= width) 	neighbourhood[i][j] = true;
+				else if ((yCoordinate) < 0) 		neighbourhood[i][j] = true;
+				else if ((yCoordinate) >= height)   neighbourhood[i][j] = true;
+				else neighbourhood[i][j] = tileMap[xCoordinate][yCoordinate].isWall();
 			}
 		}
 		return neighbourhood;

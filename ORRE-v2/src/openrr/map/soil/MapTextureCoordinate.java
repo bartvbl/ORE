@@ -1,12 +1,12 @@
 package openrr.map.soil;
 
 public class MapTextureCoordinate {
-	public final MapTexture mapTexture;
+	public final String textureReferenceName;
 	public final int x;
 	public final int y;
 
-	public MapTextureCoordinate(MapTexture mapTexture, int x, int y) {
-		this.mapTexture = mapTexture;
+	public MapTextureCoordinate(String textureReferenceName, int x, int y) {
+		this.textureReferenceName = textureReferenceName;
 		this.x = x;
 		this.y = y;
 	}
