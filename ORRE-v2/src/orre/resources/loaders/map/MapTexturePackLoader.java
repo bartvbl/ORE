@@ -13,19 +13,19 @@ import nu.xom.ValidityException;
 import openrr.map.soil.Soil;
 import openrr.map.soil.SoilType;
 
-public class SoilLibraryBuilder {
+public class MapTexturePackLoader {
 
-	public static SoilLibrary buildSoilLibrary() {
+	public static MapTexturePack buildTexturePack() {
 		//loading the default texture pack
-		SoilLibrary defaultSoilLibrary = parseTexturePack("res/texturePack.xml");
+		MapTexturePack defaultTexturePack = parseTexturePack("res/texturePack.xml");
 		//for supporting texture packs that can override the default one, parse the other texture pack file after loading the default one.
 		//then overwrite those entries in the existing soil library that are defined in the overriding texture pack.
-		return defaultSoilLibrary;
+		return defaultTexturePack;
 	}
 
-	private static SoilLibrary parseTexturePack(String src) {
+	private static MapTexturePack parseTexturePack(String src) {
 		Element rootElement = readTexturePackXML(src);
-		SoilLibrary soilLibrary = TexturePackParser.parseTexturePackXML(rootElement);
+		MapTexturePack soilLibrary = TexturePackParser.parseTexturePackXML(rootElement);
 		return soilLibrary;
 	}
 

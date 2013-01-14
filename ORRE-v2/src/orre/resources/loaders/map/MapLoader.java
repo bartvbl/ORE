@@ -49,9 +49,11 @@ public class MapLoader {
 	}
 
 	private static PartiallyLoadableMap parseMapXML(MapLoadingContext context) {
+		MapTexturePack texturePack = MapTexturePackLoader.buildTexturePack();
+		context.texturePack = texturePack;
 		MapTile[][] tileMap = TileMapLoader.loadTileMap(context);
-		Map map = new Map(tileMap);
-		return new PartiallyLoadableMap(map);
+		
+		return new PartiallyLoadableMap(tileMap, texturePack);
 	}
 
 }

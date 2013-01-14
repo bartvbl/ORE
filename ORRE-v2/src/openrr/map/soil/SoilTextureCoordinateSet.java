@@ -12,11 +12,15 @@ public class SoilTextureCoordinateSet {
 	}
 	
 	public MapTextureCoordinate getTexture(WallType type) {
-		return mapTextureCoordinates[indexOf(type)];
+		int index = indexOf(type);
+		if(index == -1) return null;
+		return mapTextureCoordinates[index];
 	}
 	
-	public void setTexture(WallType type, MapTextureCoordinate mapTexture) {
-		mapTextureCoordinates[indexOf(type)] = mapTexture;
+	public void setTexture(WallType type, MapTextureCoordinate textureCoordinate) {
+		int index = indexOf(type);
+		if(index == -1) return;
+		mapTextureCoordinates[index] = textureCoordinate;
 	}
 	
 	public SoilTextureCoordinateSet cloneTextureSet() {

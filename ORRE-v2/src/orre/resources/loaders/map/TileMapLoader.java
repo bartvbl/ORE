@@ -32,8 +32,8 @@ public class TileMapLoader {
 		return wallMap;
 	}
 	
-	private static SoilLibrary buildSoilLibrary() {
-		SoilLibrary soilLibrary = SoilLibraryBuilder.buildSoilLibrary();
+	private static MapTexturePack buildSoilLibrary() {
+		MapTexturePack soilLibrary = MapTexturePackLoader.buildTexturePack();
 		return soilLibrary;
 	}
 

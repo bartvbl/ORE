@@ -8,11 +8,13 @@ import java.util.Set;
 import openrr.map.soil.Soil;
 import openrr.map.soil.SoilType;
 
-public class SoilLibrary {
+public class MapTexturePack {
 	private HashMap<SoilType, Soil> soilMap;
+	private MapTextureSet mapTextureSet;
 	
-	public SoilLibrary() {
+	public MapTexturePack(SoilLibrary soilLibrary, MapTextureSet mapTextureSet) {
 		soilMap = new HashMap<SoilType, Soil>();
+		this.mapTextureSet = mapTextureSet;
 	}
 	
 	public void setSoilTexture(SoilType type, Soil soil) {
@@ -23,7 +25,9 @@ public class SoilLibrary {
 	}
 	
 	public SoilType getSoilTypeByRGB(int[] rgb) {
-		SoilType[] soilTypes = soilMap.keySet().toArray(new SoilType[1]);
+		Set<SoilType> keySet = soilMap.keySet();
+		int numEntriesInKeySet = keySet.size();
+		SoilType[] soilTypes = keySet.toArray(new SoilType[numEntriesInKeySet]);
 		for(SoilType soilType : soilTypes) {
 			Soil soilMapEntry = this.soilMap.get(soilType);
 			if(Arrays.equals(soilMapEntry.rgb, rgb)) {
@@ -35,5 +39,9 @@ public class SoilLibrary {
 	
 	public Soil getSoilByType(SoilType type) {
 		return soilMap.get(type);
+	}
+
+	public void finalizeTextures() {
+		mapTextureSet.finalizeTextures();
 	}
 }

@@ -5,12 +5,16 @@ import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
 public class MapTexture {
 	public final String name;
+	public final int widthInTextures;
+	public final int heightInTextures;
 	private PartiallyLoadableTexture partiallyLoadedTexture;
 	private Texture texture;
 
-	public MapTexture(String name, PartiallyLoadableTexture texture) {
+	public MapTexture(String name, PartiallyLoadableTexture texture, int widthInTextures, int heightInTextures) {
 		this.name = name;
 		this.partiallyLoadedTexture = texture;
+		this.widthInTextures = widthInTextures;
+		this.heightInTextures = heightInTextures;
 	}
 	
 	public void finalizeTexture() {

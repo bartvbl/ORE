@@ -3,6 +3,7 @@ package orre.resources.loaders.map;
 import nu.xom.Element;
 import nu.xom.Elements;
 import openrr.map.WallType;
+import openrr.map.soil.MapTexture;
 import openrr.map.soil.MapTextureCoordinate;
 import openrr.map.soil.SoilTextureCoordinateSet;
 
@@ -16,7 +17,7 @@ public class TextureSetParser {
 			if(textureTypeIsValid(textureType)) {
 				WallType wallType = WallType.valueOf(textureType);
 				MapTextureCoordinate textureCoordinate = parseTextureElement(textureElement);
-				addTextureCoordinateToTextureSet(textureCoordinate, wallType, textureSet);				
+				textureSet.setTexture(wallType, textureCoordinate);
 			}
 		}
 	}
@@ -41,9 +42,5 @@ public class TextureSetParser {
 		int y = Integer.parseInt(yString);
 		
 		return new MapTextureCoordinate(textureReferenceName, x, y);
-	}
-	
-	private static void addTextureCoordinateToTextureSet(MapTextureCoordinate textureCoordinate, WallType wallType, SoilTextureCoordinateSet textureSet) {
-		textureSet.setTexture(wallType, textureCoordinate);
 	}
 }

@@ -35,7 +35,7 @@ public class SoilMapLoader {
 		return soilMap;
 	}
 	
-	private static SoilType getSoilByARGB(int argb, SoilLibrary soilLibrary) {
+	private static SoilType getSoilByARGB(int argb, MapTexturePack soilLibrary) {
 		int r = argb & 0x00FF0000;
 		r = r >> 16;
 		int g = argb & 0x0000FF00;
