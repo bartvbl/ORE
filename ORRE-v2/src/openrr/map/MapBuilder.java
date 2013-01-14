@@ -18,20 +18,9 @@ public class MapBuilder {
 	}
 
 	private static int[] generateIndexBuffer(int width, int height) {
-		int[] indices = new int[width * height * 6];
-		int counter = 0;
-		for(int y = 0; y < width; y++) {
-			for(int x = 0; x < height; x++) {
-				//indices to draw two triangles.
-				indices[counter] 	 = height*y + x;
-				indices[counter + 1] = height*y + (x + 1);
-				indices[counter + 2] = height*(y + 1) + (x + 1);
-				
-				indices[counter + 3] = height*y + (x);
-				indices[counter + 4] = height*(y + 1) + (x + 1);
-				indices[counter + 5] = height*(y + 1) + x;
-				counter += 6;
-			}
+		int[] indices = new int[6 * width * height];
+		for(int counter = 0; counter < 6 * width * height; counter++) {
+			indices[counter] = counter;
 		}
 		return indices;
 	}
@@ -39,9 +28,10 @@ public class MapBuilder {
 	private static double[] generateVertexBuffer(MapTile[][] tileMap) {
 		int width = tileMap.length;
 		int height = tileMap[0].length;
-		System.out.println("number of vertices: " + ((3*6 + 6*2) * (width + 1) * (height + 1)));
+		System.out.println("(" +width+ ", " +height+ ")");
+		System.out.println("number of vertices: " + ((3*6) * (width + 1) * (height + 1)));
 		//(3 xyz coords + 2 texture coords) * (map width + 1 vertex for the final tile) * (map height + 1 vertex for the final tile)
-		double[] vertices = new double[(3 + 0) * (width + 1) * (height + 1)];
+		double[] vertices = new double[(6*3 + 0) * (width) * (height)];
 		int counter = 0;
 		for(int x = 0; x < width; x++) {
 			for(int y = 0; y < height; y++) {
@@ -53,25 +43,25 @@ public class MapBuilder {
 				counter += 3;
 //				pasteTexCoordAt(vertices, counter, 0, 0);
 //				counter += 2;
-//				pasteVertexAt(vertices, counter, x, y + 1, tileHeight[0][1]); 
-//				counter += 3;
+				pasteVertexAt(vertices, counter, x, y + 1, tileHeight[0][1]); 
+				counter += 3;
 //				pasteTexCoordAt(vertices, counter, 0, 1);
 //				counter += 2;
-//				pasteVertexAt(vertices, counter, x + 1, y, tileHeight[1][0]); 
-//				counter += 3;
+				pasteVertexAt(vertices, counter, x + 1, y, tileHeight[1][0]); 
+				counter += 3;
 //				pasteTexCoordAt(vertices, counter, 1, 0);
 //				counter += 2;
 //				
-//				pasteVertexAt(vertices, counter, x, y, tileHeight[0][0]); 
-//				counter += 3;
+				pasteVertexAt(vertices, counter, x, y, tileHeight[0][0]); 
+				counter += 3;
 //				pasteTexCoordAt(vertices, counter, 0, 0);
 //				counter += 2;
-//				pasteVertexAt(vertices, counter, x + 1, y, tileHeight[1][0]); 
-//				counter += 3;
+				pasteVertexAt(vertices, counter, x + 1, y, tileHeight[1][0]); 
+				counter += 3;
 //				pasteTexCoordAt(vertices, counter, 1, 0);
 //				counter += 2;
-//				pasteVertexAt(vertices, counter, x + 1, y + 1, tileHeight[1][1]); 
-//				counter += 3;
+				pasteVertexAt(vertices, counter, x + 1, y + 1, tileHeight[1][1]); 
+				counter += 3;
 //				pasteTexCoordAt(vertices, counter, 1, 1);
 //				counter += 2;
 			}
