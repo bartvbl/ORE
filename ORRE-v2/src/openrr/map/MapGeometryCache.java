@@ -18,13 +18,10 @@ public class MapGeometryCache {
 	}
 	
 	public SceneNode getSceneNode() {
-		return rootNode;
+		return buffer;
 	}
 
 	public void buildAll() {
 		this.buffer = MapBuilder.buildMapGeometry(tileMap);
-		//TODO: remove the child, then add the new one so that the 
-		rootNode = new EmptySceneNode();
-		rootNode.addChild(buffer);
 	}
 }
