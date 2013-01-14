@@ -44,16 +44,16 @@ public class MainMenu extends GameState {
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
 		//glScalef(0.1f, 0.1f, 0.1f);
-		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {this.rotationY += 2;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {this.rotationY -= 2;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {this.rotationY -= 2;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {this.rotationY += 2;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {this.rotationX += 1.9;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {this.rotationX -= 1.9;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {this.zoomLevel += 2;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_X)) {this.zoomLevel -= 2;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {this.yCoord += 1;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {this.yCoord -= 1;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {this.xCoord -= 1;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord += 1;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {this.xCoord += 1;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord -= 1;}
 		glEnable(GL_LIGHT0);
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
