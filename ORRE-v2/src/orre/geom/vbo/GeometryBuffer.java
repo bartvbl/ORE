@@ -40,6 +40,8 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 	}
 
 	private void setDataPointers() {
+		//format: 0    1    2    3   4   5    6    7
+		//format: vert vert vert tex tex norm norm norm	
 		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
 		glDisableClientState(GL_NORMAL_ARRAY);
 		int bytesPerDouble = 8;
@@ -61,7 +63,7 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 				glTexCoordPointer(2, GL_DOUBLE, stride, 3 * bytesPerDouble);
 				
 				glEnableClientState(GL_NORMAL_ARRAY);
-				glNormalPointer(GL_DOUBLE, stride, (3 + 3) * bytesPerDouble);	
+				glNormalPointer(GL_DOUBLE, stride, (3 + 2) * bytesPerDouble);	
 				break;
 		}
 	}
