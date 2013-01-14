@@ -39,12 +39,55 @@ public class MapBuilder {
 	private static double[] generateVertexBuffer(MapTile[][] tileMap) {
 		int width = tileMap.length;
 		int height = tileMap[0].length;
-		//(3 xyz coords + 2 texture coords) * (map width + 1 vertex for the final tile) * (map height + 1 vertex for the final tile)
-		double[] vertices = new double[(3 + 2) * (width + 1) * (height + 1)];
-		boolean[][] vertexHeights = MapWallParser.createWallHeightMap(tileMap);
-		//WallType[][] wallTypeMap = WallTypeMapParser.createWallTypeMap(vertexHeights, width, height);
-		//Orientation[][] wallOrientations = MapWallOrientationParser.generateOrientationMap(vertexHeights, wallTypeMap);
+		System.out.println("number of vertices: " + ((3*6 + 6*2) * (width + 1) * (height + 1)));
+		//(6 xyz coords + 2 texture coords) * (map width + 1 vertex for the final tile) * (map height + 1 vertex for the final tile)
+		double[] vertices = new double[(3*6 + 6*2) * (width + 1) * (height + 1)];
+		int counter = 0;
+		for(int x = 0; x < width; x++) {
+			for(int y = 0; y < height; y++) {
+				int[][] tileHeight = tileMap[x][y].tileHeight;
+				boolean[][] vertexHeights = MapWallParser.exploreNeighbourhood(tileMap, x, y);
+				//WallType wallTypeMap = WallTypeMapParser.parseWallType(vertexHeights);
+				
+				pasteVertexAt(vertices, counter, x, y, tileHeight[0][0]); 
+				counter += 3;
+				pasteTexCoordAt(vertices, counter, 0, 0);
+				counter += 2;
+				pasteVertexAt(vertices, counter, x, y + 1, tileHeight[0][1]); 
+				counter += 3;
+				pasteTexCoordAt(vertices, counter, 0, 1);
+				counter += 2;
+				pasteVertexAt(vertices, counter, x + 1, y, tileHeight[1][0]); 
+				counter += 3;
+				pasteTexCoordAt(vertices, counter, 1, 0);
+				counter += 2;
+				
+				pasteVertexAt(vertices, counter, x, y, tileHeight[0][0]); 
+				counter += 3;
+				pasteTexCoordAt(vertices, counter, 0, 0);
+				counter += 2;
+				pasteVertexAt(vertices, counter, x + 1, y, tileHeight[1][0]); 
+				counter += 3;
+				pasteTexCoordAt(vertices, counter, 1, 0);
+				counter += 2;
+				pasteVertexAt(vertices, counter, x + 1, y + 1, tileHeight[1][1]); 
+				counter += 3;
+				pasteTexCoordAt(vertices, counter, 1, 1);
+				counter += 2;
+			}
+		}
 		return vertices;
+	}
+	
+	private static void pasteVertexAt(double[] vertices, int startIndex, double x, double y, double z) {
+		vertices[startIndex + 0] = x;
+		vertices[startIndex + 1] = y;
+		vertices[startIndex + 2] = z;
+	}
+	
+	private static void pasteTexCoordAt(double[] vertices, int startIndex, double u, double v) {
+		vertices[startIndex + 0] = u;
+		vertices[startIndex + 1] = v;
 	}
 
 }

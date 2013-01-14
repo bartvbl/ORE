@@ -62,8 +62,9 @@ public class MainMenu extends GameState {
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 1, 0);
 //		this.lightTest.draw();
+		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 		glCallList(this.displayListID);
-//		glTranslatef(20, 0, 0);
+		//		glTranslatef(20, 0, 0);
 //		glCallList(this.displayListID);
 //		glTranslatef(-40, 0, 0);
 //		glCallList(this.displayListID);
@@ -81,7 +82,6 @@ public class MainMenu extends GameState {
 	}
 	@Override
 	public void unset() {
-		
 		
 	}
 
