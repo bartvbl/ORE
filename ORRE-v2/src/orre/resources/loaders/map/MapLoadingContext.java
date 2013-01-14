@@ -16,7 +16,7 @@ public class MapLoadingContext {
 	public final Element mapXMLRootElement;
 	public Dimension2D mapSize;
 	public boolean[][] wallMap;
-	public MapTexturePack soilLibrary;
+	public SoilLibrary soilLibrary;
 	public SoilType[][] soilMap;
 	public int[][] heightMap;
 	public MapTexturePack texturePack;

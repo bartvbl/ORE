@@ -14,7 +14,7 @@ import openrr.map.soil.SoilTextureCoordinateSet;
 import openrr.map.soil.SoilType;
 
 public class TexturePackParser {
-	public static MapTexturePack parseTexturePackXML(Element rootElement) {
+	public static MapTexturePack parseTexturePackXML(Element rootElement, MapLoadingContext context) {
 		Element configElement = rootElement.getFirstChildElement("config");
 		String pathPrefix = parsePathPrefix(configElement);
 		Element texturesElement = rootElement.getFirstChildElement("textures");
@@ -22,6 +22,7 @@ public class TexturePackParser {
 		
 		Element soilTextureSetsRootElement = rootElement.getFirstChildElement("soilTextureSets");
 		SoilLibrary soilLibrary = parseSoilTextureSets(soilTextureSetsRootElement);
+		context.soilLibrary = soilLibrary;
 		
 		MapTexturePack texturePack = new MapTexturePack(soilLibrary, mapTextures);
 		return texturePack;
@@ -64,7 +65,6 @@ public class TexturePackParser {
 			parseTextureSet(parsedTextureSets, soilRGBValues, soilTextureSetElement);
 		}
 		SoilLibrary texturePack = copyValidTextureSets(parsedTextureSets, soilRGBValues);
-		
 		return texturePack;
 	}
 

@@ -9,12 +9,14 @@ import openrr.map.soil.Soil;
 import openrr.map.soil.SoilType;
 
 public class MapTexturePack {
-	private HashMap<SoilType, Soil> soilMap;
-	private MapTextureSet mapTextureSet;
+	private final HashMap<SoilType, Soil> soilMap;
+	private final MapTextureSet mapTextureSet;
+	private final SoilLibrary soilLibrary;
 	
 	public MapTexturePack(SoilLibrary soilLibrary, MapTextureSet mapTextureSet) {
-		soilMap = new HashMap<SoilType, Soil>();
+		this.soilMap = new HashMap<SoilType, Soil>();
 		this.mapTextureSet = mapTextureSet;
+		this.soilLibrary = soilLibrary;
 	}
 	
 	public void setSoilTexture(SoilType type, Soil soil) {
@@ -22,19 +24,6 @@ public class MapTexturePack {
 			soilMap.remove(type);
 		}
 		soilMap.put(type, soil);
-	}
-	
-	public SoilType getSoilTypeByRGB(int[] rgb) {
-		Set<SoilType> keySet = soilMap.keySet();
-		int numEntriesInKeySet = keySet.size();
-		SoilType[] soilTypes = keySet.toArray(new SoilType[numEntriesInKeySet]);
-		for(SoilType soilType : soilTypes) {
-			Soil soilMapEntry = this.soilMap.get(soilType);
-			if(Arrays.equals(soilMapEntry.rgb, rgb)) {
-				return soilType;
-			}
-		}
-		return SoilType.DIRT;
 	}
 	
 	public Soil getSoilByType(SoilType type) {

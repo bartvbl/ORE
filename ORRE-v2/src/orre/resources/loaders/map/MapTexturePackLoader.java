@@ -15,17 +15,17 @@ import openrr.map.soil.SoilType;
 
 public class MapTexturePackLoader {
 
-	public static MapTexturePack buildTexturePack() {
+	public static MapTexturePack buildTexturePack(MapLoadingContext context) {
 		//loading the default texture pack
-		MapTexturePack defaultTexturePack = parseTexturePack("res/texturePack.xml");
+		MapTexturePack defaultTexturePack = parseTexturePack("res/texturePack.xml", context);
 		//for supporting texture packs that can override the default one, parse the other texture pack file after loading the default one.
 		//then overwrite those entries in the existing soil library that are defined in the overriding texture pack.
 		return defaultTexturePack;
 	}
 
-	private static MapTexturePack parseTexturePack(String src) {
+	private static MapTexturePack parseTexturePack(String src, MapLoadingContext context) {
 		Element rootElement = readTexturePackXML(src);
-		MapTexturePack soilLibrary = TexturePackParser.parseTexturePackXML(rootElement);
+		MapTexturePack soilLibrary = TexturePackParser.parseTexturePackXML(rootElement, context);
 		return soilLibrary;
 	}
 

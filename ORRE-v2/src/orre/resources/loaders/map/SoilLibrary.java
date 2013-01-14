@@ -16,6 +16,7 @@ public class SoilLibrary {
 	}
 	
 	public void setSoilTexture(SoilType type, Soil soil) {
+		System.out.println("setting soil type: " + type + ", " + Arrays.toString(soil.rgb));
 		if(soilMap.containsKey(type)) {
 			soilMap.remove(type);
 		}

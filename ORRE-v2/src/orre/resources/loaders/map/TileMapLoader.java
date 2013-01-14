@@ -11,7 +11,6 @@ public class TileMapLoader {
 		
 		context.mapSize = parseMapSize(mapDefinitionElement);
 		context.wallMap = loadWallMap(context, mapDefinitionElement);
-		context.soilLibrary = buildSoilLibrary();
 		context.soilMap = loadSoilMap(context, mapDefinitionElement);
 		context.heightMap = loadHeightMap(context, mapDefinitionElement);
 		
@@ -30,11 +29,6 @@ public class TileMapLoader {
 		Element wallMapElement = mapDefinitionElement.getFirstChildElement("wallMap");
 		boolean[][] wallMap = WallMapLoader.loadWallMap(wallMapElement, context);
 		return wallMap;
-	}
-	
-	private static MapTexturePack buildSoilLibrary() {
-		MapTexturePack soilLibrary = MapTexturePackLoader.buildTexturePack();
-		return soilLibrary;
 	}
 
 	private static SoilType[][] loadSoilMap(MapLoadingContext context,
