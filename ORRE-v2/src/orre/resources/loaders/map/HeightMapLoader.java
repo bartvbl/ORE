@@ -50,6 +50,15 @@ public class HeightMapLoader {
 				heightMap[x][y] = (int) (((double)r + (double)g + (double)b) / 3d);
 			}
 		}
+		
+		//copy the values of the sides y = height - 1 and x = width - 1 to y = height and x = width.
+		for(int i = 0; i < mapSize.width + 1; i++) {
+			heightMap[i][mapSize.height] = heightMap[i][mapSize.height - 1];
+		}
+		for(int i = 0; i < mapSize.height + 1; i++) {
+			heightMap[mapSize.width][i] = heightMap[mapSize.width - 1][i];
+		}
+
 		return heightMap;
 	}
 	
