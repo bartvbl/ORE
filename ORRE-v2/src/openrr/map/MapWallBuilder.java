@@ -1,13 +1,26 @@
 package openrr.map;
 
-public class MapWallParser {
+public class MapWallBuilder {
 
-	public static boolean[][] exploreNeighbourhood(MapTile[][] tileMap, int x, int y) {
+	public static boolean[][] createWallHeightMap(MapTile[][] tileMap) {
+		System.out.println("building wall height map");
+		int width = tileMap.length;
+		int height = tileMap[0].length;
+		boolean[][] wallHeightMap = new boolean[width + 1][height + 1];
 		boolean[][] neighbourhood = new boolean[3][3];
 		boolean[][] wallHeightNeighbourhood = new boolean[2][2];
-		neighbourhood = exploreNeighbourhood(tileMap, x, y, neighbourhood);
-		createWallHeightNeighbourhood(neighbourhood, wallHeightNeighbourhood);
-		return wallHeightNeighbourhood;
+		for(int x = 0; x < width; x += 2) {
+			for(int y = 0; y < height; y += 2) {
+				neighbourhood = exploreNeighbourhood(tileMap, x, y, neighbourhood);
+				createWallHeightNeighbourhood(neighbourhood, wallHeightNeighbourhood);
+				
+				wallHeightMap[x + 0][y + 0] = wallHeightNeighbourhood[0][0];
+				wallHeightMap[x + 0][y + 1] = wallHeightNeighbourhood[0][1];
+				wallHeightMap[x + 1][y + 0] = wallHeightNeighbourhood[1][0];
+				wallHeightMap[x + 1][y + 1] = wallHeightNeighbourhood[1][1];
+			}
+		}
+		return wallHeightMap;
 	}
 
 	private static boolean[][] exploreNeighbourhood(MapTile[][] tileMap, int x, int y, boolean[][] neighbourhood) {

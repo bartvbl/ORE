@@ -15,7 +15,7 @@
 	<menuTextures pathPrefix="res/images/">
 		<menuTexture name="mainMenu_skybox" src="mainMenu/skybox.jpg" />
 	
-		<menuTexture name="teleportNewRockRaiderButton_Up" src="menus/main/raider.bmp"/>
+		<!--<menuTexture name="teleportNewRockRaiderButton_Up" src="menus/main/raider.bmp"/>
 		<menuTexture name="teleportNewRockRaiderButton_Down" src="menus/main/praider.bmp"/>
 		<menuTexture name="teleportNewRockRaiderButton_Disabled" src="menus/main/nraider.bmp"/>
 		<menuTexture name="buildingMenu_Up" src="menus/main/building.bmp"/>
@@ -65,7 +65,7 @@
 		<menuTexture name="ingameMenu_General_BackButton_Hover" src="menus/hback.bmp"/>
 		<menuTexture name="ingameMenu_General_BackButton_Down" src="menus/pback.bmp"/>
 		<menuTexture name="ingameMenu_General_MenuBackground_10" src="menus/slot10.png"/>
-		<menuTexture name="ingameMenu_General_MenuBackground_4" src="menus/slot4wo.png"/>
+		<menuTexture name="ingameMenu_General_MenuBackground_4" src="menus/slot4wo.png"/>-->
 	</menuTextures>
 	
 	<animations pathPrefix="res/anims/">

@@ -1,16 +1,19 @@
 package openrr.map;
 
 import orre.geom.vbo.GeometryBuffer;
+import orre.resources.loaders.map.MapTexturePack;
 import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
 
 public class MapGeometryCache {
 	private final MapTile[][] tileMap;
 	private SceneNode rootNode;
-	private GeometryBuffer buffer;
+	private SceneNode buffer;
+	private MapTexturePack texturePack;
 
-	public MapGeometryCache(MapTile[][] tileMap) {
+	public MapGeometryCache(MapTile[][] tileMap, MapTexturePack texturePack) {
 		this.tileMap = tileMap;
+		this.texturePack = texturePack;
 	}
 	
 	public void update() {
@@ -22,6 +25,6 @@ public class MapGeometryCache {
 	}
 
 	public void buildAll() {
-		this.buffer = MapBuilder.buildMapGeometry(tileMap);
+		this.buffer = MapBuilder.buildMapGeometry(tileMap, texturePack);
 	}
 }
