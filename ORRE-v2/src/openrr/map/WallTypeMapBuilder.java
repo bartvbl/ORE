@@ -1,10 +1,12 @@
 package openrr.map;
 
+import orre.geom.Dimension2D;
+
 public class WallTypeMapBuilder {
 
-	public static WallType[][] buildWallTypeMap(boolean[][] vertexHeights) {
-		int mapWidth = vertexHeights.length - 1;
-		int mapHeight = vertexHeights[0].length - 1;
+	public static WallType[][] buildWallTypeMap(boolean[][] vertexHeights, Dimension2D mapSize) {
+		int mapWidth = mapSize.width;
+		int mapHeight = mapSize.height;
 		WallType[][] wallTypeMap = new WallType[mapWidth][mapHeight];
 		boolean[][] tileVertexHeights = new boolean[2][2];
 		for(int x = 0; x < mapWidth; x++) {

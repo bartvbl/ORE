@@ -1,13 +1,15 @@
 package openrr.map;
 
-public class MapWallOrientationBuilder {
-	private static Orientation getOrientationAt(boolean[][] vertexHeights, WallType wallType, int x, int y) {
-		return Orientation.east;
-	}
+import orre.geom.Dimension2D;
 
-	public static Orientation[][] buildOrientationMap() {
-		// TODO Auto-generated method stub
-		return null;
+public class MapWallOrientationBuilder {
+	public static Orientation[][] buildOrientationMap(boolean[][] vertexHeights, WallType[][] wallType, Dimension2D mapSize) {
+		int mapWidth = vertexHeights.length;
+		int mapHeight = vertexHeights[0].length;
+		Orientation[][] orientationMap = new Orientation[mapWidth][mapHeight];
+		
+		
+		return orientationMap;
 	}
 
 }
