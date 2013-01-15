@@ -28,9 +28,9 @@ public class MapWallParser {
 	}
 
 	private static void createWallHeightNeighbourhood(boolean[][] neighbourhood, boolean[][] wallHeightNeighbourhood) {
-		wallHeightNeighbourhood[0][0] = neighbourhood[0][0] && neighbourhood[0][1] && neighbourhood[1][0];
-		wallHeightNeighbourhood[0][1] = neighbourhood[0][1] && neighbourhood[0][2] && neighbourhood[1][2];
-		wallHeightNeighbourhood[1][0] = neighbourhood[1][0] && neighbourhood[2][0] && neighbourhood[2][1];
-		wallHeightNeighbourhood[1][1] = neighbourhood[2][1] && neighbourhood[2][2] && neighbourhood[1][2];
+		wallHeightNeighbourhood[0][0] = neighbourhood[1][1] && neighbourhood[0][0] && neighbourhood[0][1] && neighbourhood[1][0];
+		wallHeightNeighbourhood[0][1] = neighbourhood[1][1] && neighbourhood[0][1] && neighbourhood[0][2] && neighbourhood[1][2];
+		wallHeightNeighbourhood[1][0] = neighbourhood[1][1] && neighbourhood[1][0] && neighbourhood[2][0] && neighbourhood[2][1];
+		wallHeightNeighbourhood[1][1] = neighbourhood[1][1] && neighbourhood[2][1] && neighbourhood[2][2] && neighbourhood[1][2];
 	}
 }
