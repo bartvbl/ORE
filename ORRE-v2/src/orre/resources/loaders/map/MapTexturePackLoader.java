@@ -17,7 +17,8 @@ public class MapTexturePackLoader {
 
 	public static MapTexturePack buildTexturePack(MapLoadingContext context) {
 		//loading the default texture pack
-		MapTexturePack defaultTexturePack = parseTexturePack("res/texturePack.xml", context);
+		String workingDirectory = System.getProperty("user.dir");
+		MapTexturePack defaultTexturePack = parseTexturePack(workingDirectory + "/res/texturePack.xml", context);
 		//for supporting texture packs that can override the default one, parse the other texture pack file after loading the default one.
 		//then overwrite those entries in the existing soil library that are defined in the overriding texture pack.
 		return defaultTexturePack;

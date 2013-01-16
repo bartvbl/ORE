@@ -38,7 +38,6 @@ public class MapLoader {
 	private static Document readMapXML(ZipFile mapFile) {
 		Builder builder = new Builder();
 		try {
-			
 			ZipEntry mainMapXMLEntry = mapFile.getEntry("map.xml");
 			return builder.build(mapFile.getInputStream(mainMapXMLEntry));
 		}
