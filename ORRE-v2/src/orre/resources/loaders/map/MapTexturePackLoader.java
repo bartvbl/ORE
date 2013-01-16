@@ -1,5 +1,6 @@
 package orre.resources.loaders.map;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -31,6 +32,12 @@ public class MapTexturePackLoader {
 	}
 
 	private static Element readTexturePackXML(String src) {
+		//temporary code to make sure the file exists
+		boolean fileExists = new File(src).exists();
+		if(fileExists) System.out.println("The texture pack file exists.");
+		else System.out.println("The system can not find the texture pack file, which should be located at: " + src + ".");
+		//end temporary code
+		
 		Builder builder = new Builder();
 		try {
 			Document doc = builder.build(src);

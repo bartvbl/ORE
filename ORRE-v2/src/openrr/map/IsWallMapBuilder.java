@@ -2,10 +2,9 @@ package openrr.map;
 
 import orre.geom.Dimension2D;
 
-public class MapWallBuilder {
+public class IsWallMapBuilder {
 
-	public static boolean[][] createWallHeightMap(MapTile[][] tileMap, Dimension2D mapSize) {
-		System.out.println("building wall height map");
+	public static boolean[][] buildIsWallMap(MapTile[][] tileMap, Dimension2D mapSize) {
 		boolean[][] wallHeightMap = new boolean[mapSize.width + 1][mapSize.height + 1];
 		boolean[][] neighbourhood = new boolean[3][3];
 		boolean[][] wallHeightNeighbourhood = new boolean[2][2];

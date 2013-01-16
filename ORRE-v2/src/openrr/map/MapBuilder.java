@@ -13,7 +13,7 @@ public class MapBuilder {
 		int mapHeight = tileMap[0].length;
 		Dimension2D mapSize = new Dimension2D(mapWidth, mapHeight);
 		//wallmap size: mapWidth + 1, mapHeight + 1
-		boolean[][] wallMap = MapWallBuilder.createWallHeightMap(tileMap, mapSize);
+		boolean[][] wallMap = IsWallMapBuilder.buildIsWallMap(tileMap, mapSize);
 		//wallTypeMap size: mapWidth, mapHeight
 		WallType[][] wallTypeMap = WallTypeMapBuilder.buildWallTypeMap(wallMap, mapSize);
 		//orientationMap size: mapWidth, mapHeight
