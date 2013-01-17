@@ -1,5 +1,6 @@
 package openrr.map.soil;
 
+import orre.gl.materials.Material;
 import orre.gl.texture.Texture;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
@@ -24,5 +25,11 @@ public class MapTexture {
 	
 	public void bind() {
 		this.texture.bind();
+	}
+
+	public Material generateTextureMaterial() {
+		Material material = new Material("map texture material");
+		material.setAmbientTexture(texture);
+		return material;
 	}
 }

@@ -1,11 +1,7 @@
 package orre.resources.loaders.map;
 
-import java.util.Arrays;
-import java.util.Collection;
 import java.util.HashMap;
-import java.util.Set;
-
-import orre.geom.Dimension2D;
+import orre.gl.materials.Material;
 
 import openrr.map.Orientation;
 import openrr.map.WallType;
@@ -37,8 +33,8 @@ public class MapTexturePack {
 	}
 	
 	public void bindTexture(SoilType soilType, WallType wallType) {
+		if(isBound(soilType, wallType)) return;
 		String textureName = getTextureReferenceName(soilType, wallType);
-		if(currentBoundTextureName.equals(textureName)) return;
 		this.currentBoundTextureName = textureName;
 		this.currentBoundSoilType = soilType;
 		this.currentBoundWallType = wallType;
@@ -63,13 +59,46 @@ public class MapTexturePack {
 		
 		return textureCoordinates;
 	}
-
+	
 	private double[] generateTextureCoordinates(MapTexture texture, MapTextureCoordinate coordinate) {
-		return null;
+		double u1 = (double)coordinate.x / (double)texture.widthInTextures;
+		double v1 = (double)coordinate.y / (double)texture.heightInTextures;
+		double u2 = (double)(coordinate.x + 1) / (double)texture.widthInTextures;
+		double v2 = (double)(coordinate.y + 1) / (double)texture.heightInTextures;
+		return new double[]{u1, v1, u2, v2};
+	}
+	
+	private double[] rotateCoordinates(double[] textureCoordinates, Orientation orientation) {
+		if(orientation == Orientation.west) {
+			//switched out the two u coordinates
+			return new double[]{textureCoordinates[2],
+								textureCoordinates[1],
+								textureCoordinates[0],
+								textureCoordinates[3]};
+		} else if(orientation == Orientation.east) {
+			//switched out the two v coordinates
+			return new double[]{textureCoordinates[0],
+								textureCoordinates[3],
+								textureCoordinates[2],
+								textureCoordinates[1]};
+		} else if(orientation == Orientation.south) {
+			//switched out both the u and v coordinates
+			return new double[]{textureCoordinates[2],
+								textureCoordinates[3],
+								textureCoordinates[0],
+								textureCoordinates[1]};
+		}
+		return textureCoordinates;
 	}
 
-	private double[] rotateCoordinates(double[] textureCoordinates, Orientation orientation) {
-		return null;
+	public Material generateBoundTextureMaterial() {
+		MapTexture currentBoundTexture = mapTextureSet.getTextureByName(this.currentBoundTextureName);
+		return currentBoundTexture.generateTextureMaterial();
+	}
+	
+	public boolean isBound(SoilType soilType, WallType wallType) {
+		String textureName = this.getTextureReferenceName(soilType, wallType);
+		return currentBoundTextureName.equals(textureName);
 	}
 
 	public void finalizeTextures() {
