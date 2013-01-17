@@ -1,0 +1,16 @@
+<ORRmap>
+	<meta>
+		<author>Bart van Blokland</author>
+		<name>A simple test map</name>
+		<description>description goes here</description>
+		<version>1.0</version>
+	</meta>
+	
+	<maps>
+		<heightMap src="src/res/maps/heightMap.png"/>
+		<soilMap src="src/res/maps/soilMap.png"/>
+	</maps>
+	<packages>
+		
+	</packages>
+</ORRmap>
