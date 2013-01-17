@@ -33,7 +33,7 @@ public class MapLoader {
 			e.printStackTrace();
 		}
 		return null;
-	}
+	} 
 	
 	private static Document readMapXML(ZipFile mapFile) {
 		Builder builder = new Builder();
