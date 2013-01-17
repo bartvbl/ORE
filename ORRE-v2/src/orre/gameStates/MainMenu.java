@@ -68,6 +68,7 @@ public class MainMenu extends GameState {
 		glTranslated(0, 0, 0.01);
 		glDisable(GL_LIGHTING);
 		glCallList(this.displayListID);
+
 		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 		//		glTranslatef(20, 0, 0);
 //		glCallList(this.displayListID);
@@ -81,7 +82,7 @@ public class MainMenu extends GameState {
 		this.displayListID = glGenLists(1);
 		this.skybox = this.resourceCache.getTexture("mainMenu_skybox");
 		glNewList(this.displayListID, GL_COMPILE);
-		this.testNode.render();
+		RenderPass.render(testNode);
 		glEndList();
 		//this.lightTest = new LightTestClass(displayListID);
 	}

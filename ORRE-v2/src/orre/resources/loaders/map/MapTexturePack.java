@@ -12,24 +12,21 @@ import openrr.map.soil.SoilTextureCoordinateSet;
 import openrr.map.soil.SoilType;
 
 public class MapTexturePack {
-	private final HashMap<SoilType, Soil> soilMap;
 	private final MapTextureSet mapTextureSet;
 	private final SoilLibrary soilLibrary;
 	private String currentBoundTextureName = "";
 	private SoilType currentBoundSoilType;
 	private WallType currentBoundWallType;
+	private final double[] textureCoordinateArray; //an array that is reused to avoid object allocation spam
 	
 	public MapTexturePack(SoilLibrary soilLibrary, MapTextureSet mapTextureSet) {
-		this.soilMap = new HashMap<SoilType, Soil>();
 		this.mapTextureSet = mapTextureSet;
 		this.soilLibrary = soilLibrary;
+		this.textureCoordinateArray = new double[4];
 	}
 	
 	public void setSoilTexture(SoilType type, Soil soil) {
-		if(soilMap.containsKey(type)) {
-			soilMap.remove(type);
-		}
-		soilMap.put(type, soil);
+		soilLibrary.setSoilTexture(type, soil);
 	}
 	
 	public void bindTexture(SoilType soilType, WallType wallType) {
@@ -43,14 +40,14 @@ public class MapTexturePack {
 	}
 
 	private String getTextureReferenceName(SoilType soilType, WallType wallType) {
-		Soil soil = soilMap.get(soilType);
+		Soil soil = soilLibrary.getSoilByType(soilType);
 		String textureName = soil.textureSet.getTexture(wallType).textureReferenceName;
 		return textureName;
 	}
 	
 	public double[] getTextureCoordinates(Orientation orientation) {
 		MapTexture texture = mapTextureSet.getTextureByName(currentBoundTextureName);
-		Soil soil = this.soilMap.get(this.currentBoundSoilType);
+		Soil soil = this.soilLibrary.getSoilByType(currentBoundSoilType);
 		SoilTextureCoordinateSet textureSet = soil.textureSet;
 		MapTextureCoordinate coordinate = textureSet.getTexture(this.currentBoundWallType);
 		
@@ -61,11 +58,11 @@ public class MapTexturePack {
 	}
 	
 	private double[] generateTextureCoordinates(MapTexture texture, MapTextureCoordinate coordinate) {
-		double u1 = (double)coordinate.x / (double)texture.widthInTextures;
-		double v1 = (double)coordinate.y / (double)texture.heightInTextures;
-		double u2 = (double)(coordinate.x + 1) / (double)texture.widthInTextures;
-		double v2 = (double)(coordinate.y + 1) / (double)texture.heightInTextures;
-		return new double[]{u1, v1, u2, v2};
+		/* u1 */ textureCoordinateArray[0] = (double)coordinate.x / (double)texture.widthInTextures;
+		/* u2 */ textureCoordinateArray[1] = (double)coordinate.y / (double)texture.heightInTextures;
+		/* v1 */ textureCoordinateArray[2] = (double)(coordinate.x + 1) / (double)texture.widthInTextures;
+		/* v2 */ textureCoordinateArray[3] = (double)(coordinate.y + 1) / (double)texture.heightInTextures;
+		return textureCoordinateArray;
 	}
 	
 	private double[] rotateCoordinates(double[] textureCoordinates, Orientation orientation) {

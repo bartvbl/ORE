@@ -52,7 +52,7 @@ public class GeometryBuffer extends EmptySceneNode implements SceneNode {
 		{
 			case VERTICES_AND_TEXTURES:
 				glEnableClientState(GL_TEXTURE_COORD_ARRAY);
-				glTexCoordPointer(2, GL_DOUBLE, stride, (3)*bytesPerDouble);
+				glTexCoordPointer(2, GL_DOUBLE, stride, 3 * bytesPerDouble);
 				break;
 			case VERTICES_AND_NORMALS:
 				glEnableClientState(GL_NORMAL_ARRAY);
