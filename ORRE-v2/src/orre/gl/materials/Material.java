@@ -27,7 +27,7 @@ public class Material extends SimpleSceneNode implements SceneNode, AbstractMate
 	public Material(String name)
 	{
 		this.name = name;
-		this.ambientColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
+		this.ambientColour = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
 		this.diffuseColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 		this.specularColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 		this.emissionColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};

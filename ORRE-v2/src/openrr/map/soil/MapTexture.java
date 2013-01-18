@@ -29,7 +29,7 @@ public class MapTexture {
 
 	public Material generateTextureMaterial() {
 		Material material = new Material("map texture material");
-		material.setAmbientTexture(texture);
+		material.setDiffuseTexture(texture);
 		return material;
 	}
 }

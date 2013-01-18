@@ -17,7 +17,7 @@ import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
 
 public class MapBuilder {
-	private static final int verticesPerTile = 4;
+	private static final int verticesPerTile = 6;
 	private static final int doublesPerVertex = 3 + 2 + 0; //xyz coordinate + uv texture coordinate + xyz normal coordinate
 	private static final double[] vertex = new double[doublesPerVertex];
 
@@ -59,14 +59,18 @@ public class MapBuilder {
 					if(!(geometryDataBuffer.position() == 0)) {
 						compileGeometryBuffer(texturePack, rootNode, geometryDataBuffer);
 					}
-					texturePack.bindTexture(tileSoilType, tileWallType);
 				}
+				System.out.println("wall type: " + tileWallType);
+				texturePack.bindTexture(tileSoilType, tileWallType);
 				double[] textureCoordinates = texturePack.getTextureCoordinates(orientation);
 				
-				putVertex(geometryDataBuffer, x, y, mapTile.tileHeight[0][0], textureCoordinates[0], textureCoordinates[1]);
-				putVertex(geometryDataBuffer, x, y, mapTile.tileHeight[1][0], textureCoordinates[2], textureCoordinates[1]);
-				putVertex(geometryDataBuffer, x, y, mapTile.tileHeight[1][1], textureCoordinates[2], textureCoordinates[3]);
-				putVertex(geometryDataBuffer, x, y, mapTile.tileHeight[0][1], textureCoordinates[0], textureCoordinates[3]);
+				putVertex(geometryDataBuffer, x + 0, y + 0, mapTile.tileHeight[0][0], textureCoordinates[0], textureCoordinates[1]);
+				putVertex(geometryDataBuffer, x + 1, y + 0, mapTile.tileHeight[1][0], textureCoordinates[2], textureCoordinates[1]);
+				putVertex(geometryDataBuffer, x + 1, y + 1, mapTile.tileHeight[1][1], textureCoordinates[2], textureCoordinates[3]);
+				
+				putVertex(geometryDataBuffer, x + 0, y + 0, mapTile.tileHeight[0][0], textureCoordinates[0], textureCoordinates[1]);
+				putVertex(geometryDataBuffer, x + 1, y + 1, mapTile.tileHeight[1][1], textureCoordinates[2], textureCoordinates[3]);
+				putVertex(geometryDataBuffer, x + 0, y + 1, mapTile.tileHeight[0][1], textureCoordinates[0], textureCoordinates[3]);
 			}
 		}
 		

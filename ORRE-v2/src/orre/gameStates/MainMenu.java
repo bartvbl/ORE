@@ -62,9 +62,10 @@ public class MainMenu extends GameState {
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 0, 1);
 //		this.lightTest.draw();
-		glEnable(GL_LIGHTING);
+		glDisable(GL_LIGHTING);
 		glCallList(this.displayListID);
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
+		glLineWidth(2);
 		glTranslated(0, 0, 0.01);
 		glDisable(GL_LIGHTING);
 		glCallList(this.displayListID);
@@ -77,10 +78,10 @@ public class MainMenu extends GameState {
 	}
 	@Override
 	public void set() {
-		this.resourceCache.getMap().buildAll();
 		this.testNode = this.resourceCache.getMap().createSceneNode();
 		this.displayListID = glGenLists(1);
 		this.skybox = this.resourceCache.getTexture("mainMenu_skybox");
+		glColor4f(1, 1, 1, 1);
 		glNewList(this.displayListID, GL_COMPILE);
 		RenderPass.render(testNode);
 		glEndList();

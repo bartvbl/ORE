@@ -1,5 +1,6 @@
 package orre.resources.loaders.map;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import orre.gl.materials.Material;
 
@@ -50,7 +51,6 @@ public class MapTexturePack {
 		Soil soil = this.soilLibrary.getSoilByType(currentBoundSoilType);
 		SoilTextureCoordinateSet textureSet = soil.textureSet;
 		MapTextureCoordinate coordinate = textureSet.getTexture(this.currentBoundWallType);
-		
 		double[] textureCoordinates = generateTextureCoordinates(texture, coordinate);
 		textureCoordinates = rotateCoordinates(textureCoordinates, orientation);
 		
@@ -94,8 +94,7 @@ public class MapTexturePack {
 	}
 	
 	public boolean isBound(SoilType soilType, WallType wallType) {
-		String textureName = this.getTextureReferenceName(soilType, wallType);
-		return currentBoundTextureName.equals(textureName);
+		return (soilType == this.currentBoundSoilType) && (wallType == this.currentBoundWallType);
 	}
 
 	public void finalizeTextures() {
