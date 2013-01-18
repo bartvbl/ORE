@@ -18,12 +18,10 @@ public class MapTexturePack {
 	private String currentBoundTextureName = "";
 	private SoilType currentBoundSoilType;
 	private WallType currentBoundWallType;
-	private final double[] textureCoordinateArray; //an array that is reused to avoid object allocation spam
 	
 	public MapTexturePack(SoilLibrary soilLibrary, MapTextureSet mapTextureSet) {
 		this.mapTextureSet = mapTextureSet;
 		this.soilLibrary = soilLibrary;
-		this.textureCoordinateArray = new double[4];
 	}
 	
 	public void setSoilTexture(SoilType type, Soil soil) {
@@ -46,46 +44,51 @@ public class MapTexturePack {
 		return textureName;
 	}
 	
-	public double[] getTextureCoordinates(Orientation orientation) {
+	public double[][] getTextureCoordinates(Orientation orientation) {
 		MapTexture texture = mapTextureSet.getTextureByName(currentBoundTextureName);
 		Soil soil = this.soilLibrary.getSoilByType(currentBoundSoilType);
 		SoilTextureCoordinateSet textureSet = soil.textureSet;
 		MapTextureCoordinate coordinate = textureSet.getTexture(this.currentBoundWallType);
-		double[] textureCoordinates = generateTextureCoordinates(texture, coordinate);
-		textureCoordinates = rotateCoordinates(textureCoordinates, orientation);
+		double[][] textureCoordinates2x2 = generateTextureCoordinates(texture, coordinate);
+		textureCoordinates2x2 = rotateCoordinates(textureCoordinates2x2, orientation);
 		
-		return textureCoordinates;
+		return textureCoordinates2x2;
 	}
 	
-	private double[] generateTextureCoordinates(MapTexture texture, MapTextureCoordinate coordinate) {
-		/* u1 */ textureCoordinateArray[0] = (double)coordinate.x / (double)texture.widthInTextures;
-		/* u2 */ textureCoordinateArray[1] = (double)coordinate.y / (double)texture.heightInTextures;
-		/* v1 */ textureCoordinateArray[2] = (double)(coordinate.x + 1) / (double)texture.widthInTextures;
-		/* v2 */ textureCoordinateArray[3] = (double)(coordinate.y + 1) / (double)texture.heightInTextures;
-		return textureCoordinateArray;
+	private double[][] generateTextureCoordinates(MapTexture texture, MapTextureCoordinate coordinate) {
+		double[][] textureCoordArray2x2 = new double[2][2];
+		/* u1 */ textureCoordArray2x2[0][0] = (double)coordinate.x / (double)texture.widthInTextures;
+		/* u2 */ textureCoordArray2x2[0][1] = (double)coordinate.y / (double)texture.heightInTextures;
+		/* v1 */ textureCoordArray2x2[1][0] = (double)(coordinate.x + 1) / (double)texture.widthInTextures;
+		/* v2 */ textureCoordArray2x2[1][1] = (double)(coordinate.y + 1) / (double)texture.heightInTextures;
+		return textureCoordArray2x2;
 	}
 	
-	private double[] rotateCoordinates(double[] textureCoordinates, Orientation orientation) {
+	private double[][] rotateCoordinates(double[][] textureCoordinates2x2, Orientation orientation) {
 		if(orientation == Orientation.west) {
 			//switched out the two u coordinates
-			return new double[]{textureCoordinates[2],
-								textureCoordinates[1],
-								textureCoordinates[0],
-								textureCoordinates[3]};
+			swapUCoordinates(textureCoordinates2x2);
 		} else if(orientation == Orientation.east) {
 			//switched out the two v coordinates
-			return new double[]{textureCoordinates[0],
-								textureCoordinates[3],
-								textureCoordinates[2],
-								textureCoordinates[1]};
+			swapVCoordinates(textureCoordinates2x2);
 		} else if(orientation == Orientation.south) {
 			//switched out both the u and v coordinates
-			return new double[]{textureCoordinates[2],
-								textureCoordinates[3],
-								textureCoordinates[0],
-								textureCoordinates[1]};
+			swapUCoordinates(textureCoordinates2x2);
+			swapVCoordinates(textureCoordinates2x2);
 		}
-		return textureCoordinates;
+		return textureCoordinates2x2;
+	}
+
+	private void swapUCoordinates(double[][] textureCoordinates2x2) {
+		double uCoordinate = textureCoordinates2x2[0][0];
+		textureCoordinates2x2[0][0] = textureCoordinates2x2[1][0];
+		textureCoordinates2x2[1][0] = uCoordinate;
+	}
+
+	private void swapVCoordinates(double[][] textureCoordinates2x2) {
+		double vCoordinate = textureCoordinates2x2[0][1];
+		textureCoordinates2x2[0][1] = textureCoordinates2x2[1][1];
+		textureCoordinates2x2[1][1] = vCoordinate;
 	}
 
 	public Material generateBoundTextureMaterial() {

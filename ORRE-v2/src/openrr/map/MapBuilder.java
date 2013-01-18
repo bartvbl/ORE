@@ -20,6 +20,7 @@ public class MapBuilder {
 	private static final int verticesPerTile = 6;
 	private static final int doublesPerVertex = 3 + 2 + 0; //xyz coordinate + uv texture coordinate + xyz normal coordinate
 	private static final double[] vertex = new double[doublesPerVertex];
+	private static final double wallHeight = 1.5;
 
 	public static SceneNode buildMapGeometry(MapTile[][] tileMap, MapTexturePack texturePack) {
 		int mapWidth = tileMap.length;
@@ -32,11 +33,11 @@ public class MapBuilder {
 		//orientationMap size: mapWidth, mapHeight
 		Orientation[][] orientationMap = MapWallOrientationBuilder.buildOrientationMap(wallMap, wallTypeMap, mapSize);
 		
-		SceneNode mapRootNode = generateMapSceneNode(wallTypeMap, orientationMap, tileMap, mapSize, texturePack);
+		SceneNode mapRootNode = generateMapSceneNode(wallMap, wallTypeMap, orientationMap, tileMap, mapSize, texturePack);
 		return mapRootNode;
 	}
 
-	private static SceneNode generateMapSceneNode(WallType[][] wallTypeMap, Orientation[][] orientationMap, MapTile[][] tileMap, Dimension2D mapSize, MapTexturePack texturePack) {
+	private static SceneNode generateMapSceneNode(boolean[][] wallMap, WallType[][] wallTypeMap, Orientation[][] orientationMap, MapTile[][] tileMap, Dimension2D mapSize, MapTexturePack texturePack) {
 		SceneNode rootNode = new EmptySceneNode();
 		
 		//bind a first default texture
@@ -48,6 +49,7 @@ public class MapBuilder {
 		DoubleBuffer geometryDataBuffer = BufferUtils.createDoubleBuffer(geometryBufferSize);
 		
 //		double[] normal = new double[3];
+		double[][] tileHeight = new double[2][2];
 		
 		for(int x = 0; x < mapSize.width; x++) {
 			for(int y = 0; y < mapSize.height; y++) {
@@ -60,17 +62,25 @@ public class MapBuilder {
 						compileGeometryBuffer(texturePack, rootNode, geometryDataBuffer);
 					}
 				}
-				System.out.println("wall type: " + tileWallType);
 				texturePack.bindTexture(tileSoilType, tileWallType);
-				double[] textureCoordinates = texturePack.getTextureCoordinates(orientation);
 				
-				putVertex(geometryDataBuffer, x + 0, y + 0, mapTile.tileHeight[0][0], textureCoordinates[0], textureCoordinates[1]);
-				putVertex(geometryDataBuffer, x + 1, y + 0, mapTile.tileHeight[1][0], textureCoordinates[2], textureCoordinates[1]);
-				putVertex(geometryDataBuffer, x + 1, y + 1, mapTile.tileHeight[1][1], textureCoordinates[2], textureCoordinates[3]);
+				for(int i = 0; i < 1; i++) {
+					for(int j = 0; j < 1; j++) {						
+						tileHeight[i][j] = mapTile.tileHeight[i][j] + (wallMap[x + i][y + j] ? wallHeight : 0);
+					}
+				}
 				
-				putVertex(geometryDataBuffer, x + 0, y + 0, mapTile.tileHeight[0][0], textureCoordinates[0], textureCoordinates[1]);
-				putVertex(geometryDataBuffer, x + 1, y + 1, mapTile.tileHeight[1][1], textureCoordinates[2], textureCoordinates[3]);
-				putVertex(geometryDataBuffer, x + 0, y + 1, mapTile.tileHeight[0][1], textureCoordinates[0], textureCoordinates[3]);
+				
+				double[][] coordinates6x3 = MapCoordinateRotator.generateRotatedTileCoordinates(x, y, tileHeight, orientation);
+				double[][] textureCoordinates2x2 = texturePack.getTextureCoordinates(orientation);
+				
+				putVertex(geometryDataBuffer, coordinates6x3[0], textureCoordinates2x2[0][0], textureCoordinates2x2[0][1]);
+				putVertex(geometryDataBuffer, coordinates6x3[1], textureCoordinates2x2[1][0], textureCoordinates2x2[0][1]);
+				putVertex(geometryDataBuffer, coordinates6x3[2], textureCoordinates2x2[1][0], textureCoordinates2x2[1][1]);
+				
+				putVertex(geometryDataBuffer, coordinates6x3[3], textureCoordinates2x2[0][0], textureCoordinates2x2[0][1]);
+				putVertex(geometryDataBuffer, coordinates6x3[4], textureCoordinates2x2[1][0], textureCoordinates2x2[1][1]);
+				putVertex(geometryDataBuffer, coordinates6x3[5], textureCoordinates2x2[0][0], textureCoordinates2x2[1][1]);
 			}
 		}
 		
@@ -78,10 +88,10 @@ public class MapBuilder {
 		return rootNode;
 	}
 
-	private static void putVertex(DoubleBuffer geometryDataBuffer, int x, int y, int z, double u, double v) {
-		vertex[0] = x;
-		vertex[1] = y;
-		vertex[2] = z;
+	private static void putVertex(DoubleBuffer geometryDataBuffer, double[] coordinates6x3, double u, double v) {
+		vertex[0] = coordinates6x3[0];
+		vertex[1] = coordinates6x3[1];
+		vertex[2] = coordinates6x3[2];
 		vertex[3] = u;
 		vertex[4] = v;
 		geometryDataBuffer.put(vertex);
