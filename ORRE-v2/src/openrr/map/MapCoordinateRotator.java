@@ -23,8 +23,7 @@ public class MapCoordinateRotator {
 		return coordinates6x3;
 	}
 
-	private static void generateNorthCoordinates(int x, int y,
-			double[][] tileHeight) {
+	private static void generateNorthCoordinates(int x, int y, double[][] tileHeight) {
 		setBottomLeftCoordinateAt(x, y, tileHeight, 0);
 		setBottomRightCoordinateAt(x, y, tileHeight, 1);
 		setTopRightCoordinateAt(x, y, tileHeight, 2);

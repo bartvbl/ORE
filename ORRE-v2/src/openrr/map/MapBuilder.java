@@ -20,7 +20,7 @@ public class MapBuilder {
 	private static final int verticesPerTile = 6;
 	private static final int doublesPerVertex = 3 + 2 + 0; //xyz coordinate + uv texture coordinate + xyz normal coordinate
 	private static final double[] vertex = new double[doublesPerVertex];
-	private static final double wallHeight = 1.5;
+	private static final double wallHeight = 1.35;
 
 	public static SceneNode buildMapGeometry(MapTile[][] tileMap, MapTexturePack texturePack) {
 		int mapWidth = tileMap.length;
@@ -64,9 +64,10 @@ public class MapBuilder {
 				}
 				texturePack.bindTexture(tileSoilType, tileWallType);
 				
-				for(int i = 0; i < 1; i++) {
-					for(int j = 0; j < 1; j++) {						
-						tileHeight[i][j] = mapTile.tileHeight[i][j] + (wallMap[x + i][y + j] ? wallHeight : 0);
+				for(int i = 0; i < 2; i++) {
+					for(int j = 0; j < 2; j++) {
+						double vertexWallHeight = wallMap[x + i][y + j] ? wallHeight : 0;
+						tileHeight[i][j] = vertexWallHeight;
 					}
 				}
 				

@@ -50,8 +50,7 @@ public class MapTexturePack {
 		SoilTextureCoordinateSet textureSet = soil.textureSet;
 		MapTextureCoordinate coordinate = textureSet.getTexture(this.currentBoundWallType);
 		double[][] textureCoordinates2x2 = generateTextureCoordinates(texture, coordinate);
-		textureCoordinates2x2 = rotateCoordinates(textureCoordinates2x2, orientation);
-		
+		textureCoordinates2x2 = MapTextureCoordinateRotator.rotateCoordinates(textureCoordinates2x2, orientation, this.currentBoundWallType);
 		return textureCoordinates2x2;
 	}
 	
@@ -62,33 +61,6 @@ public class MapTexturePack {
 		/* v1 */ textureCoordArray2x2[1][0] = (double)(coordinate.x + 1) / (double)texture.widthInTextures;
 		/* v2 */ textureCoordArray2x2[1][1] = (double)(coordinate.y + 1) / (double)texture.heightInTextures;
 		return textureCoordArray2x2;
-	}
-	
-	private double[][] rotateCoordinates(double[][] textureCoordinates2x2, Orientation orientation) {
-		if(orientation == Orientation.west) {
-			//switched out the two u coordinates
-			swapUCoordinates(textureCoordinates2x2);
-		} else if(orientation == Orientation.east) {
-			//switched out the two v coordinates
-			swapVCoordinates(textureCoordinates2x2);
-		} else if(orientation == Orientation.south) {
-			//switched out both the u and v coordinates
-			swapUCoordinates(textureCoordinates2x2);
-			swapVCoordinates(textureCoordinates2x2);
-		}
-		return textureCoordinates2x2;
-	}
-
-	private void swapUCoordinates(double[][] textureCoordinates2x2) {
-		double uCoordinate = textureCoordinates2x2[0][0];
-		textureCoordinates2x2[0][0] = textureCoordinates2x2[1][0];
-		textureCoordinates2x2[1][0] = uCoordinate;
-	}
-
-	private void swapVCoordinates(double[][] textureCoordinates2x2) {
-		double vCoordinate = textureCoordinates2x2[0][1];
-		textureCoordinates2x2[0][1] = textureCoordinates2x2[1][1];
-		textureCoordinates2x2[1][1] = vCoordinate;
 	}
 
 	public Material generateBoundTextureMaterial() {

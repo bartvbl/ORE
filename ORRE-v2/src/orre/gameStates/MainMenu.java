@@ -25,7 +25,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class MainMenu extends GameState {
 
 	private SceneNode testNode;
-	private float rotationX = 0, rotationY, zoomLevel = -255, xCoord, yCoord;
+	private float rotationX = 0, rotationY, zoomLevel = -45, xCoord, yCoord;
 	
 	private FloatBuffer buffer;
 	private int displayListID;
@@ -46,28 +46,30 @@ public class MainMenu extends GameState {
 		//glScalef(0.1f, 0.1f, 0.1f);
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {this.rotationY -= 2;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {this.rotationY += 2;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {this.rotationX += 1.9;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {this.rotationX -= 1.9;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {this.zoomLevel += 2;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_X)) {this.zoomLevel -= 2;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {this.yCoord += 1;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {this.yCoord -= 1;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {this.xCoord += 1;}
-		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord -= 1;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_UP)) {this.rotationX += 2;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_DOWN)) {this.rotationX -= 2;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_Z)) {this.zoomLevel += 0.3;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_X)) {this.zoomLevel -= 0.3;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {this.yCoord += 0.3;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {this.yCoord -= 0.3;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {this.xCoord += 0.3;}
+		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord -= 0.3;}
 		glEnable(GL_LIGHT0);
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
-		glTranslated(xCoord, yCoord, zoomLevel);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 0, 1);
+		glTranslated(xCoord, yCoord, zoomLevel);
 //		this.lightTest.draw();
 		glDisable(GL_LIGHTING);
+		glColor4f(1, 1, 1, 1);
 		glCallList(this.displayListID);
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
 		glLineWidth(2);
 		glTranslated(0, 0, 0.01);
 		glDisable(GL_LIGHTING);
+		glColor4f(0, 0, 0, 1);
 		glCallList(this.displayListID);
 
 		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );

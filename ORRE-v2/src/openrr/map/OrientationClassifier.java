@@ -44,10 +44,10 @@ public class OrientationClassifier {
 	}
 
 	private static Orientation classifyInvertedCorner(boolean[][] isWallNeighbourhood2x2) {
-		if(isWallNeighbourhood2x2[0][1] == false) return Orientation.north;
-		if(isWallNeighbourhood2x2[1][1] == false) return Orientation.east;
-		if(isWallNeighbourhood2x2[1][0] == false) return Orientation.south;
-		if(isWallNeighbourhood2x2[0][0] == false) return Orientation.west;
+		if(isWallNeighbourhood2x2[0][0] == false) return Orientation.east;
+		if(isWallNeighbourhood2x2[0][1] == false) return Orientation.south;
+		if(isWallNeighbourhood2x2[1][1] == false) return Orientation.west;
+		if(isWallNeighbourhood2x2[1][0] == false) return Orientation.north;
 		return Orientation.north;
 	}
 
