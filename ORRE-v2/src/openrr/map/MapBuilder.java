@@ -67,7 +67,7 @@ public class MapBuilder {
 				for(int i = 0; i < 2; i++) {
 					for(int j = 0; j < 2; j++) {
 						double vertexWallHeight = wallMap[x + i][y + j] ? wallHeight : 0;
-						tileHeight[i][j] = vertexWallHeight;
+						tileHeight[i][j] = mapTile.tileHeight[i][j] + vertexWallHeight;
 					}
 				}
 				
