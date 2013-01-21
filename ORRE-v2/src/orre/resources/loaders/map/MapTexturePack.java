@@ -44,23 +44,21 @@ public class MapTexturePack {
 		return textureName;
 	}
 	
-	public double[][] getTextureCoordinates(Orientation orientation) {
+	public SubTextureCoordinate getTextureCoordinates() {
 		MapTexture texture = mapTextureSet.getTextureByName(currentBoundTextureName);
 		Soil soil = this.soilLibrary.getSoilByType(currentBoundSoilType);
 		SoilTextureCoordinateSet textureSet = soil.textureSet;
 		MapTextureCoordinate coordinate = textureSet.getTexture(this.currentBoundWallType);
-		double[][] textureCoordinates2x2 = generateTextureCoordinates(texture, coordinate);
-		textureCoordinates2x2 = MapTextureCoordinateRotator.rotateCoordinates(textureCoordinates2x2, orientation, this.currentBoundWallType);
-		return textureCoordinates2x2;
+		SubTextureCoordinate textureCoordinates = generateTextureCoordinates(texture, coordinate);
+		return textureCoordinates;
 	}
 	
-	private double[][] generateTextureCoordinates(MapTexture texture, MapTextureCoordinate coordinate) {
-		double[][] textureCoordArray2x2 = new double[2][2];
-		/* u1 */ textureCoordArray2x2[0][0] = (double)coordinate.x / (double)texture.widthInTextures;
-		/* u2 */ textureCoordArray2x2[0][1] = (double)coordinate.y / (double)texture.heightInTextures;
-		/* v1 */ textureCoordArray2x2[1][0] = (double)(coordinate.x + 1) / (double)texture.widthInTextures;
-		/* v2 */ textureCoordArray2x2[1][1] = (double)(coordinate.y + 1) / (double)texture.heightInTextures;
-		return textureCoordArray2x2;
+	private SubTextureCoordinate generateTextureCoordinates(MapTexture texture, MapTextureCoordinate coordinate) {
+		double u1 = (double)coordinate.x / (double)texture.widthInTextures;
+		double v1 = (double)coordinate.y / (double)texture.heightInTextures;
+		double u2 = (double)(coordinate.x + 1) / (double)texture.widthInTextures;
+		double v2 = (double)(coordinate.y + 1) / (double)texture.heightInTextures;
+		return new SubTextureCoordinate(u1, v1, u2, v2);
 	}
 
 	public Material generateBoundTextureMaterial() {

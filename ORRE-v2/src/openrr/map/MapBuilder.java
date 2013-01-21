@@ -8,10 +8,12 @@ import org.lwjgl.BufferUtils;
 
 import openrr.map.soil.SoilType;
 import orre.geom.Dimension2D;
+import orre.geom.Vertex3D;
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
 import orre.gl.materials.Material;
 import orre.resources.loaders.map.MapTexturePack;
+import orre.resources.loaders.map.SubTextureCoordinate;
 import orre.resources.loaders.obj.GeometryBufferGenerator;
 import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
@@ -19,8 +21,8 @@ import orre.sceneGraph.SceneNode;
 public class MapBuilder {
 	private static final int verticesPerTile = 6;
 	private static final int doublesPerVertex = 3 + 2 + 0; //xyz coordinate + uv texture coordinate + xyz normal coordinate
-	private static final double[] vertex = new double[doublesPerVertex];
 	private static final double wallHeight = 1.35;
+	private static final double tileHeightMultiplyer = 0.4;
 
 	public static SceneNode buildMapGeometry(MapTile[][] tileMap, MapTexturePack texturePack) {
 		int mapWidth = tileMap.length;
@@ -64,24 +66,12 @@ public class MapBuilder {
 				}
 				texturePack.bindTexture(tileSoilType, tileWallType);
 				
-				for(int i = 0; i < 2; i++) {
-					for(int j = 0; j < 2; j++) {
-						double vertexWallHeight = wallMap[x + i][y + j] ? wallHeight : 0;
-						tileHeight[i][j] = mapTile.tileHeight[i][j] + vertexWallHeight;
-					}
-				}
+				calculateTileEdgeHeight(wallMap, tileHeight, x, y, mapTile);
 				
+				SubTextureCoordinate textureCoordinate = texturePack.getTextureCoordinates();
+				Vertex3D[] vertices = MapCoordinateRotator.generateRotatedTileCoordinates(x, y, tileHeight, textureCoordinate, orientation);
 				
-				double[][] coordinates6x3 = MapCoordinateRotator.generateRotatedTileCoordinates(x, y, tileHeight, orientation);
-				double[][] textureCoordinates2x2 = texturePack.getTextureCoordinates(orientation);
-				
-				putVertex(geometryDataBuffer, coordinates6x3[0], textureCoordinates2x2[0][0], textureCoordinates2x2[0][1]);
-				putVertex(geometryDataBuffer, coordinates6x3[1], textureCoordinates2x2[1][0], textureCoordinates2x2[0][1]);
-				putVertex(geometryDataBuffer, coordinates6x3[2], textureCoordinates2x2[1][0], textureCoordinates2x2[1][1]);
-				
-				putVertex(geometryDataBuffer, coordinates6x3[3], textureCoordinates2x2[0][0], textureCoordinates2x2[0][1]);
-				putVertex(geometryDataBuffer, coordinates6x3[4], textureCoordinates2x2[1][0], textureCoordinates2x2[1][1]);
-				putVertex(geometryDataBuffer, coordinates6x3[5], textureCoordinates2x2[0][0], textureCoordinates2x2[1][1]);
+				putVertices(geometryDataBuffer, vertices);
 			}
 		}
 		
@@ -89,13 +79,19 @@ public class MapBuilder {
 		return rootNode;
 	}
 
-	private static void putVertex(DoubleBuffer geometryDataBuffer, double[] coordinates6x3, double u, double v) {
-		vertex[0] = coordinates6x3[0];
-		vertex[1] = coordinates6x3[1];
-		vertex[2] = coordinates6x3[2];
-		vertex[3] = u;
-		vertex[4] = v;
-		geometryDataBuffer.put(vertex);
+	private static void putVertices(DoubleBuffer geometryDataBuffer, Vertex3D[] vertices) {
+		for(Vertex3D vertex : vertices) {
+			geometryDataBuffer.put(vertex.toArray());
+		}
+	}
+
+	private static void calculateTileEdgeHeight(boolean[][] wallMap, double[][] tileHeight, int x, int y, MapTile mapTile) {
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < 2; j++) {
+				double vertexWallHeight = wallMap[x + i][y + j] ? wallHeight : 0;
+				tileHeight[i][j] = mapTile.tileHeight[i][j] * tileHeightMultiplyer + vertexWallHeight;
+			}
+		}
 	}
 
 	private static void compileGeometryBuffer(MapTexturePack texturePack, SceneNode rootNode, DoubleBuffer geometryDataBuffer) {
@@ -104,7 +100,7 @@ public class MapBuilder {
 		double[] geometryData = new double[geometryDataBuffer.position()];
 		geometryDataBuffer.rewind();
 		geometryDataBuffer.get(geometryData);
-		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_AND_TEXTURES, geometryData, indices);
+		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryData, indices);
 		geometryDataBuffer.clear();
 		currentMaterial.addChild(buffer);
 		rootNode.addChild(currentMaterial);

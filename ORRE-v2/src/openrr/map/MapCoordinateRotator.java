@@ -1,91 +1,83 @@
 package openrr.map;
 
-public class MapCoordinateRotator {
+import java.util.Arrays;
 
-	private static final double[][] coordinates6x3 = new double[6][3];
+import orre.geom.Vector3D;
+import orre.geom.Vertex3D;
+import orre.resources.loaders.map.SubTextureCoordinate;
+import orre.util.ArrayUtils;
+
+public class MapCoordinateRotator {
+	private static Vertex3D[] vertices = new Vertex3D[6];
+	private static double tileSide = 1;
 	
-	public static double[][] generateRotatedTileCoordinates(int x, int y, double[][] tileHeight, Orientation orientation) {
+	public static Vertex3D[] generateRotatedTileCoordinates(int x, int y, double[][] tileHeight, SubTextureCoordinate textureCoordinate, Orientation orientation) {
+		Vector3D tileOrigin = generateTileOrigin(x + tileSide / 2, y + tileSide / 2, tileHeight, orientation);
+		Vector3D[] cornerVertices = generateCornerVertices(tileOrigin, tileHeight);
+		rotateCornerVertices(cornerVertices, orientation);
+		//SubTextureCoordinate rotatedTextureCoordinates = textureCoordinate.rotateToRelativeOrientation(orientation);
+		createVertices(cornerVertices, textureCoordinate);
+		return vertices;
+	}
+
+	private static void createVertices(Vector3D[] cornerVertices, SubTextureCoordinate rotatedTextureCoordinates) {
+		Vector3D[] normals = calculateNormals(cornerVertices);
+		vertices[0] = createVertex(cornerVertices[0], rotatedTextureCoordinates.u1, rotatedTextureCoordinates.v1, normals[0]);
+		vertices[1] = createVertex(cornerVertices[1], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v1, normals[0]);
+		vertices[2] = createVertex(cornerVertices[3], rotatedTextureCoordinates.u1, rotatedTextureCoordinates.v2, normals[0]);
+		
+		vertices[3] = createVertex(cornerVertices[1], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v1, normals[1]);
+		vertices[4] = createVertex(cornerVertices[2], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v2, normals[1]);
+		vertices[5] = createVertex(cornerVertices[3], rotatedTextureCoordinates.u1, rotatedTextureCoordinates.v2, normals[1]);
+	}
+
+	private static Vertex3D createVertex(Vector3D coordinate, double textureU, double textureV, Vector3D normal) {
+		return new Vertex3D(coordinate.x, coordinate.y, coordinate.z, textureU, textureV, -normal.x, -normal.y, -normal.z);
+	}
+
+	private static Vector3D[] calculateNormals(Vector3D[] cornerVertices) {
+		Vector3D hypothenuse = new Vector3D(tileSide, tileSide, cornerVertices[2].z - cornerVertices[0].z);
+		Vector3D edgeX = new Vector3D(tileSide, 0, cornerVertices[1].z - cornerVertices[0].z);
+		Vector3D edgeY = new Vector3D(0, tileSide, cornerVertices[3].z - cornerVertices[0].z);
+		Vector3D[] normals = new Vector3D[2];
+		normals[0] = edgeX.vectorProduct(hypothenuse).normalize();
+		normals[1] = edgeY.vectorProduct(hypothenuse).normalize();
+		return normals;
+	}
+
+	private static Vector3D[] generateCornerVertices(Vector3D tileOrigin, double[][] tileHeight) {
+		Vector3D[] cornerVertices = new Vector3D[4];
+		cornerVertices[0] = new Vector3D(tileOrigin.x - tileSide / 2, tileOrigin.y - tileSide / 2, tileHeight[0][0]);
+		cornerVertices[1] = new Vector3D(tileOrigin.x + tileSide / 2, tileOrigin.y - tileSide / 2, tileHeight[1][0]);
+		cornerVertices[2] = new Vector3D(tileOrigin.x + tileSide / 2, tileOrigin.y + tileSide / 2, tileHeight[1][1]);
+		cornerVertices[3] = new Vector3D(tileOrigin.x - tileSide / 2, tileOrigin.y + tileSide / 2, tileHeight[0][1]);
+		return cornerVertices;
+	}
+
+	private static void rotateCornerVertices(Vector3D[] cornerVertices, Orientation orientation) {
 		switch(orientation) {
 			default:
-			case north:
-				generateNorthCoordinates(x, y, tileHeight);
-				break;
-			case east:
-				generateEastCoordinates(x, y, tileHeight);
-				break;
-			case south:
-				generateSouthCoordinates(x, y, tileHeight);
-				break;
+			case north: 
+				return; //leave vertex order intact
 			case west:
-				generateWestCoordinates(x, y, tileHeight);
-				break;
+				ArrayUtils.shiftLeft(cornerVertices, 1);
+				return;
+			case south:
+				ArrayUtils.shiftLeft(cornerVertices, 2);
+				return;
+			case east: 
+				ArrayUtils.shiftLeft(cornerVertices, 3);
+				return;
 		}
-		return coordinates6x3;
-	}
-
-	private static void generateNorthCoordinates(int x, int y, double[][] tileHeight) {
-		setBottomLeftCoordinateAt(x, y, tileHeight, 0);
-		setBottomRightCoordinateAt(x, y, tileHeight, 1);
-		setTopRightCoordinateAt(x, y, tileHeight, 2);
-
-		setBottomLeftCoordinateAt(x, y, tileHeight, 3);
-		setTopRightCoordinateAt(x, y, tileHeight, 4);
-		setTopLeftCoordinateAt(x, y, tileHeight, 5);
-	}
-
-	private static void generateEastCoordinates(int x, int y, double[][] tileHeight) {
-		setBottomRightCoordinateAt(x, y, tileHeight, 0);
-		setTopRightCoordinateAt(x, y, tileHeight, 1);
-		setTopLeftCoordinateAt(x, y, tileHeight, 2);
-		
-		setBottomRightCoordinateAt(x, y, tileHeight, 3);
-		setTopLeftCoordinateAt(x, y, tileHeight, 4);
-		setBottomLeftCoordinateAt(x, y, tileHeight, 5);
-	}
-
-	private static void generateSouthCoordinates(int x, int y,
-			double[][] tileHeight) {
-		setTopRightCoordinateAt(x, y, tileHeight, 0);
-		setTopLeftCoordinateAt(x, y, tileHeight, 1);
-		setBottomLeftCoordinateAt(x, y, tileHeight, 2);
-		
-		setTopRightCoordinateAt(x, y, tileHeight, 3);
-		setBottomLeftCoordinateAt(x, y, tileHeight, 4);
-		setBottomRightCoordinateAt(x, y, tileHeight, 5);
-	}
-
-	private static void generateWestCoordinates(int x, int y, double[][] tileHeight) {
-		setTopLeftCoordinateAt(x, y, tileHeight, 0);
-		setBottomLeftCoordinateAt(x, y, tileHeight, 1);
-		setBottomRightCoordinateAt(x, y, tileHeight, 2);
-		
-		setTopLeftCoordinateAt(x, y, tileHeight, 3);
-		setBottomRightCoordinateAt(x, y, tileHeight, 4);
-		setTopRightCoordinateAt(x, y, tileHeight, 5);
-	}
-
-	
-	private static void setBottomLeftCoordinateAt(int x, int y, double[][] tileHeight, int index) {
-		coordinates6x3[index][0] = x;
-		coordinates6x3[index][1] = y;
-		coordinates6x3[index][2] = tileHeight[0][0];
 	}
 	
-	private static void setTopLeftCoordinateAt(int x, int y, double[][] tileHeight, int index) {
-		coordinates6x3[index][0] = x;
-		coordinates6x3[index][1] = y + 1;
-		coordinates6x3[index][2] = tileHeight[0][1];
-	}
-	
-	private static void setBottomRightCoordinateAt(int x, int y, double[][] tileHeight, int index) {
-		coordinates6x3[index][0] = x + 1;
-		coordinates6x3[index][1] = y;
-		coordinates6x3[index][2] = tileHeight[1][0];
-	}
-	
-	private static void setTopRightCoordinateAt(int x, int y, double[][] tileHeight, int index) {
-		coordinates6x3[index][0] = x + 1;
-		coordinates6x3[index][1] = y + 1;
-		coordinates6x3[index][2] = tileHeight[1][1];
+	private static Vector3D generateTileOrigin(double x, double y, double[][] tileHeight, Orientation orientation) {
+		switch(orientation) {
+			default:
+			case north: return new Vector3D(x, y, tileHeight[0][0]);
+			case east: return new Vector3D(x, y, tileHeight[1][0]);
+			case south: return new Vector3D(x, y, tileHeight[1][1]);
+			case west: return new Vector3D(x, y, tileHeight[0][1]);
+		}
 	}
 }

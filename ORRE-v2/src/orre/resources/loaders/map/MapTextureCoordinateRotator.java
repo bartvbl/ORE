@@ -6,6 +6,7 @@ import openrr.map.WallType;
 public class MapTextureCoordinateRotator {
 
 	public static double[][] rotateCoordinates(double[][] textureCoordinates2x2, Orientation orientation, WallType wallType) {
+		if(wallType == WallType.wallCorner) orientation = rotateOrientationCW(orientation);
 		textureCoordinates2x2 = performRotation(textureCoordinates2x2, orientation);
 		return textureCoordinates2x2;
 	}
@@ -41,17 +42,12 @@ public class MapTextureCoordinateRotator {
 	}
 
 	private static double[][] performRotation(double[][] textureCoordinates2x2, Orientation orientation) {
-//		if(orientation == Orientation.west) {
-//			switched out the two u coordinates
-//			swapUCoordinates(textureCoordinates2x2);
-	//	} else if(orientation == Orientation.east) {
-//			//switched out the two v coordinates
-//			swapVCoordinates(textureCoordinates2x2);
-//		} else if(orientation == Orientation.south) {
-//			//switched out both the u and v coordinates
-//			swapUCoordinates(textureCoordinates2x2);
-//			swapVCoordinates(textureCoordinates2x2);
-//		}
+		if(orientation == Orientation.east) swapVCoordinates(textureCoordinates2x2);
+		if(orientation == Orientation.west) swapUCoordinates(textureCoordinates2x2);
+		if(orientation == Orientation.south) {
+			swapUCoordinates(textureCoordinates2x2);
+			swapVCoordinates(textureCoordinates2x2);
+		}
 		return textureCoordinates2x2;
 	}
 	

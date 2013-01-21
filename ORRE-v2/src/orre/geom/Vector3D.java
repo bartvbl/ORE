@@ -39,4 +39,8 @@ public class Vector3D {
 		double z = this.z/length;
 		return new Vector3D(x, y, z);
 	}
+	
+	public String toString() {
+		return "vert3D ["+x+", "+y+", "+z+"]";
+	}
 }

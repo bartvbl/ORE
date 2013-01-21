@@ -20,10 +20,10 @@ public class OrientationClassifier {
 	}
 
 	private static Orientation classifyWallCorner(boolean[][] isWallNeighbourhood2x2) {
-		if(isWallNeighbourhood2x2[0][1] == true) return Orientation.north;
-		if(isWallNeighbourhood2x2[1][1] == true) return Orientation.east;
-		if(isWallNeighbourhood2x2[1][0] == true) return Orientation.south;
 		if(isWallNeighbourhood2x2[0][0] == true) return Orientation.west;
+		if(isWallNeighbourhood2x2[1][0] == true) return Orientation.south;
+		if(isWallNeighbourhood2x2[1][1] == true) return Orientation.east;
+		if(isWallNeighbourhood2x2[0][1] == true) return Orientation.north;
 		return Orientation.north;
 	}
 
@@ -32,13 +32,13 @@ public class OrientationClassifier {
 			if(isWallNeighbourhood2x2[1][0] == false) {
 				return Orientation.north;
 			} else {
-				return Orientation.west;
+				return Orientation.east;
 			}
 		} else {
 			if(isWallNeighbourhood2x2[1][0] == true) {
 				return Orientation.south;
 			} else {
-				return Orientation.east;
+				return Orientation.west;
 			}
 		}
 	}
