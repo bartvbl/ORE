@@ -28,10 +28,12 @@ public class MainMenu extends GameState {
 	private float rotationX = 0, rotationY, zoomLevel = -100, xCoord, yCoord;
 	
 	private FloatBuffer buffer;
-	private int displayListID;
+	private int displayListID = -1;
 	private LightTestClass lightTest;
 	private int time = 0;
 	private Texture skybox;
+	private Mesh3D node;
+	private Mesh3D node2;
 
 	public MainMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
 		super(main, eventDispatcher, stateName);
@@ -66,14 +68,10 @@ public class MainMenu extends GameState {
 		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
 //		this.lightTest.draw();
 		glEnable(GL_LIGHTING);
+		glEnable(GL_NORMALIZE);
 		glColor4f(1, 1, 1, 1);
 		glCallList(this.displayListID);
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-		glLineWidth(2);
-		glTranslated(0, 0, 0.01);
-		glEnable(GL_LIGHTING);
-		glColor4f(0, 0, 0, 1);
-		glCallList(this.displayListID);
 
 		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
 		//		glTranslatef(20, 0, 0);
@@ -84,13 +82,25 @@ public class MainMenu extends GameState {
 	@Override
 	public void set() {
 		this.testNode = this.resourceCache.getMap().createSceneNode();
+		this.node = this.resourceCache.createModelInstace("toolStore");
+		this.node2 = this.resourceCache.createModelInstace("rockRaider");
 		this.displayListID = glGenLists(1);
 		this.skybox = this.resourceCache.getTexture("mainMenu_skybox");
+		buildScene();
+		//this.lightTest = new LightTestClass(displayListID);
+	}
+	private void buildScene() {
 		glColor4f(1, 1, 1, 1);
+		glDeleteLists(this.displayListID, 1);
 		glNewList(this.displayListID, GL_COMPILE);
 		RenderPass.render(testNode);
+		glScaled(0.07, 0.07, 0.07);
+		glTranslated(79, 107, 376.3);
+		glRotated(90, 1, 0, 0);
+		RenderPass.render(node);
+		glTranslated(-0.5, 1.2, 3);
+		RenderPass.render(node2);
 		glEndList();
-		//this.lightTest = new LightTestClass(displayListID);
 	}
 	@Override
 	public void unset() {
