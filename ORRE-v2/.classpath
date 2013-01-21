@@ -2,19 +2,19 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
-	<classpathentry kind="lib" path="jars/dom4j-1.6.1.jar"/>
-	<classpathentry kind="lib" path="jars/jinput.jar"/>
-	<classpathentry kind="lib" path="jars/jaxen-1.1-beta-6.jar"/>
-	<classpathentry kind="lib" path="jars/lwjgl_util.jar"/>
-	<classpathentry kind="lib" path="jars/lwjgl.jar">
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/AppleJavaExtensions.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/dom4j-1.6.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/jaxen-1.1-beta-6.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/jinput.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/lwjgl.jar">
 		<attributes>
 			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ORRE-v2/natives"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="jars/lzma.jar"/>
-	<classpathentry kind="lib" path="jars/AppleJavaExtensions.jar"/>
-	<classpathentry kind="lib" path="jars/slick-util.jar"/>
-	<classpathentry kind="lib" path="jars/slick.jar"/>
-	<classpathentry kind="lib" path="jars/xom-1.2.8.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/lwjgl_util.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/lzma.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/slick.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/slick-util.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Charlie/git/ORRE-V2/ORRE-v2/jars/xom-1.2.8.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
