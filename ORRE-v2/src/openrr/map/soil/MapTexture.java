@@ -30,7 +30,8 @@ public class MapTexture {
 	public Material generateTextureMaterial() {
 		Material material = new Material("map texture material");
 		material.setDiffuseTexture(texture);
-		material.setShininess(0.5f);
+		material.setDiffuseColour(new float[]{1, 1, 1, 1});
+		material.setShininess(20f);
 		return material;
 	}
 }

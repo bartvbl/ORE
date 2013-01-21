@@ -43,6 +43,7 @@ public class MainMenu extends GameState {
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
+		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, 0, 1}).rewind());
 		//glScalef(0.1f, 0.1f, 0.1f);
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {this.rotationY -= 2;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {this.rotationY += 2;}
@@ -55,15 +56,15 @@ public class MainMenu extends GameState {
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {this.xCoord += 0.3;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord -= 0.3;}
 		glEnable(GL_LIGHT0);
-		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 5, 0, 1}).rewind());
 		this.time ++;
 		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
 		glTranslated(0, 0, zoomLevel);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 0, 1);
 		glTranslated(xCoord, yCoord, 0);
+		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.2f, 0.2f, 0.2f, 1}).rewind());
 //		this.lightTest.draw();
-		glDisable(GL_LIGHTING);
+		glEnable(GL_LIGHTING);
 		glColor4f(1, 1, 1, 1);
 		glCallList(this.displayListID);
 		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );

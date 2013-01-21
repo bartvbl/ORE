@@ -43,4 +43,8 @@ public class Vector3D {
 	public String toString() {
 		return "vert3D ["+x+", "+y+", "+z+"]";
 	}
+
+	public Vector3D inverse() {
+		return new Vector3D(-x, -y, -z);
+	}
 }

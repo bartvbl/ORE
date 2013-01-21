@@ -32,7 +32,7 @@ public class MapCoordinateRotator {
 	}
 
 	private static Vertex3D createVertex(Vector3D coordinate, double textureU, double textureV, Vector3D normal) {
-		return new Vertex3D(coordinate.x, coordinate.y, coordinate.z, textureU, textureV, -normal.x, -normal.y, -normal.z);
+		return new Vertex3D(coordinate.x, coordinate.y, coordinate.z, textureU, textureV, normal.x, normal.y, normal.z);
 	}
 
 	private static Vector3D[] calculateNormals(Vector3D[] cornerVertices) {
@@ -41,6 +41,7 @@ public class MapCoordinateRotator {
 		Vector3D edgeY = new Vector3D(0, tileSide, cornerVertices[3].z - cornerVertices[0].z);
 		Vector3D[] normals = new Vector3D[2];
 		normals[0] = edgeX.vectorProduct(hypothenuse).normalize();
+		normals[0] = normals[0].inverse();
 		normals[1] = edgeY.vectorProduct(hypothenuse).normalize();
 		return normals;
 	}
