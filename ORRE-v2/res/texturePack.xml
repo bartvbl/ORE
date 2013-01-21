@@ -25,7 +25,7 @@
 			<texture type="invertedCorner" texture="terrain" x="5" y="2" />
 			<texture type="enforced" texture="terrain" x="5" y="3" />
 			<texture type="roof" texture="terrain" x="0" y="1" />
-			<texture type="crevice" texture="terrain" x="1" y="3" />
+			<texture type="crevice" texture="terrain" x="1" y="2" />
 		</soilTextureSet>
 		
 		<!-- Basic walls -->
