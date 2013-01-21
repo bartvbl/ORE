@@ -63,6 +63,7 @@ public class MainMenu extends GameState {
 		glRotatef(rotationY, 0, 0, 1);
 		glTranslated(xCoord, yCoord, 0);
 		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.2f, 0.2f, 0.2f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
 //		this.lightTest.draw();
 		glEnable(GL_LIGHTING);
 		glColor4f(1, 1, 1, 1);
