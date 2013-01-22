@@ -20,7 +20,7 @@ import orre.sceneGraph.SceneNode;
 
 public class MapBuilder {
 	private static final int verticesPerTile = 6;
-	private static final int doublesPerVertex = 3 + 2 + 0; //xyz coordinate + uv texture coordinate + xyz normal coordinate
+	private static final int doublesPerVertex = (3 + 2 + 3)*4; //xyz coordinate + uv texture coordinate + xyz normal coordinate
 	private static final double wallHeight = 1.35;
 	private static final double tileHeightMultiplyer = 0.4;
 
@@ -83,7 +83,8 @@ public class MapBuilder {
 
 	private static void putVertices(DoubleBuffer geometryDataBuffer, Vertex3D[] vertices) {
 		for(Vertex3D vertex : vertices) {
-			geometryDataBuffer.put(vertex.toArray());
+			double[] vertexData = vertex.toArray();
+			geometryDataBuffer.put(vertexData);
 		}
 	}
 

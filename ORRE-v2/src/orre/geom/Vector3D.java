@@ -22,9 +22,9 @@ public class Vector3D {
 	}
 	
 	public Vector3D vectorProduct(Vector3D vector) {
-		double x = this.y*vector.z - this.z*vector.y;
-		double y = this.x*vector.z - this.z*vector.x;
-		double z = this.x*vector.y - this.y*vector.x;
+		double x = (this.y*vector.z) - (this.z*vector.y);
+		double y = (this.z*vector.x) - (this.x*vector.z);
+		double z = (this.x*vector.y) - (this.y*vector.x);
 		return new Vector3D(x, y, z);
 	}
 	
@@ -46,5 +46,9 @@ public class Vector3D {
 
 	public Vector3D inverse() {
 		return new Vector3D(-x, -y, -z);
+	}
+
+	public Vector3D minus(Vector3D other) {
+		return new Vector3D(this.x - other.x, this.y - other.y, this.z - other.z);
 	}
 }

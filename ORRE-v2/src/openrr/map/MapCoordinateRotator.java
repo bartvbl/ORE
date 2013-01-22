@@ -15,13 +15,13 @@ public class MapCoordinateRotator {
 		Vector3D tileOrigin = generateTileOrigin(x + tileSide / 2, y + tileSide / 2, tileHeight, orientation);
 		Vector3D[] cornerVertices = generateCornerVertices(tileOrigin, tileHeight);
 		rotateCornerVertices(cornerVertices, orientation);
-		//SubTextureCoordinate rotatedTextureCoordinates = textureCoordinate.rotateToRelativeOrientation(orientation);
-		createVertices(cornerVertices, textureCoordinate);
+		Vector3D[] normals = calculateNormals(cornerVertices);
+		createVertices(cornerVertices, textureCoordinate, normals);
 		return vertices;
 	}
 
-	private static void createVertices(Vector3D[] cornerVertices, SubTextureCoordinate rotatedTextureCoordinates) {
-		Vector3D[] normals = calculateNormals(cornerVertices);
+	private static void createVertices(Vector3D[] cornerVertices, SubTextureCoordinate rotatedTextureCoordinates, Vector3D[] normals) {
+		
 		vertices[0] = createVertex(cornerVertices[0], rotatedTextureCoordinates.u1, rotatedTextureCoordinates.v1, normals[0]);
 		vertices[1] = createVertex(cornerVertices[1], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v1, normals[0]);
 		vertices[2] = createVertex(cornerVertices[3], rotatedTextureCoordinates.u1, rotatedTextureCoordinates.v2, normals[0]);
@@ -36,13 +36,15 @@ public class MapCoordinateRotator {
 	}
 
 	private static Vector3D[] calculateNormals(Vector3D[] cornerVertices) {
-		Vector3D hypothenuse = new Vector3D(tileSide, tileSide, cornerVertices[2].z - cornerVertices[0].z);
-		Vector3D edgeX = new Vector3D(tileSide, 0, cornerVertices[1].z - cornerVertices[0].z);
-		Vector3D edgeY = new Vector3D(0, tileSide, cornerVertices[3].z - cornerVertices[0].z);
+		Vector3D normal1Edge1 = cornerVertices[3].minus(cornerVertices[0]);
+		Vector3D normal1Edge2 = cornerVertices[1].minus(cornerVertices[0]);
+		
+		Vector3D normal2Edge1 = cornerVertices[3].minus(cornerVertices[2]);
+		Vector3D normal2Edge2 = cornerVertices[1].minus(cornerVertices[2]);
+		
 		Vector3D[] normals = new Vector3D[2];
-		normals[0] = edgeX.vectorProduct(hypothenuse).normalize();
-		normals[0] = normals[0].inverse();
-		normals[1] = edgeY.vectorProduct(hypothenuse).normalize();
+		normals[0] = normal1Edge2.vectorProduct(normal1Edge1).normalize();
+		normals[1] = normal2Edge1.vectorProduct(normal2Edge2).normalize();
 		return normals;
 	}
 

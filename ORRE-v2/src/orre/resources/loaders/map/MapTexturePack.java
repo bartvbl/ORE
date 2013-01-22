@@ -29,7 +29,6 @@ public class MapTexturePack {
 	}
 	
 	public void bindTexture(SoilType soilType, WallType wallType) {
-		if(isBound(soilType, wallType)) return;
 		String textureName = getTextureReferenceName(soilType, wallType);
 		this.currentBoundTextureName = textureName;
 		this.currentBoundSoilType = soilType;
@@ -67,7 +66,8 @@ public class MapTexturePack {
 	}
 	
 	public boolean isBound(SoilType soilType, WallType wallType) {
-		return (soilType == this.currentBoundSoilType) && (wallType == this.currentBoundWallType);
+		if((this.currentBoundSoilType == null) || (this.currentBoundWallType == null)) return false;
+		return this.getTextureReferenceName(currentBoundSoilType, currentBoundWallType).equals(this.getTextureReferenceName(soilType, wallType));//(soilType == this.currentBoundSoilType) && (wallType == this.currentBoundWallType);
 	}
 
 	public void finalizeTextures() {

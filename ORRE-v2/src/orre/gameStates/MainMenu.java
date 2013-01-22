@@ -59,25 +59,17 @@ public class MainMenu extends GameState {
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord -= 0.3;}
 		glEnable(GL_LIGHT0);
 		this.time ++;
-		//glTranslated(0, -2, (-10 * Math.sin((double)time/200)) - 20);
-		glTranslated(0, 0, zoomLevel);
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 0, 1);
 		glTranslated(xCoord, yCoord, 0);
-		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.2f, 0.2f, 0.2f, 1}).rewind());
-		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
-//		this.lightTest.draw();
+		glTranslated(0, 0, zoomLevel);
+		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.1f, 0.1f, 0.1f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{1, 1, 1, 1}).rewind());
 		glEnable(GL_LIGHTING);
 		glEnable(GL_NORMALIZE);
 		glColor4f(1, 1, 1, 1);
 		glCallList(this.displayListID);
-		glPolygonMode( GL_FRONT_AND_BACK, GL_LINE );
-
-		glPolygonMode( GL_FRONT_AND_BACK, GL_FILL );
-		//		glTranslatef(20, 0, 0);
-//		glCallList(this.displayListID);
-//		glTranslatef(-40, 0, 0);
-//		glCallList(this.displayListID);
 	}
 	@Override
 	public void set() {
