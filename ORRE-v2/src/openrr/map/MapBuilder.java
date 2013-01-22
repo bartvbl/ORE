@@ -20,9 +20,9 @@ import orre.sceneGraph.SceneNode;
 
 public class MapBuilder {
 	private static final int verticesPerTile = 6;
-	private static final int doublesPerVertex = (3 + 2 + 3)*4; //xyz coordinate + uv texture coordinate + xyz normal coordinate
-	private static final double wallHeight = 1.35;
-	private static final double tileHeightMultiplyer = 0.4;
+	private static final int doublesPerVertex = 3 + 2 + 3; //xyz coordinate + uv texture coordinate + xyz normal coordinate
+	private static final double wallHeight = 1.1;
+	private static final double tileHeightMultiplyer = 0.3;
 
 	public static SceneNode buildMapGeometry(MapTile[][] tileMap, MapTexturePack texturePack) {
 		System.out.println("building map..");
