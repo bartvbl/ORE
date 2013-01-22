@@ -5,6 +5,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import orre.util.XMLLoader;
+
 import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -39,17 +41,8 @@ public class MapTexturePackLoader {
 		//end temporary code
 		
 		Builder builder = new Builder();
-		try {
-			Document doc = builder.build(src);
-			return doc.getRootElement();
-		} catch (ValidityException e) {
-			e.printStackTrace();
-		} catch (ParsingException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+		Document document = XMLLoader.readXML(src);
+		return document.getRootElement();
 	}
 
 }

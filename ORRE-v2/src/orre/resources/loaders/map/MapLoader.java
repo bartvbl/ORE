@@ -1,6 +1,7 @@
 package orre.resources.loaders.map;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -13,6 +14,7 @@ import nu.xom.Element;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 import orre.resources.FileToLoad;
+import orre.util.XMLLoader;
 
 public class MapLoader {
 
@@ -36,13 +38,11 @@ public class MapLoader {
 	} 
 	
 	private static Document readMapXML(ZipFile mapFile) {
-		Builder builder = new Builder();
 		try {
 			ZipEntry mainMapXMLEntry = mapFile.getEntry("map.xml");
-			return builder.build(mapFile.getInputStream(mainMapXMLEntry));
+			InputStream inputStream = mapFile.getInputStream(mainMapXMLEntry);
+			return XMLLoader.readXML(inputStream);
 		}
-		catch (ValidityException e) { e.printStackTrace(); }
-		catch (ParsingException e) { e.printStackTrace(); }
 		catch (IOException e) { e.printStackTrace(); }
 		return null;
 	}
