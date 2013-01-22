@@ -2,7 +2,6 @@ package orre.resources;
 
 import java.io.File;
 
-import org.dom4j.Node;
 
 public class FileToLoad {
 	private String src;

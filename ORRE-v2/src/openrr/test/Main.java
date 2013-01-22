@@ -1,8 +1,6 @@
 package openrr.test;
 
 import orre.resources.loaders.TextureLoader;
-import orre.util.XMLDocument;
-import org.dom4j.Node;
 import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;

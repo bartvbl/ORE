@@ -8,7 +8,7 @@ import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 
 public class XMLLoader {
-	public static Document readMapXML(String src) {
+	public static Document readXML(String src) {
 		Builder builder = new Builder();
 		try {
 			return builder.build(new File(src));

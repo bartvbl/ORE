@@ -9,11 +9,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 
-
-import org.dom4j.Node;
-
 import orre.core.GameWindow;
-import orre.util.XMLDocument;
 
 import openrr.test.Image;
 
@@ -98,8 +94,8 @@ public class MenuManager {
 	}
 
 	public void loadGUI(int[] screenSize) {
-		XMLDocument doc = new XMLDocument("res/defaultGUI.xml");
-		this.menus = MenuDefinitionFileLoader.getMenuNodes(doc, screenSize);
+		//XMLDocument doc = new XMLDocument("res/defaultGUI.xml");
+		//this.menus = MenuDefinitionFileLoader.getMenuNodes(doc, screenSize);
 		this.activeMenus.add(menus.get(1));
 		this.activeMenus.add(menus.get(2));
 	}

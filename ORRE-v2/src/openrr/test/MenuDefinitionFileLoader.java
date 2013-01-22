@@ -3,27 +3,23 @@ package openrr.test;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.dom4j.Node;
-
-import orre.util.XMLDocument;
-
-
+import nu.xom.Element;
 
 public class MenuDefinitionFileLoader {
-	public static ArrayList<Menu> getMenuNodes(XMLDocument doc, int[] screenSize)
+	public static ArrayList<Menu> getMenuNodes(Element rootElement, int[] screenSize)
 	{
-		List<Node> menuNodes = doc.document.selectNodes("/ORRDefaultGUI/menus/*");
-		ArrayList<Menu> menus = new ArrayList<Menu>();
-		System.out.println("found " + menuNodes.size() + " menus.");
-		for(Node menuNode : menuNodes)
-		{
-			Menu currentMenu = parseMenuNode(menuNode, screenSize);
-			menus.add(currentMenu);
-		}
-		return menus;
+//		List<Element> menuNodes = doc.document.selectNodes("/ORRDefaultGUI/menus/*");
+//		ArrayList<Menu> menus = new ArrayList<Menu>();
+//		System.out.println("found " + menuNodes.size() + " menus.");
+//		for(Element menuNode : menuNodes)
+//		{
+//			Menu currentMenu = parseMenuNode(menuNode, screenSize);
+//			menus.add(currentMenu);
+//		}
+		return null;//menus;
 	}
 
-	private static Menu parseMenuNode(Node menuNode, int[] screenSize) {
+	private static Menu parseMenuNode(Element menuNode, int[] screenSize) {
 //		Menu newMenu = new Menu(Integer.parseInt(menuNode.valueOf("@x")), Integer.parseInt(menuNode.valueOf("@y")),
 //				screenSize, menuNode.valueOf("@bg"), menuNode.valueOf("@align"));
 //		getAndParseContainers(menuNode, newMenu, screenSize);
@@ -32,7 +28,7 @@ public class MenuDefinitionFileLoader {
 		return null;
 	}
 	
-	private static void setInitialMenuState(Node menuNode, Menu newMenu) {
+	private static void setInitialMenuState(Element menuNode, Menu newMenu) {
 //		if (!menuNode.valueOf("@startState").equals("none")) {
 //			int state;
 //			if (menuNode.valueOf("@startState").equals("open")) {
@@ -91,8 +87,4 @@ public class MenuDefinitionFileLoader {
 //		System.out.println("\t\t\tcreating button");
 //	}
 
-	private static List<Node> getAllChildNodes(Node parentNode)
-	{
-		return parentNode.selectNodes("*");
-	}
 }
