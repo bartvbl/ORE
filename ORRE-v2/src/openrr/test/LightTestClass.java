@@ -41,8 +41,8 @@ public class LightTestClass {
     	int vertShader = 0, fragShader = 0;
     	
     	try {
-            vertShader = createShader("res/shaders/phong.vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
-            fragShader = createShader("res/shaders/phong.frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+            vertShader = createShader("res/shaders/spotlight.vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
+            fragShader = createShader("res/shaders/spotlight.frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
     	}
     	catch(Exception exc) {
     		exc.printStackTrace();

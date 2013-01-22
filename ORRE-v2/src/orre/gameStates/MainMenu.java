@@ -45,7 +45,7 @@ public class MainMenu extends GameState {
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();
-		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, 0, 1}).rewind());
+		//glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{0, 0, 0, 1}).rewind());
 		//glScalef(0.1f, 0.1f, 0.1f);
 		if(Keyboard.isKeyDown(Keyboard.KEY_LEFT)) {this.rotationY -= 2;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_RIGHT)) {this.rotationY += 2;}
@@ -57,9 +57,8 @@ public class MainMenu extends GameState {
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {this.yCoord -= 0.3;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {this.xCoord += 0.3;}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord -= 0.3;}
-		//glEnable(GL_LIGHT0);
-		glEnable(GL_LIGHT1);
-		this.time += 0.01;
+		glEnable(GL_LIGHT0);
+		this.time += 0.003;
 		glRotatef(rotationX, 1, 0, 0);
 		glRotatef(rotationY, 0, 0, 1);
 		glTranslated(xCoord, yCoord, 0);
@@ -67,9 +66,9 @@ public class MainMenu extends GameState {
 		float x = 15;
 		float y = 52;
 		float z = 13;
-		glLight(GL_LIGHT1, GL_POSITION, (FloatBuffer)buffer.put(new float[]{x, y, z, 1}).rewind());
-		glLight(GL_LIGHT1, GL_SPOT_CUTOFF, (FloatBuffer)buffer.put(new float[]{30}).rewind());
-		glLight(GL_LIGHT1, GL_SPOT_DIRECTION, (FloatBuffer)buffer.put(new float[]{(float) (Math.cos(time)), (float) (Math.sin(time)), 0}).rewind());
+		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{x, y, z, 1}).rewind());
+		glLight(GL_LIGHT0, GL_SPOT_CUTOFF, (FloatBuffer)buffer.put(new float[]{30}).rewind());
+		glLight(GL_LIGHT0, GL_SPOT_DIRECTION, (FloatBuffer)buffer.put(new float[]{(float) (Math.cos(time)), (float) (Math.sin(time)), 0}).rewind());
 		
 		glBegin(GL_QUADS);
 		glVertex3d(x-0.5, y, z-0.5);
@@ -77,14 +76,15 @@ public class MainMenu extends GameState {
 		glVertex3d(x+0.5, y, z+0.5);
 		glVertex3d(x-0.5, y, z+0.5);
 		glEnd();
+		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.1f, 0.1f, 0.1f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
+		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.5f, 0.5f, 0.5f, 1}).rewind());
 		
-		glLight(GL_LIGHT1, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.1f, 0.1f, 0.1f, 1}).rewind());
-		glLight(GL_LIGHT1, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
-		glLight(GL_LIGHT1, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.5f, 0.5f, 0.5f, 1}).rewind());
 		glEnable(GL_LIGHTING);
 		glEnable(GL_NORMALIZE);
 		glColor4f(1, 1, 1, 1);
 		glCallList(this.displayListID);
+		//this.lightTest.draw();
 	}
 	@Override
 	public void set() {
@@ -94,7 +94,7 @@ public class MainMenu extends GameState {
 		this.displayListID = glGenLists(1);
 		this.skybox = this.resourceCache.getTexture("mainMenu_skybox");
 		buildScene();
-		//this.lightTest = new LightTestClass(displayListID);
+//		this.lightTest = new LightTestClass(displayListID);
 	}
 	private void buildScene() {
 		glColor4f(1, 1, 1, 1);
@@ -102,7 +102,7 @@ public class MainMenu extends GameState {
 		glNewList(this.displayListID, GL_COMPILE);
 		RenderPass.render(testNode);
 		glScaled(0.07, 0.07, 0.07);
-		glTranslated(79, 107, 376.3);
+		glTranslated(81, 609, 216.3);
 		glRotated(90, 1, 0, 0);
 		RenderPass.render(node);
 		glTranslated(-0.5, 1.2, 3);
