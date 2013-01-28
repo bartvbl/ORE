@@ -3,10 +3,22 @@ package orre.gameWorld.core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+import openrr.map.Map;
+import orre.sceneGraph.SceneNode;
 
 public class GameWorld {
-	private final HashMap<Integer, GameObject> gameObjectSet = new HashMap<Integer, GameObject>();
-	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
+	public final SceneNode rootNode;
+	public final Map map;
+
+	private final HashMap<Integer, GameObject> gameObjectSet;
+	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
+	
+	public GameWorld(SceneNode rootNode, Map map) {
+		this.rootNode = rootNode;
+		this.map = map;
+		this.gameObjectSet = new HashMap<Integer, GameObject>();
+		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
+	}
 	
 	public int spawnGameObject(GameObjectType type) {
 		GameObject object = GameObjectBuilder.buildGameObjectByType(type, this);
