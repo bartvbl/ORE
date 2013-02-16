@@ -76,4 +76,9 @@ public class GameWorld {
 			gameObject.tick();
 		}
 	}
+	
+	public Object requestPropertyData(RequestedDataType type, int target, Object defaultValue) {
+		return defaultValue;
+		
+	}
 }
