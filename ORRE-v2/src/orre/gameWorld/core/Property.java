@@ -18,4 +18,8 @@ public abstract class Property {
 	public void destroy() {
 		
 	}
+
+	public Object handlePropertyDataRequest(RequestedDataType type2) {
+		return null;
+	}
 }

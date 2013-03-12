@@ -1,16 +1,39 @@
 package openrr.test;
 
+import static org.lwjgl.opengl.GL11.GL_LINEAR;
+import static org.lwjgl.opengl.GL11.GL_REPEAT;
+import static org.lwjgl.opengl.GL11.GL_RGBA;
+import static org.lwjgl.opengl.GL11.GL_RGBA8;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_BIT;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MAG_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_MIN_FILTER;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_S;
+import static org.lwjgl.opengl.GL11.GL_TEXTURE_WRAP_T;
+import static org.lwjgl.opengl.GL11.GL_UNSIGNED_BYTE;
+import static org.lwjgl.opengl.GL11.glBindTexture;
 import static org.lwjgl.opengl.GL11.glCallList;
+import static org.lwjgl.opengl.GL11.glGenTextures;
+import static org.lwjgl.opengl.GL11.glPopAttrib;
+import static org.lwjgl.opengl.GL11.glPushAttrib;
+import static org.lwjgl.opengl.GL11.glTexImage2D;
+import static org.lwjgl.opengl.GL11.glTexParameteri;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
+import java.nio.ByteBuffer;
+import java.nio.ByteOrder;
+import java.nio.IntBuffer;
 
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
+import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
 
+import orre.gl.texture.Texture;
+import orre.resources.loaders.TextureLoader;
 import orre.sceneGraph.SceneNode;
 
 /**
@@ -36,13 +59,22 @@ public class LightTestClass {
 
 	private int draw;
 
+	private int texture;
+
     public LightTestClass(int displayListID){
     	this.draw = displayListID;
     	int vertShader = 0, fragShader = 0;
+    	//this.texture = createTexture(new byte[1024*1024], 1024, 1024);
     	
+    	IntBuffer buffer = ByteBuffer.allocateDirect(1*4).order(ByteOrder.nativeOrder()).asIntBuffer(); // allocate a 1 int byte buffer
+   	 	EXTFramebufferObject.glGenFramebuffersEXT( buffer ); // generate
+   	 	int myFBOId = buffer.get();
+   	 	EXTFramebufferObject.glBindFramebufferEXT( EXTFramebufferObject.GL_FRAMEBUFFER_EXT, myFBOId );
+   		EXTFramebufferObject.glFramebufferTexture2DEXT( EXTFramebufferObject.GL_FRAMEBUFFER_EXT, EXTFramebufferObject.GL_COLOR_ATTACHMENT0_EXT, GL11.GL_TEXTURE_2D, texture, 0);
+   	 	
     	try {
-            vertShader = createShader("res/shaders/spotlight.vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
-            fragShader = createShader("res/shaders/spotlight.frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
+            vertShader = createShader("res/shaders/ShadowMap.vert",ARBVertexShader.GL_VERTEX_SHADER_ARB);
+            fragShader = createShader("res/shaders/ShadowMap.frag",ARBFragmentShader.GL_FRAGMENT_SHADER_ARB);
     	}
     	catch(Exception exc) {
     		exc.printStackTrace();
@@ -86,7 +118,13 @@ public class LightTestClass {
     * we run normal drawing code.
     */
     public void draw(){
+    	
         if(useShader){
+        	// The framebuffer, which regroups 0, 1, or more textures, and 0 or 1 depth buffer.
+        	 
+        	 
+        	 
+        	//ARBShaderObjects.glUniform();
             ARBShaderObjects.glUseProgramObjectARB(program);
         }
         
@@ -183,4 +221,23 @@ public class LightTestClass {
         
         return source.toString();
     }
+    
+    public static int createTexture(byte[] imageData, int width, int height)
+	{
+		IntBuffer textureHandle = ByteBuffer.allocateDirect(4).order(ByteOrder.nativeOrder()).asIntBuffer();
+		ByteBuffer bb = ByteBuffer.allocateDirect(imageData.length).order(ByteOrder.nativeOrder());
+		bb.put(imageData).flip();
+		glGenTextures(textureHandle);
+		int texRef = textureHandle.get(0);
+		glPushAttrib(GL_TEXTURE_BIT);
+		glBindTexture(GL_TEXTURE_2D,texRef);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bb);
+		
+		glPopAttrib();
+		return texRef;
+	}
 }

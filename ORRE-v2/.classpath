@@ -12,6 +12,7 @@
 	<classpathentry kind="lib" path="jars/slick-util.jar"/>
 	<classpathentry kind="lib" path="jars/slick.jar"/>
 	<classpathentry kind="lib" path="jars/xom-1.2.8.jar"/>
+	<classpathentry kind="lib" path="jars/log4j-1.2.17.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry kind="lib" path="jars/lwjgl_util.jar"/>
 	<classpathentry kind="output" path="bin"/>

@@ -78,7 +78,16 @@ public class GameWorld {
 	}
 	
 	public Object requestPropertyData(RequestedDataType type, int target, Object defaultValue) {
-		return defaultValue;
-		
+		try {
+			GameObject targetObject = this.gameObjectSet.get(target);
+			Object returnedData = targetObject.requestPropertyData(type);
+			if(returnedData == null) {
+				return defaultValue;
+			}
+			return returnedData;
+		}
+		catch(Exception e) {
+			return defaultValue;
+		}
 	}
 }

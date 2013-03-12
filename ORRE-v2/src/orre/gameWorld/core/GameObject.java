@@ -2,22 +2,19 @@ package orre.gameWorld.core;
 
 import java.util.ArrayList;
 
-import orre.sceneGraph.EmptySceneNode;
-import orre.sceneGraph.SceneNode;
-
 public final class GameObject {
 	public final int id;
 	public final GameObjectType type;
-	public final SceneNode objectRootNode;
 	public final GameWorld world;
-	private ArrayList<Property> properties;
+	private final ArrayList<Property> properties;
+	private final ArrayList<GraphicsObject> controlledObjects;
 
 	public GameObject(int UID, GameObjectType type, GameWorld world) {
 		this.id = UID;
 		this.type = type;
 		this.world = world;
 		this.properties = new ArrayList<Property>();
-		this.objectRootNode = new EmptySceneNode();
+		this.controlledObjects = new ArrayList<GraphicsObject>();
 	}
 	
 	public void addProperty(Property property) {
@@ -45,6 +42,33 @@ public final class GameObject {
 	public void handleMessage(Message message) {
 		for(Property property : properties) {
 			property.handleMessage(message);
+		}
+	}
+
+	public Object requestPropertyData(RequestedDataType type) {
+		for(Property property : properties) {
+			Object returnedData = property.handlePropertyDataRequest(type);
+			if(returnedData != null)
+			{
+				return returnedData;
+			}
+		}
+		return null;
+	}
+	
+	public void takeControl(GraphicsObject object) {
+		this.controlledObjects.add(object);
+		for(Property property : properties) {
+			property.handleMessage(new Message<GraphicsObject>(MessageType.OBJECT_CONTROL_GAINED, object));
+		}
+	}
+	
+	public void releaseControl(GraphicsObject object) {
+		boolean objectWasRemoved = this.controlledObjects.remove(object);
+		if(objectWasRemoved) {
+			for(Property property : properties) {
+				property.handleMessage(new Message<GraphicsObject>(MessageType.OBJECT_CONTROL_RELEASED, object));
+			}
 		}
 	}
 }
