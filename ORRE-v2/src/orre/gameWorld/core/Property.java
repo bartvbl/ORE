@@ -7,19 +7,11 @@ public abstract class Property {
 		this.type = type;
 	}
 
-	public void handleMessage(Message message) {
-		
-	}
+	public abstract void handleMessage(Message<?> message);
 
-	public void tick() {
-		
-	}
+	public abstract void tick();
 
-	public void destroy() {
-		
-	}
+	public abstract void destroy();
 
-	public Object handlePropertyDataRequest(RequestedDataType type2) {
-		return null;
-	}
+	public abstract Object handlePropertyDataRequest(RequestedDataType type);
 }

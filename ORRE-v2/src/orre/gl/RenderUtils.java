@@ -8,7 +8,7 @@ import org.lwjgl.opengl.Display;
 
 public class RenderUtils {
 	public static final float NEAR_POINT = 0.1f;
-	public static final float FAR_POINT = 10000f;
+	public static final float FAR_POINT = 100f;
 	
 	public static void newFrame()
 	{

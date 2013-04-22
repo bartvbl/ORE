@@ -10,7 +10,7 @@ public class Message<PayloadDataType> {
 	public Message(MessageType type) {
 		this.type = type;
 		payloadObject = null;
-		if(!(type.dataType instanceof Object)) {
+		if(!(type.requiredPayloadDataType instanceof Object)) {
 			refuseConstruction();
 		}
 	}
@@ -18,7 +18,7 @@ public class Message<PayloadDataType> {
 	public Message(MessageType type, PayloadDataType object) {
 		this.type = type;
 		this.payloadObject = object;
-		if(!(object.getClass().isAssignableFrom(type.dataType))) {
+		if(!(object.getClass().isAssignableFrom(type.requiredPayloadDataType))) {
 			refuseConstruction();
 		}
 	}
@@ -32,7 +32,7 @@ public class Message<PayloadDataType> {
 	}
 	
 	private void refuseConstruction() {
-		String message = "You can not create a message of type " + type + " without attaching an object of type " + type.dataType;
+		String message = "You can not create a message of type " + type + " without attaching an object of type " + type.requiredPayloadDataType;
 		RuntimeException exception = new RuntimeException(message);
 		logger.error(message, exception);
 		throw exception;

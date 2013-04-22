@@ -49,14 +49,14 @@ public class GameWorld {
 		return outputList;
 	}
 	
-	public void dispatchMessage(Message message) {
+	public void dispatchMessage(Message<?> message) {
 		ArrayList<GameObject> listenerList = messageListeners.get(message.type);
 		for(GameObject listener : listenerList) {
 			listener.handleMessage(message);
 		}
 	}
 	
-	public void dispatchMessage(Message message, int destinationObject) {
+	public void dispatchMessage(Message<?> message, int destinationObject) {
 		GameObject object = gameObjectSet.get(destinationObject);
 		object.handleMessage(message);
 	}

@@ -21,7 +21,7 @@ import orre.gl.texture.Texture;
 import orre.resources.loaders.TextureLoader;
 
 public class GameWindow {
-	public static final String WINDOW_TITLE = "Open Rock Raiders - Delta";
+	public static final String WINDOW_TITLE = "Terrain";// "Open Rock Raiders - Delta";
 	public static final int DEFAULT_WINDOW_WIDTH = 1024;
 	public static final int DEFAULT_WINDOW_HEIGHT = 768;
 	
@@ -53,7 +53,7 @@ public class GameWindow {
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
 		Display.setResizable(true);
 		Display.setTitle(WINDOW_TITLE);
-		Display.setIcon(new ByteBuffer[]{TextureLoader.getImageData("res/icon.png"), TextureLoader.getImageData("res/icon.png")});
+		//Display.setIcon(new ByteBuffer[]{TextureLoader.getImageData("res/icon.png"), TextureLoader.getImageData("res/icon.png")});
 		System.out.println("-- OpenRR v0.01 (java " + System.getProperty("java.version") + " running on " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", "+System.getProperty("os.arch")+")) --");
 		Display.create();
 	}

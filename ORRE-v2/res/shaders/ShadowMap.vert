@@ -17,7 +17,7 @@ void main(void)
 	worldPos=modelPos.xyz/modelPos.w;
 
 	vec4 lightPos=LightMatrixValue*modelPos;
-	vec4 viewPos=ViewMatrixValue*modelPos;
+	vec4 viewPos=gl_ModelViewMatrix*modelPos;
 
 	normal = gl_Normal;
 	color=gl_Color;

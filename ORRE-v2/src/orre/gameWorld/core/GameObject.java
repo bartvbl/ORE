@@ -4,13 +4,15 @@ import java.util.ArrayList;
 
 public final class GameObject {
 	public final int id;
+	private static int nextUID = 0;
 	public final GameObjectType type;
 	public final GameWorld world;
 	private final ArrayList<Property> properties;
 	private final ArrayList<GraphicsObject> controlledObjects;
 
-	public GameObject(int UID, GameObjectType type, GameWorld world) {
-		this.id = UID;
+	public GameObject(GameObjectType type, GameWorld world) {
+		this.id = nextUID;
+		nextUID++;
 		this.type = type;
 		this.world = world;
 		this.properties = new ArrayList<Property>();

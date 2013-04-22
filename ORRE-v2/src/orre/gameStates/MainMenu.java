@@ -32,8 +32,8 @@ public class MainMenu extends GameState {
 	private LightTestClass lightTest;
 	private double time = 0;
 	private Texture skybox;
-	private Mesh3D node;
-	private Mesh3D node2;
+	//private Mesh3D node;
+	//private Mesh3D node2;
 
 	public MainMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
 		super(main, eventDispatcher, stateName);
@@ -89,12 +89,12 @@ public class MainMenu extends GameState {
 	@Override
 	public void set() {
 		this.testNode = this.resourceCache.getMap().createSceneNode();
-		this.node = this.resourceCache.createModelInstace("toolStore");
-		this.node2 = this.resourceCache.createModelInstace("rockRaider");
+		//this.node = this.resourceCache.createModelInstace("toolStore");
+		//this.node2 = this.resourceCache.createModelInstace("rockRaider");
 		this.displayListID = glGenLists(1);
 		this.skybox = this.resourceCache.getTexture("mainMenu_skybox");
 		buildScene();
-//		this.lightTest = new LightTestClass(displayListID);
+		this.lightTest = new LightTestClass(displayListID);
 	}
 	private void buildScene() {
 		glColor4f(1, 1, 1, 1);
@@ -104,9 +104,9 @@ public class MainMenu extends GameState {
 		glScaled(0.07, 0.07, 0.07);
 		glTranslated(81, 609, 216.3);
 		glRotated(90, 1, 0, 0);
-		RenderPass.render(node);
+		//RenderPass.render(node);
 		glTranslated(-0.5, 1.2, 3);
-		RenderPass.render(node2);
+		//RenderPass.render(node2);
 		glEndList();
 	}
 	@Override
