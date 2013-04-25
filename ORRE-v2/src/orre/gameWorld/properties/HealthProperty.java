@@ -1,5 +1,6 @@
 package orre.gameWorld.properties;
 
+import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
@@ -7,8 +8,8 @@ import orre.gameWorld.core.RequestedDataType;
 
 public class HealthProperty extends Property {
 
-	public HealthProperty() {
-		super(PropertyType.HEALTH);
+	public HealthProperty(GameObject object) {
+		super(PropertyType.HEALTH, object);
 	}
 
 	public void handleMessage(Message<?> message) {
