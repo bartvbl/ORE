@@ -17,5 +17,5 @@ public interface EventHandler {
 	 * @param event
 	 *            The event to be handled by the object
 	 */
-	public void handleEvent(Event<?> event);
+	public void handleEvent(GlobalEvent<?> event);
 }

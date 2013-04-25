@@ -5,8 +5,8 @@ import java.util.HashMap;
 import org.lwjgl.opengl.Display;
 
 import orre.events.ConcurrentEventDispatcher;
-import orre.events.Event;
-import orre.events.EventDispatcher;
+import orre.events.GlobalEvent;
+import orre.events.GlobalEventDispatcher;
 import orre.events.EventHandler;
 import orre.events.GlobalEventType;
 import orre.gameStates.*;
@@ -19,12 +19,12 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 	private boolean gameIsRunning = true;
 	private long frameNumber = 0;
 	private AbstractGameState currentGameState = null;
-	private EventDispatcher globalEventDispatcher;
+	private GlobalEventDispatcher globalEventDispatcher;
 	private HashMap<State, AbstractGameState> stateMap;
 	
 	public GameMain() 
 	{
-		this.globalEventDispatcher = new EventDispatcher();
+		this.globalEventDispatcher = new GlobalEventDispatcher();
 		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 	}
 	
@@ -64,7 +64,7 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 		this.setGameState(GameState.State.STARTUP_LOADING);
 	}
 
-	public void handleEvent(Event<?> event) {
+	public void handleEvent(GlobalEvent<?> event) {
 		if(event.eventType.equals(GlobalEventType.CHANGE_GAME_STATE))
 		{
 			if((event.getEventParameterObject() == null) || !(event.getEventParameterObject() instanceof GameState.State))

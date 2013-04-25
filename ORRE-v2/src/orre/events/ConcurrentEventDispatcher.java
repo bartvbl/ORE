@@ -8,14 +8,14 @@ import java.util.concurrent.atomic.AtomicReference;
 import orre.modules.Module;
 
 public class ConcurrentEventDispatcher {
-	private ConcurrentHashMap<String, CopyOnWriteArrayList<Module>> listeners = new ConcurrentHashMap<String, CopyOnWriteArrayList<Module>>();
+	private ConcurrentHashMap<EventType, CopyOnWriteArrayList<Module>> listeners = new ConcurrentHashMap<EventType, CopyOnWriteArrayList<Module>>();
 	private ConcurrentHashMap<Module, AtomicReference<ArrayList<Event<?>>>> dispatchedEventCue = new ConcurrentHashMap<Module, AtomicReference<ArrayList<Event<?>>>>();
 	
 	public ConcurrentEventDispatcher()
 	{
 		
 	}
-	public synchronized void addEventListener(String type, Module module)
+	public synchronized void addEventListener(EventType type, Module module)
 	{
 		listeners.putIfAbsent(type, new CopyOnWriteArrayList<Module>());
 		CopyOnWriteArrayList<Module> list = this.listeners.get(type);
@@ -24,7 +24,7 @@ public class ConcurrentEventDispatcher {
 			list.add(module);
 		}
 	}
-	public synchronized void removeEventListener(String type, Module module)
+	public synchronized void removeEventListener(EventType type, Module module)
 	{
 		if(!this.listeners.containsKey(type))
 		{

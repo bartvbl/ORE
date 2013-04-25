@@ -1,9 +1,10 @@
 package orre.gameStates;
 
 import orre.core.GameMain;
-import orre.events.Event;
-import orre.events.EventDispatcher;
+import orre.events.GlobalEvent;
+import orre.events.GlobalEventDispatcher;
 import orre.events.EventHandler;
+import orre.events.GlobalEventType;
 import orre.gl.texture.Texture;
 import orre.gui.LoadingScreenDrawer;
 import orre.resources.FileToLoad;
@@ -15,16 +16,15 @@ import orre.resources.loaders.TextureLoader;
 public class LoadingScreen extends SequencableGameState implements EventHandler {
 
 	private ResourceLoader resourceLoader;
-	private final String enqueueResourceEventType;
+	private final GlobalEventType enqueueResourceEventType;
 
-	public LoadingScreen(GameMain main, EventDispatcher globalEventDispatcher, String enqueueResourceEventType, GameState.State stateName) {
+	public LoadingScreen(GameMain main, GlobalEventDispatcher globalEventDispatcher, GlobalEventType eventType, GameState.State stateName) {
 		super(main, globalEventDispatcher, stateName);
-		globalEventDispatcher.addEventListener(this, enqueueResourceEventType);
-		this.enqueueResourceEventType = enqueueResourceEventType;
+		globalEventDispatcher.addEventListener(this, eventType);
+		this.enqueueResourceEventType = eventType;
 		this.resourceLoader = new ResourceLoader();
-		
-		
 	}
+	
 	public void set() {
 		if(this.resourceLoader == null)
 		{
@@ -57,7 +57,7 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 		this.resourceLoader.setLoadingScreen(screenDrawer);
 	}
 	
-	public void handleEvent(Event<?> event) {
+	public void handleEvent(GlobalEvent<?> event) {
 		if(event.eventType.equals(this.enqueueResourceEventType))
 		{
 			if(!(event.getEventParameterObject() instanceof FileToLoad))

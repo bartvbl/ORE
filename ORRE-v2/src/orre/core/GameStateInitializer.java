@@ -2,11 +2,11 @@ package orre.core;
 
 import java.util.HashMap;
 
-import orre.events.EventDispatcher;
+import orre.events.GlobalEventDispatcher;
 import orre.gameStates.*;
 
 public class GameStateInitializer {
-	public static HashMap<GameState.State, AbstractGameState> initializeGameStates(GameMain main, EventDispatcher eventDispatcher)
+	public static HashMap<GameState.State, AbstractGameState> initializeGameStates(GameMain main, GlobalEventDispatcher eventDispatcher)
 	{
 		HashMap<GameState.State, AbstractGameState> stateMap = new HashMap<GameState.State, AbstractGameState>();
 		

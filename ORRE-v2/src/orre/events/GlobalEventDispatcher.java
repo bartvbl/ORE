@@ -3,7 +3,7 @@ package orre.events;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class EventDispatcher {
+public class GlobalEventDispatcher {
 	private final HashMap<GlobalEventType, ArrayList<EventHandler>> listeners = new HashMap<GlobalEventType, ArrayList<EventHandler>>();
 
 	public void dispatchEvent(GlobalEvent<?> event) {

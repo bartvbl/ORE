@@ -9,8 +9,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;
 
 import orre.core.GameMain;
-import orre.events.Event;
-import orre.events.EventDispatcher;
+import orre.events.GlobalEvent;
+import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.geom.mesh.Mesh3D;
 import orre.gl.RenderUtils;
@@ -35,13 +35,13 @@ public class MainMenu extends GameState {
 	//private Mesh3D node;
 	//private Mesh3D node2;
 
-	public MainMenu(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName) {
+	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, GameState.State stateName) {
 		super(main, eventDispatcher, stateName);
 		this.buffer = BufferUtils.createFloatBuffer(4);
 		FileToLoad mainCache = new FileToLoad(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml", "mainCacheList");
-		eventDispatcher.dispatchEvent(new Event<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
+		eventDispatcher.dispatchEvent(new GlobalEvent<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
 		FileToLoad mapFile = new FileToLoad(ResourceFile.MAP_FILE, this.resourceCache, "res/maps/sampleMap.rrm", "map");
-		eventDispatcher.dispatchEvent(new Event<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mapFile));
+		eventDispatcher.dispatchEvent(new GlobalEvent<FileToLoad>(GlobalEventType.ENQUEUE_GAME_LOADING_ITEM, mapFile));
 	}
 	public void executeFrame(long frameNumber) {
 		RenderUtils.set3DMode();

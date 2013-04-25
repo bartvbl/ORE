@@ -1,17 +1,17 @@
 package orre.events;
 
-public class Event<EventParamsDataType> 
+public class GlobalEvent<EventParamsDataType> 
 {
 	private EventParamsDataType eventParameter = null;
-	public final EventType eventType;
+	public final GlobalEventType eventType;
 	
-	public Event(EventType eventType)
+	public GlobalEvent(GlobalEventType eventType)
 	{
 		this.eventType = eventType;
 	}
-	public Event(EventType type, EventParamsDataType eventParameterObject)
+	public GlobalEvent(GlobalEventType enqueueStartupLoadingItem, EventParamsDataType eventParameterObject)
 	{
-		this.eventType = type;
+		this.eventType = enqueueStartupLoadingItem;
 		this.eventParameter = eventParameterObject;
 	}
 	
@@ -31,7 +31,7 @@ public class Event<EventParamsDataType>
 		return this.eventParameter;
 	}
 	
-	public synchronized EventType getEventType()
+	public synchronized GlobalEventType getEventType()
 	{
 		return this.eventType;
 	}

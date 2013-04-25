@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 import orre.core.GameMain;
 import orre.events.ConcurrentEventDispatcher;
-import orre.events.Event;
-import orre.events.EventDispatcher;
+import orre.events.GlobalEvent;
+import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.modules.Input;
 import orre.modules.Module;
@@ -14,7 +14,7 @@ import orre.resources.ResourceFile;
 import orre.scene.Scene;
 
 public class GameRunning extends GameState {
-	public GameRunning(GameMain main, EventDispatcher eventDispatcher, GameState.State stateName)
+	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, GameState.State stateName)
 	{
 		super(main, eventDispatcher, stateName);
 		

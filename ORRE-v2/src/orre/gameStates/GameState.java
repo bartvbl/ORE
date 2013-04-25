@@ -2,7 +2,7 @@ package orre.gameStates;
 
 import orre.core.GameMain;
 import orre.events.ConcurrentEventDispatcher;
-import orre.events.EventDispatcher;
+import orre.events.GlobalEventDispatcher;
 import orre.gameStates.GameState.State;
 import orre.resources.ResourceCache;
 import orre.scene.Scene;
@@ -18,10 +18,10 @@ public abstract class GameState implements AbstractGameState {
 	protected ResourceCache resourceCache;
 	
 	protected final GameMain main;
-	protected final EventDispatcher globalEventDispatcher;
+	protected final GlobalEventDispatcher globalEventDispatcher;
 	private final State stateName;
 	
-	public GameState(GameMain main, EventDispatcher eventDispatcher, State stateName)
+	public GameState(GameMain main, GlobalEventDispatcher eventDispatcher, State stateName)
 	{
 		this.main = main;
 		this.globalEventDispatcher = eventDispatcher;

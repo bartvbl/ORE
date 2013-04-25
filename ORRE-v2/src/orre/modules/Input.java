@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.events.Event;
+import orre.events.GlobalEvent;
 import orre.events.ConcurrentEventDispatcher;
 import orre.events.EventType;
 import orre.scene.Scene;
@@ -70,13 +71,13 @@ public class Input extends Module{
 		}
 	}
 	
-	private void registerKeyIfNotRegistered(Event<?> event)
+	private void registerKeyIfNotRegistered(Event<?> currentEvent)
 	{
-		if(!isValidKeyEvent(event))
+		if(!isValidKeyEvent(currentEvent))
 		{
 			return;
 		}
-		int keyToRegister = (Integer)event.getEventParameterObject();
+		int keyToRegister = (Integer)currentEvent.getEventParameterObject();
 		if(!this.registeredKeyList.contains(keyToRegister))
 		{
 			this.registeredKeyList.add(keyToRegister);
