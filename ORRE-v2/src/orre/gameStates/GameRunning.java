@@ -3,7 +3,6 @@ package orre.gameStates;
 import openrr.map.Map;
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
-import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Message;

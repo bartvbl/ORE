@@ -1,6 +1,7 @@
 package orre.gameWorld.core;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public final class GameObject {
 	public final int id;
@@ -9,10 +10,12 @@ public final class GameObject {
 	public final GameWorld world;
 	private final ArrayList<Property> properties;
 	private final ArrayList<GraphicsObject> controlledObjects;
+	private final HashMap<PropertyDataType, Object> propertyData;
 
 	public GameObject(GameObjectType type, GameWorld world) {
 		this.id = nextUID;
 		nextUID++;
+		this.propertyData = new HashMap<PropertyDataType, Object>();
 		this.type = type;
 		this.world = world;
 		this.properties = new ArrayList<Property>();
@@ -41,21 +44,14 @@ public final class GameObject {
 		}
 	}
 
-	public void handleMessage(Message message) {
+	public void handleMessage(Message<?> message) {
 		for(Property property : properties) {
 			property.handleMessage(message);
 		}
 	}
 
-	public Object requestPropertyData(RequestedDataType type) {
-		for(Property property : properties) {
-			Object returnedData = property.handlePropertyDataRequest(type);
-			if(returnedData != null)
-			{
-				return returnedData;
-			}
-		}
-		return null;
+	public Object requestPropertyData(PropertyDataType type) {
+		return propertyData.get(type);
 	}
 	
 	public void takeControl(GraphicsObject object) {

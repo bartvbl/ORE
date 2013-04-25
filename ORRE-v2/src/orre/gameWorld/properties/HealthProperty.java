@@ -4,7 +4,7 @@ import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
-import orre.gameWorld.core.RequestedDataType;
+import orre.gameWorld.core.PropertyDataType;
 
 public class HealthProperty extends Property {
 
@@ -24,7 +24,7 @@ public class HealthProperty extends Property {
 		
 	}
 
-	public Object handlePropertyDataRequest(RequestedDataType type) {
+	public Object handlePropertyDataRequest(PropertyDataType type) {
 		return null;
 	}
 

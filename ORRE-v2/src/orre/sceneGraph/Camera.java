@@ -16,9 +16,9 @@ public class Camera
 	private static final Vector3f zAxis = new Vector3f(0, 0, 1);
 	
 	public void rotate(float rotationX, float rotationY, float rotationZ) {
-		transformationMatrix.rotate(rotationX, xAxis);
-		transformationMatrix.rotate(rotationY, yAxis);
 		transformationMatrix.rotate(rotationZ, zAxis);
+		transformationMatrix.rotate(rotationY, yAxis);
+		transformationMatrix.rotate(rotationX, xAxis);
 	}
 	
 	public void translate(float x, float y, float z) {
