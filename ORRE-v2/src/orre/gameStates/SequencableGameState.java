@@ -4,15 +4,14 @@ import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
-import orre.gameStates.GameState.State;
 
 public abstract class SequencableGameState implements AbstractGameState {
 	private GameMain main;
 	protected final GlobalEventDispatcher globalEventDispatcher;
-	private final State stateName;
-	private GameState.State nextState;
+	private final GameStateName stateName;
+	private GameStateName nextState;
 
-	public SequencableGameState(GameMain main, GlobalEventDispatcher eventDispatcher, State stateName) {
+	public SequencableGameState(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName) {
 		this.main = main;
 		this.globalEventDispatcher = eventDispatcher;
 		this.stateName = stateName;
@@ -20,7 +19,7 @@ public abstract class SequencableGameState implements AbstractGameState {
 	
 	public abstract void executeFrame(long frameNumber);
 	
-	public void setNextState(State mainMenu)
+	public void setNextState(GameStateName mainMenu)
 	{
 		this.nextState = mainMenu;
 	}

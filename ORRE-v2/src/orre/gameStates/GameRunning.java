@@ -14,7 +14,7 @@ import orre.resources.ResourceFile;
 import orre.scene.Scene;
 
 public class GameRunning extends GameState {
-	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, GameState.State stateName)
+	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName)
 	{
 		super(main, eventDispatcher, stateName);
 		

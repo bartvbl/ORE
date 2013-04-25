@@ -10,17 +10,16 @@ import orre.events.GlobalEventDispatcher;
 import orre.events.EventHandler;
 import orre.events.GlobalEventType;
 import orre.gameStates.*;
-import orre.gameStates.GameState.State;
 import orre.gl.RenderUtils;
 import orre.threads.CleanupThread;
 
 
-public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
+public class GameMain implements EventHandler{
 	private boolean gameIsRunning = true;
 	private long frameNumber = 0;
 	private AbstractGameState currentGameState = null;
 	private GlobalEventDispatcher globalEventDispatcher;
-	private HashMap<State, AbstractGameState> stateMap;
+	private HashMap<GameStateName, AbstractGameState> stateMap;
 	
 	public GameMain() 
 	{
@@ -45,7 +44,7 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 		return this.frameNumber;
 	}
 	
-	private void setGameState(State newState)
+	private void setGameState(GameStateName newState)
 	{
 		if(this.currentGameState != null)
 		{
@@ -59,19 +58,19 @@ public class GameMain extends ConcurrentEventDispatcher implements EventHandler{
 	public void initialize()
 	{
 		GameWindow.create();
-		HashMap<GameState.State, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
+		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
 		this.stateMap = stateMap;
-		this.setGameState(GameState.State.STARTUP_LOADING);
+		this.setGameState(GameStateName.STARTUP_LOADING);
 	}
 
 	public void handleEvent(GlobalEvent<?> event) {
 		if(event.eventType.equals(GlobalEventType.CHANGE_GAME_STATE))
 		{
-			if((event.getEventParameterObject() == null) || !(event.getEventParameterObject() instanceof GameState.State))
+			if((event.getEventParameterObject() == null) || !(event.getEventParameterObject() instanceof GameStateName))
 			{
 				return;
 			}
-			this.setGameState((GameState.State) event.getEventParameterObject());
+			this.setGameState((GameStateName) event.getEventParameterObject());
 		}
 	}
 }

@@ -10,7 +10,7 @@ import orre.gameStates.GameState;
 
 public class PauseMenu extends GameState {
 
-	public PauseMenu(GameMain main, GlobalEventDispatcher eventDispatcher, GameState.State stateName) {
+	public PauseMenu(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName) {
 		super(main, eventDispatcher, stateName);
 	}
 

@@ -6,17 +6,21 @@ import orre.events.GlobalEventDispatcher;
 import orre.gameStates.*;
 
 public class GameStateInitializer {
-	public static HashMap<GameState.State, AbstractGameState> initializeGameStates(GameMain main, GlobalEventDispatcher eventDispatcher)
+	public static HashMap<GameStateName, AbstractGameState> initializeGameStates(GameMain main, GlobalEventDispatcher eventDispatcher)
 	{
-		HashMap<GameState.State, AbstractGameState> stateMap = new HashMap<GameState.State, AbstractGameState>();
+		HashMap<GameStateName, AbstractGameState> stateMap = new HashMap<GameStateName, AbstractGameState>();
 		
-		SequencableGameState startupLoader = new StartupLoader(main, eventDispatcher, GameState.State.STARTUP_LOADING);
-		startupLoader.setNextState(GameState.State.MAIN_MENU);
-		stateMap.put(GameState.State.STARTUP_LOADING, startupLoader);
+		SequencableGameState startupLoader = new StartupLoader(main, eventDispatcher, GameStateName.STARTUP_LOADING);
+		startupLoader.setNextState(GameStateName.MAIN_MENU);
+		stateMap.put(GameStateName.STARTUP_LOADING, startupLoader);
 		
-		stateMap.put(GameState.State.MAIN_MENU, new MainMenu(main, eventDispatcher, GameState.State.MAIN_MENU));
-		stateMap.put(GameState.State.PAUSE_MENU, new PauseMenu(main, eventDispatcher, GameState.State.PAUSE_MENU));
-		stateMap.put(GameState.State.GAME_RUNNING, new GameRunning(main, eventDispatcher, GameState.State.GAME_RUNNING));
+		SequencableGameState gameLoader = new GameLoader(main, eventDispatcher, GameStateName.GAME_LOADING);
+		gameLoader.setNextState(GameStateName.GAME_RUNNING);
+		stateMap.put(GameStateName.GAME_LOADING, gameLoader);
+		
+		stateMap.put(GameStateName.MAIN_MENU, new MainMenu(main, eventDispatcher, GameStateName.MAIN_MENU));
+		stateMap.put(GameStateName.PAUSE_MENU, new PauseMenu(main, eventDispatcher, GameStateName.PAUSE_MENU));
+		stateMap.put(GameStateName.GAME_RUNNING, new GameRunning(main, eventDispatcher, GameStateName.GAME_RUNNING));
 		
 		return stateMap;
 	}
