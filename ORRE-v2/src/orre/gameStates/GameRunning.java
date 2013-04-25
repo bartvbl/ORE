@@ -13,9 +13,9 @@ public class GameRunning extends GameState {
 	private GameWorld gameWorld;
 	private EmptySceneNode sceneRoot;
 	
-	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, GameStateName stateName)
+	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache)
 	{
-		super(main, eventDispatcher, cache, stateName);
+		super(main, eventDispatcher, cache);
 		
 	}
 	public void initialize()
@@ -24,12 +24,14 @@ public class GameRunning extends GameState {
 	}
 	
 	public void executeFrame(long frameNumber) {
+		this.gameWorld.tick();
 		RenderPass.render(sceneRoot);
 	}
 	
 	public void set() {
 		System.out.println("game has started.");
 		Map map = resourceCache.getMap();
+		map.buildAll();
 		this.sceneRoot = new EmptySceneNode();
 		EmptySceneNode mapContentsRoot = new EmptySceneNode();
 		SceneNode mapNode = map.createSceneNode();

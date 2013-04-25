@@ -21,9 +21,9 @@ public class GameStateInitializer {
 		
 		ResourceCache cache = new ResourceCache();
 		
-		stateMap.put(GameStateName.MAIN_MENU, new MainMenu(main, eventDispatcher, cache, GameStateName.MAIN_MENU));
-		stateMap.put(GameStateName.PAUSE_MENU, new PauseMenu(main, eventDispatcher, cache, GameStateName.PAUSE_MENU));
-		stateMap.put(GameStateName.GAME_RUNNING, new GameRunning(main, eventDispatcher, cache, GameStateName.GAME_RUNNING));
+		stateMap.put(GameStateName.MAIN_MENU, new MainMenu(main, eventDispatcher, cache));
+		stateMap.put(GameStateName.PAUSE_MENU, new PauseMenu(main, eventDispatcher, cache));
+		stateMap.put(GameStateName.GAME_RUNNING, new GameRunning(main, eventDispatcher, cache));
 		
 		return stateMap;
 	}
