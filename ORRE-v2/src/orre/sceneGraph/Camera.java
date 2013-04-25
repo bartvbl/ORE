@@ -1,38 +1,33 @@
 package orre.sceneGraph;
 
-public class Camera extends SimpleSceneNode implements SceneNode 
+import static org.lwjgl.opengl.GL11.*;
+
+import org.lwjgl.util.vector.Matrix;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
+import orre.gl.util.TransformMatrixUtils;
+
+public class Camera
 {
-	public Camera()
-	{
-		this.children = null;
+	private final Matrix4f transformationMatrix = new Matrix4f();
+	private static final Vector3f xAxis = new Vector3f(1, 0, 0);
+	private static final Vector3f yAxis = new Vector3f(0, 1, 0);
+	private static final Vector3f zAxis = new Vector3f(0, 0, 1);
+	
+	public void rotate(float rotationX, float rotationY, float rotationZ) {
+		transformationMatrix.rotate(rotationX, xAxis);
+		transformationMatrix.rotate(rotationY, yAxis);
+		transformationMatrix.rotate(rotationZ, zAxis);
 	}
 	
-	public void render() 
-	{
-		
+	public void translate(float x, float y, float z) {
+		transformationMatrix.translate(new Vector3f(x, y, z));
 	}
-
-	public void addChild(SceneNode node) 
-	{
-		System.out.println("WARNING: ignored attempt to add child SceneNode to Camera class; the Camera class can not have child SceneNodes");
-	}
-
-	public void removeChild(SceneNode node) 
-	{
-		System.out.println("WARNING: ignored attempt to remove child SceneNode from Camera class; the Camera class can not have child SceneNodes");
-	}
-
-	public void destroy() 
-	{
-		
-	}
-
-	public void setVisibility(boolean isVisible) 
-	{
-		System.out.println("WARNING: cameras can not be hidden");
-	}
-
-	public float getRenderRadius() {
-		return 0;
+	
+	public void transform() {
+		Matrix4f inverse = new Matrix4f();
+		Matrix4f.invert(transformationMatrix, inverse);
+		TransformMatrixUtils.applyMatrixOnCurrentMatrix(inverse);
 	}
 }
