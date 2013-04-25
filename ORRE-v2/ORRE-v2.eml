@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<component jdk="JavaSE-1.6">
+	<exclude-output/>
+	<contentEntry url="file://$MODULE_DIR$"/>
+	<lib name="jinput.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/jars/jinput.jar!/"/>
+	</lib>
+	<lib name="lwjgl.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/jars/lwjgl.jar!/"/>
+	</lib>
+	<lib name="lzma.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/jars/lzma.jar!/"/>
+	</lib>
+	<lib name="slick-util.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/jars/slick-util.jar!/"/>
+	</lib>
+	<lib name="slick.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/jars/slick.jar!/"/>
+	</lib>
+	<lib name="xom-1.2.8.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/jars/xom-1.2.8.jar!/"/>
+	</lib>
+	<lib name="log4j-1.2.17.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/jars/log4j-1.2.17.jar!/"/>
+	</lib>
+	<lib name="lwjgl_util.jar" scope="COMPILE">
+		<relative-module-cls project-related="jar://$PROJECT_DIR$/jars/lwjgl_util.jar!/"/>
+	</lib>
+</component>

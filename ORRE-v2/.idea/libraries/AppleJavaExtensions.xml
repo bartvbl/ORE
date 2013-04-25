@@ -1,0 +1,17 @@
+<component name="libraryTable">
+  <library name="AppleJavaExtensions">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/jars/AppleJavaExtensions.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/jinput.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/log4j-1.2.17.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/lwjgl.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/lwjgl_util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/lzma.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/slick-util.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/slick.jar!/" />
+      <root url="jar://$PROJECT_DIR$/jars/xom-1.2.8.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

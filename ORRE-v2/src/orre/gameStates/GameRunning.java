@@ -1,48 +1,44 @@
 package orre.gameStates;
 
-import java.util.ArrayList;
-
+import openrr.map.Map;
 import orre.core.GameMain;
-import orre.events.ConcurrentEventDispatcher;
-import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
-import orre.events.GlobalEventType;
-import orre.modules.Input;
-import orre.modules.Module;
-import orre.resources.FileToLoad;
-import orre.resources.ResourceFile;
-import orre.scene.Scene;
+import orre.gameWorld.core.GameWorld;
+import orre.gl.renderer.RenderPass;
+import orre.resources.ResourceCache;
+import orre.sceneGraph.EmptySceneNode;
+import orre.sceneGraph.SceneNode;
 
 public class GameRunning extends GameState {
-	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName)
+	private GameWorld gameWorld;
+	private EmptySceneNode sceneRoot;
+	
+	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, GameStateName stateName)
 	{
-		super(main, eventDispatcher, stateName);
+		super(main, eventDispatcher, cache, stateName);
 		
 	}
 	public void initialize()
 	{
 		
 	}
-	protected ArrayList<Module> initializeModules(ConcurrentEventDispatcher eventDispatcher, Scene scene)
-	{
-		ArrayList<Module> moduleList = new ArrayList<Module>();
-		moduleList.add(new Input(eventDispatcher, scene));
-		return moduleList;
-	}
 	
 	public void executeFrame(long frameNumber) {
-		
+		RenderPass.render(sceneRoot);
 	}
 	
-	@Override
 	public void set() {
-		
-		
+		System.out.println("game has started.");
+		Map map = resourceCache.getMap();
+		this.sceneRoot = new EmptySceneNode();
+		EmptySceneNode mapContentsRoot = new EmptySceneNode();
+		SceneNode mapNode = map.createSceneNode();
+		sceneRoot.addChild(mapNode);
+		mapNode.addChild(mapContentsRoot);
+		this.gameWorld = new GameWorld(mapContentsRoot, map);
 	}
-	@Override
+	
 	public void unset() {
-		
-		
-		
+			
 	}
 }

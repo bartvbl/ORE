@@ -18,12 +18,12 @@ public abstract class GameState implements AbstractGameState {
 	protected final GlobalEventDispatcher globalEventDispatcher;
 	private final GameStateName stateName;
 	
-	public GameState(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName)
+	public GameState(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, GameStateName stateName)
 	{
 		this.main = main;
 		this.globalEventDispatcher = eventDispatcher;
 		this.stateName = stateName;
-		this.resourceCache = new ResourceCache();
+		this.resourceCache = cache;
 	}
 
 }

@@ -17,6 +17,7 @@ import orre.gl.RenderUtils;
 import orre.gl.renderer.RenderPass;
 import orre.gl.texture.Texture;
 import orre.resources.FileToLoad;
+import orre.resources.ResourceCache;
 import orre.resources.ResourceFile;
 import orre.sceneGraph.SceneNode;
 
@@ -24,8 +25,8 @@ import static org.lwjgl.opengl.GL11.*;
 
 public class MainMenu extends GameState {
 
-	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName) {
-		super(main, eventDispatcher, stateName);
+	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, GameStateName stateName) {
+		super(main, eventDispatcher, cache, stateName);
 		FileToLoad mainCache = new FileToLoad(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml", "mainCacheList");
 		eventDispatcher.dispatchEvent(new GlobalEvent<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
 		
