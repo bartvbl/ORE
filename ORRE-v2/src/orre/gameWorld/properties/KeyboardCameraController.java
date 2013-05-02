@@ -12,11 +12,11 @@ import orre.gameWorld.services.InputService;
 import orre.input.KeyListener;
 import orre.sceneGraph.Camera;
 
-public class CameraController extends Property implements KeyListener {
+public class KeyboardCameraController extends Property implements KeyListener {
 
 	private Camera controlledCamera;
 
-	public CameraController(GameObject gameObject) {
+	public KeyboardCameraController(GameObject gameObject) {
 		super(PropertyType.CAMERA_CONTROLLER, gameObject);
 		gameObject.world.addMessageListener(MessageType.ASSUME_CAMERA_CONTROL, gameObject);
 	}
