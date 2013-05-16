@@ -2,8 +2,6 @@ package orre.gameStates;
 
 import java.nio.FloatBuffer;
 
-import openrr.test.LightTestClass;
-
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.Display;

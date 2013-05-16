@@ -4,12 +4,12 @@ import java.util.Arrays;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
-import orre.resources.Finalizable;
+import orre.resources.PartiallyLoadable;
 import orre.resources.loaders.obj.GeometryBufferGenerator;
 import orre.resources.loaders.obj.OBJConstants;
 import orre.sceneGraph.SceneNode;
 
-public class UnpackedGeometryBuffer extends Finalizable{
+public class UnpackedGeometryBuffer extends PartiallyLoadable{
 	private double[] vertices;
 	private BufferDataFormatType dataFormat;
 	private int numVertices;

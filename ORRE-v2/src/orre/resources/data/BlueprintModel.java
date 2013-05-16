@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.geom.mesh.Mesh3D;
-import orre.resources.Finalizable;
+import orre.resources.PartiallyLoadable;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.sceneGraph.SceneNode;
 
-public class BlueprintModel extends Finalizable {
+public class BlueprintModel extends PartiallyLoadable {
 	private ArrayList<StoredModelPart> topLevelNodeList = new ArrayList<StoredModelPart>();
 	private HashMap<String, StoredModelPart> modelParts = new HashMap<String, StoredModelPart>();
 	public final String name;

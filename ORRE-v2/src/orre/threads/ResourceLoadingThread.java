@@ -6,11 +6,11 @@ import orre.resources.ResourceFile;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
 import orre.resources.loaders.TextureLoader;
-import orre.resources.loaders.map.MapLoader;
-import orre.resources.loaders.map.PartiallyLoadableMap;
 import orre.resources.loaders.obj.ModelLoader;
+import orre.resources.partiallyLoadables.PartiallyLoadableMap;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import orre.util.FatalExceptionHandler;
+import shooter.map.MapLoader;
 
 public class ResourceLoadingThread extends Thread {
 	private ResourceQueue resourceQueue;

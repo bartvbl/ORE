@@ -2,11 +2,10 @@ package orre.resources;
 
 import java.util.HashMap;
 
-import openrr.map.Map;
-
 import orre.geom.mesh.Mesh3D;
 import orre.gl.texture.Texture;
 import orre.resources.data.BlueprintModel;
+import shooter.map.Map;
 
 public class ResourceCache {
 	private HashMap<String, Texture> textures = new HashMap<String, Texture>();

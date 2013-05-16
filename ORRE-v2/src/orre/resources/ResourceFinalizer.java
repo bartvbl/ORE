@@ -19,7 +19,7 @@ public class ResourceFinalizer {
 		this.finalizationTimer.reset();
 		while(this.finalizationTimer.getTime() < ALLOWED_TIME_FOR_FINALIZATIONS)
 		{
-			Finalizable resourceToFinalize = this.resourceQueue.getNextFinalizable();
+			PartiallyLoadable resourceToFinalize = this.resourceQueue.getNextFinalizable();
 			if(resourceToFinalize == null)
 			{
 				break;

@@ -9,7 +9,7 @@ public class ResourceQueue {
 	
 	private Queue<FileToLoad> itemsToLoadQueue;
 	private Queue<FileToLoad> filesToLoadQueue;
-	private Queue<Finalizable> resourcesToFinalizeQueue;
+	private Queue<PartiallyLoadable> resourcesToFinalizeQueue;
 
 	private ProgressTracker tracker;
 
@@ -19,7 +19,7 @@ public class ResourceQueue {
 	{
 		this.itemsToLoadQueue = new Queue<FileToLoad>();
 		this.filesToLoadQueue = new Queue<FileToLoad>();
-		this.resourcesToFinalizeQueue = new Queue<Finalizable>();
+		this.resourcesToFinalizeQueue = new Queue<PartiallyLoadable>();
 		this.resourceLoader = loader;
 		
 		this.tracker = tracker;
@@ -47,12 +47,12 @@ public class ResourceQueue {
 		this.resourceLoader.registerStartedLoading();
 	}
 	
-	public synchronized void enqueueResourceForFinalization(Finalizable finalizable)
+	public synchronized void enqueueResourceForFinalization(PartiallyLoadable finalizable)
 	{
 		this.resourcesToFinalizeQueue.enqueue(finalizable);
 	}
 	
-	public synchronized Finalizable getNextFinalizable()
+	public synchronized PartiallyLoadable getNextFinalizable()
 	{
 		return this.resourcesToFinalizeQueue.dequeue();
 	}

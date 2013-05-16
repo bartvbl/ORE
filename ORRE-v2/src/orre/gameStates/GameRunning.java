@@ -1,6 +1,5 @@
 package orre.gameStates;
 
-import openrr.map.Map;
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
 import orre.gameWorld.core.GameObjectType;
@@ -12,6 +11,7 @@ import orre.resources.ResourceCache;
 import orre.sceneGraph.Camera;
 import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
+import shooter.map.Map;
 
 public class GameRunning extends GameState {
 	private GameWorld gameWorld;
@@ -39,7 +39,7 @@ public class GameRunning extends GameState {
 		map.buildAll();
 		this.sceneRoot = new EmptySceneNode();
 		EmptySceneNode mapContentsRoot = new EmptySceneNode();
-		SceneNode mapNode = map.createSceneNode();
+		SceneNode mapNode = map.getMapSceneNode();
 		sceneRoot.addChild(mapNode);
 		mapNode.addChild(mapContentsRoot);
 		this.gameWorld = new GameWorld(mapContentsRoot, map);

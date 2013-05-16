@@ -1,12 +1,12 @@
 package orre.resources.partiallyLoadables;
 
 import orre.gl.texture.Texture;
-import orre.resources.Finalizable;
+import orre.resources.PartiallyLoadable;
 import orre.resources.ResourceCache;
 import orre.resources.loaders.TextureLoader;
 import orre.sceneGraph.SceneNode;
 
-public class PartiallyLoadableTexture extends Finalizable{
+public class PartiallyLoadableTexture extends PartiallyLoadable{
 	private byte[] imageData;
 	private final int width;
 	private final int height;

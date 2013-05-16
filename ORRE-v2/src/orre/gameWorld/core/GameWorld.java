@@ -3,9 +3,9 @@ package orre.gameWorld.core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
-import openrr.map.Map;
 import orre.gameWorld.services.WorldServices;
 import orre.sceneGraph.SceneNode;
+import shooter.map.Map;
 
 public class GameWorld {
 	public final SceneNode rootNode;

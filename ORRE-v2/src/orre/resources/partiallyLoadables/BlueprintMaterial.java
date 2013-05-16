@@ -3,12 +3,12 @@ package orre.resources.partiallyLoadables;
 import orre.gl.materials.AbstractMaterial;
 import orre.gl.materials.Material;
 import orre.resources.FileToLoad;
-import orre.resources.Finalizable;
+import orre.resources.PartiallyLoadable;
 import orre.resources.loaders.TextureLoader;
 import orre.resources.loaders.obj.OBJLoadingContext;
 import orre.sceneGraph.SceneNode;
 
-public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
+public class BlueprintMaterial extends PartiallyLoadable implements AbstractMaterial {
 	public final String name;
 	private PartiallyLoadableTexture ambientTexture = null;
 	private PartiallyLoadableTexture diffuseTexture = null;

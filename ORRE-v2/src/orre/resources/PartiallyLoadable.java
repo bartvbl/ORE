@@ -2,7 +2,7 @@ package orre.resources;
 
 import orre.sceneGraph.SceneNode;
 
-public abstract class Finalizable {
+public abstract class PartiallyLoadable {
 	protected ResourceCache destinationCache = null;
 	
 	public void setDestinationCache(ResourceCache destinationCache)

@@ -1,11 +1,11 @@
 package orre.resources.partiallyLoadables;
 
 import orre.geom.vbo.BufferDataFormatType;
-import orre.resources.Finalizable;
+import orre.resources.PartiallyLoadable;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.sceneGraph.SceneNode;
 
-public class PartiallyLoadableModelPart extends Finalizable {
+public class PartiallyLoadableModelPart extends PartiallyLoadable {
 	private BlueprintMaterial material;
 	private final UnpackedGeometryBuffer geometryBuffer;
 	
