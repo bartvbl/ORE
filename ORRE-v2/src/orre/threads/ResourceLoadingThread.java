@@ -1,5 +1,7 @@
 package orre.threads;
 
+import orre.animation.Animation;
+import orre.animation.AnimationLoader;
 import orre.resources.FileToLoad;
 import orre.resources.ProgressTracker;
 import orre.resources.ResourceFile;
@@ -54,6 +56,11 @@ public class ResourceLoadingThread extends Thread {
 			PartiallyLoadableMap map = MapLoader.loadMap(currentFile);
 			map.setDestinationCache(currentFile.destinationCache);
 			this.resourceQueue.enqueueResourceForFinalization(map);
+		} else if(currentFile.fileType == ResourceFile.ANIMATION_FILE) {
+			Animation animation = AnimationLoader.load(currentFile.getPath());
+			if(animation != null) {
+				currentFile.destinationCache.addAnimation(animation);
+			}
 		}
 	}
 }

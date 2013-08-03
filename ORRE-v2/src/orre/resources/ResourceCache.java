@@ -4,6 +4,7 @@ import java.util.HashMap;
 
 import openrr.map.Map;
 
+import orre.animation.Animation;
 import orre.geom.mesh.Mesh3D;
 import orre.gl.texture.Texture;
 import orre.resources.data.BlueprintModel;
@@ -40,6 +41,11 @@ public class ResourceCache {
 	
 	public Map getMap() {
 		return this.map;
+	}
+
+	public void addAnimation(Animation animation) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 

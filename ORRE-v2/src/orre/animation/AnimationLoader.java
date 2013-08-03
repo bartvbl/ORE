@@ -65,7 +65,7 @@ public class AnimationLoader {
 		String[] tokens = line.split(" ");
 		double duration = 0;
 		boolean isInfinite = false;
-		if(!tokens[4].equals("infinity")) {
+		if(tokens[4].equals("infinity")) {
 			isInfinite = true;
 		} else {
 			duration = Double.parseDouble(tokens[4]);

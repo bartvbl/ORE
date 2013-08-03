@@ -69,7 +69,7 @@
 	</menuTextures>
 	
 	<animations pathPrefix="res/anims/">
-		<animation name="walking" src="walking.anim"/>
+		<animation name="turnWheels" src="turnWheels.anim"/>
 	</animations>
 	
 	<shaders pathPrefix="res/shaders/">
