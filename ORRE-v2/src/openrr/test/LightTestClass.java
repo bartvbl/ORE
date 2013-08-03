@@ -7,19 +7,10 @@ import static org.lwjgl.opengl.EXTFramebufferObject.*;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.InputStreamReader;
-import java.nio.ByteBuffer;
-import java.nio.ByteOrder;
-import java.nio.IntBuffer;
-
 import org.lwjgl.opengl.ARBFragmentShader;
 import org.lwjgl.opengl.ARBShaderObjects;
 import org.lwjgl.opengl.ARBVertexShader;
-import org.lwjgl.opengl.EXTFramebufferObject;
 import org.lwjgl.opengl.GL11;
-
-import orre.gl.texture.Texture;
-import orre.resources.loaders.TextureLoader;
-import orre.sceneGraph.SceneNode;
 
 /**
  * The vertex and fragment shaders are setup when the box object is
