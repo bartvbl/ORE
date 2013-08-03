@@ -1,0 +1,7 @@
+animation turnWheels
+keyframe roll of duration infinity
+spin wheel1 around x-axis at 1 degrees per ms
+spin wheel2 around x-axis at 1 degrees per ms
+spin wheel3 around x-axis at 1 degrees per ms
+spin wheel4 around x-axis at 1 degrees per ms
+end animation

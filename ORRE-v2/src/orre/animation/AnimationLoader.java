@@ -61,7 +61,7 @@ public class AnimationLoader {
 		return keyFrames.get(keyFrames.size() - 1);
 	}
 
-	private static void parseKeyFrameLine(String line, ArrayList<KeyFrame> keyFrames) {
+	private static void parseKeyFrameLine(String line, ArrayList<KeyFrame> keyFrames) throws Exception {
 		String[] tokens = line.split(" ");
 		double duration = 0;
 		boolean isInfinite = false;
@@ -69,6 +69,9 @@ public class AnimationLoader {
 			isInfinite = true;
 		} else {
 			duration = Double.parseDouble(tokens[4]);
+			if(duration == 0) {
+				throw new Exception("The duration of a keyframe can not be 0. If you want an instantanious change, use a tiny duration instead.");
+			}
 		}
 		KeyFrame newFrame = new KeyFrame(tokens[1], duration, isInfinite);
 		keyFrames.add(newFrame);
