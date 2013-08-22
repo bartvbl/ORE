@@ -3,6 +3,7 @@ package orre.animation.actions;
 import orre.animation.AnimationAction;
 import orre.animation.AnimationActionType;
 import orre.geom.Axis;
+import orre.geom.mesh.Mesh3D;
 
 public class RotationAction extends AnimationAction {
 
@@ -15,6 +16,10 @@ public class RotationAction extends AnimationAction {
 		this.partName = partName;
 		this.rotation = rotation;
 		this.axis = axis;
+	}
+
+	public void update(Mesh3D target, double percentElapsed, double timeSinceLastUpdate) {
+		
 	}
 
 }

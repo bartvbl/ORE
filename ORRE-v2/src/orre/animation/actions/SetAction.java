@@ -4,6 +4,7 @@ import orre.animation.AnimationAction;
 import orre.animation.AnimationActionType;
 import orre.animation.TransitionType;
 import orre.geom.Axis;
+import orre.geom.mesh.Mesh3D;
 
 public class SetAction extends AnimationAction {
 
@@ -18,6 +19,13 @@ public class SetAction extends AnimationAction {
 		this.axis = axis;
 		this.valueType = type;
 		this.value = value;
+	}
+
+	@Override
+	public void update(Mesh3D target, double percentElapsed,
+			double timeSinceLastUpdate) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

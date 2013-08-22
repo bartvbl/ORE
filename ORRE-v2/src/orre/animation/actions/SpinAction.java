@@ -3,6 +3,7 @@ package orre.animation.actions;
 import orre.animation.AnimationAction;
 import orre.animation.AnimationActionType;
 import orre.geom.Axis;
+import orre.geom.mesh.Mesh3D;
 
 public class SpinAction extends AnimationAction {
 
@@ -15,6 +16,13 @@ public class SpinAction extends AnimationAction {
 		this.partName = partName;
 		this.axis = axis;
 		this.speedDegrees = speedDegrees;
+	}
+
+	@Override
+	public void update(Mesh3D target, double percentElapsed,
+			double timeSinceLastUpdate) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
