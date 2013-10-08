@@ -59,23 +59,10 @@ public class MainMenu extends GameState {
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {this.xCoord -= 0.3;}
 		glEnable(GL_LIGHT0);
 		this.time += 0.003;
-		glRotatef(rotationX, 1, 0, 0);
-		glRotatef(rotationY, 0, 0, 1);
-		glTranslated(xCoord, yCoord, 0);
 		glTranslated(0, 0, zoomLevel);
-		float x = 15;
-		float y = 52;
-		float z = 13;
-		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)buffer.put(new float[]{x, y, z, 1}).rewind());
-		glLight(GL_LIGHT0, GL_SPOT_CUTOFF, (FloatBuffer)buffer.put(new float[]{30}).rewind());
-		glLight(GL_LIGHT0, GL_SPOT_DIRECTION, (FloatBuffer)buffer.put(new float[]{(float) (Math.cos(time)), (float) (Math.sin(time)), 0}).rewind());
-		
-		glBegin(GL_QUADS);
-		glVertex3d(x-0.5, y, z-0.5);
-		glVertex3d(x+0.5, y, z-0.5);
-		glVertex3d(x+0.5, y, z+0.5);
-		glVertex3d(x-0.5, y, z+0.5);
-		glEnd();
+		glTranslated(xCoord, yCoord, 0);
+		glRotatef(rotationX, 1, 0, 0);
+		glRotatef(rotationY, 0, 1, 0);
 		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)buffer.put(new float[]{0.1f, 0.1f, 0.1f, 1}).rewind());
 		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)buffer.put(new float[]{0.8f, 0.8f, 0.8f, 1}).rewind());
 		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)buffer.put(new float[]{0.5f, 0.5f, 0.5f, 1}).rewind());
@@ -88,7 +75,7 @@ public class MainMenu extends GameState {
 	}
 	@Override
 	public void set() {
-		this.testNode = this.resourceCache.getMap().createSceneNode();
+		this.testNode = this.resourceCache.createModelInstace("lmsExplorer");//this.resourceCache.getMap().createSceneNode();
 		this.node = this.resourceCache.createModelInstace("toolStore");
 		this.node2 = this.resourceCache.createModelInstace("rockRaider");
 		this.displayListID = glGenLists(1);
@@ -104,9 +91,9 @@ public class MainMenu extends GameState {
 		glScaled(0.07, 0.07, 0.07);
 		glTranslated(81, 609, 216.3);
 		glRotated(90, 1, 0, 0);
-		RenderPass.render(node);
+		//RenderPass.render(node);
 		glTranslated(-0.5, 1.2, 3);
-		RenderPass.render(node2);
+		//RenderPass.render(node2);
 		glEndList();
 	}
 	@Override
