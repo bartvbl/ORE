@@ -9,15 +9,17 @@ import orre.sceneGraph.SceneNode;
 
 public class GameWorld {
 	public final SceneNode rootNode;
+	public final SceneNode mapContentsNode;
 	public final Map map;
 	public final WorldServices services;
 
 	private final HashMap<Integer, GameObject> gameObjectSet;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(SceneNode rootNode, Map map) {
+	public GameWorld(SceneNode rootNode, SceneNode mapContentsNode, Map map) {
 		this.rootNode = rootNode;
 		this.map = map;
+		this.mapContentsNode = mapContentsNode;
 		this.services = new WorldServices();
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();

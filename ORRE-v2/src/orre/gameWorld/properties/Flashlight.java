@@ -20,7 +20,7 @@ public class Flashlight extends Property {
 		super(PropertyType.LIGHT, gameObject);
 		this.light = new Light();
 		this.service = this.gameObject.world.services.inputService;
-		gameObject.world.rootNode.addChild(light);
+		gameObject.world.mapContentsNode.addChild(light);
 	}
 
 	@Override
@@ -31,7 +31,7 @@ public class Flashlight extends Property {
 	@Override
 	public void tick() {
 		float[] mapCoordinates = CoordConverter.getMapCoords((int)this.service.getMouseX(), (int)this.service.getMouseY());
-		this.light.setPosition(mapCoordinates[0], mapCoordinates[1], mapCoordinates[2] + 30);
+		this.light.setPosition(mapCoordinates[0], mapCoordinates[1], mapCoordinates[2] + 10);
 	}
 
 	@Override

@@ -44,7 +44,7 @@ public class GameRunning extends GameState {
 		map.buildAll();
 		this.sceneRoot = new EmptySceneNode();
 		EmptySceneNode mapContentsRoot = new EmptySceneNode();
-		this.gameWorld = new GameWorld(mapContentsRoot, map);
+		this.gameWorld = new GameWorld(mapContentsRoot, mapContentsRoot, map);
 		SceneNode mapNode = map.createSceneNode();
 		sceneRoot.addChild(mapNode);
 		mapNode.addChild(mapContentsRoot);
