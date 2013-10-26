@@ -1,7 +1,8 @@
 package orre.gameWorld.core;
 
-import orre.gameWorld.properties.KeyboardCameraController;
 import orre.gameWorld.properties.HealthProperty;
+import orre.input.KeyboardCameraController;
+import orre.input.MouseCameraController;
 
 public class GameObjectBuilder {
 
@@ -18,7 +19,8 @@ public class GameObjectBuilder {
 	private static Property createPropertyByType(PropertyType propertyType, GameObject gameObject) {
 		switch(propertyType) {
 			case HEALTH: return new HealthProperty(gameObject);
-			case CAMERA_CONTROLLER: return new KeyboardCameraController(gameObject);
+			case KEYBOARD_CAMERA_CONTROLLER: return new KeyboardCameraController(gameObject);
+			case MOUSE_CAMERA_CONTROLLER: return new MouseCameraController(gameObject);
 		}
 		return null;
 	}

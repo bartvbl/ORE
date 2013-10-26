@@ -1,4 +1,4 @@
-package orre.gameWorld.properties;
+package orre.input;
 
 import org.lwjgl.input.Keyboard;
 
@@ -9,7 +9,6 @@ import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
 import orre.gameWorld.core.PropertyDataType;
 import orre.gameWorld.services.InputService;
-import orre.input.KeyListener;
 import orre.sceneGraph.Camera;
 
 public class KeyboardCameraController extends Property implements KeyListener {
@@ -17,7 +16,7 @@ public class KeyboardCameraController extends Property implements KeyListener {
 	private Camera controlledCamera;
 
 	public KeyboardCameraController(GameObject gameObject) {
-		super(PropertyType.CAMERA_CONTROLLER, gameObject);
+		super(PropertyType.KEYBOARD_CAMERA_CONTROLLER, gameObject);
 		gameObject.world.addMessageListener(MessageType.ASSUME_CAMERA_CONTROL, gameObject);
 	}
 

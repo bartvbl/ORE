@@ -6,7 +6,7 @@ public enum GameObjectType {
 	SOUND_EFFECT(new PropertyType[]{}), 
 	CHRYSTAL(new PropertyType[]{}), 
 	TRIGGER(new PropertyType[]{}),
-	KEYBOARD_CAMERA_CONTROLLER(new PropertyType[]{PropertyType.CAMERA_CONTROLLER});
+	CAMERA_CONTROLLER(new PropertyType[]{PropertyType.KEYBOARD_CAMERA_CONTROLLER, PropertyType.MOUSE_CAMERA_CONTROLLER});
 
 	public final PropertyType[] properties;
 
