@@ -1,6 +1,6 @@
 package orre.gameWorld.services;
 
-public class AIService {
+public class AIService implements Service {
 
 	public void tick() {
 		

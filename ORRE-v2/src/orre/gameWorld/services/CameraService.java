@@ -2,7 +2,7 @@ package orre.gameWorld.services;
 
 import orre.sceneGraph.Camera;
 
-public class CameraService {
+public class CameraService implements Service {
 
 	private Camera currentCamera = null;
 

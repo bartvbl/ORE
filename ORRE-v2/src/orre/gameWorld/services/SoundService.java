@@ -1,6 +1,6 @@
 package orre.gameWorld.services;
 
-public class SoundService {
+public class SoundService implements Service {
 
 	public void tick() {
 		

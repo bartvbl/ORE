@@ -10,7 +10,7 @@ import org.lwjgl.input.Mouse;
 import orre.input.KeyListener;
 import orre.sceneGraph.SceneNode;
 
-public class InputService {
+public class InputService implements Service {
 	
 	private final HashMap<Integer, KeyListener> keyDownListeners = new HashMap<Integer, KeyListener>();
 
