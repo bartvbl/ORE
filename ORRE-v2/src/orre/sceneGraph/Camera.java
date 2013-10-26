@@ -11,27 +11,30 @@ public class Camera
 	private static final Vector3f xAxis = new Vector3f(1, 0, 0);
 	private static final Vector3f yAxis = new Vector3f(0, 1, 0);
 	private static final Vector3f zAxis = new Vector3f(0, 0, 1);
-	
-	private int counter = 0;
-	
+		
 	private static final Vector3f rotation = new Vector3f(0, 0, 0);
+	private static final Vector3f location = new Vector3f(0, 0, 30);
 	
 	public void setRotation(double rotationX, double rotationY, double rotationZ) {
 		rotation.set((float)rotationX, (float)rotationY, (float)rotationZ);
 	}
 	
-	public void translate(double x, double y, double z) {
-		transformationMatrix.translate(new Vector3f((float) x, (float) y, (float) z));
+	public void setLocation(double x, double y, double z) {
+		location.set((float)x, (float)y, (float)z);
 	}
 	
 	public void transform() {
 		transformationMatrix.setIdentity();
 		
-		transformationMatrix.translate(new Vector3f(0, 0, 30));
-		
 		transformationMatrix.rotate((float) Math.toRadians(rotation.z), zAxis);
+
+		transformationMatrix.translate(new Vector3f(location.x, location.y, 0));
+		
 		transformationMatrix.rotate((float) Math.toRadians(rotation.y), yAxis);
 		transformationMatrix.rotate((float) Math.toRadians(rotation.x), xAxis);
+		
+		transformationMatrix.translate(new Vector3f(0, 0, location.z));
+
 		
 		Matrix4f inverse = new Matrix4f();
 		Matrix4f.invert(transformationMatrix, inverse);

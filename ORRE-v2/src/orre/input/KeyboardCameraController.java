@@ -30,6 +30,7 @@ public class KeyboardCameraController extends Property {
 
 	public void tick() {
 		this.controlledCamera.setRotation(service.getMapRotationX(), 0, service.getMapRotationZ());
+		this.controlledCamera.setLocation(service.getMapX(), service.getMapY(), service.getMapZ());
 	}
 	
 	public void destroy() {}

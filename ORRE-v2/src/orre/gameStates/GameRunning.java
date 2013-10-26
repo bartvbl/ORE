@@ -45,7 +45,6 @@ public class GameRunning extends GameState {
 		this.gameWorld = new GameWorld(mapContentsRoot, map);
 		defaultCamera = new Camera();
 		gameWorld.services.cameraService.setCurrentCamera(defaultCamera);
-		defaultCamera.translate(0, 0, 100);
 		int cameraController = gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.dispatchMessage(new Message<Camera>(MessageType.ASSUME_CAMERA_CONTROL, defaultCamera), cameraController);
 	}
