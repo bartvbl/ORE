@@ -12,6 +12,8 @@ public class InputService implements Service {
 	private double mapY = 0;
 	private double mapZ = 30;
 	
+	private static final double mapMoveSpeed = 0.3d;
+	
 	public InputService() {
 		try {
 			if(!Mouse.isCreated()) {
@@ -33,21 +35,21 @@ public class InputService implements Service {
 		double mouseDWheel = Mouse.getDWheel();
 		
 		if(Mouse.isButtonDown(1)) {
-			mapRotationZ += mouseDX / 5d;
-			mapRotationX -= mouseDY / 5d;
+			mapRotationZ += mouseDX / 4d;
+			mapRotationX -= mouseDY / 4d;
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			mapX--;
+			mapX -= mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			mapX++;
+			mapX += mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			mapY--;
+			mapY -= mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			mapY++;
+			mapY += mapMoveSpeed;
 		}
 		
 		mapZ += mouseDWheel / 15d;

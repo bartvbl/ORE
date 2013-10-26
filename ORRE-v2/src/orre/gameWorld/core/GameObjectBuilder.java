@@ -1,8 +1,8 @@
 package orre.gameWorld.core;
 
+import orre.gameWorld.properties.Flashlight;
 import orre.gameWorld.properties.HealthProperty;
 import orre.input.KeyboardCameraController;
-import orre.input.MouseCameraController;
 
 public class GameObjectBuilder {
 
@@ -20,7 +20,7 @@ public class GameObjectBuilder {
 		switch(propertyType) {
 			case HEALTH: return new HealthProperty(gameObject);
 			case KEYBOARD_CAMERA_CONTROLLER: return new KeyboardCameraController(gameObject);
-			case MOUSE_CAMERA_CONTROLLER: return new MouseCameraController(gameObject);
+			case LIGHT: return new Flashlight(gameObject);
 		}
 		return null;
 	}
