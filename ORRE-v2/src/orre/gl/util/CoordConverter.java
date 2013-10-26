@@ -18,13 +18,13 @@ import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 
 public class CoordConverter {
-	private FloatBuffer modelView = BufferUtils.createFloatBuffer(16);
-	private FloatBuffer projection = BufferUtils.createFloatBuffer(16);
-	private IntBuffer viewport = BufferUtils.createIntBuffer(16);
-	private FloatBuffer location = BufferUtils.createFloatBuffer(3);
-	private FloatBuffer winZ = BufferUtils.createFloatBuffer(1);
+	private static final FloatBuffer modelView = BufferUtils.createFloatBuffer(16);
+	private static final FloatBuffer projection = BufferUtils.createFloatBuffer(16);
+	private static final IntBuffer viewport = BufferUtils.createIntBuffer(16);
+	private static final FloatBuffer location = BufferUtils.createFloatBuffer(3);
+	private static final FloatBuffer winZ = BufferUtils.createFloatBuffer(1);
 	
-	public float[] getScreenCoords(float x, float y, float z)
+	public static float[] getScreenCoords(float x, float y, float z)
 	{
 		modelView.clear().rewind();
 		projection.clear().rewind();
@@ -38,7 +38,7 @@ public class CoordConverter {
 		gluProject(x, y, z, modelView, projection, viewport, location);
 		return new float[] {location.get(0), location.get(1), location.get(2)};
 	}
-	public float[] getMapCoords(int x, int y)
+	public static float[] getMapCoords(int x, int y)
 	{
 		modelView.clear().rewind();
 		projection.clear().rewind();

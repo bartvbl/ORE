@@ -8,6 +8,7 @@ import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
 import orre.gameWorld.services.InputService;
 import orre.gl.lighting.Light;
+import orre.gl.util.CoordConverter;
 import orre.sceneGraph.SceneNode;
 
 public class Flashlight extends Property {
@@ -20,7 +21,6 @@ public class Flashlight extends Property {
 		this.light = new Light();
 		this.service = this.gameObject.world.services.inputService;
 		gameObject.world.rootNode.addChild(light);
-		light.setPosition(0, 0, 20);
 	}
 
 	@Override
@@ -30,7 +30,8 @@ public class Flashlight extends Property {
 
 	@Override
 	public void tick() {
-		
+		float[] mapCoordinates = CoordConverter.getMapCoords((int)this.service.getMouseX(), (int)this.service.getMouseY());
+		this.light.setPosition(mapCoordinates[0], mapCoordinates[1], mapCoordinates[2] + 30);
 	}
 
 	@Override

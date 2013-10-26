@@ -11,6 +11,8 @@ public class InputService implements Service {
 	private double mapX = 0;
 	private double mapY = 0;
 	private double mapZ = 30;
+	private double mouseX = 0;
+	private double mouseY = 0;
 	
 	private static final double mapMoveSpeed = 0.3d;
 	
@@ -53,6 +55,9 @@ public class InputService implements Service {
 		}
 		
 		mapZ += mouseDWheel / 15d;
+		
+		this.mouseX = mouseX;
+		this.mouseY = mouseY;
 	}
 
 	public double getMapRotationX() {
@@ -73,6 +78,14 @@ public class InputService implements Service {
 
 	public double getMapZ() {
 		return mapZ;
+	}
+
+	public double getMouseX() {
+		return mouseX;
+	}
+	
+	public double getMouseY() {
+		return mouseY;
 	}
 
 }
