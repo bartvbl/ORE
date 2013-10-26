@@ -18,7 +18,6 @@ public class MouseCameraController extends Property {
 
 	@Override
 	public void tick() {
-
 	}
 
 	@Override

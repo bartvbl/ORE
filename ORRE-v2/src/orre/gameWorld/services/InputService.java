@@ -1,19 +1,16 @@
 package orre.gameWorld.services;
 
-import java.util.HashMap;
-import java.util.Set;
-
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import orre.input.KeyListener;
-import orre.sceneGraph.SceneNode;
-
 public class InputService implements Service {
 	
-	private final HashMap<Integer, KeyListener> keyDownListeners = new HashMap<Integer, KeyListener>();
-
+	private double mapRotationX = 0;
+	private double mapRotationZ = 0;
+	private double mapX = 0;
+	private double mapZ = 0;
+	
 	public InputService() {
 		try {
 			if(!Mouse.isCreated()) {
@@ -27,17 +24,24 @@ public class InputService implements Service {
 		}
 	}
 	
-	public void setKeyDownListener(int keyID, KeyListener handler) {
-		keyDownListeners.put(keyID, handler);
+	public void tick() {
+		double mouseDX = Mouse.getDX();
+		double mouseDY = Mouse.getDY();
+		double mouseX = Mouse.getX();
+		double mouseY = Mouse.getY();
+		
+		if(Mouse.isButtonDown(1)) {
+			mapRotationZ += (double) (mouseDX) / 3d;
+			mapRotationX -= (double) (mouseDY) / 3d;
+		}
 	}
 
-	public void tick() {
-		Set<Integer> registeredKeys = keyDownListeners.keySet();
-		for(int registeredKey : registeredKeys) {
-			if(Keyboard.isKeyDown(registeredKey)) {
-				keyDownListeners.get(registeredKey).handleKey(registeredKey);
-			}
-		}
+	public double getMapRotationX() {
+		return mapRotationX;
+	}
+
+	public double getMapRotationZ() {
+		return mapRotationZ;
 	}
 
 }
