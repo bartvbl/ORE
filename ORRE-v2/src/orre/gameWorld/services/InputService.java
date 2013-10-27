@@ -42,17 +42,22 @@ public class InputService implements Service {
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			mapX -= mapMoveSpeed;
+			mapX -= Math.cos(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
+			mapY -= Math.sin(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			mapX += mapMoveSpeed;
+			mapX += Math.cos(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
+			mapY += Math.sin(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			mapY -= mapMoveSpeed;
+			mapX += Math.cos(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
+			mapY -= Math.sin(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			mapY += mapMoveSpeed;
+			mapX -= Math.cos(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
+			mapY += Math.sin(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
 		}
+		
 		
 		mapZ += mouseDWheel / 15d;
 		

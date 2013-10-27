@@ -31,7 +31,7 @@ public class Flashlight extends Property {
 	@Override
 	public void tick() {
 		float[] mapCoordinates = CoordConverter.getMapCoords((int)this.service.getMouseX(), (int)this.service.getMouseY());
-		this.light.setPosition(mapCoordinates[0], mapCoordinates[1], mapCoordinates[2] + 10);
+		this.light.setPosition(mapCoordinates[0], mapCoordinates[1], mapCoordinates[2]);
 	}
 
 	@Override
