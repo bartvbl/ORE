@@ -8,10 +8,10 @@ import static org.lwjgl.opengl.GL12.*;
 
 import java.util.ArrayList;
 
-import orre.sceneGraph.EmptySceneNode;
+import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 
-public class GeometryBuffer extends EmptySceneNode implements SceneNode {
+public class GeometryBuffer extends ContainerNode implements SceneNode {
 	private final int indexBuffer;
 	private final int vertexBuffer;
 	private final BufferDataFormatType dataFormat;

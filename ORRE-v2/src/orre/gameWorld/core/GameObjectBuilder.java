@@ -3,6 +3,7 @@ package orre.gameWorld.core;
 import orre.gameWorld.properties.Flashlight;
 import orre.gameWorld.properties.GravityProperty;
 import orre.gameWorld.properties.HealthProperty;
+import orre.gameWorld.properties.RockRaiderAppearance;
 import orre.input.KeyboardCameraController;
 
 public class GameObjectBuilder {
@@ -23,6 +24,7 @@ public class GameObjectBuilder {
 			case KEYBOARD_CAMERA_CONTROLLER: return new KeyboardCameraController(gameObject);
 			case LIGHT: return new Flashlight(gameObject);
 			case GRAVITY: return new GravityProperty(gameObject);
+			case ROCK_RAIDER_APPEARANCE: return new RockRaiderAppearance(gameObject);
 		default:
 			break;
 		}

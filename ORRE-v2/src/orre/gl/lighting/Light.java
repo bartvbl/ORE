@@ -8,9 +8,9 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.util.glu.Sphere;
 
 import orre.sceneGraph.SceneNode;
-import orre.sceneGraph.SimpleSceneNode;
+import orre.sceneGraph.CoordinateNode;
 
-public class Light extends SimpleSceneNode implements SceneNode {
+public class Light extends CoordinateNode implements SceneNode {
 	private float[] ambientLight = new float[]{0.1f, 0.1f, 0.1f, 1.0f};
 	private float[] diffuseLight = new float[]{0.2f, 0.2f, 0.2f, 1.0f};
 	private float[] specularLight = new float[]{0.6f, 0.6f, 0.6f, 1.0f};

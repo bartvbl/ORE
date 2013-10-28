@@ -1,11 +1,11 @@
 package orre.geom;
 
 public class Point3D {
-	public final int x;
-	public final int y;
-	public final int z;
+	public final double x;
+	public final double y;
+	public final double z;
 
-	public Point3D(int x, int y, int z) {
+	public Point3D(double x, double y, double z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;

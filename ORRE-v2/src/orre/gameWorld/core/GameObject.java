@@ -49,6 +49,14 @@ public final class GameObject {
 			property.handleMessage(message);
 		}
 	}
+	
+	public GraphicsObject getGraphicsObject(int index) {
+		return controlledObjects.get(index);
+	}
+	
+	public int getGraphicsObjectCount() {
+		return controlledObjects.size();
+	}
 
 	public Object requestPropertyData(PropertyDataType type) {
 		return propertyData.get(type);

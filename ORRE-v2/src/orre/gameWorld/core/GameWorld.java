@@ -3,8 +3,10 @@ package orre.gameWorld.core;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
+
 import openrr.map.Map;
 import orre.gameWorld.services.WorldServices;
+import orre.resources.ResourceCache;
 import orre.sceneGraph.SceneNode;
 
 public class GameWorld {
@@ -12,17 +14,19 @@ public class GameWorld {
 	public final SceneNode mapContentsNode;
 	public final Map map;
 	public final WorldServices services;
+	public final ResourceCache resourceCache;
 
 	private final HashMap<Integer, GameObject> gameObjectSet;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(SceneNode rootNode, SceneNode mapContentsNode, Map map) {
+	public GameWorld(SceneNode rootNode, SceneNode mapContentsNode, Map map, ResourceCache cache) {
 		this.rootNode = rootNode;
 		this.map = map;
 		this.mapContentsNode = mapContentsNode;
 		this.services = new WorldServices();
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
+		this.resourceCache = cache;
 	}
 	
 	public int spawnGameObject(GameObjectType type) {

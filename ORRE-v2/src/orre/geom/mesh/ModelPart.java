@@ -3,9 +3,9 @@ package orre.geom.mesh;
 import orre.geom.vbo.GeometryBuffer;
 import orre.gl.materials.Material;
 import orre.sceneGraph.SceneNode;
-import orre.sceneGraph.SimpleSceneNode;
+import orre.sceneGraph.CoordinateNode;
 
-public class ModelPart extends SimpleSceneNode implements SceneNode {
+public class ModelPart extends CoordinateNode implements SceneNode {
 	
 	private String name;
 

@@ -2,12 +2,11 @@ package orre.sceneGraph;
 
 import java.util.ArrayList;
 
-public class EmptySceneNode implements SceneNode {
+public class ContainerNode implements SceneNode {
 	protected boolean visible = true;
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	protected float renderRadius = 0.0f;
 	protected boolean parentHasBeenRegistered = false;
-	protected SceneNode parent = null;
 	
 	public float getRenderRadius()
 	{
@@ -16,11 +15,7 @@ public class EmptySceneNode implements SceneNode {
 
 	public void addChild(SceneNode node) 
 	{
-		if(node.hasParent()) {
-			System.out.println("WARNING: attempted to add a SceneNode that already had a parent somewhere else in the SceneGraph. A node can only have ONE parent.");
-		}
 		this.children.add(node);
-		node.setParent(this);
 	}
 
 	public void removeChild(SceneNode node) 
@@ -45,17 +40,8 @@ public class EmptySceneNode implements SceneNode {
 
 	public void destroy() {}
 
-	public void setParent(SceneNode parent) {
-		this.parent = parent;
-		this.parentHasBeenRegistered = true;
-	}
-
 	public ArrayList<SceneNode> getChildren() {
 		return this.children;
-	}
-
-	public SceneNode getParent() {
-		return this.parent;
 	}
 
 	public boolean hasParent() {

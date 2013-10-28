@@ -2,7 +2,7 @@ package openrr.map;
 
 import orre.geom.vbo.GeometryBuffer;
 import orre.resources.loaders.map.MapTexturePack;
-import orre.sceneGraph.EmptySceneNode;
+import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 
 public class MapGeometryCache {

@@ -2,7 +2,9 @@ package orre.sceneGraph;
 
 import java.util.ArrayList;
 
-public class SimpleSceneNode extends EmptySceneNode{
+import orre.geom.Point3D;
+
+public class CoordinateNode extends ContainerNode{
 	protected double rotationX, rotationY, rotationZ;
 	protected double x, y, z;
 	protected boolean visible = true;
@@ -12,6 +14,10 @@ public class SimpleSceneNode extends EmptySceneNode{
 	public float getRenderRadius()
 	{
 		return this.renderRadius;
+	}
+	
+	public Point3D getLocation() {
+		return new Point3D(x, y, z);
 	}
 	
 	public void translate(double x, double y, double z) 
@@ -40,5 +46,13 @@ public class SimpleSceneNode extends EmptySceneNode{
 		this.rotationX = rotationX;
 		this.rotationY = rotationY;
 		this.rotationZ = rotationZ;
+	}
+
+	public void setY(double y) {
+		this.y = y;
+	}
+
+	public void setZ(double z) {
+		this.z = z;
 	}
 }

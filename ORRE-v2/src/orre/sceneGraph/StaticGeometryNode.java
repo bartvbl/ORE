@@ -1,6 +1,6 @@
 package orre.sceneGraph;
 
-public class StaticGeometryNode  extends SimpleSceneNode implements SceneNode 
+public class StaticGeometryNode  extends CoordinateNode implements SceneNode 
 {
 	
 	public void render() 

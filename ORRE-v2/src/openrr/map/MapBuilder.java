@@ -15,7 +15,7 @@ import orre.gl.materials.Material;
 import orre.resources.loaders.map.MapTexturePack;
 import orre.resources.loaders.map.SubTextureCoordinate;
 import orre.resources.loaders.obj.GeometryBufferGenerator;
-import orre.sceneGraph.EmptySceneNode;
+import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 
 public class MapBuilder {
@@ -42,7 +42,7 @@ public class MapBuilder {
 	}
 
 	private static SceneNode generateMapSceneNode(boolean[][] wallMap, WallType[][] wallTypeMap, Orientation[][] orientationMap, MapTile[][] tileMap, Dimension2D mapSize, MapTexturePack texturePack) {
-		SceneNode rootNode = new EmptySceneNode();
+		SceneNode rootNode = new ContainerNode();
 		
 		//bind a first default texture
 		texturePack.bindTexture(SoilType.DIRT, WallType.ground);

@@ -1,15 +1,16 @@
 package orre.gameWorld.core;
 
-import orre.sceneGraph.EmptySceneNode;
 import orre.sceneGraph.SceneNode;
 import orre.util.Stack;
 
 public class GraphicsObject {
-	private SceneNode rootNode;
+	public final GraphicsObjectType type;
+	public final SceneNode rootNode;
 	private final Stack<GameObject> ownership = new Stack<GameObject>();
 
-	public GraphicsObject() {
-		this.rootNode = new EmptySceneNode();
+	public GraphicsObject(GraphicsObjectType type, SceneNode sceneNode) {
+		this.rootNode = sceneNode;
+		this.type = type;
 	}
 	
 	public void takeOwnership(GameObject newOwner) {

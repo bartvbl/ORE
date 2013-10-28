@@ -3,9 +3,9 @@ package orre.geom.mesh;
 import java.util.HashMap;
 
 import orre.sceneGraph.SceneNode;
-import orre.sceneGraph.SimpleSceneNode;
+import orre.sceneGraph.CoordinateNode;
 
-public class Mesh3D extends SimpleSceneNode implements SceneNode {
+public class Mesh3D extends CoordinateNode implements SceneNode {
 	private HashMap<String, ModelPart> parts = new HashMap<String, ModelPart>();
 	
 	public ModelPart getModelPartByName(String name) {

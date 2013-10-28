@@ -7,11 +7,11 @@ import org.lwjgl.BufferUtils;
 
 import orre.gl.texture.Texture;
 import orre.sceneGraph.SceneNode;
-import orre.sceneGraph.SimpleSceneNode;
+import orre.sceneGraph.CoordinateNode;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class Material extends SimpleSceneNode implements SceneNode, AbstractMaterial {
+public class Material extends CoordinateNode implements SceneNode, AbstractMaterial {
 	public final String name;
 	private float[] ambientColour;
 	private float[] diffuseColour;
