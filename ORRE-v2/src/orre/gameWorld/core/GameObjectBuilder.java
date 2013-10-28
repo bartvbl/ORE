@@ -1,6 +1,7 @@
 package orre.gameWorld.core;
 
 import orre.gameWorld.properties.Flashlight;
+import orre.gameWorld.properties.GravityProperty;
 import orre.gameWorld.properties.HealthProperty;
 import orre.input.KeyboardCameraController;
 
@@ -21,6 +22,9 @@ public class GameObjectBuilder {
 			case HEALTH: return new HealthProperty(gameObject);
 			case KEYBOARD_CAMERA_CONTROLLER: return new KeyboardCameraController(gameObject);
 			case LIGHT: return new Flashlight(gameObject);
+			case GRAVITY: return new GravityProperty(gameObject);
+		default:
+			break;
 		}
 		return null;
 	}

@@ -11,8 +11,8 @@
 			<customTile name="dirtOfDoom" texture="textures/dirt.png" script="scripts/dirt.rrs"/>
 		</customTiles>
 		<heightMap src="heightMap.png">
-			<tile x="24" y="12" zTopLeft="23"/>
-			<tile x="65" y="35" zBottomRight="12"/>
+			<!--<tile x="24" y="12" zTopLeft="23"/>
+			<tile x="65" y="35" zBottomRight="12"/>-->
 		</heightMap>
 		<soilMap soilType="ice" src="soilMap.png">
 		
@@ -21,7 +21,7 @@
 			<resource x="23.267" y="58.274" type="chrystal" rotation="0" /> 
 		</resourceMap>
 		<wallMap src="wallMap.png">
-			<row yCoord="4">   x   x xx xx x  x  x     xxx xxx x x x x    xx   x xxx  xxxxx x xx  x        xx x     x     xx    </row>
+			<!--<row yCoord="4">   x   x xx xx x  x  x     xxx xxx x x x x    xx   x xxx  xxxxx x xx  x        xx x     x     xx    </row>-->
 		</wallMap>
 	</mapDefinition>
 	<buildings>

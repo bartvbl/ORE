@@ -4,6 +4,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import orre.gl.util.CoordConverter;
+
 public class InputService implements Service {
 	
 	private double mapRotationX = 0;
@@ -13,6 +15,7 @@ public class InputService implements Service {
 	private double mapZ = 30;
 	private double mouseX = 0;
 	private double mouseY = 0;
+	private float[] mouseLocation = new float[]{0, 0, 0};
 	
 	private static final double mapMoveSpeed = 0.3d;
 	
@@ -42,20 +45,16 @@ public class InputService implements Service {
 		}
 		
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			mapX -= Math.cos(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
-			mapY -= Math.sin(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
+			mapX -= mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			mapX += Math.cos(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
-			mapY += Math.sin(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
+			mapX += mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			mapX += Math.cos(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
-			mapY -= Math.sin(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
+			mapY -= mapMoveSpeed;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			mapX -= Math.cos(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
-			mapY += Math.sin(Math.toRadians(mapRotationZ)) * mapMoveSpeed;
+			mapY += mapMoveSpeed;
 		}
 		
 		
@@ -91,6 +90,10 @@ public class InputService implements Service {
 	
 	public double getMouseY() {
 		return mouseY;
+	}
+
+	public void updateMouseTargetLocation() {
+		this.mouseLocation  = CoordConverter.getMapCoords(Mouse.getX(), Mouse.getY());
 	}
 
 }

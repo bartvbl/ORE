@@ -21,6 +21,7 @@ public class GameRunning extends GameState {
 	private EmptySceneNode sceneRoot;
 	private Camera defaultCamera;
 	private Flashlight flashLight;
+	private Map map;
 	
 	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache)
 	{
@@ -35,13 +36,13 @@ public class GameRunning extends GameState {
 	public void executeFrame(long frameNumber) {
 		this.gameWorld.tick();
 		RenderPass.render(sceneRoot);
+		gameWorld.services.inputService.updateMouseTargetLocation();
 		flashLight.tick();
 	}
 	
 	public void set() {
 		System.out.println("game has started.");
-		Map map = resourceCache.getMap();
-		map.buildAll();
+		this.map = resourceCache.getMap();
 		this.sceneRoot = new EmptySceneNode();
 		EmptySceneNode mapContentsRoot = new EmptySceneNode();
 		this.gameWorld = new GameWorld(mapContentsRoot, mapContentsRoot, map);

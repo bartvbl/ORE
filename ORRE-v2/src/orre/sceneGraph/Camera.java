@@ -25,9 +25,12 @@ public class Camera
 	
 	public void transform() {
 		transformationMatrix.setIdentity();
-		transformationMatrix.translate(new Vector3f(location.x, location.y, 0));
+		transformationMatrix.translate(new Vector3f(-2f*location.x, -2f*location.y, 0));
 		
 		transformationMatrix.rotate((float) Math.toRadians(rotation.z), zAxis);
+		
+		transformationMatrix.translate(new Vector3f(location.x, location.y, 0));
+		
 		transformationMatrix.rotate((float) Math.toRadians(rotation.y), yAxis);
 		transformationMatrix.rotate((float) Math.toRadians(rotation.x), xAxis);
 		

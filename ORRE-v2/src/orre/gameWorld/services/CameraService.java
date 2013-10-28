@@ -1,5 +1,10 @@
 package orre.gameWorld.services;
 
+import openrr.map.Map;
+
+import org.lwjgl.opengl.Display;
+
+import orre.gl.util.CoordConverter;
 import orre.sceneGraph.Camera;
 
 public class CameraService implements Service {
