@@ -28,7 +28,6 @@ public class RockRaiderAppearance extends Property {
 
 	@Override
 	public void tick() {
-		this.raiderObject.translate(0, 0, 1);
 	}
 
 	@Override

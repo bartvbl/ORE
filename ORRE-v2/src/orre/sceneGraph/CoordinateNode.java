@@ -3,6 +3,7 @@ package orre.sceneGraph;
 import java.util.ArrayList;
 
 import orre.geom.Point3D;
+import static org.lwjgl.opengl.GL11.*;
 
 public class CoordinateNode extends ContainerNode{
 	protected double rotationX, rotationY, rotationZ;
@@ -18,6 +19,10 @@ public class CoordinateNode extends ContainerNode{
 	
 	public Point3D getLocation() {
 		return new Point3D(x, y, z);
+	}
+	
+	public void preRender() {
+		glTranslated(x, y, z);
 	}
 	
 	public void translate(double x, double y, double z) 

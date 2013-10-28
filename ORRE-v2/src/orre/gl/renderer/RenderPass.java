@@ -14,12 +14,12 @@ public class RenderPass {
 			
 			currentNode.preRender();
 			currentNode.render();
-			currentNode.postRender();
 			
 			ArrayList<SceneNode> children = currentNode.getChildren();
 			for(SceneNode child : children) {
 				nodeQueue.push(child);
 			}
+			currentNode.postRender();
 		}
 	}
 }
