@@ -38,6 +38,7 @@ public class BlueprintModel extends Finalizable {
 		Mesh3D mesh = new Mesh3D();
 		for(StoredModelPart part : this.topLevelNodeList) {
 			mesh.addChild(part.createSceneNode());
+			mesh.addPart(part.name, part.createSceneNode());
 		}
 		return mesh;
 	}
