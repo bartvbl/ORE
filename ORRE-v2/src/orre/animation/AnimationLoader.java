@@ -31,7 +31,7 @@ public class AnimationLoader {
 				parseKeyFrameLine(line, keyFrames);
 			} else if(line.equals("end animation")) {
 				break;
-			} else if(line.startsWith("#")) {
+			} else if(line.startsWith("#") || line.equals("")) {
 				continue;
 			} else {
 				KeyFrame currentFrame = getCurrentFrame(keyFrames);

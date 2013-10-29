@@ -11,6 +11,7 @@ public class AnimationPlayhead {
 	private final Mesh3D target;
 	private float previousFrameStartTime = 0;
 	private float keyFrameStartTime = 0;
+	private int currentKeyFrame = 0;
 
 	public AnimationPlayhead(Animation animation, Mesh3D target) {
 		this.animation = animation;
@@ -19,8 +20,11 @@ public class AnimationPlayhead {
 	}
 	
 	public void updateAnimation() {
-		double elapsedTime = timer.getTime() - previousFrameStartTime;
-		previousFrameStartTime = timer.getTime();
+		float currentTime = timer.getTime();
+		double elapsedTime = currentTime - previousFrameStartTime;
+		animation.keyFrames[currentKeyFrame].update(target, elapsedTime);
+		previousFrameStartTime = currentTime;
+		
 	}
 	
 	public void reset() {
