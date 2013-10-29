@@ -27,4 +27,8 @@ public class AnimationPlayhead {
 		this.timer.reset();
 	}
 
+	public boolean isFinished() {
+		return false;
+	}
+
 }

@@ -3,8 +3,8 @@ package orre.resources;
 import java.util.HashMap;
 
 import openrr.map.Map;
-
 import orre.animation.Animation;
+import orre.animation.AnimationType;
 import orre.geom.mesh.Mesh3D;
 import orre.gl.texture.Texture;
 import orre.resources.data.BlueprintModel;
@@ -13,6 +13,7 @@ public class ResourceCache {
 	private HashMap<String, Texture> textures = new HashMap<String, Texture>();
 	private HashMap<String, BlueprintModel> models = new HashMap<String, BlueprintModel>();
 	private Map map;
+	private HashMap<AnimationType, Animation> animations = new HashMap<AnimationType, Animation>();
 
 	public ResourceCache()
 	{
@@ -44,11 +45,10 @@ public class ResourceCache {
 	}
 
 	public void addAnimation(Animation animation) {
-		// TODO Auto-generated method stub
-		
+		this.animations.put(animation.type, animation);
 	}
-	
 
-	//createModelInstaceByName()
-	//getSoundBufferByName()
+	public Animation getAnimation(AnimationType type) {
+		return null;
+	}
 }

@@ -2,12 +2,12 @@ package orre.animation;
 
 public class Animation {
 
-	public final String name;
 	private final KeyFrame[] keyFrames;
+	public final AnimationType type;
 
-	public Animation(String animationName, KeyFrame[] keyFrames) {
+	public Animation(AnimationType type, KeyFrame[] keyFrames) {
 		this.keyFrames = keyFrames;
-		this.name = animationName;
+		this.type = type;
 	}
 	
 }

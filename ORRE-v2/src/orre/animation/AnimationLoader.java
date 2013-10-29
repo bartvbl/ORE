@@ -43,7 +43,8 @@ public class AnimationLoader {
 		reader.close();
 		fileReader.close();
 		KeyFrame[] framesArray = keyFrames.toArray(new KeyFrame[keyFrames.size()]);
-		return new Animation(animationName, framesArray); 
+		AnimationType type = AnimationType.valueOf(animationName);
+		return new Animation(type, framesArray); 
 	}
 
 	private static String parseFirstLine(String line) throws Exception {

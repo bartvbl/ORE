@@ -4,6 +4,10 @@
 		<sound name="teleport" src="teleport.wav"/>
 	</sounds>
 	
+	<animations>
+	
+	</animations>
+	
 	<models pathPrefix="res/mesh/">
 		<!--<model name="lmsExplorer" src="lmsExplorer.mdl"/>-->
 		<model name="rockRaider" src="minifig.mdl"/>

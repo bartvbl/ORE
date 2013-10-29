@@ -1,5 +1,6 @@
 package orre.gameWorld.properties;
 
+import orre.animation.AnimationType;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.GraphicsObject;
 import orre.gameWorld.core.GraphicsObjectType;
@@ -19,6 +20,7 @@ public class RockRaiderAppearance extends Property {
 		gameObject.takeControl(new GraphicsObject(GraphicsObjectType.BODY, rockRaiderObject));
 		gameObject.world.mapContentsNode.addChild(rockRaiderObject);
 		this.raiderObject = rockRaiderObject;
+		gameObject.world.services.animationService.applyAnimation(AnimationType.ROCK_RAIDER_WALK, raiderObject);
 	}
 
 	@Override
