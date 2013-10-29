@@ -9,13 +9,13 @@ public class MapTile {
 	public static final int TILE_WIDTH = 8;
 	public static final int TILE_HEIGHT = 8;
 	
-	public final int[][] tileHeight;
+	public final double[][] tileHeight;
 	private boolean isExplored = false;
 	private boolean isWall;
 	private SoilType soilType;
 	private boolean hasChanged = true;
 	
-	public MapTile(boolean isWall, SoilType soil, int[][] tileHeight) {
+	public MapTile(boolean isWall, SoilType soil, double[][] tileHeight) {
 		this.isWall = isWall;
 		this.soilType = soil;
 		this.tileHeight = tileHeight;

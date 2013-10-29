@@ -18,7 +18,7 @@ public class MapLoadingContext {
 	public boolean[][] wallMap;
 	public SoilLibrary soilLibrary;
 	public SoilType[][] soilMap;
-	public int[][] heightMap;
+	public double[][] heightMap;
 	public MapTexturePack texturePack;
 
 	public MapLoadingContext(Document mapXML, ZipFile mapFile) {

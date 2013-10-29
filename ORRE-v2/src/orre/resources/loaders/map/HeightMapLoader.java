@@ -21,10 +21,10 @@ public class HeightMapLoader {
 	private static final String zTopRight = "zTopRight";
 	private static final double tileHeightMultiplyer = 0.3;
 	
-	public static int[][] loadHeightMap(Element heightMapElement, MapLoadingContext context) {
+	public static double[][] loadHeightMap(Element heightMapElement, MapLoadingContext context) {
 		Dimension2D mapSize = context.mapSize;
 		
-		int[][] heightMap = new int[mapSize.width + 1][mapSize.height + 1];
+		double[][] heightMap = new double[mapSize.width + 1][mapSize.height + 1];
 		
 		if(hasAttribute(heightMapElement, "src")) {			
 			String src = heightMapElement.getAttributeValue("src");
@@ -36,7 +36,7 @@ public class HeightMapLoader {
 		return heightMap;
 	}
 
-	private static int[][] parseHeightMap(int[][] heightMap, BufferedImage image, MapLoadingContext context) {
+	private static double[][] parseHeightMap(double[][] heightMap, BufferedImage image, MapLoadingContext context) {
 		Dimension2D mapSize = context.mapSize;
 		
 		for(int x = 0; x < mapSize.width; x++) {
@@ -48,7 +48,7 @@ public class HeightMapLoader {
 				int g = rgb & 0x0000FF00;
 				g = g >> 8;
 				int b = rgb & 0x000000FF;
-				heightMap[x][y] = (int) (((double)r + (double)g + (double)b) / 3d);
+				heightMap[x][y] = ((double)r + (double)g + (double)b) / 3d;
 			}
 		}
 		
@@ -63,7 +63,7 @@ public class HeightMapLoader {
 		return heightMap;
 	}
 	
-	private static void parseOverrideValues(int[][] heightMap, Element heightMapElement) {
+	private static void parseOverrideValues(double[][] heightMap, Element heightMapElement) {
 		Elements tiles = heightMapElement.getChildElements();
 		for(int i = 0; i < tiles.size(); i++) {
 			Element tile = tiles.get(i);
@@ -72,31 +72,31 @@ public class HeightMapLoader {
 			
 			if(hasAttribute(tile, zTopLeft)) {
 				String topLeft = tile.getAttributeValue(zTopLeft);
-				int newHeight = Integer.parseInt(topLeft);
+				double newHeight = Double.parseDouble(topLeft);
 				heightMap[x][y + 1] = newHeight;
 			}
 			if(hasAttribute(tile, zBottomLeft)) {
 				String bottomLeft = tile.getAttributeValue(zBottomLeft);
-				int newHeight = Integer.parseInt(bottomLeft);
+				double newHeight = Double.parseDouble(bottomLeft);
 				heightMap[x][y] = newHeight;
 			}
 			if(hasAttribute(tile, zTopRight)) {
 				String topRight = tile.getAttributeValue(zTopRight);
-				int newHeight = Integer.parseInt(topRight);
+				double newHeight = Double.parseDouble(topRight);
 				heightMap[x + 1][y + 1] = newHeight;
 			}
 			if(hasAttribute(tile, zBottomRight)) {
 				String bottomRight = tile.getAttributeValue(zBottomRight);
-				int newHeight = Integer.parseInt(bottomRight);
+				double newHeight = Double.parseDouble(bottomRight);
 				heightMap[x + 1][y] = newHeight;
 			}
 		}
 	}
 	
-	private static void scaleVerticallyToBrickUnits(int[][] heightMap) {
+	private static void scaleVerticallyToBrickUnits(double[][] heightMap) {
 		for(int x = 0; x < heightMap.length; x++) {
 			for(int y = 0; y < heightMap[0].length; y++) {
-				heightMap[x][y] *= 0.375 * tileHeightMultiplyer; 
+				heightMap[x][y] *= 0.375d * tileHeightMultiplyer; 
 				//the 1x1 stud has sides of 1 unit. It measures 8mm. The height of the stud itself is 3mm. That gives 0.375 units. 
 				
 			}

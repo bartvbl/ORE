@@ -38,10 +38,10 @@ public class TileMapLoader {
 		return soilMap;
 	}
 
-	private static int[][] loadHeightMap(MapLoadingContext context,
+	private static double[][] loadHeightMap(MapLoadingContext context,
 			Element mapDefinitionElement) {
 		Element heightMapElement = mapDefinitionElement.getFirstChildElement("heightMap");
-		int[][] heightMap = HeightMapLoader.loadHeightMap(heightMapElement, context);
+		double[][] heightMap = HeightMapLoader.loadHeightMap(heightMapElement, context);
 		return heightMap;
 	}
 
@@ -50,7 +50,7 @@ public class TileMapLoader {
 		MapTile[][] tileMap = new MapTile[mapSize.width][mapSize.height];
 		for(int x = 0; x < mapSize.width; x++) {
 			for(int y = 0; y < mapSize.height; y++) {
-				int[][] tileHeight = new int[2][2];
+				double[][] tileHeight = new double[2][2];
 				tileHeight[0][0] = context.heightMap[x][y];
 				tileHeight[0][1] = context.heightMap[x][y + 1];
 				tileHeight[1][0] = context.heightMap[x + 1][y];
