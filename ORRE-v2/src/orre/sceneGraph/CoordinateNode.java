@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import orre.geom.Point3D;
 import static org.lwjgl.opengl.GL11.*;
 
-public class CoordinateNode extends ContainerNode{
+public class CoordinateNode extends ContainerNode {
 	protected double rotationX, rotationY, rotationZ;
 	protected double x, y, z;
 	protected boolean visible = true;
@@ -22,7 +22,12 @@ public class CoordinateNode extends ContainerNode{
 	}
 	
 	public void preRender() {
+		glPushMatrix();
 		glTranslated(x, y, z);
+	}
+	
+	public void postRender() {
+		glPopMatrix();
 	}
 	
 	public void translate(double x, double y, double z) 

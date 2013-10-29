@@ -12,7 +12,7 @@ public class Mesh3D extends CoordinateNode implements SceneNode {
 	public ModelPart getModelPartByName(String name) {
 		return this.parts.get(name);
 	}
-
+	@Override
 	public void render() {
 		
 	}

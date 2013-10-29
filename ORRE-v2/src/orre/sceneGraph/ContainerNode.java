@@ -1,6 +1,7 @@
 package orre.sceneGraph;
 
 import java.util.ArrayList;
+import static org.lwjgl.opengl.GL11.*;
 
 public class ContainerNode implements SceneNode {
 	protected boolean visible = true;
@@ -48,7 +49,11 @@ public class ContainerNode implements SceneNode {
 		return this.parentHasBeenRegistered;
 	}
 
-	public void preRender() {}
-	public void postRender() {}
+	public void preRender() {
+		glPushMatrix();
+	}
+	public void postRender() {
+		glPopMatrix();
+	}
 }
 

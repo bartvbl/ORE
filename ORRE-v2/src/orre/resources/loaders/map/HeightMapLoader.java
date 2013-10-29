@@ -19,6 +19,7 @@ public class HeightMapLoader {
 	private static final String zBottomRight = "zBottomRight";
 	private static final String zTopLeft = "zTopLeft";
 	private static final String zTopRight = "zTopRight";
+	private static final double tileHeightMultiplyer = 0.3;
 	
 	public static int[][] loadHeightMap(Element heightMapElement, MapLoadingContext context) {
 		Dimension2D mapSize = context.mapSize;
@@ -95,8 +96,9 @@ public class HeightMapLoader {
 	private static void scaleVerticallyToBrickUnits(int[][] heightMap) {
 		for(int x = 0; x < heightMap.length; x++) {
 			for(int y = 0; y < heightMap[0].length; y++) {
-				heightMap[x][y] *= 0.375; 
+				heightMap[x][y] *= 0.375 * tileHeightMultiplyer; 
 				//the 1x1 stud has sides of 1 unit. It measures 8mm. The height of the stud itself is 3mm. That gives 0.375 units. 
+				
 			}
 		}
 	}

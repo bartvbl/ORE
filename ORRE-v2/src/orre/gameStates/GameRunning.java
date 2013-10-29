@@ -51,7 +51,7 @@ public class GameRunning extends GameState {
 		sceneRoot.addChild(mapNode);
 		mapNode.addChild(mapContentsRoot);
 		defaultCamera = new Camera();
-		gameWorld.services.cameraService.setCurrentCamera(defaultCamera);
+		gameWorld.services.cameraService.setCurrentCamera(defaultCamera, gameWorld);
 		int cameraController = gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.spawnGameObject(GameObjectType.ROCK_RAIDER);
 		gameWorld.dispatchMessage(new Message<Camera>(MessageType.ASSUME_CAMERA_CONTROL, defaultCamera), cameraController);

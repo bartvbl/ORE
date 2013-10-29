@@ -23,7 +23,7 @@ public class Camera
 		location.set((float)x, (float)y, (float)z);
 	}
 	
-	public void transform() {
+	public void transform(double mapHeight) {
 		transformationMatrix.setIdentity();
 		transformationMatrix.translate(new Vector3f(-2f*location.x, -2f*location.y, 0));
 		
@@ -34,7 +34,7 @@ public class Camera
 		transformationMatrix.rotate((float) Math.toRadians(rotation.y), yAxis);
 		transformationMatrix.rotate((float) Math.toRadians(rotation.x), xAxis);
 		
-		transformationMatrix.translate(new Vector3f(0, 0, location.z));
+		transformationMatrix.translate(new Vector3f(0, 0, (float)(location.z)));
 
 		
 		Matrix4f inverse = new Matrix4f();

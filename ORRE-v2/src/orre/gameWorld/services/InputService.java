@@ -57,7 +57,6 @@ public class InputService implements Service {
 			mapY += mapMoveSpeed;
 		}
 		
-		
 		mapZ += mouseDWheel / 15d;
 		
 		this.mouseX = mouseX;

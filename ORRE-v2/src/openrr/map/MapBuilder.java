@@ -22,7 +22,6 @@ public class MapBuilder {
 	private static final int verticesPerTile = 6;
 	private static final int doublesPerVertex = 3 + 2 + 3; //xyz coordinate + uv texture coordinate + xyz normal coordinate
 	private static final double wallHeight = 1.1;
-	private static final double tileHeightMultiplyer = 0.3;
 
 	public static SceneNode buildMapGeometry(MapTile[][] tileMap, MapTexturePack texturePack) {
 		System.out.println("building map..");
@@ -92,7 +91,7 @@ public class MapBuilder {
 		for(int i = 0; i < 2; i++) {
 			for(int j = 0; j < 2; j++) {
 				double vertexWallHeight = wallMap[x + i][y + j] ? wallHeight : 0;
-				tileHeight[i][j] = mapTile.tileHeight[i][j] * tileHeightMultiplyer + vertexWallHeight;
+				tileHeight[i][j] = mapTile.tileHeight[i][j] + vertexWallHeight;
 			}
 		}
 	}

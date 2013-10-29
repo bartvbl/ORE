@@ -6,20 +6,14 @@ import orre.sceneGraph.SceneNode;
 import orre.util.Stack;
 
 public class RenderPass {
-	public static void render(SceneNode rootNode) {
-		Stack<SceneNode> nodeQueue = new Stack<SceneNode>();
-		nodeQueue.push(rootNode);
-		while(!nodeQueue.isEmpty()) {
-			SceneNode currentNode = nodeQueue.pop();
+	public static void render(SceneNode node) {
+		node.preRender();
+		node.render();
 			
-			currentNode.preRender();
-			currentNode.render();
-			
-			ArrayList<SceneNode> children = currentNode.getChildren();
-			for(SceneNode child : children) {
-				nodeQueue.push(child);
-			}
-			currentNode.postRender();
+		ArrayList<SceneNode> children = node.getChildren();
+		for(SceneNode child : children) {
+			render(child);
 		}
+		node.postRender();
 	}
 }
