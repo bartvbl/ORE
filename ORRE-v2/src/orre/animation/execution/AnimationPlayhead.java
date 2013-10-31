@@ -3,6 +3,7 @@ package orre.animation.execution;
 import org.lwjgl.util.Timer;
 
 import orre.animation.Animation;
+import orre.animation.AnimationAction;
 import orre.animation.KeyFrame;
 import orre.geom.mesh.Mesh3D;
 
@@ -26,18 +27,36 @@ public class AnimationPlayhead {
 	}
 	
 	public void updateAnimation() {
-		float currentTime = timer.getTime();
-		double elapsedTime = currentTime - previousFrameStartTime;
 		KeyFrame currentFrame = animation.keyFrames[currentFrameID];
-		if(!currentFrame.isInfinite) {
-			double percentageUpdate = elapsedTime / currentFrame.duration;
-			
-		} else {
-			
-		}
-		//animation.keyFrames[currentKeyFrame].update(target, elapsedTime);
-		previousFrameStartTime = currentTime;
+		float currentTime = timer.getTime();
+		double elapsedTimeInFrame = currentTime - keyFrameStartTime;
+		double elapsedTime = currentTime - previousFrameStartTime;
 		
+		if(elapsedTimeInFrame > currentFrame.duration) {
+			if(currentFrame.isInfinite) {
+				updateFrame(elapsedTime);
+			} else {
+				updateFrame(currentFrame.duration - previousFrameStartTime);
+				nextFrame();
+				updateFrame(elapsedTimeInFrame - currentFrame.duration);
+			}
+		} else {
+			updateFrame(elapsedTime);
+		}
+		previousFrameStartTime = currentTime;
+	}
+
+	public void updateFrame(double elapsedTime) {
+		KeyFrame currentFrame = animation.keyFrames[currentFrameID];
+		double percentElapsed = elapsedTime / currentFrame.duration;
+		
+		for(AnimationAction action : currentFrame.actions) {
+			action.update(target, percentElapsed, elapsedTime);
+		}
+	}
+	
+	private void nextFrame() {
+		this.currentFrameID++;
 	}
 	
 	public void reset() {
@@ -45,7 +64,7 @@ public class AnimationPlayhead {
 	}
 
 	public boolean isFinished() {
-		return false;
+		return animation.keyFrames.length == currentFrameID;
 	}
 
 }
