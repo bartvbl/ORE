@@ -5,6 +5,7 @@ import org.lwjgl.util.Timer;
 import orre.animation.Animation;
 import orre.animation.AnimationAction;
 import orre.animation.KeyFrame;
+import orre.animation.actions.RepeatAction;
 import orre.geom.mesh.Mesh3D;
 
 public class AnimationPlayhead {
@@ -51,10 +52,21 @@ public class AnimationPlayhead {
 		double percentElapsed = elapsedTime / currentFrame.duration;
 		
 		for(AnimationAction action : currentFrame.actions) {
+			if(action instanceof RepeatAction) {
+				gotoFrame(((RepeatAction) action).targetFrame);
+			}
 			action.update(target, percentElapsed, elapsedTime);
 		}
 	}
 	
+	private void gotoFrame(String targetFrame) {
+		for(int i = 0; i < animation.keyFrames.length; i++) {
+			if(animation.keyFrames[i].name.equals(targetFrame)) {
+				this.currentFrameID = i;
+			}
+		}
+	}
+
 	private void nextFrame() {
 		this.currentFrameID++;
 	}
