@@ -23,20 +23,30 @@ public class AnimationLoader {
 
 		ArrayList<KeyFrame> keyFrames = new ArrayList<KeyFrame>();
 		
+		ArrayList<AnimationAction> actions = new ArrayList<AnimationAction>();
+		String keyframeLine = null;
+		//dummy keyframe to use to ensure sanity of the animation script
+		KeyFrame currentKeyFrame = null;
+		
 		String animationName = parseFirstLine(reader.readLine());
 		
 		while(reader.ready()) {
 			String line = reader.readLine();
 			if(line.startsWith("keyframe")) {
-				parseKeyFrameLine(line, keyFrames);
+				if(keyframeLine != null) {
+					KeyFrame newFrame = parseKeyFrameLine(line, actions);
+					keyFrames.add(newFrame);
+					actions.clear();
+				}
+				currentKeyFrame = parseKeyFrameLine(line, actions);
+				keyframeLine = line;
 			} else if(line.equals("end animation")) {
 				break;
 			} else if(line.startsWith("#") || line.equals("")) {
 				continue;
 			} else {
-				KeyFrame currentFrame = getCurrentFrame(keyFrames);
-				AnimationAction action = AnimationLineParser.parseLine(line, currentFrame);
-				currentFrame.addAction(action);					
+				AnimationAction action = AnimationLineParser.parseLine(line, currentKeyFrame);
+				actions.add(action);
 			}
 		}
 		
@@ -55,14 +65,7 @@ public class AnimationLoader {
 		return parts[1];
 	}
 
-	private static KeyFrame getCurrentFrame(ArrayList<KeyFrame> keyFrames) throws Exception {
-		if(keyFrames.size() == 0) {
-			throw new Exception("A keyframe must be defined before commands can be supplied");
-		}
-		return keyFrames.get(keyFrames.size() - 1);
-	}
-
-	private static void parseKeyFrameLine(String line, ArrayList<KeyFrame> keyFrames) throws Exception {
+	private static KeyFrame parseKeyFrameLine(String line, ArrayList<AnimationAction> actions) throws Exception {
 		String[] tokens = line.split(" ");
 		double duration = 0;
 		boolean isInfinite = false;
@@ -74,7 +77,8 @@ public class AnimationLoader {
 				throw new Exception("The duration of a keyframe can not be 0. If you want an instantanious change, use a tiny duration instead.");
 			}
 		}
-		KeyFrame newFrame = new KeyFrame(tokens[1], duration, isInfinite);
-		keyFrames.add(newFrame);
+		AnimationAction[] actionList = actions.toArray(new AnimationAction[actions.size()]);
+		KeyFrame newFrame = new KeyFrame(tokens[1], duration, isInfinite, actionList);
+		return newFrame;
 	}
 }
