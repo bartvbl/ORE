@@ -57,6 +57,10 @@ public class CoordinateNode extends ContainerNode {
 		this.rotationY = rotationY;
 		this.rotationZ = rotationZ;
 	}
+	
+	public void setX(double x) {
+		this.x = x;
+	}
 
 	public void setY(double y) {
 		this.y = y;
@@ -64,5 +68,17 @@ public class CoordinateNode extends ContainerNode {
 
 	public void setZ(double z) {
 		this.z = z;
+	}
+	
+	public void setRotationX(double rotation) {
+		this.rotationX = rotation;
+	}
+	
+	public void setRotationY(double rotation) {
+		this.rotationY = rotation;
+	}
+	
+	public void setRotationZ(double rotation) {
+		this.rotationZ = rotation;
 	}
 }

@@ -19,9 +19,7 @@ public class ScaleAction extends AnimationAction {
 	}
 
 	@Override
-	public void update(Mesh3D target, double percentElapsed,
-			double timeSinceLastUpdate) {
-		// TODO Auto-generated method stub
+	public void update(Mesh3D target, double percentElapsed, double timeSinceLastUpdate) {
 		
 	}
 

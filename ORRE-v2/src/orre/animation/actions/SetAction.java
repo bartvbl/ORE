@@ -5,6 +5,7 @@ import orre.animation.AnimationActionType;
 import orre.animation.TransitionType;
 import orre.geom.Axis;
 import orre.geom.mesh.Mesh3D;
+import orre.geom.mesh.ModelPart;
 
 public class SetAction extends AnimationAction {
 
@@ -22,10 +23,25 @@ public class SetAction extends AnimationAction {
 	}
 
 	@Override
-	public void update(Mesh3D target, double percentElapsed,
-			double timeSinceLastUpdate) {
-		// TODO Auto-generated method stub
-		
+	public void update(Mesh3D target, double percentElapsed, double timeSinceLastUpdate) {
+		ModelPart part = target.getModelPartByName(partName);
+		if(valueType == TransitionType.position) {
+			if(axis == Axis.x) {
+				part.setX(value);
+			} else if(axis == Axis.y) {
+				part.setY(value);
+			} else if(axis == Axis.z) {
+				part.setZ(value);
+			}
+		} else if(valueType == TransitionType.rotation) {
+			if(axis == Axis.x) {
+				part.setRotationX(value);
+			} else if(axis == Axis.y) {
+				part.setRotationY(value);
+			} else if(axis == Axis.z) {
+				part.setRotationZ(value);
+			}
+		}
 	}
 
 }

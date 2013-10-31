@@ -24,5 +24,7 @@ public class ModelPart extends CoordinateNode implements SceneNode {
 	public String toString() {
 		return "ModelPart " + this.name;
 	}
-	
+
+
+
 }
