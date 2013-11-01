@@ -3,22 +3,14 @@
 	<partStructure>
 		<part name="torso" nameInModelFile="torso">
 			<part name="leftArm_top" nameInModelFile="arm_l" xOffset="0" yOffset="0" zOffset ="0">
-				<shaderPart name="leftArm_bottom" shaderName="boneShader">
 					<part name="leftHand" nameInModelFile="hand_l" xOffset="0" yOffset="0" zOffset ="0"/>
-				</shaderPart>
 			</part>
 			<part name="rightArm_top" nameInModelFile="arm_r" xOffset="0" yOffset="0" zOffset ="0">
-				<shaderPart name="rightArm_bottom" shaderName="boneShader">
 					<part name="rightHand" nameInModelFile="hand_r" xOffset="0" yOffset="0" zOffset ="0"/>
-				</shaderPart>
 			</part>
 			<part name="belt" nameInModelFile="belt" xOffset="0" yOffset="0" zOffset ="0">
-				<part name="leftLeg_top" nameInModelFile="leg_l" xOffset="0" yOffset="0" zOffset ="0">
-					<shaderPart name="leftLeg_bottom" shaderName="boneShader"/>
-				</part>
-				<part name="rightLeg_top" nameInModelFile="leg_r" xOffset="0" yOffset="0" zOffset ="0">
-					<shaderPart name="rightLeg_bottom" shaderName="boneShader"/>
-				</part>
+				<part name="leftLeg_top" nameInModelFile="leg_l" xOffset="0" yOffset="0" zOffset ="0" />
+				<part name="rightLeg_top" nameInModelFile="leg_r" xOffset="0" yOffset="0" zOffset ="0" />
 			</part>
 			<part name="head" nameInModelFile="head" xOffset="0" yOffset="0" zOffset ="0"/>
 		</part>

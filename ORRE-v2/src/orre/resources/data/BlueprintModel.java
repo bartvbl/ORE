@@ -38,18 +38,18 @@ public class BlueprintModel extends Finalizable {
 	public Mesh3D createSceneNode() {
 		Mesh3D mesh = new Mesh3D();
 		for(StoredModelPart part : this.topLevelNodeList) {
-			addChildren(mesh, part);
+			addChildren(mesh, mesh, part);
 		}
 		return mesh;
 	}
 
-	private void addChildren(Mesh3D mesh, StoredModelPart part) {
+	private void addChildren(Mesh3D mesh, SceneNode node, StoredModelPart part) {
 		ModelPart modelPart = part.createSceneNode();
-		mesh.addChild(modelPart);
+		node.addChild(modelPart);
 		mesh.addPart(part.name, modelPart);
 		ArrayList<StoredModelPart> children = part.getChildren();
 		for(StoredModelPart child : children) {
-			addChildren(mesh, child);
+			addChildren(mesh, modelPart, child);
 		}
 	}
 
