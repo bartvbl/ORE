@@ -23,6 +23,9 @@ public class CoordinateNode extends ContainerNode {
 	
 	public void preRender() {
 		glPushMatrix();
+		glRotated(rotationZ, 0, 0, 1);
+		glRotated(rotationX, 1, 0, 0);
+		glRotated(rotationY, 0, 1, 0);
 		glTranslated(x, y, z);
 	}
 	

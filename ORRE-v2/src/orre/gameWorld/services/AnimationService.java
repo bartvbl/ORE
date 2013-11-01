@@ -2,6 +2,8 @@ package orre.gameWorld.services;
 
 import java.util.ArrayList;
 
+import org.lwjgl.util.Timer;
+
 import orre.animation.AnimationType;
 import orre.animation.execution.AnimationPlayhead;
 import orre.geom.mesh.Mesh3D;
@@ -18,6 +20,7 @@ public class AnimationService implements Service {
 	}
 	
 	public void tick() {
+		Timer.tick();
 		for(AnimationPlayhead playHead : activeAnimations) {
 			if(playHead.isFinished()) {
 				activeAnimations.remove(playHead);
@@ -28,7 +31,9 @@ public class AnimationService implements Service {
 	}
 
 	public void applyAnimation(AnimationType type, Mesh3D animatable) {
-		activeAnimations.add(new AnimationPlayhead(cache.getAnimation(type), animatable));
+		AnimationPlayhead playHead = new AnimationPlayhead(cache.getAnimation(type), animatable);
+		playHead.play();
+		activeAnimations.add(playHead);
 	}
 
 }
