@@ -69,6 +69,8 @@ public class AnimationPlayhead {
 
 	private void nextFrame() {
 		this.currentFrameID++;
+		this.keyFrameStartTime = timer.getTime();
+		System.out.println(this.currentFrameID);
 	}
 	
 	public void reset() {

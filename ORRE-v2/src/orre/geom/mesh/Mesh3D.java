@@ -19,7 +19,7 @@ public class Mesh3D extends CoordinateNode implements SceneNode {
 
 	public void destroy() {}
 
-	public void addPart(String name, ModelPart createSceneNode) {
-		this.parts.put(name, createSceneNode);
+	public void addPart(String name, ModelPart part) {
+		this.parts.put(name, part);
 	}
 }

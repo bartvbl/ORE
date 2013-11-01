@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.geom.mesh.Mesh3D;
+import orre.geom.mesh.ModelPart;
 import orre.resources.Finalizable;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
@@ -37,12 +38,19 @@ public class BlueprintModel extends Finalizable {
 	public Mesh3D createSceneNode() {
 		Mesh3D mesh = new Mesh3D();
 		for(StoredModelPart part : this.topLevelNodeList) {
-			mesh.addChild(part.createSceneNode());
-		}
-		for(StoredModelPart part : modelParts.values()) {
-			mesh.addPart(part.name, part.createSceneNode());
+			addChildren(mesh, part);
 		}
 		return mesh;
+	}
+
+	private void addChildren(Mesh3D mesh, StoredModelPart part) {
+		ModelPart modelPart = part.createSceneNode();
+		mesh.addChild(modelPart);
+		mesh.addPart(part.name, modelPart);
+		ArrayList<StoredModelPart> children = part.getChildren();
+		for(StoredModelPart child : children) {
+			addChildren(mesh, child);
+		}
 	}
 
 	@Override

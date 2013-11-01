@@ -43,9 +43,6 @@ public class StoredModelPart {
 		for(int i = 0; i < this.materials.size(); i++) {
 			part.addMaterialAndGeometryBufferCombo(this.materials.get(i).convertToMaterial(), this.geometryBuffers.get(i), this.name);
 		}
-		for(StoredModelPart child : this.childList) {
-			part.addChild(child.createSceneNode());
-		}
 		return part;
 	}
 }

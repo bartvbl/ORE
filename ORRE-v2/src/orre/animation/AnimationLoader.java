@@ -3,6 +3,7 @@ package orre.animation;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AnimationLoader {
 	public static Animation load(String src) {
@@ -34,7 +35,7 @@ public class AnimationLoader {
 			String line = reader.readLine();
 			if(line.startsWith("keyframe")) {
 				if(keyframeLine != null) {
-					KeyFrame newFrame = parseKeyFrameLine(line, actions);
+					KeyFrame newFrame = parseKeyFrameLine(keyframeLine, actions);
 					keyFrames.add(newFrame);
 					actions.clear();
 				}
@@ -49,6 +50,8 @@ public class AnimationLoader {
 				actions.add(action);
 			}
 		}
+		
+		keyFrames.add(parseKeyFrameLine(keyframeLine, actions));
 		
 		reader.close();
 		fileReader.close();
