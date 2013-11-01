@@ -4,8 +4,8 @@
 		<sound name="teleport" src="teleport.wav"/>
 	</sounds>
 	
-	<animations>
-	
+	<animations pathPrefix="res/anims/">
+		<animation name="raiderWalking" src="raiderWalking.anim"/>
 	</animations>
 	
 	<models pathPrefix="res/mesh/">

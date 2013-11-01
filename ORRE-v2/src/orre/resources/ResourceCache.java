@@ -49,6 +49,6 @@ public class ResourceCache {
 	}
 
 	public Animation getAnimation(AnimationType type) {
-		return null;
+		return animations.get(type);
 	}
 }
