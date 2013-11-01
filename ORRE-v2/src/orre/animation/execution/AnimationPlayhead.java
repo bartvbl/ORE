@@ -13,8 +13,8 @@ public class AnimationPlayhead {
 	private final Timer timer;
 	private final Mesh3D target;
 	private float previousFrameStartTime = 0;
-	private float keyFrameStartTime = 0;
 	private int currentFrameID = 0;
+	private double elapsedTimeInFrame = 0;
 
 	public AnimationPlayhead(Animation animation, Mesh3D target) {
 		this.animation = animation;
@@ -22,40 +22,34 @@ public class AnimationPlayhead {
 		this.target = target;
 	}
 	
-	public void play() {
-		Timer.tick();
-		this.keyFrameStartTime = timer.getTime();
-	}
-	
 	public void updateAnimation() {
 		KeyFrame currentFrame = animation.keyFrames[currentFrameID];
 		float currentTime = timer.getTime();
-		double elapsedTimeInFrame = currentTime - keyFrameStartTime;
 		double elapsedTime = currentTime - previousFrameStartTime;
 		
-		if(elapsedTimeInFrame > currentFrame.duration) {
+		if(elapsedTimeInFrame + elapsedTime > currentFrame.duration) {
 			if(currentFrame.isInfinite) {
 				updateFrame(elapsedTime);
 			} else {
 				updateFrame(currentFrame.duration - elapsedTimeInFrame);
-				elapsedTimeInFrame = elapsedTime - (currentFrame.duration - elapsedTimeInFrame);
+				double remainingTime = elapsedTimeInFrame + elapsedTime - currentFrame.duration;
+				elapsedTimeInFrame -= currentFrame.duration;
 				nextFrame();
-				updateFrame(elapsedTimeInFrame);
+				updateFrame(remainingTime);
 			}
 		} else {
 			updateFrame(elapsedTime);
 		}
+		
+		elapsedTimeInFrame += elapsedTime;
 		previousFrameStartTime = currentTime;
 	}
 
-	public void updateFrame(double elapsedTime) {
+	private void updateFrame(double elapsedTime) {
 		KeyFrame currentFrame = animation.keyFrames[currentFrameID];
 		double percentElapsed = elapsedTime / currentFrame.duration;
 		
 		for(AnimationAction action : currentFrame.actions) {
-			if(action instanceof RepeatAction) {
-				gotoFrame(((RepeatAction) action).targetFrame);
-			}
 			action.update(target, percentElapsed, elapsedTime);
 		}
 	}
@@ -69,8 +63,17 @@ public class AnimationPlayhead {
 	}
 
 	private void nextFrame() {
-		this.currentFrameID++;
-		this.keyFrameStartTime = timer.getTime();
+		KeyFrame currentFrame = animation.keyFrames[currentFrameID];
+		boolean jumped = false;
+		for(AnimationAction action : currentFrame.actions) {
+			if(action instanceof RepeatAction) {
+				gotoFrame(((RepeatAction) action).targetFrame);
+				jumped = true;
+			}
+		}
+		if(!jumped) {
+			this.currentFrameID++;
+		}
 	}
 	
 	public void reset() {

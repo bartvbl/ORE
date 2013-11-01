@@ -32,7 +32,6 @@ public class AnimationService implements Service {
 
 	public void applyAnimation(AnimationType type, Mesh3D animatable) {
 		AnimationPlayhead playHead = new AnimationPlayhead(cache.getAnimation(type), animatable);
-		playHead.play();
 		activeAnimations.add(playHead);
 	}
 
