@@ -37,9 +37,10 @@ public class AnimationPlayhead {
 			if(currentFrame.isInfinite) {
 				updateFrame(elapsedTime);
 			} else {
-				updateFrame(currentFrame.duration - previousFrameStartTime);
+				updateFrame(currentFrame.duration - elapsedTimeInFrame);
+				elapsedTimeInFrame = elapsedTime - (currentFrame.duration - elapsedTimeInFrame);
 				nextFrame();
-				updateFrame(elapsedTimeInFrame - currentFrame.duration);
+				updateFrame(elapsedTimeInFrame);
 			}
 		} else {
 			updateFrame(elapsedTime);
