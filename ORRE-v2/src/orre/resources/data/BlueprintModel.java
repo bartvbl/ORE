@@ -8,6 +8,7 @@ import orre.geom.mesh.ModelPart;
 import orre.resources.Finalizable;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
+import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
 public class BlueprintModel extends Finalizable {
@@ -35,10 +36,11 @@ public class BlueprintModel extends Finalizable {
 
 	public void finalizeResource() {}
 
-	public Mesh3D createSceneNode() {
-		Mesh3D mesh = new Mesh3D();
+	public Mesh3D createMesh() {
+		CoordinateNode root = new CoordinateNode();
+		Mesh3D mesh = new Mesh3D(root);
 		for(StoredModelPart part : this.topLevelNodeList) {
-			addChildren(mesh, mesh, part);
+			addChildren(mesh, root, part);
 		}
 		return mesh;
 	}
@@ -56,5 +58,10 @@ public class BlueprintModel extends Finalizable {
 	@Override
 	public void addToCache() {
 		this.destinationCache.addModel(this);
+	}
+
+	@Override
+	public SceneNode createSceneNode() {
+		return null;
 	}
 }

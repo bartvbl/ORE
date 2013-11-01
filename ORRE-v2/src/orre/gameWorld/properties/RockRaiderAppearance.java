@@ -16,9 +16,9 @@ public class RockRaiderAppearance extends Property {
 	public RockRaiderAppearance(GameObject gameObject) {
 		super(PropertyType.ROCK_RAIDER_APPEARANCE, gameObject);
 		Mesh3D rockRaiderObject = gameObject.world.resourceCache.createModelInstace("rockRaider");
-		rockRaiderObject.setLocation(3, 3, 0);
-		gameObject.takeControl(new GraphicsObject(GraphicsObjectType.BODY, rockRaiderObject));
-		gameObject.world.mapContentsNode.addChild(rockRaiderObject);
+		rockRaiderObject.root.setLocation(3, 3, 0);
+		gameObject.takeControl(new GraphicsObject(GraphicsObjectType.BODY, rockRaiderObject.root));
+		gameObject.world.mapContentsNode.addChild(rockRaiderObject.root);
 		this.raiderObject = rockRaiderObject;
 		gameObject.world.services.animationService.applyAnimation(AnimationType.raiderWalking, raiderObject);
 	}

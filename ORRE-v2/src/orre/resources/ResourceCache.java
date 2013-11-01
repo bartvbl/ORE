@@ -37,7 +37,7 @@ public class ResourceCache {
 	}
 	
 	public Mesh3D createModelInstace(String name) {
-		return this.models.get(name).createSceneNode();
+		return this.models.get(name).createMesh();
 	}
 	
 	public Map getMap() {
