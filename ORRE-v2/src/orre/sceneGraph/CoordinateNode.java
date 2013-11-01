@@ -8,6 +8,7 @@ import static org.lwjgl.opengl.GL11.*;
 public class CoordinateNode extends ContainerNode {
 	protected double rotationX, rotationY, rotationZ;
 	protected double x, y, z;
+	protected double pivotX, pivotY, pivotZ;
 	protected boolean visible = true;
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	protected float renderRadius = 0.0f;
@@ -23,10 +24,11 @@ public class CoordinateNode extends ContainerNode {
 	
 	public void preRender() {
 		glPushMatrix();
+		glTranslated(x - pivotX, y - pivotY, z - pivotZ);
 		glRotated(rotationZ, 0, 0, 1);
-		glRotated(rotationX, 1, 0, 0);
 		glRotated(rotationY, 0, 1, 0);
-		glTranslated(x, y, z);
+		glRotated(rotationX, 1, 0, 0);
+		glTranslated(pivotX, pivotY, pivotZ);
 	}
 	
 	public void postRender() {
@@ -52,6 +54,12 @@ public class CoordinateNode extends ContainerNode {
 		this.x = x;
 		this.y = y;
 		this.z = z;
+	}
+	
+	public void setPivotLocation(double x, double y, double z) {
+		this.pivotX = x;
+		this.pivotY = y;
+		this.pivotZ = z;
 	}
 
 	public void setRotation(double rotationX, double rotationY, double rotationZ) 

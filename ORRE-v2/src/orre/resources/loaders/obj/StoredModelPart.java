@@ -14,6 +14,7 @@ public class StoredModelPart {
 	public final String name;
 	private ArrayList<BlueprintMaterial> materials = new ArrayList<BlueprintMaterial>();
 	private ArrayList<GeometryBuffer> geometryBuffers = new ArrayList<GeometryBuffer>();
+	private double pivotX, pivotY, pivotZ;
 	
 	private ArrayList<StoredModelPart> childList = new ArrayList<StoredModelPart>();
 
@@ -32,6 +33,12 @@ public class StoredModelPart {
 	{
 		return this.childList;
 	}
+	
+	public void setPivotLocation(double x, double y, double z) {
+		this.pivotX = x;
+		this.pivotY = y;
+		this.pivotZ = z;
+	}
 
 	public void addBufferCombo(BlueprintMaterial blueprintMaterial, GeometryBuffer geometryBuffer) {
 		this.materials.add(blueprintMaterial);
@@ -41,6 +48,7 @@ public class StoredModelPart {
 	public ModelPart createSceneNode() {
 		ModelPart part = new ModelPart();
 		for(int i = 0; i < this.materials.size(); i++) {
+			part.setPivotLocation(pivotX, pivotY, pivotZ);
 			part.addMaterialAndGeometryBufferCombo(this.materials.get(i).convertToMaterial(), this.geometryBuffers.get(i), this.name);
 		}
 		return part;

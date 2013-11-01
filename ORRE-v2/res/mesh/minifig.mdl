@@ -1,18 +1,18 @@
 <ORRModel>
 	<modelFile src="res/mesh/objects3D/minifig.obj"/>
 	<partStructure>
-		<part name="torso" nameInModelFile="torso">
-			<part name="leftArm_top" nameInModelFile="arm_l" xOffset="0" yOffset="0" zOffset ="0">
-					<part name="leftHand" nameInModelFile="hand_l" xOffset="0" yOffset="0" zOffset ="0"/>
+		<part name="torso" nameInModelFile="torso" pivotX="0" pivotY="0" pivotZ ="0">
+			<part name="leftArm_top" nameInModelFile="arm_l" pivotX="0" pivotY="0" pivotZ ="1">
+					<part name="leftHand" nameInModelFile="hand_l" pivotX="0" pivotY="0" pivotZ ="0"/>
 			</part>
-			<part name="rightArm_top" nameInModelFile="arm_r" xOffset="0" yOffset="0" zOffset ="0">
-					<part name="rightHand" nameInModelFile="hand_r" xOffset="0" yOffset="0" zOffset ="0"/>
+			<part name="rightArm_top" nameInModelFile="arm_r" pivotX="0" pivotY="0" pivotZ ="1">
+					<part name="rightHand" nameInModelFile="hand_r" pivotX="0" pivotY="0" pivotZ ="0"/>
 			</part>
-			<part name="belt" nameInModelFile="belt" xOffset="0" yOffset="0" zOffset ="0">
-				<part name="leftLeg_top" nameInModelFile="leg_l" xOffset="0" yOffset="0" zOffset ="0" />
-				<part name="rightLeg_top" nameInModelFile="leg_r" xOffset="0" yOffset="0" zOffset ="0" />
+			<part name="belt" nameInModelFile="belt" pivotX="0" pivotY="0" pivotZ ="0">
+				<part name="leftLeg_top" nameInModelFile="leg_l" pivotX="0" pivotY="0" pivotZ ="0" />
+				<part name="rightLeg_top" nameInModelFile="leg_r" pivotX="0" pivotY="0" pivotZ ="0" />
 			</part>
-			<part name="head" nameInModelFile="head" xOffset="0" yOffset="0" zOffset ="0"/>
+			<part name="head" nameInModelFile="head" pivotX="0" pivotY="0" pivotZ ="0"/>
 		</part>
 	</partStructure>
 </ORRModel>

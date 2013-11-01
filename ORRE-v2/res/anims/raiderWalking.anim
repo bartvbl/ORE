@@ -1,21 +1,21 @@
 animation raiderWalking
-keyframe frame1 of duration 2 ms
+keyframe frame1 of duration 1 s
 rotate arm_r 45 degrees around x-axis
 rotate arm_l -45 degrees around x-axis 
 rotate leg_r -45 degrees around x-axis
 rotate leg_l 45 degrees around x-axis 
 
-keyframe frame2 of duration 4 ms
+keyframe frame2 of duration 2 s
 rotate arm_r -90 degrees around x-axis
 rotate arm_l 90 degrees around x-axis
 rotate leg_r 90 degrees around x-axis
 rotate leg_l -90 degrees around x-axis 
 
-keyframe frame3 of duration 4 ms
+keyframe frame3 of duration 2 s
 rotate arm_r 90 degrees around x-axis
 rotate arm_l -90 degrees around x-axis 
 rotate leg_r -90 degrees around x-axis
-rotate leg_l 90 degrees around x-axis 
+rotate leg_l 90 degrees around x-axis
 
 keyframe frame4 of duration 1 s
 repeat from frame2
