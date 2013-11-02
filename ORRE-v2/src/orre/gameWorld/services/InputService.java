@@ -44,20 +44,30 @@ public class InputService implements Service {
 			mapRotationX -= mouseDY / 4d;
 		}
 		
+		double mapDeltaX = 0;
+		double mapDeltaY = 0;
+		
 		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
-			mapX -= mapMoveSpeed;
+			mapDeltaX--;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
-			mapX += mapMoveSpeed;
+			mapDeltaX++;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
-			mapY -= mapMoveSpeed;
+			mapDeltaY--;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
-			mapY += mapMoveSpeed;
+			mapDeltaY++;
 		}
 		
-		mapZ += mouseDWheel / 15d;
+		if((mapDeltaX != 0) || (mapDeltaY != 0)) {
+			double moveDirection = Math.atan2(mapDeltaX, mapDeltaY);
+			moveDirection -= Math.toRadians(mapRotationZ);
+			mapX += Math.sin(moveDirection) * mapMoveSpeed;
+			mapY += Math.cos(moveDirection) * mapMoveSpeed;
+		}
+		
+		mapZ += mouseDWheel / 25d;
 		
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
