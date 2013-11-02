@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
@@ -27,39 +28,41 @@ public class OBJLoader {
 	}
 	
 	private static List<PartiallyLoadableModelPart> loadObjFile(String src) throws FileNotFoundException, IOException {
-		BufferedReader objFileAnalysisReader = openObjFile(src);
-		OBJStatsContext statsContext = new OBJStatsContext();
-		analyseObjFile(objFileAnalysisReader, statsContext);
-		objFileAnalysisReader.close();
+		String[] objFile = readOBJFile(src);
 		
-		BufferedReader objFileParsingReader = openObjFile(src);
+		OBJStatsContext statsContext = new OBJStatsContext();
+		analyseObjFile(objFile, statsContext);
+		
 		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile(), statsContext);
-		List<PartiallyLoadableModelPart> parts = parseOBJFile(objFileParsingReader, context);
-		objFileParsingReader.close();
+		List<PartiallyLoadableModelPart> parts = parseOBJFile(objFile, context);
 		
 		context.destroy();
 		return parts;
 	}
 
-	private static BufferedReader openObjFile(String src) throws FileNotFoundException {
+	private static String[] readOBJFile(String src) throws IOException {
 		FileReader fileReader = new FileReader(src);
 		BufferedReader bufferedReader = new BufferedReader(fileReader);
-		return bufferedReader;
+		ArrayList<String> fileContents = new ArrayList<String>();
+		while(bufferedReader.ready()) {
+			fileContents.add(bufferedReader.readLine());
+		}
+		bufferedReader.close();
+		fileReader.close();
+		return fileContents.toArray(new String[fileContents.size()]);
 	}
 	
-	private static void analyseObjFile(BufferedReader bufferedReader, OBJStatsContext context) throws IOException {
-		while(bufferedReader.ready())
+	private static void analyseObjFile(String[] objFile, OBJStatsContext context) throws IOException {
+		for(String line : objFile)
 		{
-			String line = bufferedReader.readLine();
 			line = StringUtils.stripString(line);
 			OBJStatsLineReader.readOBJLine(context, line);
 		}
 	}
 	
-	private static List<PartiallyLoadableModelPart> parseOBJFile(BufferedReader bufferedReader, OBJLoadingContext context) throws IOException {
-		while(bufferedReader.ready())
+	private static List<PartiallyLoadableModelPart> parseOBJFile(String[] objFile, OBJLoadingContext context) throws IOException {
+		for(String line : objFile)
 		{
-			String line = bufferedReader.readLine();
 			line = StringUtils.stripString(line);
 			context.setCurrentLine(line);
 			parseOBJLine(context);
