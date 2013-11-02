@@ -10,8 +10,10 @@ public class Mesh3D {
 	private HashMap<String, ModelPart> parts = new HashMap<String, ModelPart>();
 	public final CoordinateNode root;
 	
-	public Mesh3D(CoordinateNode root) {
+	public Mesh3D() {
+		ModelPart root = new ModelPart();
 		this.root = root;
+		this.parts.put("root", root);
 	}
 	
 	public ModelPart getModelPartByName(String name) {

@@ -37,10 +37,9 @@ public class BlueprintModel extends Finalizable {
 	public void finalizeResource() {}
 
 	public Mesh3D createMesh() {
-		CoordinateNode root = new CoordinateNode();
-		Mesh3D mesh = new Mesh3D(root);
+		Mesh3D mesh = new Mesh3D();
 		for(StoredModelPart part : this.topLevelNodeList) {
-			addChildren(mesh, root, part);
+			addChildren(mesh, mesh.root, part);
 		}
 		return mesh;
 	}

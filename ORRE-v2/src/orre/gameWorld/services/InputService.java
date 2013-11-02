@@ -67,7 +67,7 @@ public class InputService implements Service {
 			mapY += Math.cos(moveDirection) * mapMoveSpeed;
 		}
 		
-		mapZ += mouseDWheel / 25d;
+		mapZ += mouseDWheel / 35d;
 		
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
