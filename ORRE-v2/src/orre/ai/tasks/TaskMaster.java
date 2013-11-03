@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.ai.pathFinding.AStar;
+import orre.ai.pathFinding.Path;
+import orre.ai.pathFinding.map.AnimationGenerator;
 import orre.ai.pathFinding.map.MapTileNode;
+import orre.animation.Animation;
 import orre.gameWorld.core.GameWorld;
 
 public class TaskMaster {
@@ -25,19 +28,19 @@ public class TaskMaster {
 		this.world = world;
 	}
 	
-	//this method should also require an inventory of some kind.
-	public Task assignTask(TaskType[] acceptableTaskTypes) {
-		return null;
+	public Task assignTask(int gameObjectID, TaskType[] acceptableTaskTypes) {
+		MapTileNode startingNode = new MapTileNode(world.map, 2, 2);
+		MapTileNode endNode = new MapTileNode(world.map, 30, 30);
+		Path path = this.astar.findPath(startingNode, endNode);
+		Animation animation = AnimationGenerator.generateAnimation(path);
+		return new Task(TaskType.COLLECT_ORE, animation, gameObjectID);
 	}
 	
 	public void registerPendingTask(PendingTask task) {
 		this.taskStorage.get(task.type).add(task);
-		MapTileNode startingNode = new MapTileNode(world.map, 2, 2);
-		MapTileNode endNode = new MapTileNode(world.map, 30, 30);
-		this.astar.findPath(startingNode, endNode);
 	}
 	
-	public void returnUnfinishedTask() {
+	public void returnUnfinishedTask(Task task) {
 		
 	}
 }

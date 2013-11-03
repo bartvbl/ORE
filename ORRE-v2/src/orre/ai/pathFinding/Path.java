@@ -3,10 +3,10 @@ package orre.ai.pathFinding;
 import java.util.List;
 
 public class Path {
-	private final List<State> path;
+	private final List<State<?>> path;
 	private int indexOfCurrentStep = 0;
 	
-	public Path(List<State> path) {
+	public Path(List<State<?>> path) {
 		this.path = path;
 	}
 	
@@ -14,7 +14,7 @@ public class Path {
 		return indexOfCurrentStep == this.path.size() - 1;
 	}
 	
-	public State getNextState() {
+	public State<?> getNextState() {
 		if(hasFinished()) {
 			return this.path.get(indexOfCurrentStep - 1);
 		}
@@ -26,7 +26,7 @@ public class Path {
 		this.indexOfCurrentStep = 0;
 	}
 	
-	public State getStartingState() {
+	public State<?> getStartingState() {
 		return this.path.get(0);
 	}
 }

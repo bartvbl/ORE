@@ -63,5 +63,9 @@ public class MapTileNode implements State<MapTileNode> {
 	public boolean isEqualTo(MapTileNode otherState) {
 		return (otherState.x == this.x) && (otherState.y == this.y);
 	}
+	
+	public String toString() {
+		return "Node at " + x + ", " + y;
+	}
 
 }
