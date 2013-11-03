@@ -1,6 +1,6 @@
 package orre.gameWorld.services;
 
-import orre.resources.ResourceCache;
+import orre.gameWorld.core.GameWorld;
 
 public class WorldServices {
 	public final AnimationService animationService;
@@ -9,9 +9,9 @@ public class WorldServices {
 	public final InputService inputService;
 	public final CameraService cameraService;
 
-	public WorldServices(ResourceCache cache) {
-		this.animationService = new AnimationService(cache);
-		this.aiService = new AIService();
+	public WorldServices(GameWorld world) {
+		this.animationService = new AnimationService(world);
+		this.aiService = new AIService(world);
 		this.soundService = new SoundService();
 		this.inputService = new InputService();
 		this.cameraService = new CameraService();

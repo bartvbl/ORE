@@ -27,7 +27,7 @@ public class Map {
 		this.cache.buildAll();
 	}
 
-	private MapTile getTileAt(int x, int y) {
+	public MapTile getTileAt(int x, int y) {
 		x = MathUtil.clamp(x, 0, tileMap.length - 1);
 		y = MathUtil.clamp(y, 0, tileMap[0].length - 1);
 		return tileMap[x][y];

@@ -10,7 +10,7 @@ public class AStar {
 	private Node startingNode;
 	private Node destinationNode;
 	
-	public Path findPath(State startingState, State destinationState) {
+	public Path findPath(State<?> startingState, State<?> destinationState) {
 		System.out.println("start pathfinding");
 		this.reset();
 		this.destinationNode = new Node(destinationState, destinationState);

@@ -28,6 +28,7 @@ public class GameObjectBuilder {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Tried to build an object of type " + gameObject.type + ". Failed to create property " + propertyType);
 		return null;
 	}
 

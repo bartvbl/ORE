@@ -4,9 +4,14 @@ import orre.ai.tasks.PendingTask;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskType;
 import orre.gameWorld.core.GameObjectType;
+import orre.gameWorld.core.GameWorld;
 
 public class AIService implements Service {
-	private final TaskMaster taskMaster = new TaskMaster();
+	private final TaskMaster taskMaster;
+	
+	public AIService(GameWorld world) {
+		this.taskMaster = new TaskMaster(world);
+	}
 
 	public void tick() {
 		

@@ -1,10 +1,10 @@
 package orre.ai.pathFinding;
 
-import java.util.List;
+import java.util.ArrayList;
 
-public interface State {
-	public List<State> getSuccessors();
-	public double estimateHeuristicTo(State other);
-	public double getDistanceToSuccessor(State successor);
-	public boolean isEqualTo(State otherState);
+public interface State<DataType> {
+	public ArrayList<State<DataType>> getSuccessors();
+	public double estimateHeuristicTo(DataType other);
+	public double getDistanceToSuccessor(DataType successor);
+	public boolean isEqualTo(DataType otherState);
 }
