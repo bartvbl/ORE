@@ -9,6 +9,7 @@ public class Transportable extends Property {
 
 	public Transportable(GameObject gameObject) {
 		super(PropertyType.TRANSPORTABLE, gameObject);
+		gameObject.world.services.aiService.registerTransportable(gameObject.type, gameObject.id);
 	}
 
 	@Override
