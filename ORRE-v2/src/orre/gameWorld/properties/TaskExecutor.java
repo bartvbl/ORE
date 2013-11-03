@@ -1,6 +1,6 @@
 package orre.gameWorld.properties;
 
-import orre.ai.Task;
+import orre.ai.tasks.Task;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;

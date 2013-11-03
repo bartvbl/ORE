@@ -54,6 +54,7 @@ public class GameRunning extends GameState {
 		gameWorld.services.cameraService.setCurrentCamera(defaultCamera, gameWorld);
 		int cameraController = gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.spawnGameObject(GameObjectType.ROCK_RAIDER);
+		gameWorld.spawnGameObject(GameObjectType.ORE);
 		gameWorld.dispatchMessage(new Message<Camera>(MessageType.ASSUME_CAMERA_CONTROL, defaultCamera), cameraController);
 		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
 		flashLight = new Flashlight(object);

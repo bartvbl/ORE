@@ -2,28 +2,27 @@ package orre.gameWorld.properties;
 
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
-import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
 
-public class Transportable extends Property {
-
-	public Transportable(GameObject gameObject) {
-		super(PropertyType.TRANSPORTABLE, gameObject);
+public class OreAppearance extends Appearance {
+	public OreAppearance(GameObject gameObject) {
+		super(PropertyType.ORE_APPEARANCE, "ore", gameObject);
+		this.appearance.root.setLocation(30.5, 30.5, 0);
 	}
 
 	@Override
 	public void handleMessage(Message<?> message) {
-		
+
 	}
 
 	@Override
 	public void tick() {
-		
+
 	}
 
 	@Override
 	public void destroy() {
-		
+
 	}
-	
+
 }

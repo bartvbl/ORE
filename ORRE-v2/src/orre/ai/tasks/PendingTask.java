@@ -1,4 +1,4 @@
-package orre.ai;
+package orre.ai.tasks;
 
 public class PendingTask {
 

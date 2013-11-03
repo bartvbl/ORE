@@ -2,13 +2,12 @@ package orre.gameWorld.properties;
 
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
-import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
 
-public class Transportable extends Property {
+public class ChrystalAppearance extends Appearance {
 
-	public Transportable(GameObject gameObject) {
-		super(PropertyType.TRANSPORTABLE, gameObject);
+	public ChrystalAppearance(GameObject gameObject) {
+		super(PropertyType.CHRYSTAL_APPEARANCE, "chrystal", gameObject);
 	}
 
 	@Override
@@ -25,5 +24,5 @@ public class Transportable extends Property {
 	public void destroy() {
 		
 	}
-	
+
 }

@@ -1,4 +1,4 @@
-package orre.ai;
+package orre.ai.tasks;
 
 import java.util.ArrayList;
 import java.util.HashMap;
