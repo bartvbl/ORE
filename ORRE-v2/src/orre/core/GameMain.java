@@ -4,7 +4,6 @@ import java.util.HashMap;
 
 import org.lwjgl.opengl.Display;
 
-import orre.events.ConcurrentEventDispatcher;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.EventHandler;

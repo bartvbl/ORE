@@ -20,7 +20,7 @@ public class TaskMaster {
 	
 	//this method should also require an inventory of some kind.
 	public Task assignTask(TaskType[] acceptableTaskTypes) {
-		return new Task();
+		return null;
 	}
 	
 	public void registerPendingTask(PendingTask task) {

@@ -10,6 +10,7 @@
 	
 	<models pathPrefix="res/mesh/">
 		<!--<model name="lmsExplorer" src="lmsExplorer.mdl"/>-->
+		<model name="ore" src="ore.mdl"/>
 		<model name="rockRaider" src="minifig.mdl"/>
 		<model name="toolStore" src="toolStore.mdl"/>
 		<model name="chrystal" src="chrystal.mdl"/>
