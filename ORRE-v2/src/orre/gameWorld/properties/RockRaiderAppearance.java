@@ -13,7 +13,7 @@ import orre.geom.mesh.Mesh3D;
 public class RockRaiderAppearance extends Appearance {
 
 	public RockRaiderAppearance(GameObject gameObject) {
-		super(PropertyType.ROCK_RAIDER_APPEARANCE, gameObject.world.resourceCache.createModelInstace("rockRaider"), gameObject);
+		super(PropertyType.ROCK_RAIDER_APPEARANCE, "rockRaider", gameObject);
 		appearance.root.setLocation(3, 3, 0);
 		gameObject.world.services.animationService.applyAnimation(AnimationType.raiderWalking, appearance);
 	}

@@ -1,16 +1,12 @@
 package orre.gameWorld.properties;
 
-import openrr.map.MapTile;
 import orre.gameWorld.core.GameObject;
-import orre.gameWorld.core.GraphicsObject;
-import orre.gameWorld.core.GraphicsObjectType;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyDataType;
 import orre.gameWorld.core.PropertyType;
 import orre.geom.Point3D;
 import orre.geom.mesh.Mesh3D;
-import orre.sceneGraph.CoordinateNode;
 
 public class GravityProperty extends Property {
 
