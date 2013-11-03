@@ -6,6 +6,7 @@ import orre.gameWorld.properties.GravityProperty;
 import orre.gameWorld.properties.HealthProperty;
 import orre.gameWorld.properties.OreAppearance;
 import orre.gameWorld.properties.RockRaiderAppearance;
+import orre.gameWorld.properties.TaskExecutor;
 import orre.gameWorld.properties.Transportable;
 import orre.input.KeyboardCameraController;
 
@@ -17,7 +18,8 @@ public enum PropertyType {
 	ROCK_RAIDER_APPEARANCE(RockRaiderAppearance.class), 
 	TRANSPORTABLE(Transportable.class), 
 	ORE_APPEARANCE(OreAppearance.class), 
-	CHRYSTAL_APPEARANCE(ChrystalAppearance.class);
+	CHRYSTAL_APPEARANCE(ChrystalAppearance.class),
+	TASK_EXECUTOR(TaskExecutor.class);
 
 	public final Class<?> propertyClass;
 

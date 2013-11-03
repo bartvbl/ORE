@@ -1,7 +1,7 @@
 package orre.gameWorld.core;
 
 public enum GameObjectType {
-	ROCK_RAIDER(new PropertyType[]{PropertyType.HEALTH, PropertyType.GRAVITY, PropertyType.ROCK_RAIDER_APPEARANCE}), 
+	ROCK_RAIDER(new PropertyType[]{PropertyType.HEALTH, PropertyType.GRAVITY, PropertyType.ROCK_RAIDER_APPEARANCE, PropertyType.TASK_EXECUTOR}), 
 	MONSTER(new PropertyType[]{}), 
 	SOUND_EFFECT(new PropertyType[]{}), 
 	CHRYSTAL(new PropertyType[]{PropertyType.TRANSPORTABLE, PropertyType.GRAVITY, PropertyType.CHRYSTAL_APPEARANCE}),

@@ -35,7 +35,9 @@ public class AnimationPlayhead {
 				double remainingTime = elapsedTimeInFrame + elapsedTime - currentFrame.duration;
 				elapsedTimeInFrame -= currentFrame.duration;
 				nextFrame();
-				updateFrame(remainingTime);
+				if(!isFinished()) {
+					updateFrame(remainingTime);
+				}
 			}
 		} else {
 			updateFrame(elapsedTime);
@@ -81,7 +83,7 @@ public class AnimationPlayhead {
 	}
 
 	public boolean isFinished() {
-		return animation.keyFrames.length == currentFrameID;
+		return animation.keyFrames.length == currentFrameID + 1;
 	}
 
 }

@@ -1,6 +1,7 @@
 package orre.gameWorld.services;
 
 import orre.ai.tasks.PendingTask;
+import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskType;
 import orre.gameWorld.core.GameObjectType;
@@ -23,5 +24,9 @@ public class AIService implements Service {
 		} else if(type == GameObjectType.CHRYSTAL) {
 			taskMaster.registerPendingTask(new PendingTask(TaskType.COLLECT_CHRYSTAL, id));
 		}
+	}
+
+	public Task assignTask(int id, TaskType[] acceptableTaskTypes) {
+		return taskMaster.assignTask(id, acceptableTaskTypes);
 	}
 }

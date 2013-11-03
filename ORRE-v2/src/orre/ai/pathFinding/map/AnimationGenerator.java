@@ -12,7 +12,7 @@ import orre.animation.actions.TranslateAction;
 import orre.geom.Axis;
 
 public class AnimationGenerator {
-	private static final double moveSpeed = 0.3;
+	private static final double moveSpeed = 1;
 
 	public static Animation generateAnimation(Path path) {
 		MapTileNode currentNode = (MapTileNode) path.getStartingState();
@@ -29,14 +29,15 @@ public class AnimationGenerator {
 			
 			actions[0] = new TranslateAction("root", Axis.x, dx);
 			actions[1] = new TranslateAction("root", Axis.y, dy);
-			actions[2] = new SetAction("root", Axis.z, TransitionType.rotation, Math.atan2(dy, dx));
+			actions[2] = new SetAction("root", Axis.z, TransitionType.rotation, Math.toDegrees(Math.atan2(dy, dx)) + 90);
 			
-			KeyFrame frame = new KeyFrame("Frame " + frameNumber, distance * moveSpeed, false, actions);
+			KeyFrame frame = new KeyFrame("Frame " + frameNumber, distance / moveSpeed, false, actions);
+			frameNumber++;
+			
 			keyFrames.add(frame);
 			currentNode = nextNode;
 			nextNode = (MapTileNode) path.getNextState();
 		}
-		
 		return new Animation(null, keyFrames.toArray(new KeyFrame[keyFrames.size()]));
 	}
 
