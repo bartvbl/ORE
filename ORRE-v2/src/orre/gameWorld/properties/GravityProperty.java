@@ -6,8 +6,10 @@ import orre.gameWorld.core.GraphicsObject;
 import orre.gameWorld.core.GraphicsObjectType;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
+import orre.gameWorld.core.PropertyDataType;
 import orre.gameWorld.core.PropertyType;
 import orre.geom.Point3D;
+import orre.geom.mesh.Mesh3D;
 import orre.sceneGraph.CoordinateNode;
 
 public class GravityProperty extends Property {
@@ -23,15 +25,10 @@ public class GravityProperty extends Property {
 
 	@Override
 	public void tick() {
-		for(int i = 0; i < this.gameObject.getGraphicsObjectCount(); i++) {
-			GraphicsObject currentGraphicsObject = this.gameObject.getGraphicsObject(i);
-			if(currentGraphicsObject.type == GraphicsObjectType.BODY) {
-				CoordinateNode node = (CoordinateNode) currentGraphicsObject.rootNode;
-				Point3D location = node.getLocation();
-				double tileHeight = this.gameObject.world.map.getTileHeightAt(location.x, location.y);
-				node.setZ(tileHeight);
-			}
-		}
+		Mesh3D appearance = (Mesh3D) gameObject.requestPropertyData(PropertyDataType.APPEARANCE);
+		Point3D location = appearance.root.getLocation();
+		double tileHeight = this.gameObject.world.map.getTileHeightAt(location.x, location.y);
+		appearance.root.setZ(tileHeight);
 	}
 
 	@Override

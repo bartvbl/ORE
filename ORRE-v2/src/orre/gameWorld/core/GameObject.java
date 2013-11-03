@@ -62,6 +62,13 @@ public final class GameObject {
 		return propertyData.get(type);
 	}
 	
+	public void setPropertyData(PropertyDataType type, Object value) {
+		if(!type.expectedReturnDataType.isInstance(value)) {
+			throw new RuntimeException("The property data type " + type + " requires a value of data type " + type.expectedReturnDataType + " and received one of type " + value);
+		}
+		this.propertyData.put(type, value);
+	}
+	
 	public void takeControl(GraphicsObject object) {
 		this.controlledObjects.add(object);
 		for(Property property : properties) {
