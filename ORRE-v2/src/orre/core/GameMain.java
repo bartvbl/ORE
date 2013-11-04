@@ -10,8 +10,6 @@ import orre.events.EventHandler;
 import orre.events.GlobalEventType;
 import orre.gameStates.*;
 import orre.gl.RenderUtils;
-import orre.threads.CleanupThread;
-
 
 public class GameMain implements EventHandler{
 	private boolean gameIsRunning = true;
