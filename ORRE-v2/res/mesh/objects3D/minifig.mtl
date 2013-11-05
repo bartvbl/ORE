@@ -5,7 +5,7 @@ Kd 1 1 1
 Ks 0.5 0.5 0.5
 d 1
 Ns 12 
-map_Kd textures/face_generic_m_02.png
+map_Kd textures/face_realtor.png
 
 newmtl body
 Ka 1 1 1
