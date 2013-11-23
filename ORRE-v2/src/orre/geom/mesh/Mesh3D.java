@@ -2,8 +2,6 @@ package orre.geom.mesh;
 
 import java.util.HashMap;
 
-import orre.resources.loaders.obj.StoredModelPart;
-import orre.sceneGraph.SceneNode;
 import orre.sceneGraph.CoordinateNode;
 
 public class Mesh3D {
