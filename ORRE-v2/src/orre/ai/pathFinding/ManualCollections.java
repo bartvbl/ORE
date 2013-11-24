@@ -19,8 +19,10 @@ public class ManualCollections {
 		double min = Double.MAX_VALUE;
 		for(int i = 0; i < queue.size(); i++) {
 			Node state = queue.get(i);
-			if(state.getHeuristicValue() < min) {
+			double heuristic = state.getDistanceFromStart() + state.getHeuristicValue();
+			if(heuristic < min) {
 				index = i;
+				min = heuristic;
 			}
 		}
 		if(index == -1) return null;

@@ -42,7 +42,7 @@ public class AStar {
 			if(ManualCollections.contains(this.closedNodes, successor)) continue;
 			if(ManualCollections.contains(this.openNodes, successor)) {
 				Node registeredSuccessor = this.openNodes.getEquivalentNode(successor);
-				currentNode.relax(registeredSuccessor);
+				registeredSuccessor.relax(currentNode);
 			} else {
 				this.openNodes.add(successor);
 			}

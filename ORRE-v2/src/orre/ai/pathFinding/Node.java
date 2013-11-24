@@ -58,10 +58,16 @@ public class Node implements Comparable<Node> {
 		return nodeList;
 	}
 	
-	public void relax(Node successor) {
-		if(successor.getDistanceFromStart() < this.distanceFromStart) {
-			this.setDistanceFromStart(successor.getDistanceFromStart());
+	public void relax(Node predecessor) {
+		double distanceThroughPredecessor = predecessor.getDistanceFromStart() + predecessor.state.getDistanceToSuccessor(this.state);
+		if(distanceThroughPredecessor < this.distanceFromStart) {
+			this.setDistanceFromStart(distanceThroughPredecessor);
+			this.setPredecessor(predecessor);
 		}
+	}
+
+	private void setPredecessor(Node node) {
+		this.previousState = node;
 	}
 
 	public int compareTo(Node otherNode) {
