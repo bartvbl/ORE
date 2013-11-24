@@ -8,10 +8,13 @@ import orre.animation.AnimationType;
 import orre.geom.mesh.Mesh3D;
 import orre.gl.texture.Texture;
 import orre.resources.data.BlueprintModel;
+import orre.sound.Sound;
+import orre.sound.SoundType;
 
 public class ResourceCache {
 	private HashMap<String, Texture> textures = new HashMap<String, Texture>();
 	private HashMap<String, BlueprintModel> models = new HashMap<String, BlueprintModel>();
+	private HashMap<SoundType, Sound> sounds = new HashMap<SoundType, Sound>();
 	private Map map;
 	private HashMap<AnimationType, Animation> animations = new HashMap<AnimationType, Animation>();
 
@@ -50,5 +53,13 @@ public class ResourceCache {
 
 	public Animation getAnimation(AnimationType type) {
 		return animations.get(type);
+	}
+	
+	public void addSound(Sound sound) {
+		this.sounds.put(sound.type, sound);
+	}
+	
+	public Sound getSound(SoundType type) {
+		return this.sounds.get(type);
 	}
 }
