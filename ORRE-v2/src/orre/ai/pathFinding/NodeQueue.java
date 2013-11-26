@@ -23,13 +23,13 @@ public class NodeQueue {
 	}
 	
 	public Node getNodeWithLowestheuristic() {
-		Node node = ManualCollections.min(this.queue);
+		Node node = Collections.min(this.queue);
 		queue.remove(node);
 		return node;
 	}
 	
 	public boolean contains(Node node) {
-		return ManualCollections.contains(queue, node);
+		return queue.contains(node);
 	}
 
 	public boolean isEmpty() {

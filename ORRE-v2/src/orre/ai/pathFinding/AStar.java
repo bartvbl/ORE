@@ -39,8 +39,8 @@ public class AStar {
 	private void visitCurrentNode(Node currentNode) {
 		List<Node> successors = currentNode.getSuccessors();
 		for(Node successor : successors) {
-			if(ManualCollections.contains(this.closedNodes, successor)) continue;
-			if(ManualCollections.contains(this.openNodes, successor)) {
+			if(this.closedNodes.contains(successor)) continue;
+			if(this.openNodes.contains(successor)) {
 				Node registeredSuccessor = this.openNodes.getEquivalentNode(successor);
 				registeredSuccessor.relax(currentNode);
 			} else {
