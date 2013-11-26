@@ -36,9 +36,9 @@ public class GameRunning extends GameState {
 	
 	public void executeFrame(long frameNumber) {
 		this.gameWorld.tick();
+		flashLight.tick();
 		RenderPass.render(sceneRoot);
 		gameWorld.services.inputService.updateMouseTargetLocation();
-		flashLight.tick();
 	}
 	
 	public void set() {

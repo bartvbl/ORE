@@ -105,4 +105,8 @@ public class InputService implements Service {
 		this.mouseLocation  = CoordConverter.getMapCoords(Mouse.getX(), Mouse.getY());
 	}
 
+	public float[] getMouseTargetLocation() {
+		return this.mouseLocation;
+	}
+
 }
