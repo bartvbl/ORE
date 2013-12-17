@@ -13,13 +13,14 @@ public class TaskExecutor extends Property {
 
 	public TaskExecutor(GameObject gameObject) {
 		super(PropertyType.TASK_EXECUTOR, gameObject);
-		this.currentTask = this.gameObject.world.services.aiService.assignTask(gameObject.id, null);
+		this.gameObject.world.services.aiService.assignTask(gameObject.id, null);
 		this.gameObject.world.services.animationService.applyAnimation(currentTask.execution, (Mesh3D) this.gameObject.requestPropertyData(PropertyDataType.APPEARANCE));
+		
 	}
 
 	@Override
 	public void handleMessage(Message<?> message) {
-
+		
 	}
 
 	@Override

@@ -1,5 +1,7 @@
 package orre.gameWorld.services;
 
+import orre.ai.core.AIThread;
+import orre.ai.core.RegisterPendingCommand;
 import orre.ai.tasks.PendingTask;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
@@ -8,25 +10,23 @@ import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
 
 public class AIService implements Service {
-	private final TaskMaster taskMaster;
+	
+	private final AIThread aiThread;
 	
 	public AIService(GameWorld world) {
-		this.taskMaster = new TaskMaster(world);
+		this.aiThread = new AIThread(world);
+		aiThread.start();
 	}
 
 	public void tick() {
 		
 	}
 
-	public void registerTransportable(GameObjectType type, int id) {
-		if(type == GameObjectType.ORE) {
-			taskMaster.registerPendingTask(new PendingTask(TaskType.COLLECT_ORE, id));
-		} else if(type == GameObjectType.CHRYSTAL) {
-			taskMaster.registerPendingTask(new PendingTask(TaskType.COLLECT_CHRYSTAL, id));
-		}
+	public void registerTask(PendingTask task) {
+		this.aiThread.enqueueTask(new RegisterPendingCommand(task));
 	}
 
-	public Task assignTask(int id, TaskType[] acceptableTaskTypes) {
-		return taskMaster.assignTask(id, acceptableTaskTypes);
+	public void assignTask(int id, TaskType[] acceptableTaskTypes) {
+		this.aiThread.enqueueTask(new AssignTaskCommand(id, acceptableTaskTypes));
 	}
 }
