@@ -29,11 +29,7 @@ public class TaskMaster {
 	}
 	
 	public Task assignTask(int gameObjectID, TaskType[] acceptableTaskTypes) {
-		MapTileNode startingNode = new MapTileNode(world.map, 2, 2);
-		MapTileNode endNode = new MapTileNode(world.map, 48, 52);
-		Path path = this.astar.findPath(startingNode, endNode);
-		Animation animation = AnimationGenerator.generateAnimation(path);
-		return new Task(TaskType.COLLECT_ORE, animation, gameObjectID);
+		return null;
 	}
 	
 	public void registerPendingTask(PendingTask task) {

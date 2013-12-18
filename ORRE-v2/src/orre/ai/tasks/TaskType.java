@@ -14,5 +14,6 @@ public enum TaskType {
 	REFINE, 
 	REINFORCE, 
 	REPAIR, 
-	GET_STUD
+	GET_STUD, 
+	IDLE
 }
