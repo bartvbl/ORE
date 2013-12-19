@@ -1,5 +1,7 @@
 package orre.ai.core;
 
+import org.lwjgl.opengl.Display;
+
 import orre.ai.tasks.TaskMaster;
 import orre.gameWorld.core.GameWorld;
 import orre.util.Queue;
@@ -21,7 +23,7 @@ public class AIThread extends Thread {
 	}
 	
 	public void run() {
-		while(true) {
+		while(!Display.isCloseRequested()) {
 			if(!taskQueue.isEmpty()) {
 				AICommand task;
 				synchronized(taskQueue) {
