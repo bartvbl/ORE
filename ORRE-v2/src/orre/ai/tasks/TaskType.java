@@ -4,9 +4,7 @@ public enum TaskType {
 	PLACE_BARRIER, 
 	BUILD, 
 	CLEAR_RUBBLE, 
-	COLLECT_CHRYSTAL, 
 	PLACE_ELECTRIC_FENCE, 
-	COLLECT_ORE, 
 	DRILL, 
 	DRIVE_VEHICLE, 
 	EAT_FOOD, 
@@ -15,5 +13,6 @@ public enum TaskType {
 	REINFORCE, 
 	REPAIR, 
 	GET_STUD, 
-	IDLE
+	IDLE, 
+	COLLECT
 }

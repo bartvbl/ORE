@@ -33,6 +33,6 @@ public class TaskMaster {
 	}
 	
 	public void registerPendingTask(PendingTask task) {
-		this.taskStorage.get(task.type).add(task);
+		this.taskStorage.get(task.taskType).add(task);
 	}
 }
