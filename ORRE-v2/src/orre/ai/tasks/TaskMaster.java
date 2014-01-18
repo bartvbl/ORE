@@ -26,10 +26,28 @@ public class TaskMaster {
 	}
 	
 	public Task assignTask(int gameObjectID, TaskType[] acceptableTaskTypes, Point2D locationOnMap) {
-		
-		return null;
+		TaskType[] priorityList = priorities.getCurrentPriorities();
+		for(TaskType priority : priorityList) {
+			if(canHandleTaskType(priority, acceptableTaskTypes)) {
+				ArrayList<PendingTask> availableTasks = taskStorage.get(priority);
+				PendingTask foundTask = findTask(availableTasks, locationOnMap);
+				if(foundTask != null) {
+					return foundTask.task;
+				}
+			}
+		}
+		//no task available -> idle
+		return new IdleTask(gameObjectID);
 	}
 	
+	private boolean canHandleTaskType(TaskType priority, TaskType[] acceptableTaskTypes) {
+		return false;
+	}
+
+	private PendingTask findTask(ArrayList<PendingTask> availableTasks, Point2D locationOnMap) {
+		return null;
+	}
+
 	public void registerPendingTask(PendingTask task) {
 		this.taskStorage.get(task.taskType).add(task);
 	}

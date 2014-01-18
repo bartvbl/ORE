@@ -11,7 +11,7 @@ public class Transportable extends Property {
 
 	public Transportable(GameObject gameObject) {
 		super(PropertyType.TRANSPORTABLE, gameObject);
-		gameObject.world.services.aiService.registerTask(new PendingTask(TaskType.COLLECT, gameObject.id, gameObject.type));
+		//gameObject.world.services.aiService.registerTask(new PendingTask(TaskType.COLLECT, gameObject.id, gameObject.type));
 	}
 
 	@Override
