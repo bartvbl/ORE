@@ -41,11 +41,36 @@ public class TaskMaster {
 	}
 	
 	private boolean canHandleTaskType(TaskType priority, TaskType[] acceptableTaskTypes) {
+		for(TaskType acceptableType : acceptableTaskTypes) {
+			if(acceptableType == priority) {
+				return true;
+			}
+		}
 		return false;
 	}
 
 	private Task findTask(ArrayList<Task> availableTasks, Point2D locationOnMap) {
-		return null;
+		Task bestTask = null;
+		int shortestPathLength = Integer.MAX_VALUE;
+		for(Task availableTask : availableTasks) {
+			Path pathToTask = findPathToTask(locationOnMap, availableTask);
+			if(pathToTask.isFoundPath) {
+				int pathLength = pathToTask.getStepCount();
+				if(pathLength < shortestPathLength) {
+					shortestPathLength = pathLength;
+					bestTask = availableTask;
+				}
+			}
+		}
+		return bestTask;
+	}
+
+	private Path findPathToTask(Point2D locationOnMap, Task availableTask) {
+		Point2D taskTargetLocation = availableTask.getLocation(locationOnMap);
+		MapTileNode unitLocation = new MapTileNode(world.map, locationOnMap.x, locationOnMap.y);
+		MapTileNode taskLocation = new MapTileNode(world.map, taskTargetLocation.x, taskTargetLocation.y);
+		Path pathToTask = astar.findPath(unitLocation, taskLocation);
+		return pathToTask;
 	}
 
 	public void registerPendingTask(Task task) {

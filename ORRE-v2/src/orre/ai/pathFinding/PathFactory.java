@@ -6,7 +6,7 @@ public class PathFactory {
 	public static Path generateSearchedFailedPath(Node startingNode) {
 		ArrayList<State<?>> stateList = new ArrayList<State<?>>();
 		stateList.add(startingNode.getState());
-		return new Path(stateList);
+		return new Path(stateList, false);
 	}
 	
 	public static Path generateSearchPath(Node startingNode, Node destinationNode) {
@@ -17,6 +17,6 @@ public class PathFactory {
 			currentNode = currentNode.getPredecessor();
 		}
 		path.add(0, startingNode.getState());
-		return new Path(path);
+		return new Path(path, true);
 	}
 }

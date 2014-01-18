@@ -4,10 +4,12 @@ import java.util.List;
 
 public class Path {
 	private final List<State<?>> path;
+	public final boolean isFoundPath;
 	private int indexOfCurrentStep = 0;
 	
-	public Path(List<State<?>> path) {
+	public Path(List<State<?>> path, boolean isFoundPath) {
 		this.path = path;
+		this.isFoundPath = isFoundPath;
 	}
 	
 	public boolean hasFinished() {
@@ -28,5 +30,9 @@ public class Path {
 	
 	public State<?> getStartingState() {
 		return this.path.get(0);
+	}
+
+	public int getStepCount() {
+		return path.size();
 	}
 }
