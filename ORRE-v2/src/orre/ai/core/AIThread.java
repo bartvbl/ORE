@@ -3,6 +3,7 @@ package orre.ai.core;
 import org.lwjgl.opengl.Display;
 
 import orre.ai.tasks.TaskMaster;
+import orre.ai.tasks.TaskPriorities;
 import orre.gameWorld.core.GameWorld;
 import orre.util.Queue;
 
@@ -12,7 +13,8 @@ public class AIThread extends Thread {
 	private GameWorld world;
 	
 	public AIThread(GameWorld world) {
-		this.taskMaster = new TaskMaster(world);
+		TaskPriorities priorities = new TaskPriorities();
+		this.taskMaster = new TaskMaster(world, priorities);
 		this.world = world;
 	}
 	

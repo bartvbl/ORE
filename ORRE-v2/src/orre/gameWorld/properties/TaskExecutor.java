@@ -27,7 +27,7 @@ public class TaskExecutor extends Property {
 	public void tick() {
 		currentTask.update();
 		if(currentTask.isFinished()) {
-			this.gameObject.world.services.aiService.assignTask(this.gameObject.id, new TaskType[]{TaskType.COLLECT});
+			//this.gameObject.world.services.aiService.assignTask(this.gameObject.id, new TaskType[]{TaskType.COLLECT});
 		}
 	}
 

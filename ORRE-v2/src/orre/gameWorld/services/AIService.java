@@ -8,6 +8,7 @@ import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskType;
 import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
+import orre.geom.Point2D;
 
 public class AIService implements Service {
 	
@@ -26,7 +27,7 @@ public class AIService implements Service {
 		this.aiThread.enqueueTask(new RegisterPendingCommand(task));
 	}
 
-	public void assignTask(int id, TaskType[] acceptableTaskTypes) {
-		this.aiThread.enqueueTask(new AssignTaskCommand(id, acceptableTaskTypes));
+	public void assignTask(int id, TaskType[] acceptableTaskTypes, Point2D locationOnMap) {
+		this.aiThread.enqueueTask(new AssignTaskCommand(id, acceptableTaskTypes, locationOnMap));
 	}
 }

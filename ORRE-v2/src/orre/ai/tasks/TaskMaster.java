@@ -9,26 +9,24 @@ import orre.ai.pathFinding.map.AnimationGenerator;
 import orre.ai.pathFinding.map.MapTileNode;
 import orre.animation.Animation;
 import orre.gameWorld.core.GameWorld;
+import orre.geom.Point2D;
 
 public class TaskMaster {
 	private final HashMap<TaskType, ArrayList<PendingTask>> taskStorage = new HashMap<TaskType, ArrayList<PendingTask>>();
-	private final TaskType[] priorities = new TaskType[TaskType.values().length];
 	private final AStar astar = new AStar();
 	private final GameWorld world;
+	private final TaskPriorities priorities;
 	
-	public TaskMaster(GameWorld world) {
+	public TaskMaster(GameWorld world, TaskPriorities priorities) {
 		for(TaskType type : TaskType.values()) {
 			taskStorage.put(type, new ArrayList<PendingTask>());
 		}
-		int priorityCounter = 0;
-		for(TaskType taskType : TaskType.values()) {
-			priorities[priorityCounter] = taskType;
-			priorityCounter++;
-		}
 		this.world = world;
+		this.priorities = priorities;
 	}
 	
-	public Task assignTask(int gameObjectID, TaskType[] acceptableTaskTypes) {
+	public Task assignTask(int gameObjectID, TaskType[] acceptableTaskTypes, Point2D locationOnMap) {
+		
 		return null;
 	}
 	
