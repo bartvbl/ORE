@@ -11,6 +11,10 @@ public abstract class Task {
 		this.gameObjectID = gameObjectID;
 	}
 
+	public void markStepCompleted() {
+		
+	}
+
 	public abstract Point2D getLocation(Point2D taskExecutorLocation);
 	public abstract void update();
 	public abstract boolean isFinished();

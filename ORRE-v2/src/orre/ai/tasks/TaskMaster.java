@@ -5,9 +5,7 @@ import java.util.HashMap;
 
 import orre.ai.pathFinding.AStar;
 import orre.ai.pathFinding.Path;
-import orre.ai.pathFinding.map.AnimationGenerator;
 import orre.ai.pathFinding.map.MapTileNode;
-import orre.animation.Animation;
 import orre.gameWorld.core.GameWorld;
 import orre.geom.Point2D;
 
