@@ -12,14 +12,14 @@ import orre.gameWorld.core.GameWorld;
 import orre.geom.Point2D;
 
 public class TaskMaster {
-	private final HashMap<TaskType, ArrayList<PendingTask>> taskStorage = new HashMap<TaskType, ArrayList<PendingTask>>();
+	private final HashMap<TaskType, ArrayList<Task>> taskStorage = new HashMap<TaskType, ArrayList<Task>>();
 	private final AStar astar = new AStar();
 	private final GameWorld world;
 	private final TaskPriorities priorities;
 	
 	public TaskMaster(GameWorld world, TaskPriorities priorities) {
 		for(TaskType type : TaskType.values()) {
-			taskStorage.put(type, new ArrayList<PendingTask>());
+			taskStorage.put(type, new ArrayList<Task>());
 		}
 		this.world = world;
 		this.priorities = priorities;
@@ -29,10 +29,10 @@ public class TaskMaster {
 		TaskType[] priorityList = priorities.getCurrentPriorities();
 		for(TaskType priority : priorityList) {
 			if(canHandleTaskType(priority, acceptableTaskTypes)) {
-				ArrayList<PendingTask> availableTasks = taskStorage.get(priority);
-				PendingTask foundTask = findTask(availableTasks, locationOnMap);
+				final ArrayList<Task> availableTasks = taskStorage.get(priority);
+				Task foundTask = findTask(availableTasks, locationOnMap);
 				if(foundTask != null) {
-					return foundTask.task;
+					return foundTask;
 				}
 			}
 		}
@@ -44,11 +44,11 @@ public class TaskMaster {
 		return false;
 	}
 
-	private PendingTask findTask(ArrayList<PendingTask> availableTasks, Point2D locationOnMap) {
+	private Task findTask(ArrayList<Task> availableTasks, Point2D locationOnMap) {
 		return null;
 	}
 
-	public void registerPendingTask(PendingTask task) {
-		this.taskStorage.get(task.taskType).add(task);
+	public void registerPendingTask(Task task) {
+		this.taskStorage.get(task.type).add(task);
 	}
 }

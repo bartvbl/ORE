@@ -1,6 +1,5 @@
 package orre.gameWorld.properties;
 
-import orre.ai.tasks.PendingTask;
 import orre.ai.tasks.TaskType;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;

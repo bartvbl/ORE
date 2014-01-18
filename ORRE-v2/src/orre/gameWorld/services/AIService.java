@@ -2,7 +2,6 @@ package orre.gameWorld.services;
 
 import orre.ai.core.AIThread;
 import orre.ai.core.RegisterPendingCommand;
-import orre.ai.tasks.PendingTask;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskType;
@@ -23,7 +22,7 @@ public class AIService implements Service {
 		
 	}
 
-	public void registerTask(PendingTask task) {
+	public void registerTask(Task task) {
 		this.aiThread.enqueueTask(new RegisterPendingCommand(task));
 	}
 

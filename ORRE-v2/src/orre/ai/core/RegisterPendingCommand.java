@@ -1,14 +1,14 @@
 package orre.ai.core;
 
-import orre.ai.tasks.PendingTask;
+import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
 import orre.gameWorld.core.GameWorld;
 
 public class RegisterPendingCommand extends AICommand {
 
-	private final PendingTask pendingTask;
+	private final Task pendingTask;
 
-	public RegisterPendingCommand(PendingTask task) {
+	public RegisterPendingCommand(Task task) {
 		this.pendingTask = task;
 	}
 
