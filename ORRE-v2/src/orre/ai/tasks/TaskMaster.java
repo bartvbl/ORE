@@ -51,13 +51,17 @@ public class TaskMaster {
 		Task bestTask = null;
 		int shortestPathLength = Integer.MAX_VALUE;
 		for(Task availableTask : availableTasks) {
+			if(!availableTask.isExecutionPossible()) {
+				continue;
+			}
 			Path pathToTask = findPathToTask(locationOnMap, availableTask);
-			if(pathToTask.isFoundPath) {
-				int pathLength = pathToTask.getStepCount();
-				if(pathLength < shortestPathLength) {
-					shortestPathLength = pathLength;
-					bestTask = availableTask;
-				}
+			if(!pathToTask.isFoundPath) {
+				continue;
+			}
+			int pathLength = pathToTask.getStepCount();
+			if(pathLength < shortestPathLength) {
+				shortestPathLength = pathLength;
+				bestTask = availableTask;
 			}
 		}
 		return bestTask;

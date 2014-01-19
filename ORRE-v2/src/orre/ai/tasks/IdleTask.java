@@ -24,4 +24,9 @@ public class IdleTask extends Task {
 		return taskExecutorLocation;
 	}
 
+	@Override
+	public boolean isExecutionPossible() {
+		return true;
+	}
+
 }
