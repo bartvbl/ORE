@@ -14,6 +14,7 @@ import orre.geom.mesh.Mesh3D;
 
 public class TaskExecutor extends Property {
 	private Task currentTask;
+	private boolean hasTask = false;
 
 	public TaskExecutor(GameObject gameObject) {
 		super(PropertyType.TASK_EXECUTOR, gameObject);
@@ -27,11 +28,12 @@ public class TaskExecutor extends Property {
 
 	@Override
 	public void tick() {
-		if(currentTask.isFinished()) {
+		if(currentTask.isFinished() || !hasTask) {
 			Mesh3D appearance = (Mesh3D) gameObject.requestPropertyData(PropertyDataType.APPEARANCE);
 			Point3D location = appearance.root.getLocation();
 			Point2D location2D = location.in2D();
 			this.gameObject.world.services.aiService.assignTask(this.gameObject.id, new TaskType[]{TaskType.COLLECT_ORE}, location2D);
+			hasTask = true;
 		}
 	}
 

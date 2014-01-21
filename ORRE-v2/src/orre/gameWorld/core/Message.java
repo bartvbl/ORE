@@ -18,7 +18,7 @@ public class Message<PayloadDataType> {
 	public Message(MessageType type, PayloadDataType object) {
 		this.type = type;
 		this.payloadObject = object;
-		if(!(object.getClass().isAssignableFrom(type.requiredPayloadDataType))) {
+		if(!(type.requiredPayloadDataType.isAssignableFrom(object.getClass()))) {
 			refuseConstruction();
 		}
 	}
