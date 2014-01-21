@@ -1,6 +1,7 @@
 package orre.gameWorld.services;
 
 import orre.ai.core.AIThread;
+import orre.ai.core.AssignTaskCommand;
 import orre.ai.core.RegisterPendingCommand;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;

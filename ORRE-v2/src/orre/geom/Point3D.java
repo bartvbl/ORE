@@ -10,4 +10,8 @@ public class Point3D {
 		this.y = y;
 		this.z = z;
 	}
+
+	public Point2D in2D() {
+		return new Point2D((int)x, (int)y);
+	}
 }

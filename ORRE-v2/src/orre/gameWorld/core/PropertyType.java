@@ -4,6 +4,7 @@ import orre.gameWorld.properties.ChrystalAppearance;
 import orre.gameWorld.properties.Flashlight;
 import orre.gameWorld.properties.GravityProperty;
 import orre.gameWorld.properties.HealthProperty;
+import orre.gameWorld.properties.Location;
 import orre.gameWorld.properties.OreAppearance;
 import orre.gameWorld.properties.RockRaiderAppearance;
 import orre.gameWorld.properties.TaskExecutor;
@@ -19,7 +20,8 @@ public enum PropertyType {
 	TRANSPORTABLE(Transportable.class), 
 	ORE_APPEARANCE(OreAppearance.class), 
 	CHRYSTAL_APPEARANCE(ChrystalAppearance.class),
-	TASK_EXECUTOR(TaskExecutor.class);
+	TASK_EXECUTOR(TaskExecutor.class), 
+	LOCATION(Location.class);
 
 	public final Class<?> propertyClass;
 

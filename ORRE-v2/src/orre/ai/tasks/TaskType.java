@@ -1,10 +1,11 @@
 package orre.ai.tasks;
 
 public enum TaskType {
-	PLACE_BARRIER, 
 	BUILD, 
 	CLEAR_RUBBLE, 
+	PLACE_BARRIER, 
 	PLACE_ELECTRIC_FENCE, 
+	PLACE_DYNAMITE,
 	DRILL, 
 	DRIVE_VEHICLE, 
 	EAT_FOOD, 
@@ -14,5 +15,7 @@ public enum TaskType {
 	REPAIR, 
 	GET_STUD, 
 	IDLE, 
-	COLLECT
+	COLLECT_CHRYSTAL,
+	COLLECT_ORE,
+	FERRY
 }
