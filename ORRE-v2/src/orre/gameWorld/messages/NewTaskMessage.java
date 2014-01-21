@@ -1,4 +1,4 @@
-package orre.gameWorld.services;
+package orre.gameWorld.messages;
 
 import orre.ai.tasks.Task;
 import orre.gameWorld.core.Message;

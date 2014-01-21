@@ -32,9 +32,7 @@ public class AIThread extends Thread {
 				synchronized(taskQueue) {
 					task = taskQueue.dequeue();
 				}
-				System.out.println("Executing AI task: " + task);
 				task.execute(world, taskMaster);
-				System.out.println("Execution complete: " + task);
 			} else {
 				try {
 					Thread.sleep(1000/60);

@@ -14,7 +14,6 @@ public class RegisterPendingCommand extends AICommand {
 
 	@Override
 	public void execute(GameWorld world, TaskMaster taskMaster) {
-		System.out.println("registering new task: " + pendingTask);
 		taskMaster.registerPendingTask(pendingTask);
 	}
 

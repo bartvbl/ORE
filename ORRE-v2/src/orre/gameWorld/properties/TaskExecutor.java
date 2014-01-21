@@ -8,6 +8,7 @@ import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyDataType;
 import orre.gameWorld.core.PropertyType;
+import orre.gameWorld.messages.NewTaskMessage;
 import orre.geom.Point2D;
 import orre.geom.Point3D;
 import orre.geom.mesh.Mesh3D;
@@ -23,7 +24,10 @@ public class TaskExecutor extends Property {
 
 	@Override
 	public void handleMessage(Message<?> message) {
-		System.out.println(message);
+		if(message instanceof NewTaskMessage) {
+			NewTaskMessage newTask = (NewTaskMessage) message;
+			System.out.println(newTask.getPayload());
+		}
 	}
 
 	@Override

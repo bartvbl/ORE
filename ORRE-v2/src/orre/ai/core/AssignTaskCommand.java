@@ -4,7 +4,7 @@ import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskType;
 import orre.gameWorld.core.GameWorld;
-import orre.gameWorld.services.NewTaskMessage;
+import orre.gameWorld.messages.NewTaskMessage;
 import orre.geom.Point2D;
 
 public class AssignTaskCommand extends AICommand {
