@@ -30,4 +30,8 @@ public class AIService implements Service {
 	public void assignTask(int id, TaskType[] acceptableTaskTypes, Point2D locationOnMap) {
 		this.aiThread.enqueueTask(new AssignTaskCommand(id, acceptableTaskTypes, locationOnMap));
 	}
+
+	public void stop() {
+		this.aiThread.stopExecution();
+	}
 }

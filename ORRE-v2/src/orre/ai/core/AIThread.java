@@ -11,6 +11,7 @@ public class AIThread extends Thread {
 	private final TaskMaster taskMaster;
 	private final Queue<AICommand> taskQueue = new Queue<AICommand>();
 	private GameWorld world;
+	private boolean isRunning = true;
 	
 	public AIThread(GameWorld world) {
 		TaskPriorities priorities = new TaskPriorities();
@@ -25,13 +26,15 @@ public class AIThread extends Thread {
 	}
 	
 	public void run() {
-		while(!Display.isCloseRequested()) {
+		while(isRunning) {
 			if(!taskQueue.isEmpty()) {
 				AICommand task;
 				synchronized(taskQueue) {
 					task = taskQueue.dequeue();
 				}
+				System.out.println("Executing AI task: " + task);
 				task.execute(world, taskMaster);
+				System.out.println("Execution complete: " + task);
 			} else {
 				try {
 					Thread.sleep(1000/60);
@@ -40,5 +43,9 @@ public class AIThread extends Thread {
 				}
 			}
 		}
+	}
+
+	public void stopExecution() {
+		isRunning = false;
 	}
 }

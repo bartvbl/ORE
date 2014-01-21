@@ -24,4 +24,8 @@ public class WorldServices {
 		this.soundService.tick();
 		this.inputService.tick();
 	}
+
+	public void shutdown() {
+		aiService.stop();
+	}
 }
