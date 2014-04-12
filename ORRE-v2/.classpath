@@ -16,5 +16,6 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="lib" path="jars/lwjgl_util.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/AppleJavaExtensions"/>
+	<classpathentry combineaccessrules="false" kind="src" path="/LibLDD"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

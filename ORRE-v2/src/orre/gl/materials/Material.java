@@ -129,5 +129,9 @@ public class Material extends CoordinateNode implements SceneNode, AbstractMater
 		if(this.specularTexture != null) {material.setSpecularTexture(this.specularTexture.clone());}
 		return material;
 	}
+	
+	public String toString() {
+		return "Material " + this.name;
+	}
 
 }

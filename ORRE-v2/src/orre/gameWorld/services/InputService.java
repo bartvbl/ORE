@@ -6,6 +6,8 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
+import orre.devTools.SceneGraphVisualiser;
+import orre.gameWorld.core.GameWorld;
 import orre.gl.util.CoordConverter;
 
 public class InputService implements Service {
@@ -20,10 +22,12 @@ public class InputService implements Service {
 	private float[] mouseLocation = new float[]{0, 0, 0};
 	
 	private final HashMap<Integer, Boolean> keyStateMap;
+	private final GameWorld world;
 	
 	private static final double mapMoveSpeed = 0.3d;
 	
-	public InputService() {
+	public InputService(GameWorld world) {
+		this.world = world;
 		try {
 			if(!Mouse.isCreated()) {
 				Mouse.create();
@@ -53,7 +57,12 @@ public class InputService implements Service {
 		double mapDeltaY = 0;
 		
 		while(Keyboard.next()) {
-			keyStateMap.put(Keyboard.getEventKey(), Keyboard.getEventKeyState());
+			int pressedKey = Keyboard.getEventKey();
+			boolean isKeyDown = Keyboard.getEventKeyState();
+			keyStateMap.put(pressedKey, isKeyDown);
+			if(isKeyDown) {
+				onKeyDown(pressedKey);
+			}
 		}
 		
 		if(keyStateMap.containsKey(Keyboard.KEY_A) && keyStateMap.get(Keyboard.KEY_A)) {
@@ -80,6 +89,13 @@ public class InputService implements Service {
 		
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
+	}
+
+	private void onKeyDown(int pressedKey) {
+		switch(pressedKey) {
+		case Keyboard.KEY_F3:
+			SceneGraphVisualiser.showSceneGraph(world.rootNode);
+		}
 	}
 
 	public double getMapRotationX() {

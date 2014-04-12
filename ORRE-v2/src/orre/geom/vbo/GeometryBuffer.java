@@ -71,6 +71,9 @@ public class GeometryBuffer extends ContainerNode implements SceneNode {
 	@Override
 	public void destroy() {
 		
-		
+	}
+	
+	public String toString() {
+		return "GeometryBuffer with " + numberOfVertices + " vertices";
 	}
 }
