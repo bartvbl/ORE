@@ -8,6 +8,13 @@ import orre.sceneGraph.CoordinateNode;
 public class ModelPart extends CoordinateNode implements SceneNode {
 	
 	private String name;
+	
+	public ModelPart() {
+	}
+	
+	public ModelPart(String name) {
+		this.name = name;
+	}
 
 	public void addMaterialAndGeometryBufferCombo(Material material, GeometryBuffer buffer, String name) {
 		this.addChild(material);

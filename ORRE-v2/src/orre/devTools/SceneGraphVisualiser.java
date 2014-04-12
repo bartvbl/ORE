@@ -1,6 +1,7 @@
 package orre.devTools;
 
 import javax.swing.JFrame;
+import javax.swing.JScrollPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
@@ -12,7 +13,9 @@ public class SceneGraphVisualiser {
 	public static void showSceneGraph(SceneNode rootNode) {
 		JFrame window = new JFrame("Scene");
 		JTree sceneTree = new JTree();
-		window.add(sceneTree);
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(sceneTree);
+		window.add(scrollPane);
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(rootNode);
 		DefaultTreeModel model = new DefaultTreeModel(node);
 		sceneTree.setModel(model);

@@ -5,7 +5,6 @@ import static org.lwjgl.opengl.GL11.*;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
-import org.lwjgl.util.glu.Sphere;
 
 import orre.sceneGraph.SceneNode;
 import orre.sceneGraph.CoordinateNode;
