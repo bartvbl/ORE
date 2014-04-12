@@ -20,7 +20,7 @@ public class Flashlight extends Property {
 		super(PropertyType.LIGHT, gameObject);
 		this.light = new Light();
 		this.service = this.gameObject.world.services.inputService;
-		gameObject.world.rootNode.addChild(light);
+		gameObject.world.mapContentsNode.addChild(light);
 	}
 
 	@Override

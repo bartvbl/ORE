@@ -47,6 +47,8 @@ public class GameRunning extends GameState {
 		this.sceneRoot = new ContainerNode();
 		ContainerNode mapContentsRoot = new ContainerNode();
 		this.gameWorld = new GameWorld(sceneRoot, mapContentsRoot, map, this.resourceCache);
+		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
+		flashLight = new Flashlight(object);
 		SceneNode mapNode = map.createSceneNode();
 		sceneRoot.addChild(mapNode);
 		mapNode.addChild(mapContentsRoot);
@@ -56,8 +58,6 @@ public class GameRunning extends GameState {
 		gameWorld.spawnGameObject(GameObjectType.ORE);
 		gameWorld.spawnGameObject(GameObjectType.ROCK_RAIDER);
 		gameWorld.dispatchMessage(new Message<Camera>(MessageType.ASSUME_CAMERA_CONTROL, defaultCamera), cameraController);
-		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
-		flashLight = new Flashlight(object);
 	}
 	
 	public void unset() {

@@ -22,7 +22,9 @@ public class SceneGraphVisualiser {
 		populateTree(node, rootNode);
 		window.setSize(300, 500);
 		window.setLocation(100, 100);
-		sceneTree.expandRow(0);
+		for(int i = 0; i < sceneTree.getRowCount(); i++) {
+			sceneTree.expandRow(i);
+		}
 		window.setVisible(true);
 	}
 
