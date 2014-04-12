@@ -1,5 +1,7 @@
 package orre.gameWorld.services;
 
+import java.util.HashMap;
+
 import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
@@ -17,6 +19,8 @@ public class InputService implements Service {
 	private double mouseY = 0;
 	private float[] mouseLocation = new float[]{0, 0, 0};
 	
+	private final HashMap<Integer, Boolean> keyStateMap;
+	
 	private static final double mapMoveSpeed = 0.3d;
 	
 	public InputService() {
@@ -30,6 +34,7 @@ public class InputService implements Service {
 		} catch (LWJGLException e) {
 			e.printStackTrace();
 		}
+		this.keyStateMap = new HashMap<Integer, Boolean>();
 	}
 	
 	public void tick() {
@@ -47,16 +52,20 @@ public class InputService implements Service {
 		double mapDeltaX = 0;
 		double mapDeltaY = 0;
 		
-		if(Keyboard.isKeyDown(Keyboard.KEY_A)) {
+		while(Keyboard.next()) {
+			keyStateMap.put(Keyboard.getEventKey(), Keyboard.getEventKeyState());
+		}
+		
+		if(keyStateMap.containsKey(Keyboard.KEY_A) && keyStateMap.get(Keyboard.KEY_A)) {
 			mapDeltaX--;
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_D)) {
+		if(keyStateMap.containsKey(Keyboard.KEY_D) && keyStateMap.get(Keyboard.KEY_D)) {
 			mapDeltaX++;
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_S)) {
+		if(keyStateMap.containsKey(Keyboard.KEY_S) && keyStateMap.get(Keyboard.KEY_S)) {
 			mapDeltaY--;
 		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_W)) {
+		if(keyStateMap.containsKey(Keyboard.KEY_W) && keyStateMap.get(Keyboard.KEY_W)) {
 			mapDeltaY++;
 		}
 		
