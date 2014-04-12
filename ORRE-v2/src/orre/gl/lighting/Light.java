@@ -55,4 +55,8 @@ public class Light extends CoordinateNode implements SceneNode {
 	public void destroy() {
 		
 	}
+	
+	public String toString() {
+		return "Light";
+	}
 }

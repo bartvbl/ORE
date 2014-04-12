@@ -17,7 +17,9 @@ public class SceneGraphVisualiser {
 		DefaultTreeModel model = new DefaultTreeModel(node);
 		sceneTree.setModel(model);
 		populateTree(node, rootNode);
-		window.pack();
+		window.setSize(300, 500);
+		window.setLocation(100, 100);
+		sceneTree.expandRow(0);
 		window.setVisible(true);
 	}
 
