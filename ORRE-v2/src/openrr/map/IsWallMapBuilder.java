@@ -1,5 +1,7 @@
 package openrr.map;
 
+import java.util.Arrays;
+
 import orre.geom.Dimension2D;
 
 public class IsWallMapBuilder {
@@ -18,6 +20,10 @@ public class IsWallMapBuilder {
 				wallHeightMap[x + 1][y + 0] = wallHeightNeighbourhood[1][0];
 				wallHeightMap[x + 1][y + 1] = wallHeightNeighbourhood[1][1];
 			}
+		}
+		Arrays.fill(wallHeightMap[mapSize.width], true);
+		for(int i = 0; i < mapSize.width; i++) {
+			wallHeightMap[i][mapSize.height] = true;
 		}
 		return wallHeightMap;
 	}
