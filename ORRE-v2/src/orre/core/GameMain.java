@@ -35,7 +35,6 @@ public class GameMain implements EventHandler{
 			Display.update();
 			Display.sync(60);
 		}
-		System.out.println("Stopping main loop..");
 		this.currentGameState.unset();
 		System.exit(0);
 	}

@@ -1,7 +1,5 @@
 package openrr.map;
 
-import java.util.Arrays;
-
 import orre.geom.Vector3D;
 import orre.geom.Vertex3D;
 import orre.resources.loaders.map.SubTextureCoordinate;

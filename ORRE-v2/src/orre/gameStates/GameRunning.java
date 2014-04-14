@@ -1,5 +1,7 @@
 package orre.gameStates;
 
+import java.io.File;
+
 import openrr.map.Map;
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
@@ -12,6 +14,7 @@ import orre.gameWorld.properties.Flashlight;
 import orre.geom.mesh.Mesh3D;
 import orre.gl.lighting.Light;
 import orre.gl.renderer.RenderPass;
+import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
 import orre.sceneGraph.Camera;
 import orre.sceneGraph.ContainerNode;
@@ -42,6 +45,7 @@ public class GameRunning extends GameState {
 	}
 	
 	public void set() {
+		boolean shaderEnabled = true;
 		System.out.println("game has started.");
 		this.map = resourceCache.getMap();
 		this.sceneRoot = new ContainerNode();
@@ -50,7 +54,13 @@ public class GameRunning extends GameState {
 		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
 		flashLight = new Flashlight(object);
 		SceneNode mapNode = map.createSceneNode();
-		sceneRoot.addChild(mapNode);
+		ShaderNode shader = new ShaderNode(new File("res/shaders/lighting.vert"), new File("res/shaders/lighting.frag"));
+		if(shaderEnabled) {
+			sceneRoot.addChild(shader);
+		} else {
+			sceneRoot.addChild(mapNode);
+		}
+		shader.addChild(mapNode);
 		mapNode.addChild(mapContentsRoot);
 		defaultCamera = new Camera();
 		gameWorld.services.cameraService.setCurrentCamera(defaultCamera, gameWorld);

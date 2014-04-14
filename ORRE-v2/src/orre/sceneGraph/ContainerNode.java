@@ -57,7 +57,7 @@ public class ContainerNode implements SceneNode {
 	}
 	
 	public String toString() {
-		return "Container node";
+		return "Container";
 	}
 }
 

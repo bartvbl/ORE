@@ -72,6 +72,7 @@ public class MapBuilder {
 				SubTextureCoordinate textureCoordinate = texturePack.getTextureCoordinates();
 				Vertex3D[] vertices = MapCoordinateRotator.generateRotatedTileCoordinates(x, y, tileHeight, textureCoordinate, orientation);
 				
+				
 				putVertices(geometryDataBuffer, vertices);
 			}
 		}
