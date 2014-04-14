@@ -3,11 +3,6 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.6"/>
 	<classpathentry exported="true" kind="lib" path="jars/jinput.jar"/>
-	<classpathentry exported="true" kind="lib" path="jars/lwjgl.jar">
-		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ORRE-v2/natives"/>
-		</attributes>
-	</classpathentry>
 	<classpathentry exported="true" kind="lib" path="jars/lzma.jar"/>
 	<classpathentry exported="true" kind="lib" path="jars/slick-util.jar"/>
 	<classpathentry exported="true" kind="lib" path="jars/slick.jar"/>
@@ -17,5 +12,10 @@
 	<classpathentry exported="true" kind="lib" path="jars/lwjgl_util.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/AppleJavaExtensions"/>
 	<classpathentry combineaccessrules="false" kind="src" path="/LibLDD"/>
+	<classpathentry kind="lib" path="jars/lwjgl-debug.jar">
+		<attributes>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ORRE-v2/natives"/>
+		</attributes>
+	</classpathentry>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
