@@ -2,7 +2,6 @@ package orre.gl.shaders;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import orre.sceneGraph.ContainerNode;
@@ -28,6 +27,10 @@ public class ShaderNode extends ContainerNode {
 			if (glGetProgrami(programID, GL_LINK_STATUS) == GL_FALSE) {
 				throw new RuntimeException("Failed to link shader: " + infoLog);
 			}
+	}
+	
+	public UniformNode createUniform(String variableName) {
+		return new UniformNode(variableName, programID);
 	}
 
 	private int createShader(String vertexSource, int type) {
@@ -63,8 +66,6 @@ public class ShaderNode extends ContainerNode {
 	@Override
 	public void render() {
 		glUseProgram(programID);
-		int location = glGetUniformLocation(programID, "diffuseTexture");
-		glUniform1i(location, 0);
 	}
 	
 	@Override
