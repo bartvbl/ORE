@@ -1,63 +1,39 @@
-uniform vec4 AmbientColor;
-uniform vec4 DiffuseColor;
-uniform vec4 SpecularColor;
-uniform float Shininess;
-
-varying vec3 LightDir[3];
-varying vec3 Normal;
-varying vec3 ViewDirection;
-
+varying vec4 diffuse,ambientGlobal, ambient, ecPos;
+varying vec3 normal,halfVector;
+ 
 void main()
 {
-	vec3 n, halfV, lightDir, viewDir, reflection;
-	float NdotL, RdotV;
-	n = normalize(Normal);
-	viewDir = normalize(ViewDirection);
-	
-	vec4 color = vec4(0.0, 0.0, 0.0, 0.0);
-	
-	//Light 0
-	lightDir = normalize(-LightDir[0]);
-	
-	color += AmbientColor * gl_LightSource[0].ambient;
-	color += gl_LightModel.ambient * AmbientColor;
-
-	NdotL = max(dot(n, lightDir),0.0);
-	color += DiffuseColor * gl_LightSource[0].diffuse * NdotL;
-
-	reflection = -reflect(lightDir, n);
-	RdotV = max( 0.0, dot( reflection, viewDir ) );
-	color += SpecularColor * gl_LightSource[0].specular * pow(RdotV, Shininess);
-
-
-	//Light 1
-	lightDir = normalize(-LightDir[1]);
-	
-	color += AmbientColor * gl_LightSource[1].ambient;
-	color += gl_LightModel.ambient * AmbientColor;
-
-	NdotL = max(dot(n, lightDir),0.0);
-	color += DiffuseColor * gl_LightSource[1].diffuse * NdotL;
-
-	reflection = -reflect(lightDir, n);
-	RdotV = max( 0.0, dot( reflection, viewDir ) );
-	color += SpecularColor * gl_LightSource[1].specular * pow(RdotV, Shininess);
-
-
-	//Light 2
-	lightDir = normalize(-LightDir[2]);
-	
-	color += AmbientColor * gl_LightSource[2].ambient;
-	color += gl_LightModel.ambient * AmbientColor;
-
-	NdotL = max(dot(n, lightDir),0.0);
-	color += DiffuseColor * gl_LightSource[2].diffuse * NdotL;
-
-	reflection = -reflect(lightDir, n);
-	RdotV = max( 0.0, dot( reflection, viewDir ) );
-	color += SpecularColor * gl_LightSource[2].specular * pow(RdotV, Shininess);
-
-	color.w = DiffuseColor.w;
-	gl_FragColor = color;
-	
+    vec3 n,halfV,viewV,lightDir;
+    float NdotL,NdotHV;
+    vec4 color = ambientGlobal;
+    float att, dist;
+     
+    /* a fragment shader can't write a verying variable, hence we need
+    a new variable to store the normalized interpolated normal */
+    n = normalize(normal);
+     
+    // Compute the ligt direction
+    lightDir = vec3(gl_LightSource[0].position-ecPos);
+     
+    /* compute the distance to the light source to a varying variable*/
+    dist = length(lightDir);
+ 
+     
+    /* compute the dot product between normal and ldir */
+    NdotL = max(dot(n,normalize(lightDir)),0.0);
+ 
+    if (NdotL > 0.0) {
+     
+        att = 1.0 / (gl_LightSource[0].constantAttenuation +
+                gl_LightSource[0].linearAttenuation * dist +
+                gl_LightSource[0].quadraticAttenuation * dist * dist);
+        color += att * (diffuse * NdotL + ambient);
+     
+         
+        halfV = normalize(halfVector);
+        NdotHV = max(dot(n,halfV),0.0);
+        color += att * gl_FrontMaterial.specular * gl_LightSource[0].specular * pow(NdotHV,gl_FrontMaterial.shininess);
+    }
+ 
+    gl_FragColor = color;
 }
