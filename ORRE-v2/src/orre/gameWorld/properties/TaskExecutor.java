@@ -26,7 +26,9 @@ public class TaskExecutor extends Property {
 	public void handleMessage(Message<?> message) {
 		if(message instanceof NewTaskMessage) {
 			NewTaskMessage newTask = (NewTaskMessage) message;
-			System.out.println(newTask.getPayload());
+			this.currentTask = newTask.getPayload();
+			hasTask = true;
+			System.out.println("Received new task: " + currentTask);
 		}
 	}
 
@@ -38,6 +40,8 @@ public class TaskExecutor extends Property {
 			Point2D location2D = location.in2D();
 			this.gameObject.world.services.aiService.assignTask(this.gameObject.id, new TaskType[]{TaskType.COLLECT_ORE}, location2D);
 			hasTask = true;
+		} else if(hasTask) {
+			currentTask.update();
 		}
 	}
 

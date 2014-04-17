@@ -33,7 +33,7 @@ public class MapTexture {
 		material.setAmbientColour(new float[]{0.2f, 0.2f, 0.2f, 1});
 		material.setDiffuseColour(new float[]{0.8f, 0.8f, 0.8f, 1});
 		material.setSpecularColour(new float[]{1, 1, 1, 1});
-		material.setShininess(25f);
+		material.setShininess(75f);
 		return material;
 	}
 }

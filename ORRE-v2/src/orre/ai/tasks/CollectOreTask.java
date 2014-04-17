@@ -31,4 +31,9 @@ public class CollectOreTask extends Task {
 		return false;
 	}
 
+	@Override
+	public void plan(Point2D locationOnMap) {
+		
+	}
+
 }

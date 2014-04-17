@@ -21,8 +21,8 @@ vec4 lightSource( vec3 N, vec3 V, gl_LightSourceParameters light )
 
 	H = normalize(L - V.xyz);
 
-	float NdotL = dot(N, L);
-	float NdotH = dot(N, H);
+	float NdotL = max(0, dot(N, L));
+	float NdotH = max(0, dot(N, H));
 
 	float Idiff = NdotL;
 	float Ispec = pow(NdotH, gl_FrontMaterial.shininess);
@@ -57,6 +57,6 @@ vec4 lighting( void )
 void main( void )
 {
 	//gl_FragColor = lighting();
-	gl_FragColor = texture2D(diffuseTexture, gl_TexCoord[0].st);// * lighting();
+	gl_FragColor = texture2D(diffuseTexture, gl_TexCoord[0].st) * lighting();
 }
 

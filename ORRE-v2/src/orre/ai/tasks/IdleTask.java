@@ -1,6 +1,5 @@
 package orre.ai.tasks;
 
-import orre.animation.Animation;
 import orre.geom.Point2D;
 
 public class IdleTask extends Task {
@@ -27,6 +26,11 @@ public class IdleTask extends Task {
 	@Override
 	public boolean isExecutionPossible() {
 		return true;
+	}
+
+	@Override
+	public void plan(Point2D locationOnMap) {
+		//no need
 	}
 
 }

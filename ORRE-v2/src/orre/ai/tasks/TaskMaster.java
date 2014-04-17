@@ -30,6 +30,7 @@ public class TaskMaster {
 				final ArrayList<Task> availableTasks = taskStorage.get(priority);
 				Task foundTask = findTask(availableTasks, locationOnMap);
 				if(foundTask != null) {
+					foundTask.plan(locationOnMap);
 					return foundTask;
 				}
 			}

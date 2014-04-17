@@ -54,7 +54,7 @@ public class GameRunning extends GameState {
 		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
 		flashLight = new Flashlight(object);
 		SceneNode mapNode = map.createSceneNode();
-		ShaderNode shader = new ShaderNode(new File("res/shaders/lighting.vert"), new File("res/shaders/lighting.frag"));
+		ShaderNode shader = new ShaderNode(new File("res/shaders/phong.vert"), new File("res/shaders/phong.frag"));
 		if(shaderEnabled) {
 			sceneRoot.addChild(shader);
 		} else {
