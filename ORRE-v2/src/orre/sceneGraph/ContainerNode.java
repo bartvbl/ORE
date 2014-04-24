@@ -55,5 +55,9 @@ public class ContainerNode implements SceneNode {
 	public void postRender() {
 		glPopMatrix();
 	}
+	
+	public String toString() {
+		return "Container";
+	}
 }
 

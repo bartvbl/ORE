@@ -36,6 +36,7 @@ public class GameMain implements EventHandler{
 			Display.sync(60);
 		}
 		this.currentGameState.unset();
+		System.exit(0);
 	}
 
 	public long getFrameNumber()

@@ -1,5 +1,7 @@
 package orre.gameStates;
 
+import java.io.File;
+
 import openrr.map.Map;
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
@@ -12,6 +14,7 @@ import orre.gameWorld.properties.Flashlight;
 import orre.geom.mesh.Mesh3D;
 import orre.gl.lighting.Light;
 import orre.gl.renderer.RenderPass;
+import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
 import orre.sceneGraph.Camera;
 import orre.sceneGraph.ContainerNode;
@@ -42,13 +45,22 @@ public class GameRunning extends GameState {
 	}
 	
 	public void set() {
+		boolean shaderEnabled = true;
 		System.out.println("game has started.");
 		this.map = resourceCache.getMap();
 		this.sceneRoot = new ContainerNode();
 		ContainerNode mapContentsRoot = new ContainerNode();
-		this.gameWorld = new GameWorld(mapContentsRoot, mapContentsRoot, map, this.resourceCache);
+		this.gameWorld = new GameWorld(sceneRoot, mapContentsRoot, map, this.resourceCache);
+		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
+		flashLight = new Flashlight(object);
 		SceneNode mapNode = map.createSceneNode();
-		sceneRoot.addChild(mapNode);
+		ShaderNode shader = new ShaderNode(new File("res/shaders/phong.vert"), new File("res/shaders/phong.frag"));
+		if(shaderEnabled) {
+			sceneRoot.addChild(shader);
+		} else {
+			sceneRoot.addChild(mapNode);
+		}
+		shader.addChild(mapNode);
 		mapNode.addChild(mapContentsRoot);
 		defaultCamera = new Camera();
 		gameWorld.services.cameraService.setCurrentCamera(defaultCamera, gameWorld);
@@ -56,8 +68,6 @@ public class GameRunning extends GameState {
 		gameWorld.spawnGameObject(GameObjectType.ORE);
 		gameWorld.spawnGameObject(GameObjectType.ROCK_RAIDER);
 		gameWorld.dispatchMessage(new Message<Camera>(MessageType.ASSUME_CAMERA_CONTROL, defaultCamera), cameraController);
-		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
-		flashLight = new Flashlight(object);
 	}
 	
 	public void unset() {

@@ -16,4 +16,5 @@ public abstract class Task {
 	public abstract Point2D getLocation(Point2D taskExecutorLocation);
 	public abstract void update();
 	public abstract boolean isFinished();
+	public abstract void plan(Point2D locationOnMap);
 }

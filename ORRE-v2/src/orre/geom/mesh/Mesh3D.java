@@ -8,8 +8,8 @@ public class Mesh3D {
 	private HashMap<String, ModelPart> parts = new HashMap<String, ModelPart>();
 	public final CoordinateNode root;
 	
-	public Mesh3D() {
-		ModelPart root = new ModelPart();
+	public Mesh3D(String name) {
+		ModelPart root = new ModelPart(name);
 		this.root = root;
 		this.parts.put("root", root);
 	}

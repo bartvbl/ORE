@@ -1,16 +1,24 @@
-varying vec3 LightDir[3];
-varying vec3 Normal;
-varying vec3 ViewDirection;
+/* lighting.vert - emulates fixed function pipeline lighting */
 
-void main()
-{	
-	Normal = gl_NormalMatrix * gl_Normal;
-	
-	LightDir[0] = normalize(vec3(-gl_LightSource[0].position));
-	LightDir[1] = normalize(vec3(-gl_LightSource[1].position));
-	LightDir[2] = normalize(vec3(-gl_LightSource[2].position));
 
-	ViewDirection = vec3(gl_ModelViewMatrixInverse[0][3], gl_ModelViewMatrixInverse[1][3], gl_ModelViewMatrixInverse[2][3]) - (gl_ModelViewMatrix * gl_Vertex).xyz;
-				
+varying vec3 normal;   // vertex normal in eye space.
+varying vec3 position; // vertex position in eye space.
+varying float depth;
+
+
+
+//
+// entry point
+//
+void main( void )
+{
 	gl_Position = ftransform();
+	gl_TexCoord[0] = gl_MultiTexCoord0;
+
+	normal = gl_NormalMatrix * gl_Normal;
+	position = ( gl_ModelViewMatrix * gl_Vertex ).xyz;
+
+	depth = position.z;
 }
+
+

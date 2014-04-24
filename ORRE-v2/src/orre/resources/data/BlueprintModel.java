@@ -37,7 +37,8 @@ public class BlueprintModel extends Finalizable {
 	public void finalizeResource() {}
 
 	public Mesh3D createMesh() {
-		Mesh3D mesh = new Mesh3D();
+		System.out.println("Creating model: " + name);
+		Mesh3D mesh = new Mesh3D(name);
 		for(StoredModelPart part : this.topLevelNodeList) {
 			addChildren(mesh, mesh.root, part);
 		}

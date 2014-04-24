@@ -13,7 +13,7 @@ public class WorldServices {
 		this.animationService = new AnimationService(world);
 		this.aiService = new AIService(world);
 		this.soundService = new SoundService();
-		this.inputService = new InputService();
+		this.inputService = new InputService(world);
 		this.cameraService = new CameraService();
 	}
 	
