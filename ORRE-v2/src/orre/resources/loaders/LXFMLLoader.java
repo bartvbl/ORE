@@ -13,7 +13,7 @@ import lib.ldd.lif.LIFReader;
 import lib.ldd.lxfml.LXFMLReader;
 import orre.geom.mesh.Mesh3D;
 import orre.geom.vbo.BufferDataFormatType;
-import orre.geom.vbo.GeometryBuffer;
+import orre.geom.vbo.GeometryNode;
 import orre.resources.FileToLoad;
 import orre.resources.Finalizable;
 import orre.resources.ResourceQueue;

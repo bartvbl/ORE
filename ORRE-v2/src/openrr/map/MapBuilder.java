@@ -2,6 +2,7 @@ package openrr.map;
 
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
+import java.nio.IntBuffer;
 import java.util.Arrays;
 
 import org.lwjgl.BufferUtils;
@@ -10,7 +11,7 @@ import openrr.map.soil.SoilType;
 import orre.geom.Dimension2D;
 import orre.geom.Vertex3D;
 import orre.geom.vbo.BufferDataFormatType;
-import orre.geom.vbo.GeometryBuffer;
+import orre.geom.vbo.GeometryNode;
 import orre.geom.vbo.GeometryBufferGenerator;
 import orre.gl.materials.Material;
 import orre.resources.loaders.map.MapTexturePack;
@@ -99,20 +100,16 @@ public class MapBuilder {
 
 	private static void compileGeometryBuffer(MapTexturePack texturePack, SceneNode rootNode, DoubleBuffer geometryDataBuffer) {
 		Material currentMaterial = texturePack.generateBoundTextureMaterial();
-		int[] indices = generateIndexBuffer(geometryDataBuffer.position());
-		double[] geometryData = new double[geometryDataBuffer.position()];
-		geometryDataBuffer.rewind();
-		geometryDataBuffer.get(geometryData);
-		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryData, indices);
-		geometryDataBuffer.clear();
+		IntBuffer indices = generateIndexBuffer(geometryDataBuffer.position());
+		GeometryNode buffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, indices);
 		currentMaterial.addChild(buffer);
 		rootNode.addChild(currentMaterial);
 	}
 
-	private static int[] generateIndexBuffer(int numVertices) {
-		int[] indices = new int[numVertices];
+	private static IntBuffer generateIndexBuffer(int numVertices) {
+		IntBuffer indices = BufferUtils.createIntBuffer(numVertices);
 		for(int i = 0; i < numVertices; i++) {
-			indices[i] = i;
+			indices.put(i);
 		}
 		return indices;
 	}

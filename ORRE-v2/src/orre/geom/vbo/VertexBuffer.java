@@ -1,7 +1,6 @@
 package orre.geom.vbo;
 
 import java.nio.DoubleBuffer;
-import java.util.Arrays;
 
 public class VertexBuffer {
 	private final DoubleBuffer vertices;
