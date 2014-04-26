@@ -1,5 +1,5 @@
 package orre.resources.loaders.obj;
 
-enum ModelPartType {
+public enum ModelPartType {
 	PHYSICAL, VIRTUAL
 }

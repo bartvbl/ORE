@@ -78,7 +78,6 @@ public class ImageButton extends Button implements DrawableElement {
 		try {
 			FileInputStream filePath = new FileInputStream(fileName);
 			return true;
-			
 		} catch (FileNotFoundException e) {
 			return false;
 		}

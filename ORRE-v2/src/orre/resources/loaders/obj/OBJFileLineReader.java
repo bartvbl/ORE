@@ -1,6 +1,7 @@
 package orre.resources.loaders.obj;
 
 import java.io.IOException;
+import java.nio.DoubleBuffer;
 
 public class OBJFileLineReader {
 	public static void readOBJLine(OBJLoadingContext context) throws Exception {
@@ -49,7 +50,7 @@ public class OBJFileLineReader {
 		String[] parts = context.getCurrentLine().split(" ");
 		for(int i = 1; i < parts.length; i++) {
 			int[] face = OBJLoadingUtils.parseIntString(parts[i], '/');
-			double[] vertex = context.getBuffergenerator().getVertex(face[0]-1, face[1]-1, face[2]-1);//OBJ files are 1-indexed. values are stored in the buffer 0-indexed.
+			DoubleBuffer vertex = context.getBuffergenerator().getVertex(face[0]-1, face[1]-1, face[2]-1);//OBJ files are 1-indexed. values are stored in the buffer 0-indexed.
 			context.addVertexToCurrentModelPart(vertex);
 		}
 	}

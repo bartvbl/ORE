@@ -54,7 +54,7 @@ public class ResourceLoadingThread extends Thread {
 		} else if(currentFile.fileType == ResourceFile.OBJ_MODEL_FILE) {
 			resource = ModelLoader.loadModel(currentFile, this.resourceQueue);
 		} else if(currentFile.fileType == ResourceFile.LXFML_FILE) {
-			resource = LXFMLLoader.load(currentFile);
+			resource = LXFMLLoader.load(currentFile, this.resourceQueue);
 		} else if(currentFile.fileType == ResourceFile.MAP_FILE) {
 			resource = MapLoader.loadMap(currentFile);
 		} else if(currentFile.fileType == ResourceFile.ANIMATION_FILE) 

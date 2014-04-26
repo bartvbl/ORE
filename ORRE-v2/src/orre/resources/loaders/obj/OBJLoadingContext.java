@@ -1,6 +1,7 @@
 package orre.resources.loaders.obj;
 
 import java.io.File;
+import java.nio.DoubleBuffer;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -15,13 +16,13 @@ public class OBJLoadingContext {
 	private BlueprintMaterial currentMaterial;
 	private HashMap<String, BlueprintMaterial> materials;
 	private List<PartiallyLoadableModelPart> modelParts;
-	private TemporaryVertexBuffer temporaryVertesBuffer;
+	private VertexBuffer temporaryVertesBuffer;
 	private File containingDirectory;
 	private PartiallyLoadableModelPart currentModelPart = null;
 	
 	public OBJLoadingContext(File containingDirectory, OBJStatsContext statsContext)
 	{
-		this.temporaryVertesBuffer = new TemporaryVertexBuffer(statsContext.getTotalVertices(), statsContext.getTotalTexCoords(), statsContext.getTotalNormals(), statsContext.getBufferDataFormat());
+		this.temporaryVertesBuffer = new VertexBuffer(statsContext.getTotalVertices(), statsContext.getTotalTexCoords(), statsContext.getTotalNormals(), statsContext.getBufferDataFormat());
 		this.materials = new HashMap<String, BlueprintMaterial>(5);
 		this.modelParts = statsContext.generateModelParts();
 		this.containingDirectory = containingDirectory;
@@ -64,17 +65,15 @@ public class OBJLoadingContext {
 		return this.containingDirectory;
 	}
 	
-	public TemporaryVertexBuffer getBuffergenerator() {
+	public VertexBuffer getBuffergenerator() {
 		return this.temporaryVertesBuffer;
 	}
 
-	public void addVertexToCurrentModelPart(double[] vertex) {
+	public void addVertexToCurrentModelPart(DoubleBuffer vertex) {
 		this.currentModelPart.addVertex(vertex);
 	}
 
 	public void destroy() {
-		this.temporaryVertesBuffer.destroy();
-		this.temporaryVertesBuffer = null;
 		this.modelParts = null;
 		this.materials = null;
 		this.currentMaterial = null;

@@ -1,5 +1,6 @@
 package orre.resources.partiallyLoadables;
 
+import java.nio.DoubleBuffer;
 import java.util.Arrays;
 
 import orre.geom.vbo.BufferDataFormatType;
@@ -10,27 +11,21 @@ import orre.resources.loaders.obj.OBJConstants;
 import orre.sceneGraph.SceneNode;
 
 public class UnpackedGeometryBuffer extends Finalizable{
-	private double[] vertices;
+	private DoubleBuffer vertices;
 	private BufferDataFormatType dataFormat;
 	private int numVertices;
-	private int bufferPosition = 0;
 	private int numIndicesPerVertex;
-	private int numVerticesAdded = 0;
 	
 	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat, int numVertices) {
 		this.dataFormat = bufferDataFormat;
 		this.numVertices = numVertices;
 		int vertexBufferSize = bufferDataFormat.elementsPerVertex*numVertices;
-		this.vertices = new double[vertexBufferSize];
+		this.vertices = DoubleBuffer.allocate(vertexBufferSize);
 		this.numIndicesPerVertex = bufferDataFormat.elementsPerVertex;
 	}
 	
-	public void addVertex(double[] vertex) {
-		for(int i = 0; i < numIndicesPerVertex; i++) {			
-			this.vertices[bufferPosition + i] = vertex[i];
-		}
-		this.numVerticesAdded++;
-		this.bufferPosition += numIndicesPerVertex;
+	public void addVertex(DoubleBuffer vertex) {
+		vertices.put(vertex);
 	}
 
 	public void finalizeResource() {}
@@ -43,7 +38,12 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	public void addToCache() {}
 
 	public double[] getVertices() {
-		return this.vertices;
+		double[] allVertices = new double[vertices.capacity()];
+		int position = vertices.position();
+		vertices.position(0);
+		vertices.get(allVertices);
+		vertices.position(position);
+		return allVertices;
 	}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
@@ -53,7 +53,7 @@ public class UnpackedGeometryBuffer extends Finalizable{
 	public GeometryBuffer convertToGeometryBuffer() {
 		int[] indices = new int[this.numVertices];
 		for(int i = 0; i < this.numVertices; i++) indices[i] = i;
-		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, this.vertices, indices);
+		GeometryBuffer buffer = GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, getVertices(), indices);
 		this.vertices = null;
 		return buffer;
 	}
