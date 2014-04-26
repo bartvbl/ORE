@@ -7,7 +7,7 @@ import orre.gl.texture.Texture;
 
 public class TexturePixelConverter {
 	
-	private static int[] getPixels(BufferedImage image)
+	private static int[] getPixels(BufferedImage image) throws InterruptedException
 	{
 		if (image == null) {
 			return null;
@@ -16,14 +16,11 @@ public class TexturePixelConverter {
 		int imgh = image.getHeight(null);
 		int[] pixelsARGB = new int[imgw * imgh];
 		PixelGrabber pg = new PixelGrabber(image, 0, 0, imgw, imgh, pixelsARGB, 0, imgw);
-		try {
-			pg.grabPixels();
-		}
-		catch (Exception e) {System.out.println("oops. " + e.getMessage());}
+		pg.grabPixels();
 		return pixelsARGB;
 	}
 	
-	public static byte[] getImageDataBytes(BufferedImage image)
+	public static byte[] getImageDataBytes(BufferedImage image) throws InterruptedException
 	{
 		int[] pixelsARGB = getPixels(image);
 		if(pixelsARGB == null)

@@ -1,10 +1,11 @@
 package orre.resources.loaders.obj;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 
 import nu.xom.Document;
 import nu.xom.Element;
-
 import orre.resources.FileToLoad;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
@@ -12,7 +13,7 @@ import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.XMLLoader;
 
 public class ModelLoader {
-	public static BlueprintModel loadModel(FileToLoad file, ResourceQueue queue)
+	public static BlueprintModel loadModel(FileToLoad file, ResourceQueue queue) throws Exception
 	{
 		Document modelXMLDocument = XMLLoader.readXML(file.getPath());
 		Element rootElement = modelXMLDocument.getRootElement();
@@ -24,7 +25,7 @@ public class ModelLoader {
 		return model;
 	}
 	
-	private static List<PartiallyLoadableModelPart> loadOBJFile(BlueprintModel model, Element rootElement) {
+	private static List<PartiallyLoadableModelPart> loadOBJFile(BlueprintModel model, Element rootElement) throws Exception {
 		
 		Element modelFileElement = rootElement.getFirstChildElement("modelFile");
 		List<PartiallyLoadableModelPart> parts = OBJLoader.load(modelFileElement.getAttributeValue("src"));

@@ -1,17 +1,17 @@
 package orre.resources.loaders.map;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.zip.ZipFile;
 
 import orre.geom.Dimension2D;
-
 import nu.xom.Element;
 import nu.xom.Elements;
 
 public class WallMapLoader {
 	private static final int BLACK = 0xFF000000;
 
-	public static boolean[][] loadWallMap(Element wallMapElement, MapLoadingContext context) {
+	public static boolean[][] loadWallMap(Element wallMapElement, MapLoadingContext context) throws IOException {
 		Dimension2D mapSize = context.mapSize;
 		boolean[][] wallMap = new boolean[mapSize.width][mapSize.height];
 		parseWallMapImage(context.mapFile, wallMap, wallMapElement);
@@ -19,7 +19,7 @@ public class WallMapLoader {
 		return wallMap;
 	}
 
-	private static void parseWallMapImage(ZipFile mapFile, boolean[][] wallMap, Element wallMapElement) {
+	private static void parseWallMapImage(ZipFile mapFile, boolean[][] wallMap, Element wallMapElement) throws IOException {
 		String src = wallMapElement.getAttributeValue("src");
 		BufferedImage wallMapImage = ZipImageLoader.readImageFromZipFile(mapFile, src);
 		for(int xCoord = 0; xCoord < wallMap.length; xCoord++) {

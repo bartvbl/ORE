@@ -1,6 +1,7 @@
 package orre.resources.loaders.map;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -8,14 +9,13 @@ import java.util.zip.ZipFile;
 
 import orre.geom.Dimension2D;
 import orre.resources.ResourceCache;
-
 import nu.xom.Element;
 import openrr.map.soil.Soil;
 import openrr.map.soil.SoilType;
 
 public class SoilMapLoader {
 
-	public static SoilType[][] loadSoilMap(Element soilMapElement, MapLoadingContext context) {
+	public static SoilType[][] loadSoilMap(Element soilMapElement, MapLoadingContext context) throws IOException {
 		
 		//1. load custom tiles
 		

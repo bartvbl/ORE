@@ -1,5 +1,8 @@
 package orre.resources.partiallyLoadables;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import orre.gl.materials.AbstractMaterial;
 import orre.gl.materials.Material;
 import orre.resources.FileToLoad;
@@ -44,13 +47,13 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 		this.material.setAlpha(alpha);
 	}
 	
-	public void setAmbientTexture(String src, OBJLoadingContext context) {
+	public void setAmbientTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
 		this.ambientTexture = TextureLoader.partiallyLoadTextureFromFile(new FileToLoad(context.getContainingDirectory().getPath(), src));
 	}
-	public void setDiffuseTexture(String src, OBJLoadingContext context) {
+	public void setDiffuseTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
 		this.diffuseTexture = TextureLoader.partiallyLoadTextureFromFile(new FileToLoad(context.getContainingDirectory().getPath(), src));
 	}
-	public void setSpecularTexture(String src, OBJLoadingContext context) {
+	public void setSpecularTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
 		this.specularTexture = TextureLoader.partiallyLoadTextureFromFile(new FileToLoad(context.getContainingDirectory().getPath(), src));
 	}
 	

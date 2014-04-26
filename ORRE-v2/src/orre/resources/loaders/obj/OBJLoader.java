@@ -13,21 +13,12 @@ import orre.util.FeedbackProvider;
 import orre.util.StringUtils;
 
 public class OBJLoader {
-	public static List<PartiallyLoadableModelPart> load(String src)
+	public static List<PartiallyLoadableModelPart> load(String src) throws Exception
 	{
-		try {
-			return loadObjFile(src);
-		} catch (FileNotFoundException e) {
-			FeedbackProvider.showLoadOBJFileNotFoundMessage(src);
-			e.printStackTrace();
-		} catch (IOException e) {
-			FeedbackProvider.showLoadOBJFileFailedMessage(src);
-			e.printStackTrace();
-		}
-		return null;
+		return loadObjFile(src);
 	}
 	
-	private static List<PartiallyLoadableModelPart> loadObjFile(String src) throws FileNotFoundException, IOException {
+	private static List<PartiallyLoadableModelPart> loadObjFile(String src) throws Exception {
 		String[] objFile = readOBJFile(src);
 		
 		OBJStatsContext statsContext = new OBJStatsContext();
@@ -60,7 +51,7 @@ public class OBJLoader {
 		}
 	}
 	
-	private static List<PartiallyLoadableModelPart> parseOBJFile(String[] objFile, OBJLoadingContext context) throws IOException {
+	private static List<PartiallyLoadableModelPart> parseOBJFile(String[] objFile, OBJLoadingContext context) throws Exception {
 		for(String line : objFile)
 		{
 			line = StringUtils.stripString(line);
@@ -70,7 +61,7 @@ public class OBJLoader {
 		return context.getModelParts();
 	}
 
-	private static void parseOBJLine(OBJLoadingContext context) {
+	private static void parseOBJLine(OBJLoadingContext context) throws Exception {
 		if((context.getCurrentLine().length() == 0) || (context.getCurrentLine().charAt(0) == '#'))
 		{
 			return;

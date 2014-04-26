@@ -14,28 +14,20 @@ import orre.util.FeedbackProvider;
 import orre.util.StringUtils;
 
 public class MTLLibLoader {
-	public static void parseMaterialLibFile(String src, OBJLoadingContext context)
+	public static void parseMaterialLibFile(String src, OBJLoadingContext context) throws Exception
 	{
-		try {
-			String source = context.getContainingDirectory().getPath() + File.separator + src;
-			FileReader fileReader = new FileReader(source);
-			BufferedReader bufferedReader = new BufferedReader(fileReader);
-			while(bufferedReader.ready())
-			{
-				String line = bufferedReader.readLine();
-				line = StringUtils.stripString(line);
-				readMaterialLibLine(line, context);
-			}
-		} catch (FileNotFoundException e) {
-			FeedbackProvider.showLoadOBJFileNotFoundMessage(src);
-			e.printStackTrace();
-		} catch (IOException e) {
-			FeedbackProvider.showLoadOBJFileFailedMessage(src);
-			e.printStackTrace();
+		String source = context.getContainingDirectory().getPath() + File.separator + src;
+		FileReader fileReader = new FileReader(source);
+		BufferedReader bufferedReader = new BufferedReader(fileReader);
+		while(bufferedReader.ready())
+		{
+			String line = bufferedReader.readLine();
+			line = StringUtils.stripString(line);
+			readMaterialLibLine(line, context);
 		}
 	}
 	
-	private static void readMaterialLibLine(String line, OBJLoadingContext context)
+	private static void readMaterialLibLine(String line, OBJLoadingContext context) throws Exception
 	{
 		if((line.length() == 0) || (line.charAt(0) == '#')) {
 			return;
@@ -93,18 +85,18 @@ public class MTLLibLoader {
 		currentMaterial.setAlpha(Float.parseFloat(alphaValue));
 	}
 	
-	private static void readAmbientTextureLine(String line, OBJLoadingContext context) {
+	private static void readAmbientTextureLine(String line, OBJLoadingContext context) throws Exception {
 		String textureSrc = line.split(" ")[1];
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setAmbientTexture(textureSrc, context);
 	}
-	private static void readDiffuseTextureLine(String line, OBJLoadingContext context) {
+	private static void readDiffuseTextureLine(String line, OBJLoadingContext context) throws Exception {
 		String textureSrc = line.split(" ")[1];
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setDiffuseTexture(textureSrc, context);
 		
 	}
-	private static void readSpecularTextureLine(String line, OBJLoadingContext context) {
+	private static void readSpecularTextureLine(String line, OBJLoadingContext context) throws Exception {
 		String textureSrc = line.split(" ")[1];
 		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setSpecularTexture(textureSrc, context);

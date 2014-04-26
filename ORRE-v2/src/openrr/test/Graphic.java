@@ -1,5 +1,8 @@
 package openrr.test;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import orre.gl.texture.Texture;
 import orre.resources.loaders.TextureLoader;
 
@@ -21,7 +24,11 @@ public class Graphic {
 	public Graphic(int x, int y, int[] screenSize, String filePath, String inAlign) {
 		xOffset = x;
 		yOffset = y;
-		image = TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(filePath));
+		try {
+			image = TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(filePath));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 		width = image.getWidth();
 		height = image.getHeight();
 		screenDims = screenSize;

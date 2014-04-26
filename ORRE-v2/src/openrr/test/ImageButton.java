@@ -11,11 +11,13 @@ import orre.resources.loaders.TextureLoader;
 import orre.util.StringUtils;
 
 
+
 import java.io.FileNotFoundException;
 import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+
 import java.io.File;
 import java.awt.image.BufferedImage;
 import java.io.IOError;
@@ -83,7 +85,12 @@ public class ImageButton extends Button implements DrawableElement {
 	}
 	
 	public Texture loadImage(String fileName) {
-		return TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(fileName));
+		try {
+			return TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(fileName));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
 	}
 	
 	public void addHoverImage(String basePath, String fileName, String hoverFilePath) {

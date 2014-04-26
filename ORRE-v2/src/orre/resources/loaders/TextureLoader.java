@@ -8,6 +8,7 @@ import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.ByteBuffer;
@@ -22,13 +23,13 @@ import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import orre.util.FeedbackProvider;
 
 public class TextureLoader {
-	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(FileToLoad file) {
+	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(FileToLoad file) throws FileNotFoundException, IOException, Exception {
 		BufferedImage image = loadImageFromFile(file.getPath());
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
 		return new PartiallyLoadableTexture(file.name, imageData, image.getWidth(), image.getHeight());
 	}
 	
-	public static Texture createTextureFromImage(BufferedImage image)
+	public static Texture createTextureFromImage(BufferedImage image) throws Exception
 	{
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
 		if((image != null) && (imageData != null))
@@ -39,7 +40,7 @@ public class TextureLoader {
 		}
 	}
 	
-	public static ByteBuffer getImageData(String src)
+	public static ByteBuffer getImageData(String src) throws FileNotFoundException, IOException, Exception
 	{
 		BufferedImage image = loadImageFromFile(src);
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
@@ -48,36 +49,17 @@ public class TextureLoader {
 		return bb;
 	}
 	
-	public static Texture loadTextureFromFile(String src)
+	public static Texture loadTextureFromFile(String src) throws FileNotFoundException, IOException, Exception
 	{
 		return createTextureFromImage(loadImageFromFile(src));
 	}
 	
-	public static BufferedImage loadImageFromFile(String src)
+	public static BufferedImage loadImageFromFile(String src) throws FileNotFoundException, IOException
 	{
 		BufferedImage img = null;
 		InputStream in = null;
-    	try {
-    		in = new FileInputStream(src);
-    		img = ImageIO.read(in);
-    	}
-    	catch (IOException ioe) {
-                System.out.println(new File(src).getAbsolutePath());
-    		FeedbackProvider.showLoadTextureFailedMessage(src, ioe.getMessage()); ioe.printStackTrace();
-    		ioe.printStackTrace();
-    		if (in != null) {
-    			try {
-					in.close();
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-    		}
-    		return null;
-    	}
-		catch (Exception e) {
-			FeedbackProvider.showLoadTextureFailedMessage(src, e.getMessage()); e.printStackTrace();
-			return null;
-		}
+		in = new FileInputStream(src);
+		img = ImageIO.read(in);
 		AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
         tx.translate(0, -1*img.getHeight(null));
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_NEAREST_NEIGHBOR);

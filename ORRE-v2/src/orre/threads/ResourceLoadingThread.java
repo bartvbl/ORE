@@ -1,5 +1,8 @@
 package orre.threads;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
+
 import orre.animation.Animation;
 import orre.animation.AnimationLoader;
 import orre.resources.FileToLoad;
@@ -43,7 +46,7 @@ public class ResourceLoadingThread extends Thread {
 		}
 	}
 
-	private void loadFile(FileToLoad currentFile) {
+	private void loadFile(FileToLoad currentFile) throws Exception {
 		Finalizable resource = null;
 		if((currentFile.fileType == ResourceFile.MENU_TEXTURE_FILE) || (currentFile.fileType == ResourceFile.TEXTURE_FILE))
 		{

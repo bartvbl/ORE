@@ -9,7 +9,11 @@ public class Image extends GUIElement implements DrawableElement {
 	
 	public Image(int posData[], String fileName, EventDispatcher eventDispatcher, Frame parent) {
 		super(posData, eventDispatcher, parent);
-		image = TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(fileName));
+		try {
+			image = TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(fileName));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void draw() {

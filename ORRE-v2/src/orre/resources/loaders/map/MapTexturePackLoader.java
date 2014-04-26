@@ -1,24 +1,23 @@
 package orre.resources.loaders.map;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.util.XMLLoader;
-
 import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
-
 import openrr.map.soil.Soil;
 import openrr.map.soil.SoilType;
 
 public class MapTexturePackLoader {
 
-	public static MapTexturePack buildTexturePack(MapLoadingContext context) {
+	public static MapTexturePack buildTexturePack(MapLoadingContext context) throws FileNotFoundException, IOException, Exception {
 		//loading the default texture pack
 		String workingDirectory = System.getProperty("user.dir");
 		MapTexturePack defaultTexturePack = parseTexturePack(workingDirectory + "/res/texturePack.xml", context);
@@ -27,7 +26,7 @@ public class MapTexturePackLoader {
 		return defaultTexturePack;
 	}
 
-	private static MapTexturePack parseTexturePack(String src, MapLoadingContext context) {
+	private static MapTexturePack parseTexturePack(String src, MapLoadingContext context) throws FileNotFoundException, IOException, Exception {
 		Element rootElement = readTexturePackXML(src);
 		MapTexturePack soilLibrary = TexturePackParser.parseTexturePackXML(rootElement, context);
 		return soilLibrary;

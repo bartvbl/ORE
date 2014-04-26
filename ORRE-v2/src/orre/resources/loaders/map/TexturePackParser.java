@@ -1,11 +1,12 @@
 package orre.resources.loaders.map;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.HashMap;
 
 import orre.resources.FileToLoad;
 import orre.resources.loaders.TextureLoader;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
-
 import nu.xom.Element;
 import nu.xom.Elements;
 import openrr.map.soil.MapTexture;
@@ -14,7 +15,7 @@ import openrr.map.soil.SoilTextureCoordinateSet;
 import openrr.map.soil.SoilType;
 
 public class TexturePackParser {
-	public static MapTexturePack parseTexturePackXML(Element rootElement, MapLoadingContext context) {
+	public static MapTexturePack parseTexturePackXML(Element rootElement, MapLoadingContext context) throws FileNotFoundException, IOException, Exception {
 		Element configElement = rootElement.getFirstChildElement("config");
 		String pathPrefix = parsePathPrefix(configElement);
 		Element texturesElement = rootElement.getFirstChildElement("textures");
@@ -33,7 +34,7 @@ public class TexturePackParser {
 		return pathPrefixElement.getAttributeValue("value");
 	}
 
-	private static MapTextureSet parseMapTextures(Element texturesElement, String pathPrefix) {
+	private static MapTextureSet parseMapTextures(Element texturesElement, String pathPrefix) throws FileNotFoundException, IOException, Exception {
 		Elements textureElements = texturesElement.getChildElements();
 		MapTextureSet textureSet = new MapTextureSet();
 		for(int i = 0; i < textureElements.size(); i++) {
@@ -44,7 +45,7 @@ public class TexturePackParser {
 		return textureSet;
 	}
 
-	private static MapTexture parseMapTextureFromXML(Element textureElement, String pathPrefix) {
+	private static MapTexture parseMapTextureFromXML(Element textureElement, String pathPrefix) throws FileNotFoundException, IOException, Exception {
 		String name = textureElement.getAttributeValue("name");
 		String textureSrc = textureElement.getAttributeValue("src");
 		PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(new FileToLoad(pathPrefix, textureSrc));

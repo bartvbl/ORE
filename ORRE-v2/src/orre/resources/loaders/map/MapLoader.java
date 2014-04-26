@@ -7,7 +7,6 @@ import java.util.zip.ZipFile;
 
 import openrr.map.Map;
 import openrr.map.MapTile;
-
 import nu.xom.Builder;
 import nu.xom.Document;
 import nu.xom.Element;
@@ -18,7 +17,7 @@ import orre.util.XMLLoader;
 
 public class MapLoader {
 
-	public static PartiallyLoadableMap loadMap(FileToLoad currentFile) {
+	public static PartiallyLoadableMap loadMap(FileToLoad currentFile) throws Exception {
 		String mapSrc = currentFile.getPath();
 		ZipFile mapFile = openMap(mapSrc);
 		Document mapXML = readMapXML(mapFile);
@@ -27,27 +26,18 @@ public class MapLoader {
 		return map;
 	}
 	
-	private static ZipFile openMap(String src) {
-		try {
-			ZipFile mapFile = new ZipFile(src);
-			return mapFile;
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return null;
+	private static ZipFile openMap(String src) throws IOException {
+		ZipFile mapFile = new ZipFile(src);
+		return mapFile;
 	} 
 	
-	private static Document readMapXML(ZipFile mapFile) {
-		try {
-			ZipEntry mainMapXMLEntry = mapFile.getEntry("map.xml");
-			InputStream inputStream = mapFile.getInputStream(mainMapXMLEntry);
-			return XMLLoader.readXML(inputStream);
-		}
-		catch (IOException e) { e.printStackTrace(); }
-		return null;
+	private static Document readMapXML(ZipFile mapFile) throws IOException {
+		ZipEntry mainMapXMLEntry = mapFile.getEntry("map.xml");
+		InputStream inputStream = mapFile.getInputStream(mainMapXMLEntry);
+		return XMLLoader.readXML(inputStream);
 	}
 
-	private static PartiallyLoadableMap parseMapXML(MapLoadingContext context) {
+	private static PartiallyLoadableMap parseMapXML(MapLoadingContext context) throws Exception {
 		MapTexturePack texturePack = MapTexturePackLoader.buildTexturePack(context);
 		context.texturePack = texturePack;
 		MapTile[][] tileMap = TileMapLoader.loadTileMap(context);

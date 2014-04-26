@@ -1,12 +1,14 @@
 package orre.resources.loaders.map;
 
+import java.io.IOException;
+
 import orre.geom.Dimension2D;
 import openrr.map.MapTile;
 import openrr.map.soil.SoilType;
 import nu.xom.Element;
 
 public class TileMapLoader {
-	public static MapTile[][] loadTileMap(MapLoadingContext context) {
+	public static MapTile[][] loadTileMap(MapLoadingContext context) throws IOException {
 		Element mapDefinitionElement = context.mapXMLRootElement.getFirstChildElement("mapDefinition");
 		
 		context.mapSize = parseMapSize(mapDefinitionElement);
@@ -25,21 +27,21 @@ public class TileMapLoader {
 	}
 
 	private static boolean[][] loadWallMap(MapLoadingContext context,
-			Element mapDefinitionElement) {
+			Element mapDefinitionElement) throws IOException {
 		Element wallMapElement = mapDefinitionElement.getFirstChildElement("wallMap");
 		boolean[][] wallMap = WallMapLoader.loadWallMap(wallMapElement, context);
 		return wallMap;
 	}
 
 	private static SoilType[][] loadSoilMap(MapLoadingContext context,
-			Element mapDefinitionElement) {
+			Element mapDefinitionElement) throws IOException {
 		Element soilMapElement = mapDefinitionElement.getFirstChildElement("soilMap");
 		SoilType[][] soilMap = SoilMapLoader.loadSoilMap(soilMapElement, context);
 		return soilMap;
 	}
 
 	private static double[][] loadHeightMap(MapLoadingContext context,
-			Element mapDefinitionElement) {
+			Element mapDefinitionElement) throws IOException {
 		Element heightMapElement = mapDefinitionElement.getFirstChildElement("heightMap");
 		double[][] heightMap = HeightMapLoader.loadHeightMap(heightMapElement, context);
 		return heightMap;

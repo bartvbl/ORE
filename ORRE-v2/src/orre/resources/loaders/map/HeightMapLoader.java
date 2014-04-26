@@ -1,10 +1,10 @@
 package orre.resources.loaders.map;
 
 import java.awt.image.BufferedImage;
+import java.io.IOException;
 import java.util.zip.ZipFile;
 
 import orre.geom.Dimension2D;
-
 import nu.xom.Element;
 import nu.xom.Elements;
 
@@ -21,7 +21,7 @@ public class HeightMapLoader {
 	private static final String zTopRight = "zTopRight";
 	private static final double tileHeightMultiplyer = 0.3;
 	
-	public static double[][] loadHeightMap(Element heightMapElement, MapLoadingContext context) {
+	public static double[][] loadHeightMap(Element heightMapElement, MapLoadingContext context) throws IOException {
 		Dimension2D mapSize = context.mapSize;
 		
 		double[][] heightMap = new double[mapSize.width + 1][mapSize.height + 1];

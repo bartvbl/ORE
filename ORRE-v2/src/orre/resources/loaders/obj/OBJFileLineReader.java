@@ -1,7 +1,9 @@
 package orre.resources.loaders.obj;
 
+import java.io.IOException;
+
 public class OBJFileLineReader {
-	public static void readOBJLine(OBJLoadingContext context) {
+	public static void readOBJLine(OBJLoadingContext context) throws Exception {
 		if(context.getCurrentLine().startsWith("vt")){
 			parseTextureCoordinateLine(context);
 		} else if(context.getCurrentLine().startsWith("vn")){
@@ -31,7 +33,7 @@ public class OBJFileLineReader {
 		double[] values = OBJLoadingUtils.parseDoubleLine(context.getCurrentLine());
 		context.getBuffergenerator().addNormal(values[0], values[1], values[2]);
 	}
-	private static void parseMtlLibLine(OBJLoadingContext context) {
+	private static void parseMtlLibLine(OBJLoadingContext context) throws Exception {
 		String mtlLibSrc = context.getCurrentLine().split(" ")[1];
 		MTLLibLoader.parseMaterialLibFile(mtlLibSrc, context);
 	}
