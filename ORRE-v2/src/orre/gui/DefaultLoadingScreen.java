@@ -9,8 +9,8 @@ import org.lwjgl.opengl.Display;
 
 import orre.gl.RenderUtils;
 import orre.gl.texture.Texture;
+import orre.resources.loaders.OBJLoader;
 import orre.resources.loaders.TextureLoader;
-import orre.resources.loaders.obj.OBJLoader;
 
 public class DefaultLoadingScreen implements LoadingScreenDrawer {
 	

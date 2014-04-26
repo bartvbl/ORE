@@ -1,4 +1,4 @@
-package orre.resources.loaders.models;
+package orre.resources.loaders;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import nu.xom.Element;
 import orre.resources.FileToLoad;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
-import orre.resources.loaders.obj.OBJLoader;
+import orre.resources.loaders.models.ModelPartTreeBuilder;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.XMLLoader;
 

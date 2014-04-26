@@ -12,10 +12,10 @@ import orre.resources.ResourceFile;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
 import orre.resources.loaders.LXFMLLoader;
+import orre.resources.loaders.MapLoader;
+import orre.resources.loaders.ModelLoader;
 import orre.resources.loaders.TextureLoader;
-import orre.resources.loaders.map.MapLoader;
 import orre.resources.loaders.map.PartiallyLoadableMap;
-import orre.resources.loaders.models.ModelLoader;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import orre.util.FatalExceptionHandler;
 
