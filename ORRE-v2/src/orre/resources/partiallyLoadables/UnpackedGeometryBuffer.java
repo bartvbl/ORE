@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
+import orre.geom.vbo.GeometryBufferGenerator;
 import orre.resources.Finalizable;
-import orre.resources.loaders.obj.GeometryBufferGenerator;
 import orre.resources.loaders.obj.OBJConstants;
 import orre.sceneGraph.SceneNode;
 

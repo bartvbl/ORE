@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 
 import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.VertexBuffer;
 import orre.gl.materials.Material;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;

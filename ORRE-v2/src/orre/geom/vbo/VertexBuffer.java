@@ -1,9 +1,7 @@
-package orre.resources.loaders.obj;
+package orre.geom.vbo;
 
 import java.nio.DoubleBuffer;
 import java.util.Arrays;
-
-import orre.geom.vbo.BufferDataFormatType;
 
 public class VertexBuffer {
 	private final DoubleBuffer vertices;

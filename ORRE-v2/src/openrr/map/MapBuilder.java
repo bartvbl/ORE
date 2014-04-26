@@ -11,10 +11,10 @@ import orre.geom.Dimension2D;
 import orre.geom.Vertex3D;
 import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryBuffer;
+import orre.geom.vbo.GeometryBufferGenerator;
 import orre.gl.materials.Material;
 import orre.resources.loaders.map.MapTexturePack;
 import orre.resources.loaders.map.SubTextureCoordinate;
-import orre.resources.loaders.obj.GeometryBufferGenerator;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 
