@@ -3,10 +3,12 @@ package orre.threads;
 import orre.animation.Animation;
 import orre.animation.AnimationLoader;
 import orre.resources.FileToLoad;
+import orre.resources.Finalizable;
 import orre.resources.ProgressTracker;
 import orre.resources.ResourceFile;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
+import orre.resources.loaders.LXFMLLoader;
 import orre.resources.loaders.TextureLoader;
 import orre.resources.loaders.map.MapLoader;
 import orre.resources.loaders.map.PartiallyLoadableMap;
@@ -42,25 +44,26 @@ public class ResourceLoadingThread extends Thread {
 	}
 
 	private void loadFile(FileToLoad currentFile) {
+		Finalizable resource = null;
 		if((currentFile.fileType == ResourceFile.MENU_TEXTURE_FILE) || (currentFile.fileType == ResourceFile.TEXTURE_FILE))
 		{
-			PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(currentFile);
-			texture.setDestinationCache(currentFile.destinationCache);
-			this.resourceQueue.enqueueResourceForFinalization(texture);
-		} else if(currentFile.fileType == ResourceFile.MODEL_FILE)
-		{
-			BlueprintModel model = ModelLoader.loadModel(currentFile, this.resourceQueue);
-			model.setDestinationCache(currentFile.destinationCache);
-			this.resourceQueue.enqueueResourceForFinalization(model);
+			resource = TextureLoader.partiallyLoadTextureFromFile(currentFile);
+		} else if(currentFile.fileType == ResourceFile.OBJ_MODEL_FILE) {
+			resource = ModelLoader.loadModel(currentFile, this.resourceQueue);
+		} else if(currentFile.fileType == ResourceFile.LXFML_FILE) {
+			resource = LXFMLLoader.load(currentFile);
 		} else if(currentFile.fileType == ResourceFile.MAP_FILE) {
-			PartiallyLoadableMap map = MapLoader.loadMap(currentFile);
-			map.setDestinationCache(currentFile.destinationCache);
-			this.resourceQueue.enqueueResourceForFinalization(map);
-		} else if(currentFile.fileType == ResourceFile.ANIMATION_FILE) {
+			resource = MapLoader.loadMap(currentFile);
+		} else if(currentFile.fileType == ResourceFile.ANIMATION_FILE) 
+		{
 			Animation animation = AnimationLoader.load(currentFile.getPath());
 			if(animation != null) {
 				currentFile.destinationCache.addAnimation(animation);
 			}
+		}
+		if(resource != null) {
+			resource.setDestinationCache(currentFile.destinationCache);
+			this.resourceQueue.enqueueResourceForFinalization(resource);
 		}
 	}
 }

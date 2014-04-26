@@ -17,7 +17,7 @@ public class ResourceListFileParser {
 	private static void parseResourceFile(Element rootNode, ResourceQueue queue, ResourceCache destinationCache)
 	{
 		queueNodeList(rootNode.getFirstChildElement("animations"), queue, ResourceFile.ANIMATION_FILE, destinationCache);
-		queueNodeList(rootNode.getFirstChildElement("models"), queue, ResourceFile.MODEL_FILE, destinationCache);
+		queueNodeList(rootNode.getFirstChildElement("models"), queue, ResourceFile.OBJ_MODEL_FILE, destinationCache);
 		queueNodeList(rootNode.getFirstChildElement("sounds"), queue, ResourceFile.SOUND_FILE, destinationCache);
 		queueNodeList(rootNode.getFirstChildElement("menuTextures"), queue, ResourceFile.MENU_TEXTURE_FILE, destinationCache);
 	}
