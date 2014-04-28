@@ -92,4 +92,8 @@ public class CoordinateNode extends ContainerNode {
 	public void setRotationZ(double rotation) {
 		this.rotationZ = rotation;
 	}
+	
+	public String toString() {
+		return "Coordinate node";
+	}
 }

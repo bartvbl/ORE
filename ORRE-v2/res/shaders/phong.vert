@@ -16,7 +16,7 @@ void main( void )
 	gl_TexCoord[0] = gl_MultiTexCoord0;
 
 	normal = gl_NormalMatrix * gl_Normal;
-	position = ( gl_ModelViewProjectionMatrix * gl_Vertex ).xyz;
+	position = ( gl_ModelViewMatrix * gl_Vertex ).xyz;
 
 	depth = position.z;
 }
