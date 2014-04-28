@@ -1,41 +1,34 @@
-// input
-varying vec3 normal; // fragment normal in eye space.
-varying vec3 position; // fragment position in eye space.
+varying vec3 normal;
+varying vec3 position;
 
-uniform sampler2D diffuseTexture;
-
-vec4 lightSource( vec3 N, vec3 V, gl_LightSourceParameters light )
+vec4 lightSource(vec3 norm, vec3 view, gl_LightSourceParameters light)
 {
-	vec3  H;
-	float d = length( light.position.xyz - V );
-	vec3  L = normalize( light.position.xyz - V );
-	H = normalize( L - V.xyz );
+	vec3 lightVector = normalize(light.position.xyz - view);
+	vec3 reflection = normalize(lightVector - view.xyz);
 
-	float NdotL = max( 0, dot( N,L ) );
-	float NdotH = max( 0, dot( N,H ) );
+	float diffuseFactor = max(0, dot(norm, lightVector));
+	float specularDot = max(0, dot(norm, reflection));
 
-	float Idiff = NdotL;
-	float Ispec = pow( NdotH, gl_FrontMaterial.shininess );
+	float specularFactor = pow(specularDot, gl_FrontMaterial.shininess);
 
-	// 'real' shading
 	return 
-		gl_FrontMaterial.ambient  * light.ambient +
-		gl_FrontMaterial.diffuse  * light.diffuse  * Idiff +
-		gl_FrontMaterial.specular * light.specular * Ispec;
+		gl_FrontMaterial.ambient * light.ambient +
+		gl_FrontMaterial.diffuse * light.diffuse * diffuseFactor +
+		gl_FrontMaterial.specular * light.specular * specularFactor;
 }
 
-vec4 lighting( void )
+vec4 lighting()
 {
 	// normal might be damaged by linear interpolation.
-	vec3 N = normalize(normal);
+	vec3 norm = normalize(normal);
 
 	return
 		gl_FrontMaterial.emission +
 		gl_FrontMaterial.ambient * gl_LightModel.ambient +
-		lightSource( N, position, gl_LightSource[0] );
+		lightSource(norm, position, gl_LightSource[0]);
 }
 
-void main( void )
+void main()
 {
 	gl_FragColor = lighting();
 }

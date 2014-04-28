@@ -1,15 +1,6 @@
-/* lighting.vert - emulates fixed function pipeline lighting */
+varying vec3 normal;
+varying vec3 position;
 
-
-varying vec3 normal;   // vertex normal in eye space.
-varying vec3 position; // vertex position in eye space.
-varying float depth;
-
-
-
-//
-// entry point
-//
 void main( void )
 {
 	gl_Position = ftransform();
@@ -17,8 +8,4 @@ void main( void )
 
 	normal = gl_NormalMatrix * gl_Normal;
 	position = ( gl_ModelViewMatrix * gl_Vertex ).xyz;
-
-	depth = position.z;
 }
-
-

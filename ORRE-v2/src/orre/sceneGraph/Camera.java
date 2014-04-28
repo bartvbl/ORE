@@ -5,7 +5,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import orre.gl.util.TransformMatrixUtils;
 
-public class Camera
+public class Camera extends LeafNode
 {
 	private final Matrix4f transformationMatrix = new Matrix4f();
 	private static final Vector3f xAxis = new Vector3f(1, 0, 0);
@@ -34,10 +34,15 @@ public class Camera
 		transformationMatrix.rotate((float) Math.toRadians(rotation.x), xAxis);
 		
 		transformationMatrix.translate(new Vector3f(0, 0, (float)(location.z)));
-
-		
 		Matrix4f inverse = new Matrix4f();
 		Matrix4f.invert(transformationMatrix, inverse);
 		TransformMatrixUtils.applyMatrixOnCurrentMatrix(inverse);
+	}
+	
+	public void preRender() {
+	}
+	
+	public String toString() {
+		return "Camera";
 	}
 }

@@ -48,11 +48,14 @@ public class GameRunning extends GameState {
 		boolean shaderEnabled = true;
 		System.out.println("game has started.");
 		this.map = resourceCache.getMap();
+		
 		this.sceneRoot = new ContainerNode();
+		
 		ContainerNode mapContentsRoot = new ContainerNode();
 		this.gameWorld = new GameWorld(sceneRoot, mapContentsRoot, map, this.resourceCache);
 		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
 		flashLight = new Flashlight(object);
+		defaultCamera = new Camera();
 		SceneNode mapNode = map.createSceneNode();
 		ShaderNode shader = new ShaderNode(new File("res/shaders/phong.vert"), new File("res/shaders/phong.frag"));
 		sceneRoot.addChild(flashLight.light);
@@ -63,7 +66,6 @@ public class GameRunning extends GameState {
 		}
 		shader.addChild(mapNode);
 		mapNode.addChild(mapContentsRoot);
-		defaultCamera = new Camera();
 		gameWorld.services.cameraService.setCurrentCamera(defaultCamera, gameWorld);
 		int cameraController = gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.spawnGameObject(GameObjectType.ORE);
