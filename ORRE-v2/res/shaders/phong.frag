@@ -27,7 +27,7 @@ vec4 lightSource( vec3 N, vec3 V, gl_LightSourceParameters light )
 vec4 lighting( void )
 {
 	// normal might be damaged by linear interpolation.
-	vec3 N = normalize( normal );
+	vec3 N = normalize(normal);
 
 	return
 		gl_FrontMaterial.emission +
@@ -37,7 +37,5 @@ vec4 lighting( void )
 
 void main( void )
 {
-
-gl_FragColor = texture2D(diffuseTexture, gl_TexCoord[0].st) * lighting();
+	gl_FragColor = texture2D(diffuseTexture, gl_TexCoord[0].st) * lighting();
 }
-

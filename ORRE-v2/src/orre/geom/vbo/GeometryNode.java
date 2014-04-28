@@ -12,14 +12,16 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 	private final int indexBuffer;
 	private final int vertexBuffer;
 	private final BufferDataFormatType dataFormat;
-	private int numberOfVertices;
+	private final DrawingMode mode;
+	private final int numberOfVertices;
 
-	public GeometryNode(int indexBuffer, int vertexBuffer, BufferDataFormatType dataFormat, int numVertices)
+	public GeometryNode(int indexBuffer, int vertexBuffer, BufferDataFormatType dataFormat, int numVertices, DrawingMode mode)
 	{
 		this.indexBuffer = indexBuffer;
 		this.vertexBuffer = vertexBuffer;
 		this.dataFormat = dataFormat;
 		this.numberOfVertices = numVertices;
+		this.mode = mode;
 	}
 	
 	public void render()
@@ -32,7 +34,7 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBufferID);
 		this.setDataPointers();
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
-		glDrawElements(GL_TRIANGLES, this.numberOfVertices, GL_UNSIGNED_INT, 0);
+		glDrawElements(mode.glEnum, this.numberOfVertices, GL_UNSIGNED_INT, 0);
 		//glDrawRangeElements(GL_QUADS, 0, 24, 4, GL_UNSIGNED_INT, 0);
 	}
 

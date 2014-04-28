@@ -29,7 +29,7 @@ public class GeometryBufferGenerator {
 		storeIndexData(indexBufferID, indexes);
 		storeVertexData(vertexBufferID, geometryData);
 		
-		return new GeometryNode(indexBufferID, vertexBufferID, dataFormat, vertexCount);
+		return new GeometryNode(indexBufferID, vertexBufferID, dataFormat, vertexCount, DrawingMode.TRIANGLES);
 	}
 	
 	private static int createBuffer() {
@@ -75,5 +75,47 @@ public class GeometryBufferGenerator {
 	private static boolean supportsBuffers()
 	{
 		return GLContext.getCapabilities().GL_ARB_vertex_buffer_object;
+	}
+
+	public static GeometryNode generateNormalsGeometryBuffer(BufferDataFormatType dataFormat, DoubleBuffer geometryData, IntBuffer indices) {
+		int vertexCount = geometryData.capacity() / dataFormat.elementsPerVertex;
+		DoubleBuffer vertexBuffer = BufferUtils.createDoubleBuffer(vertexCount * 2 * 3);
+		IntBuffer normalIndices = BufferUtils.createIntBuffer(vertexCount * 2);
+		geometryData.rewind();
+		for(int i = 0; i < vertexCount; i++) {
+			double x = geometryData.get();
+			double y = geometryData.get();
+			double z = geometryData.get();
+			if(dataFormat == BufferDataFormatType.VERTICES_TEXTURES_NORMALS) {
+				geometryData.get();
+				geometryData.get();
+			}
+			double nx = geometryData.get();
+			double ny = geometryData.get();
+			double nz = geometryData.get();
+			
+			vertexBuffer.put(x);
+			vertexBuffer.put(y);
+			vertexBuffer.put(z);
+			
+			vertexBuffer.put(x + nx);
+			vertexBuffer.put(y + ny);
+			vertexBuffer.put(z + nz);
+		}
+		
+		for(int i = 0; i < vertexCount * 2; i++) {
+			normalIndices.put(i);
+		}
+		
+		vertexBuffer.rewind();
+		normalIndices.rewind();
+		
+		int vertexBufferID = createBuffer();
+		int indexBufferID = createBuffer();
+		
+		storeIndexData(indexBufferID, normalIndices);
+		storeVertexData(vertexBufferID, vertexBuffer);
+		
+		return new GeometryNode(indexBufferID, vertexBufferID, BufferDataFormatType.VERTICES, vertexCount, DrawingMode.LINES);
 	}
 }

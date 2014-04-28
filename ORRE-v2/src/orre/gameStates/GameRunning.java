@@ -45,7 +45,7 @@ public class GameRunning extends GameState {
 	}
 	
 	public void set() {
-		boolean shaderEnabled = true;
+		boolean shaderEnabled = false;
 		System.out.println("game has started.");
 		this.map = resourceCache.getMap();
 		this.sceneRoot = new ContainerNode();
@@ -55,6 +55,7 @@ public class GameRunning extends GameState {
 		flashLight = new Flashlight(object);
 		SceneNode mapNode = map.createSceneNode();
 		ShaderNode shader = new ShaderNode(new File("res/shaders/phong.vert"), new File("res/shaders/phong.frag"));
+		sceneRoot.addChild(flashLight.light);
 		if(shaderEnabled) {
 			sceneRoot.addChild(shader);
 		} else {
