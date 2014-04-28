@@ -28,14 +28,6 @@ public class ContainerNode implements SceneNode {
 	{
 		this.visible = isVisible;
 	}
-	
-	protected void renderChildren()
-	{
-		for(SceneNode child : this.children)
-		{
-			child.render();
-		}
-	}
 
 	public void render() {}
 

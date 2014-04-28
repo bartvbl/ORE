@@ -23,7 +23,6 @@ public class ModelPart extends CoordinateNode implements SceneNode {
 	}
 	
 	public void render() {
-		this.renderChildren();
 	}
 
 	public void destroy() {}

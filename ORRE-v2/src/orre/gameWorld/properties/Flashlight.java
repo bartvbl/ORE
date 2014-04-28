@@ -26,7 +26,8 @@ public class Flashlight extends Property {
 	@Override
 	public void tick() {
 		float[] mapCoordinates = this.service.getMouseTargetLocation();
-		this.light.setPosition(mapCoordinates[0], mapCoordinates[1], mapCoordinates[2]);
+		double height = this.gameObject.world.map.getTileHeightAt(mapCoordinates[0], mapCoordinates[1]);
+		this.light.setPosition(mapCoordinates[0], mapCoordinates[1], height);
 	}
 
 	@Override
