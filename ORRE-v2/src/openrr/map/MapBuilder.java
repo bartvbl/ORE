@@ -52,7 +52,6 @@ public class MapBuilder {
 		
 		DoubleBuffer geometryDataBuffer = BufferUtils.createDoubleBuffer(geometryBufferSize);
 		
-//		double[] normal = new double[3];
 		double[][] tileHeight = new double[2][2];
 		
 		for(int x = 0; x < mapSize.width; x++) {
@@ -73,8 +72,7 @@ public class MapBuilder {
 				SubTextureCoordinate textureCoordinate = texturePack.getTextureCoordinates();
 				Vertex3D[] vertices = MapCoordinateRotator.generateRotatedTileCoordinates(x, y, tileHeight, textureCoordinate, orientation);
 				
-				
-				putVertices(geometryDataBuffer, vertices);
+				putVertices(vertices, geometryDataBuffer);
 			}
 		}
 		
@@ -82,7 +80,7 @@ public class MapBuilder {
 		return rootNode;
 	}
 
-	private static void putVertices(DoubleBuffer geometryDataBuffer, Vertex3D[] vertices) {
+	private static void putVertices(Vertex3D[] vertices, DoubleBuffer geometryDataBuffer) {
 		for(Vertex3D vertex : vertices) {
 			double[] vertexData = vertex.toArray();
 			geometryDataBuffer.put(vertexData);

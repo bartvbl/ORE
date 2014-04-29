@@ -12,7 +12,7 @@ vec4 lightSource(vec3 norm, vec3 view, gl_LightSourceParameters light)
 	float specularDot = max(0, dot(norm, reflection));
 
 	float specularFactor = pow(specularDot, gl_FrontMaterial.shininess);
-
+	
 	return 
 		gl_FrontMaterial.ambient * light.ambient +
 		gl_FrontMaterial.diffuse * light.diffuse * diffuseFactor +
