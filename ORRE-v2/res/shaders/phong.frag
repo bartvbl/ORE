@@ -1,10 +1,12 @@
 varying vec3 normal;
 varying vec3 position;
 
+uniform sampler2D diffuseTexture;
+
 vec4 lightSource(vec3 norm, vec3 view, gl_LightSourceParameters light)
 {
 	vec3 lightVector = normalize(light.position.xyz - view);
-	vec3 reflection = normalize(lightVector - view.xyz);
+	vec3 reflection = normalize(lightVector - normalize(view.xyz));
 
 	float diffuseFactor = max(0, dot(norm, lightVector));
 	float specularDot = max(0, dot(norm, reflection));
@@ -30,5 +32,5 @@ vec4 lighting()
 
 void main()
 {
-	gl_FragColor = lighting();
+	gl_FragColor = lighting();//texture2D(diffuseTexture, gl_TexCoord[0].st) * lighting();
 }

@@ -102,9 +102,7 @@ public class MapBuilder {
 		Material currentMaterial = texturePack.generateBoundTextureMaterial();
 		IntBuffer indices = generateIndexBuffer(geometryDataBuffer.position());
 		GeometryNode buffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, indices);
-		GeometryNode normals = GeometryBufferGenerator.generateNormalsGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, indices);
 		currentMaterial.addChild(buffer);
-		currentMaterial.addChild(normals);
 		rootNode.addChild(currentMaterial);
 	}
 
