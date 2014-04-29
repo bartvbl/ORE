@@ -9,6 +9,9 @@ import orre.util.Logger;
 public class Main {
 	public static void main(String[] args) 
 	{
+		System.setProperty("org.lwjgl.util.Debug", "true");
+		//debugger for openGL
+		System.loadLibrary("opengl32");
 		setSwingSettings();
 		new Logger();
 		GameMain game = new GameMain();

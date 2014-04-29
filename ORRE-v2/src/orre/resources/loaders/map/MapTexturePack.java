@@ -33,8 +33,6 @@ public class MapTexturePack {
 		this.currentBoundTextureName = textureName;
 		this.currentBoundSoilType = soilType;
 		this.currentBoundWallType = wallType;
-		MapTexture texture = mapTextureSet.getTextureByName(textureName);
-		texture.bind();
 	}
 
 	private String getTextureReferenceName(SoilType soilType, WallType wallType) {
