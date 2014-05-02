@@ -105,7 +105,7 @@ public class GeometryBufferGenerator {
 			vertexBuffer.put(z + nz);
 		}
 		
-		for(int i = 0; i < vertexCount * 2 * 2; i++) {
+		for(int i = 0; i < vertexCount * 2; i++) {
 			normalIndices.put(i);
 		}
 		
@@ -118,6 +118,6 @@ public class GeometryBufferGenerator {
 		storeIndexData(indexBufferID, normalIndices);
 		storeVertexData(vertexBufferID, vertexBuffer);
 		
-		return new GeometryNode(indexBufferID, vertexBufferID, BufferDataFormatType.VERTICES, vertexCount, DrawingMode.LINES);
+		return new GeometryNode(indexBufferID, vertexBufferID, BufferDataFormatType.VERTICES, vertexCount*2, DrawingMode.LINES);
 	}
 }

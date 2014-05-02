@@ -36,7 +36,7 @@ public class Light extends CoordinateNode implements SceneNode {
 			height -= 0.1;
 		}
 		glTranslated(position[0], position[1], position[2] + height);
-		//sphere.draw(0.1f, 20, 20);
+		sphere.draw(0.1f, 20, 20);
 		glEnable(GL_LIGHTING);
 		glEnable(GL_LIGHT0);
 		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)this.colourBuffer.put(this.zero).rewind());

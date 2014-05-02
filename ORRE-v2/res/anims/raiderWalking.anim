@@ -16,6 +16,7 @@ rotate arm_r 150 degrees around x-axis
 rotate arm_l -150 degrees around x-axis 
 rotate leg_r -150 degrees around x-axis
 rotate leg_l 150 degrees around x-axis
+
 repeat from frame2
 
 keyframe final of duration 0.5 s
