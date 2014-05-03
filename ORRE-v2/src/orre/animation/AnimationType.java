@@ -1,6 +1,7 @@
 package orre.animation;
 
 public enum AnimationType {
-	raiderWalking
+	raiderWalking, 
+	raiderPickup
 
 }

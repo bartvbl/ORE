@@ -5,7 +5,8 @@
 	</sounds>
 	
 	<animations pathPrefix="res/anims/">
-		<animation name="raiderWalking" src="raiderWalking.anim"/>
+		<animation name="raiderWalking" src="raiderWalking.anim" />
+		<animation name="raiderPickup" src="raiderPickup.anim" />
 	</animations>
 	
 	<models pathPrefix="res/mesh/">

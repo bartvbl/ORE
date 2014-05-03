@@ -11,7 +11,7 @@ public class RockRaiderAppearance extends Appearance {
 		super(PropertyType.ROCK_RAIDER_APPEARANCE, "rockRaider", gameObject);
 		appearance.root.setLocation(2.5, 2.5, 0);
 		appearance.root.rotate(0, 0, 180);
-		gameObject.world.services.animationService.applyAnimation(AnimationType.raiderWalking, appearance);
+		gameObject.world.services.animationService.applyAnimation(AnimationType.raiderPickup, appearance);
 	}
 
 	@Override

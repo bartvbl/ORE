@@ -64,9 +64,7 @@ public class GameRunning extends GameState {
 		} else {
 			sceneRoot.addChild(mapNode);
 		}
-		Mesh3D mesh = this.resourceCache.createModelInstace("lmsExplorer");
 		shader.addChild(mapNode);
-		shader.addChild(mesh.root);
 		mapNode.addChild(mapContentsRoot);
 		gameWorld.services.cameraService.setCurrentCamera(defaultCamera, gameWorld);
 		int cameraController = gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);

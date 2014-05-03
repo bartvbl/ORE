@@ -11,7 +11,7 @@ public class Main {
 	{
 		//System.setProperty("org.lwjgl.util.Debug", "true");
 		//debugger for openGL
-		System.loadLibrary("opengl32");
+		//System.loadLibrary("opengl32");
 		setSwingSettings();
 		new Logger();
 		GameMain game = new GameMain();
