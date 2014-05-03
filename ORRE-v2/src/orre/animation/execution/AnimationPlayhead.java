@@ -15,6 +15,7 @@ public class AnimationPlayhead {
 	private float previousFrameStartTime = 0;
 	private int currentFrameID = 0;
 	private double elapsedTimeInFrame = 0;
+	private boolean isFinished = false;
 
 	public AnimationPlayhead(Animation animation, Mesh3D target) {
 		this.animation = animation;
@@ -75,6 +76,9 @@ public class AnimationPlayhead {
 		}
 		if(!jumped) {
 			this.currentFrameID++;
+			if(this.currentFrameID >= animation.keyFrames.length) {
+				this.isFinished  = true;
+			}
 		}
 	}
 	
@@ -83,7 +87,7 @@ public class AnimationPlayhead {
 	}
 
 	public boolean isFinished() {
-		return animation.keyFrames.length == currentFrameID + 1;
+		return this.isFinished;
 	}
 
 }
