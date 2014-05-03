@@ -24,4 +24,8 @@ public class Vertex3D {
 	public double[] toArray() {
 		return new double[]{x, y, z, texU, texV, normX, normY, normZ};
 	}
+	
+	public String toString() {
+		return "Vertex3D [" + x + ", " + y + ", " + z + "]";
+	}
 }

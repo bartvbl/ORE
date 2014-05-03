@@ -47,7 +47,7 @@ public class MapBuilder {
 		//bind a first default texture
 		texturePack.bindTexture(SoilType.DIRT, WallType.ground);
 		
-		int numVertices = (mapSize.width + 1) * (mapSize.height + 1);
+		int numVertices = (mapSize.width) * (mapSize.height);
 		int geometryBufferSize = numVertices * verticesPerTile * doublesPerVertex;
 		
 		DoubleBuffer geometryDataBuffer = BufferUtils.createDoubleBuffer(geometryBufferSize);
@@ -102,7 +102,9 @@ public class MapBuilder {
 		Material currentMaterial = texturePack.generateBoundTextureMaterial();
 		IntBuffer indices = generateIndexBuffer(geometryDataBuffer.position());
 		GeometryNode buffer = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, indices);
+		GeometryNode normals = GeometryBufferGenerator.generateNormalsGeometryBuffer(BufferDataFormatType.VERTICES_TEXTURES_NORMALS, geometryDataBuffer, indices);
 		currentMaterial.addChild(buffer);
+		currentMaterial.addChild(normals);
 		rootNode.addChild(currentMaterial);
 	}
 

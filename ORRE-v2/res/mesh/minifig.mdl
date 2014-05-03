@@ -12,7 +12,7 @@
 				<part name="leftLeg_top" nameInModelFile="leg_l" pivotX="0" pivotY="0.007" pivotZ="-0.15" />
 				<part name="rightLeg_top" nameInModelFile="leg_r" pivotX="0" pivotY="0.007" pivotZ="-0.15" />
 			</part>
-			<part name="head" nameInModelFile="head" pivotX="0" pivotY="0" pivotZ="0"/>
+			<part name="head" nameInModelFile="head" pivotX="0" pivotY="0" pivotZ="-0.5"/>
 		</part>
 	</partStructure>
 </ORRModel>

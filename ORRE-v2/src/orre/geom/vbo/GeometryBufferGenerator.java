@@ -3,6 +3,7 @@ package orre.geom.vbo;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.ARBVertexBufferObject;
@@ -79,8 +80,9 @@ public class GeometryBufferGenerator {
 
 	public static GeometryNode generateNormalsGeometryBuffer(BufferDataFormatType dataFormat, DoubleBuffer geometryData, IntBuffer indices) {
 		int vertexCount = geometryData.capacity() / dataFormat.elementsPerVertex;
+		System.out.println("Building " + vertexCount + " vertices");
 		DoubleBuffer vertexBuffer = BufferUtils.createDoubleBuffer(vertexCount * 2 * 3);
-		IntBuffer normalIndices = BufferUtils.createIntBuffer(vertexCount * 2);
+		IntBuffer normalIndices = BufferUtils.createIntBuffer(vertexCount * 2 * 2);
 		geometryData.rewind();
 		for(int i = 0; i < vertexCount; i++) {
 			double x = geometryData.get();
@@ -116,6 +118,6 @@ public class GeometryBufferGenerator {
 		storeIndexData(indexBufferID, normalIndices);
 		storeVertexData(vertexBufferID, vertexBuffer);
 		
-		return new GeometryNode(indexBufferID, vertexBufferID, BufferDataFormatType.VERTICES, vertexCount, DrawingMode.LINES);
+		return new GeometryNode(indexBufferID, vertexBufferID, BufferDataFormatType.VERTICES, vertexCount*2, DrawingMode.LINES);
 	}
 }
