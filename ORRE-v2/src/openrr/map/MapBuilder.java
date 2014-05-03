@@ -52,7 +52,8 @@ public class MapBuilder {
 		
 		DoubleBuffer geometryDataBuffer = BufferUtils.createDoubleBuffer(geometryBufferSize);
 		
-		double[][] tileHeight = new double[2][2];
+		double[][] tileHeight = new double[4][4];
+		Vertex3D[][] mapGeometry = new Vertex3D[mapSize.width + 1][mapSize.height + 1];
 		
 		for(int x = 0; x < mapSize.width; x++) {
 			for(int y = 0; y < mapSize.height; y++) {
@@ -60,6 +61,7 @@ public class MapBuilder {
 				SoilType tileSoilType = mapTile.getSoilType();
 				WallType tileWallType = wallTypeMap[x][y];
 				Orientation orientation = orientationMap[x][y];
+				
 				if(!texturePack.isBound(tileSoilType, tileWallType)) {
 					if(!(geometryDataBuffer.position() == 0)) {
 						compileGeometryBuffer(texturePack, rootNode, geometryDataBuffer);
