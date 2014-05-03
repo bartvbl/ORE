@@ -11,7 +11,7 @@ import orre.resources.loaders.obj.StoredModelPart;
 
 public class ModelPartTreeBuilder {
 	private static final String PHYSICAL_PART = "part";
-	private static final String SHADER_PART = "shaderPart";
+	private static final String VIRTUAL_PART = "shaderPart";
 
 	public static List<StoredModelPart> generatePartTree(BlueprintModel model, Element rootElement) {
 		Element partStructureElement = rootElement.getFirstChildElement("partStructure");
@@ -51,10 +51,11 @@ public class ModelPartTreeBuilder {
 	}
 
 	private static ModelPartType getPartType(Element modelNode) {
-		String partName = modelNode.getAttributeValue("name");
-		if(partName.equals(PHYSICAL_PART)){
+		String partType = modelNode.getAttributeValue("type");
+		partType = partType == null ? PHYSICAL_PART : VIRTUAL_PART;
+		if(partType.equals(PHYSICAL_PART)){
 			return ModelPartType.PHYSICAL;
-		} else if(partName.equals(SHADER_PART)){
+		} else if(partType.equals(VIRTUAL_PART)){
 			return ModelPartType.VIRTUAL;
 		}
 		return ModelPartType.PHYSICAL;
