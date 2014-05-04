@@ -7,13 +7,12 @@ import orre.util.ArrayUtils;
 
 public class MapCoordinateRotator {
 	private static Vertex3D[] vertices = new Vertex3D[6];
-	private static double tileSide = 1;
 	
-	public static Vertex3D[] generateRotatedTileCoordinates(int x, int y, double[][] tileHeight, SubTextureCoordinate textureCoordinate, Orientation orientation) {
-		Vector3D tileOrigin = generateTileOrigin(x + tileSide / 2, y + tileSide / 2, tileHeight, orientation);
-		Vector3D[] cornerVertices = generateCornerVertices(tileOrigin, tileHeight);
+	public static Vertex3D[] generateRotatedTileCoordinates(int x, int y, Vector3D[][] mapVertices, SubTextureCoordinate textureCoordinate, Orientation orientation) {
+		Vector3D[] cornerVertices = generateCornerVertices(x, y, mapVertices);
+		Vector3D[] normals = calculateNormals(x, y, mapVertices);
 		rotateCornerVertices(cornerVertices, orientation);
-		Vector3D[] normals = calculateNormals(cornerVertices);
+		//rotateCornerVertices(normals, orientation);
 		createVertices(cornerVertices, textureCoordinate, normals);
 		return vertices;
 	}
@@ -24,34 +23,61 @@ public class MapCoordinateRotator {
 		vertices[1] = createVertex(cornerVertices[1], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v1, normals[0]);
 		vertices[2] = createVertex(cornerVertices[3], rotatedTextureCoordinates.u1, rotatedTextureCoordinates.v2, normals[0]);
 		
-		vertices[3] = createVertex(cornerVertices[1], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v1, normals[1]);
-		vertices[4] = createVertex(cornerVertices[2], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v2, normals[1]);
-		vertices[5] = createVertex(cornerVertices[3], rotatedTextureCoordinates.u1, rotatedTextureCoordinates.v2, normals[1]);
+		vertices[3] = createVertex(cornerVertices[1], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v1, normals[0]);
+		vertices[4] = createVertex(cornerVertices[2], rotatedTextureCoordinates.u2, rotatedTextureCoordinates.v2, normals[0]);
+		vertices[5] = createVertex(cornerVertices[3], rotatedTextureCoordinates.u1, rotatedTextureCoordinates.v2, normals[0]);
 	}
 
 	private static Vertex3D createVertex(Vector3D coordinate, double textureU, double textureV, Vector3D normal) {
 		return new Vertex3D(coordinate.x, coordinate.y, coordinate.z, textureU, textureV, normal.x, normal.y, normal.z);
 	}
 
-	private static Vector3D[] calculateNormals(Vector3D[] cornerVertices) {
-		Vector3D normal1Edge1 = cornerVertices[3].minus(cornerVertices[0]);
-		Vector3D normal1Edge2 = cornerVertices[1].minus(cornerVertices[0]);
-		
-		Vector3D normal2Edge1 = cornerVertices[3].minus(cornerVertices[2]);
-		Vector3D normal2Edge2 = cornerVertices[1].minus(cornerVertices[2]);
-		
-		Vector3D[] normals = new Vector3D[2];
-		normals[0] = normal1Edge2.vectorProduct(normal1Edge1).normalize();
-		normals[1] = normal2Edge1.vectorProduct(normal2Edge2).normalize();
+	private static Vector3D[] calculateNormals(int x, int y, Vector3D[][] mapVertices) {
+		Vector3D[] normals = new Vector3D[4];
+		for(int i = 0; i < 2; i++) {
+			for(int j = 0; j < 2; j++) {
+				normals[2*i + j] = calculateNormal(x + i, y + j, mapVertices);
+			}
+		}
 		return normals;
 	}
 
-	private static Vector3D[] generateCornerVertices(Vector3D tileOrigin, double[][] tileHeight) {
+	private static Vector3D calculateNormal(int x, int y, Vector3D[][] mapVertices) {
+		Vector3D addedNormal = new Vector3D(0, 0, 0);
+		for(int angle = 0; angle <= 360; angle += 90) {
+			int offsetX1 = (int) Math.cos(Math.toRadians(angle));
+			int offsetX2 = (int) Math.cos(Math.toRadians(angle - 90));
+			
+			int offsetY1 = (int) Math.sin(Math.toRadians(angle));
+			int offsetY2 = (int) Math.sin(Math.toRadians(angle - 90));
+			
+			Vector3D vertex = getVertexAt(x, y, mapVertices);
+			Vector3D vertex1 = getVertexAt(x + offsetX1, y + offsetY1, mapVertices);
+			Vector3D vertex2 = getVertexAt(x + offsetX2, y + offsetY2, mapVertices);
+			
+			Vector3D edge1 = vertex.minus(vertex1);
+			Vector3D edge2 = vertex.minus(vertex2);
+			
+			addedNormal = addedNormal.plus(edge2.vectorProduct(edge1));
+		}
+		
+		return addedNormal.normalize();
+	}
+
+	private static Vector3D getVertexAt(int x, int y, Vector3D[][] mapVertices) {
+		if(x < 0) x = 0;
+		if(y < 0) y = 0;
+		if(x >= mapVertices.length) x -= 1;
+		if(y >= mapVertices[0].length) y -= 1;
+		return mapVertices[x][y];
+	}
+
+	private static Vector3D[] generateCornerVertices(int x, int y, Vector3D[][] mapVertices) {
 		Vector3D[] cornerVertices = new Vector3D[4];
-		cornerVertices[0] = new Vector3D(tileOrigin.x - tileSide / 2, tileOrigin.y - tileSide / 2, tileHeight[0][0]);
-		cornerVertices[1] = new Vector3D(tileOrigin.x + tileSide / 2, tileOrigin.y - tileSide / 2, tileHeight[1][0]);
-		cornerVertices[2] = new Vector3D(tileOrigin.x + tileSide / 2, tileOrigin.y + tileSide / 2, tileHeight[1][1]);
-		cornerVertices[3] = new Vector3D(tileOrigin.x - tileSide / 2, tileOrigin.y + tileSide / 2, tileHeight[0][1]);
+		cornerVertices[0] = mapVertices[x][y];
+		cornerVertices[1] = mapVertices[x+1][y];
+		cornerVertices[2] = mapVertices[x+1][y+1];
+		cornerVertices[3] = mapVertices[x][y+1];
 		return cornerVertices;
 	}
 
@@ -69,16 +95,6 @@ public class MapCoordinateRotator {
 			case east: 
 				ArrayUtils.shiftLeft(cornerVertices, 3);
 				return;
-		}
-	}
-	
-	private static Vector3D generateTileOrigin(double x, double y, double[][] tileHeight, Orientation orientation) {
-		switch(orientation) {
-			default:
-			case north: return new Vector3D(x, y, tileHeight[0][0]);
-			case east: return new Vector3D(x, y, tileHeight[1][0]);
-			case south: return new Vector3D(x, y, tileHeight[1][1]);
-			case west: return new Vector3D(x, y, tileHeight[0][1]);
 		}
 	}
 }

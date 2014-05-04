@@ -51,4 +51,8 @@ public class Vector3D {
 	public Vector3D minus(Vector3D other) {
 		return new Vector3D(this.x - other.x, this.y - other.y, this.z - other.z);
 	}
+
+	public Vector3D plus(Vector3D other) {
+		return new Vector3D(x + other.x, y + other.y, z + other.z);
+	}
 }

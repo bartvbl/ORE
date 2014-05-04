@@ -13,6 +13,8 @@ rotate arm_l -15 degrees around x-axis
 keyframe frame4 of duration 0.01 s
 set arm_l x-axis rotation to 0
 set arm_r x-axis rotation to 0
+set arm_l y-axis rotation to 0
+set arm_r y-axis rotation to 0
 set belt x-axis rotation to 0
 
 repeat from frame1
