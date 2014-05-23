@@ -25,7 +25,12 @@ public class AnimationService implements Service {
 	public void tick() {
 		Timer.tick();
 		for(AnimationPlayhead playHead : activeAnimations) {
-			playHead.updateAnimation();
+			try {
+				playHead.updateAnimation();
+			} catch(NullPointerException e) {
+				activeAnimations.remove(playHead);
+				System.err.println("Animation caused an error. Aborting. Message: " + e.getMessage());
+			}
 		}
 		for(int i = 0; i < activeAnimations.size(); i++) {
 			if(activeAnimations.get(i).isFinished()) {

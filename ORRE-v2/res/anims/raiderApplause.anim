@@ -1,0 +1,17 @@
+animation raiderApplause
+
+keyframe frame0 of duration 0.1 s
+set arm_l x-axis rotation to -90
+set arm_r x-axis rotation to -90
+
+keyframe frame1 of duration 0.1 s
+rotate arm_r 35 degrees around z-axis
+rotate arm_l -35 degrees around z-axis
+
+keyframe frame3 of duration 0.1 s
+rotate arm_r -35 degrees around z-axis
+rotate arm_l 35 degrees around z-axis 
+
+repeat from frame1
+
+end animation

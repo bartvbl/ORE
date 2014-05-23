@@ -8,9 +8,9 @@ import orre.util.ArrayUtils;
 public class MapCoordinateRotator {
 	private static Vertex3D[] vertices = new Vertex3D[6];
 	
-	public static Vertex3D[] generateRotatedTileCoordinates(int x, int y, Vector3D[][] mapVertices, SubTextureCoordinate textureCoordinate, Orientation orientation) {
+	public static Vertex3D[] generateRotatedTileCoordinates(int x, int y, Vector3D[][] mapVertices, Vector3D[][][] mapNormals, SubTextureCoordinate textureCoordinate, Orientation orientation) {
 		Vector3D[] cornerVertices = generateCornerVertices(x, y, mapVertices);
-		Vector3D[] normals = calculateNormals(x, y, mapVertices);
+		Vector3D[] normals = calculateNormals(x, y, mapVertices, mapNormals);
 		rotateCornerVertices(cornerVertices, orientation);
 		//rotateCornerVertices(normals, orientation);
 		createVertices(cornerVertices, textureCoordinate, normals);
@@ -32,17 +32,17 @@ public class MapCoordinateRotator {
 		return new Vertex3D(coordinate.x, coordinate.y, coordinate.z, textureU, textureV, normal.x, normal.y, normal.z);
 	}
 
-	private static Vector3D[] calculateNormals(int x, int y, Vector3D[][] mapVertices) {
+	private static Vector3D[] calculateNormals(int x, int y, Vector3D[][] mapVertices, Vector3D[][][] mapNormals) {
 		Vector3D[] normals = new Vector3D[4];
 		for(int i = 0; i < 2; i++) {
 			for(int j = 0; j < 2; j++) {
-				normals[2*i + j] = calculateNormal(x + i, y + j, mapVertices);
+				normals[2*i + j] = calculateNormal(x + i, y + j, mapVertices, mapNormals);
 			}
 		}
 		return normals;
 	}
 
-	private static Vector3D calculateNormal(int x, int y, Vector3D[][] mapVertices) {
+	private static Vector3D calculateNormal(int x, int y, Vector3D[][] mapVertices, Vector3D[][][] mapNormals) {
 		Vector3D addedNormal = new Vector3D(0, 0, 0);
 		for(int angle = 0; angle <= 360; angle += 90) {
 			int offsetX1 = (int) Math.cos(Math.toRadians(angle));
