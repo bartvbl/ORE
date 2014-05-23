@@ -9,6 +9,7 @@ import java.util.List;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.Color;
 
 import static org.lwjgl.opengl.GL11.*;
@@ -43,6 +44,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 	private static final double animSpeed = 0.5;
 	private static final double animHeight = 200;
 	private static final double rotationSpeed = 6;
+	private int animationFinishedCounter = 0;
 
 	public StartupIntro(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache) {
 		super(main, eventDispatcher, GameStateName.STARTUP_INTRO);
@@ -61,9 +63,6 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			StoredModelPart brickBlueprint = new StoredModelPart(ModelPartType.PHYSICAL, "single brick");
 			brickPart.setDestinationPart(brickBlueprint);
 			BlueprintMaterial material = new BlueprintMaterial("untitled-1");
-			material.setDiffuseColour(new float[]{1f, 0f, 0f, 1f});
-			material.setSpecularColour(new float[]{1f, 1f, 1f, 1f});
-			material.setShininess(30);
 			brickPart.setMaterial(material);
 			brickPart.finalizeResource();
 			Light light = new Light();
@@ -74,11 +73,13 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			uniform.setValue(0f);
 			this.node = light;
 			light.setPosition(0, 0, 10);
+			light.setDiffuseLight(new float[]{1f, 1f, 1f, 1f});
+			light.setSpecularLight(new float[]{0.2f, 0.2f, 0.2f, 1f});
 			light.addChild(shader);
 			shader.addChild(uniform);
 			shader.addChild(brickPosition);
-			SceneGraphVisualiser.showSceneGraph(node);
 			buildImage(logoImage, brickNode, brickPosition);
+			animationFinishedCounter = 100;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -128,7 +129,8 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			glColour[2] = ((double)colour.getBlue()) / 255.0;
 			glColour[3] = ((double)colour.getAlpha()) / 255.0;
 			material.setDiffuseColour(glColour);
-			material.setSpecularColour(new float[]{0.4f, 0.4f, 0.4f, 1f});
+			material.setSpecularColour(glColour);
+			material.setShininess(70);
 			for(SceneNode child : materials.get(colour)) {
 				material.addChild(child);
 			}
@@ -143,11 +145,13 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 
 	@Override
 	public void executeFrame(long frameNumber) {
+		boolean allFinished = true;
 		for(int x = 0; x < brickNodes.length; x++) {
 			for(int y = 0; y < brickNodes.length; y++) {
 				CoordinateNode column = brickNodes[x][y];
 				if(column.getY() > 0) {
 					column.translate(0, -animSpeed, 0);
+					allFinished = false;
 				} else {
 					column.setY(0);
 				}
@@ -167,6 +171,16 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 					column.setRotationZ(0);
 				}
 			}
+		}
+		if(allFinished) {
+			if(animationFinishedCounter > 0) {
+				animationFinishedCounter--;
+			} else {
+				this.finish();
+			}
+		}
+		if(Keyboard.isKeyDown(Keyboard.KEY_ESCAPE)) {
+			this.finish();
 		}
 		brickPosition.setLocation(-((double)imageWidth * brickSize)/2, ((double)imageHeight * brickSize)/2, -100);
 		brickPosition.setRotationX(90);

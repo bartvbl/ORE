@@ -67,6 +67,11 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		colour = formatColour(colour);
 		this.specularColour = colour;
 	}
+	
+	public void setSpecularColour(double[] colour) {
+		setSpecularColour(new float[]{(float) colour[0], (float) colour[1], (float) colour[2], (float) colour[3]});
+	}
+	
 	public void setEmissionColour(float[] colour)
 	{
 		colour = formatColour(colour);
