@@ -15,6 +15,7 @@ import orre.geom.mesh.Mesh3D;
 import orre.gl.lighting.Light;
 import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
+import orre.gl.shaders.UniformNode;
 import orre.resources.ResourceCache;
 import orre.sceneGraph.Camera;
 import orre.sceneGraph.ContainerNode;

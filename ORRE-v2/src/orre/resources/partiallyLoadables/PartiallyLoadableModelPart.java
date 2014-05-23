@@ -30,7 +30,9 @@ public class PartiallyLoadableModelPart extends Finalizable {
 		if(this.destinationPart == null) {
 			System.out.println("ERROR: missing part in OBJ file: " + name);
 		}
-		this.material.finalizeResource();
+		if(this.material != null) {
+			this.material.finalizeResource();
+		}
 		this.geometryBuffer.finalizeResource();
 		this.destinationPart.addBufferCombo(this.material, this.geometryBuffer.convertToGeometryBuffer());
 	}

@@ -2,6 +2,7 @@ varying vec3 normal;
 varying vec3 position;
 
 uniform sampler2D diffuseTexture;
+uniform float texturesEnabled;
 
 vec4 lightSource(vec3 norm, vec3 view, gl_LightSourceParameters light)
 {
@@ -32,5 +33,6 @@ vec4 lighting()
 
 void main()
 {
-	gl_FragColor = texture2D(diffuseTexture, gl_TexCoord[0].st) * lighting();
+	vec4 lightValue = lighting();
+	gl_FragColor = (texturesEnabled * texture2D(diffuseTexture, gl_TexCoord[0].st) * lightValue) + ((1.0 - texturesEnabled) * lightValue);
 }

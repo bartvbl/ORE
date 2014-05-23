@@ -12,7 +12,7 @@ public class UniformNode extends ContainerNode {
 	
 	private int intValue;
 	private float floatValue;
-
+	private int uniformLocation = -1;
 	
 	UniformNode(String variableName, int programID) {
 		this.variableName = variableName;
@@ -31,13 +31,15 @@ public class UniformNode extends ContainerNode {
 	
 	@Override
 	public void preRender() {
-		int location = glGetUniformLocation(programID, variableName);
+		if(uniformLocation == -1) {
+			uniformLocation = glGetUniformLocation(programID, variableName);
+		}
 		switch(this.currentDataType) {
 		case INT:
-			glUniform1i(location, this.intValue);
+			glUniform1i(uniformLocation, this.intValue);
 			break;
 		case FLOAT:
-			glUniform1f(location, this.floatValue);
+			glUniform1f(uniformLocation, this.floatValue);
 			break;
 		}
 	}

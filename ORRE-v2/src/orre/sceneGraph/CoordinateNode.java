@@ -96,4 +96,24 @@ public class CoordinateNode extends ContainerNode {
 	public String toString() {
 		return "Coordinate node";
 	}
+	
+	public double getY() {
+		return this.y;
+	}
+
+	public double getZ() {
+		return this.z;
+	}
+
+	public double getRotationX() {
+		return rotationX;
+	}
+	
+	public double getRotationY() {
+		return rotationY;
+	}
+	
+	public double getRotationZ() {
+		return rotationZ;
+	}
 }

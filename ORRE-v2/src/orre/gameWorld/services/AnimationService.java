@@ -24,7 +24,8 @@ public class AnimationService implements Service {
 	
 	public void tick() {
 		Timer.tick();
-		for(AnimationPlayhead playHead : activeAnimations) {
+		for(int i = activeAnimations.size() - 1; i >= 0; i--) {
+			AnimationPlayhead playHead = activeAnimations.get(i);
 			try {
 				playHead.updateAnimation();
 			} catch(NullPointerException e) {
