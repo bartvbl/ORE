@@ -60,7 +60,7 @@ public class GameMain implements EventHandler{
 		GameWindow.create();
 		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
 		this.stateMap = stateMap;
-		this.setGameState(GameStateName.STARTUP_LOADING);
+		this.setGameState(GameStateName.STARTUP_INTRO);
 	}
 
 	public void handleEvent(GlobalEvent<?> event) {
