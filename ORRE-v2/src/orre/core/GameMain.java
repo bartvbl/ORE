@@ -50,6 +50,7 @@ public class GameMain implements EventHandler{
 		{
 			this.currentGameState.unset();
 		}
+		RenderUtils.resetSettings();
 		AbstractGameState stateToSet = this.stateMap.get(newState);
 		this.currentGameState = stateToSet;
 		stateToSet.set();
@@ -60,7 +61,7 @@ public class GameMain implements EventHandler{
 		GameWindow.create();
 		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
 		this.stateMap = stateMap;
-		this.setGameState(GameStateName.STARTUP_INTRO);
+		this.setGameState(GameStateName.STARTUP_LOADING);
 	}
 
 	public void handleEvent(GlobalEvent<?> event) {

@@ -83,7 +83,4 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 	}
 
 	public void addToCache() {}
-
-
-	
 }

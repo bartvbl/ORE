@@ -3,7 +3,6 @@ package orre.gameStates;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -14,7 +13,6 @@ import org.lwjgl.util.Color;
 
 import static org.lwjgl.opengl.GL11.*;
 import orre.core.GameMain;
-import orre.devTools.SceneGraphVisualiser;
 import orre.events.GlobalEventDispatcher;
 import orre.gl.lighting.Light;
 import orre.gl.materials.Material;
@@ -42,8 +40,8 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 	private double[][][] rotationSpeeds;
 	private CoordinateNode[][] brickNodes;
 	private static final double animSpeed = 0.5;
-	private static final double animHeight = 200;
-	private static final double rotationSpeed = 6;
+	private static final double animHeight = 150;
+	private static final double rotationSpeed = 10;
 	private int animationFinishedCounter = 0;
 
 	public StartupIntro(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache) {
@@ -73,13 +71,14 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			uniform.setValue(0f);
 			this.node = light;
 			light.setPosition(0, 0, 10);
+			light.setAmbientLight(new float[]{0, 0, 0, 1});
 			light.setDiffuseLight(new float[]{1f, 1f, 1f, 1f});
-			light.setSpecularLight(new float[]{0.2f, 0.2f, 0.2f, 1f});
+			light.setSpecularLight(new float[]{1f, 1f, 1f, 1f});
 			light.addChild(shader);
 			shader.addChild(uniform);
 			shader.addChild(brickPosition);
 			buildImage(logoImage, brickNode, brickPosition);
-			animationFinishedCounter = 100;
+			animationFinishedCounter = 0;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -130,7 +129,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			glColour[3] = ((double)colour.getAlpha()) / 255.0;
 			material.setDiffuseColour(glColour);
 			material.setSpecularColour(glColour);
-			material.setShininess(70);
+			material.setShininess(90);
 			for(SceneNode child : materials.get(colour)) {
 				material.addChild(child);
 			}
@@ -173,7 +172,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			}
 		}
 		if(allFinished) {
-			if(animationFinishedCounter > 0) {
+			if(animationFinishedCounter > -100) {
 				animationFinishedCounter--;
 			} else {
 				this.finish();

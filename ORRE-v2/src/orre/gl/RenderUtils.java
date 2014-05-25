@@ -31,7 +31,6 @@ public class RenderUtils {
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glEnable(GL_LIGHTING);
-		//glEnable(GL_NORMALIZE);
 	}
 	
 	public static void set2DMode()
@@ -44,6 +43,10 @@ public class RenderUtils {
 		glLoadIdentity();
 		glEnable(GL_TEXTURE_2D);
 		glDisable(GL_LIGHTING);
-//		glDisable(GL_CULL_FACE); 
+		glDisable(GL_CULL_FACE); 
+	}
+
+	public static void resetSettings() {
+		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
 	}
 }
