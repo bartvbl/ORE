@@ -84,4 +84,8 @@ public final class GameObject {
 			}
 		}
 	}
+
+	public ArrayList<Property> debugonly_getAllProperties() {
+		return properties;
+	}
 }

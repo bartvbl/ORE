@@ -1,7 +1,7 @@
 package orre.gameWorld.core;
 
 public abstract class Property {
-	protected final PropertyType type;
+	public final PropertyType type;
 	protected final GameObject gameObject;
 
 	public Property (PropertyType type, GameObject gameObject) {

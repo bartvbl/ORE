@@ -1,31 +1,49 @@
 package orre.devTools;
 
+import java.util.ArrayList;
+import java.util.Collection;
+
+import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
+import javax.swing.JList;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
+import javax.swing.JTabbedPane;
 import javax.swing.JTree;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import orre.gameWorld.core.GameObject;
+import orre.gameWorld.core.GameWorld;
+import orre.gameWorld.core.Property;
 import orre.sceneGraph.SceneNode;
 
 public class SceneGraphVisualiser {
-
-	public static void showSceneGraph(SceneNode rootNode) {
+	public static void showDebugInfo(GameWorld world) {
 		JFrame window = new JFrame("Scene");
+		JTabbedPane mainTabPane = new JTabbedPane();
+		window.add(mainTabPane);
+		showSceneGraph(world.rootNode, mainTabPane);
+		showGameWorld(world.debugonly_getAllGameOjects(), mainTabPane);
+		window.setSize(300, 500);
+		window.setLocation(100, 100);
+		window.setVisible(true);
+	}
+
+	public static void showSceneGraph(SceneNode rootNode, JTabbedPane parent) {
 		JTree sceneTree = new JTree();
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportView(sceneTree);
-		window.add(scrollPane);
+		parent.add("Scene graph", scrollPane);
 		DefaultMutableTreeNode node = new DefaultMutableTreeNode(rootNode);
 		DefaultTreeModel model = new DefaultTreeModel(node);
 		sceneTree.setModel(model);
 		populateTree(node, rootNode);
-		window.setSize(300, 500);
-		window.setLocation(100, 100);
 		for(int i = 0; i < sceneTree.getRowCount(); i++) {
 			sceneTree.expandRow(i);
 		}
-		window.setVisible(true);
+		
 	}
 
 	private static void populateTree(DefaultMutableTreeNode node, SceneNode sceneNode) {
@@ -35,5 +53,26 @@ public class SceneGraphVisualiser {
 			populateTree(childNode, child);
 		}
 	}
-
+	
+	private static void showGameWorld(Collection<GameObject> gameObjects, JTabbedPane mainTabPane) {
+		JScrollPane scrollPane = new JScrollPane();
+		JPanel informationPanel = new JPanel();
+		JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, informationPanel);
+		mainTabPane.add("Game world", splitter);
+		JTree worldTree = new JTree();
+		scrollPane.setViewportView(worldTree);
+		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("");
+		DefaultTreeModel model = new DefaultTreeModel(rootNode);
+		worldTree.setModel(model);
+		for(GameObject object : gameObjects) {
+			DefaultMutableTreeNode objectNode = new DefaultMutableTreeNode(object.id + ": " + object.type);
+			ArrayList<Property> properties = object.debugonly_getAllProperties();
+			for(Property property : properties) {
+				DefaultMutableTreeNode propertyNode = new DefaultMutableTreeNode(property.type);
+				objectNode.add(propertyNode);
+			}
+			rootNode.add(objectNode);
+		}
+		worldTree.expandRow(0);
+	}
 }

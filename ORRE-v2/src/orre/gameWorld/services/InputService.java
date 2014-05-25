@@ -94,7 +94,7 @@ public class InputService implements Service {
 	private void onKeyDown(int pressedKey) {
 		switch(pressedKey) {
 		case Keyboard.KEY_F3:
-			SceneGraphVisualiser.showSceneGraph(world.rootNode);
+			SceneGraphVisualiser.showDebugInfo(world);
 		}
 	}
 

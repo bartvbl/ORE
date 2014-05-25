@@ -101,4 +101,8 @@ public class GameWorld {
 			return defaultValue;
 		}
 	}
+
+	public Collection<GameObject> debugonly_getAllGameOjects() {
+		return gameObjectSet.values();
+	}
 }
