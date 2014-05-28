@@ -18,12 +18,12 @@ import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
 
 import orre.gl.texture.Texture;
-import orre.resources.FileToLoad;
+import orre.resources.UnloadedResource;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import orre.util.FeedbackProvider;
 
 public class TextureLoader {
-	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(FileToLoad file) throws FileNotFoundException, IOException, Exception {
+	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(UnloadedResource file) throws FileNotFoundException, IOException, Exception {
 		BufferedImage image = loadImageFromFile(file.getPath());
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
 		return new PartiallyLoadableTexture(file.name, imageData, image.getWidth(), image.getHeight());

@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import orre.animation.Animation;
 import orre.animation.AnimationLoader;
-import orre.resources.FileToLoad;
+import orre.resources.UnloadedResource;
 import orre.resources.Finalizable;
 import orre.resources.ProgressTracker;
 import orre.resources.ResourceFile;
@@ -32,7 +32,7 @@ public class ResourceLoadingThread extends Thread {
 	
 	public void run()
 	{
-		FileToLoad currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();
+		UnloadedResource currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();
 		while(currentFile != null)
 		{
 			try {
@@ -46,7 +46,7 @@ public class ResourceLoadingThread extends Thread {
 		}
 	}
 
-	private void loadFile(FileToLoad currentFile) throws Exception {
+	private void loadFile(UnloadedResource currentFile) throws Exception {
 		Finalizable resource = null;
 		if((currentFile.fileType == ResourceFile.MENU_TEXTURE_FILE) || (currentFile.fileType == ResourceFile.TEXTURE_FILE))
 		{

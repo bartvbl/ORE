@@ -7,7 +7,7 @@ import orre.events.EventHandler;
 import orre.events.GlobalEventType;
 import orre.gl.texture.Texture;
 import orre.gui.LoadingScreenDrawer;
-import orre.resources.FileToLoad;
+import orre.resources.UnloadedResource;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceFile;
 import orre.resources.ResourceLoader;
@@ -60,11 +60,11 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 	public void handleEvent(GlobalEvent<?> event) {
 		if(event.eventType.equals(this.enqueueResourceEventType))
 		{
-			if(!(event.getEventParameterObject() instanceof FileToLoad))
+			if(!(event.getEventParameterObject() instanceof UnloadedResource))
 			{
 				return;
 			}
-			FileToLoad file = (FileToLoad) event.getEventParameterObject();
+			UnloadedResource file = (UnloadedResource) event.getEventParameterObject();
 			this.enqueueResourceFileToBeLoaded(file.getPath(), "mainMenuLoadingScreenTexture", file.fileType, file.destinationCache);
 		}
 	}

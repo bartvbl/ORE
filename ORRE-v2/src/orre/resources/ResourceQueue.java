@@ -7,8 +7,8 @@ import orre.util.Queue;
 public class ResourceQueue {
 	private static final int NUMBER_OF_LOADING_THREADS = 3;
 	
-	private Queue<FileToLoad> itemsToLoadQueue;
-	private Queue<FileToLoad> filesToLoadQueue;
+	private Queue<UnloadedResource> itemsToLoadQueue;
+	private Queue<UnloadedResource> filesToLoadQueue;
 	private Queue<Finalizable> resourcesToFinalizeQueue;
 
 	private ProgressTracker tracker;
@@ -17,8 +17,8 @@ public class ResourceQueue {
 	
 	public ResourceQueue(ProgressTracker tracker, ResourceLoader loader)
 	{
-		this.itemsToLoadQueue = new Queue<FileToLoad>();
-		this.filesToLoadQueue = new Queue<FileToLoad>();
+		this.itemsToLoadQueue = new Queue<UnloadedResource>();
+		this.filesToLoadQueue = new Queue<UnloadedResource>();
 		this.resourcesToFinalizeQueue = new Queue<Finalizable>();
 		this.resourceLoader = loader;
 		
@@ -26,14 +26,14 @@ public class ResourceQueue {
 	}
 	
 	public void enqueueResourceFile(String src, String name, ResourceFile fileType, ResourceCache destinationCache) {
-		this.itemsToLoadQueue.enqueue(new FileToLoad(fileType, destinationCache, src, name));
+		this.itemsToLoadQueue.enqueue(new UnloadedResource(fileType, destinationCache, src, name));
 	}
 
 	public void parseResourceFiles() {
 		new ResourceFileParsingThread(this, this.itemsToLoadQueue).start();
 	}
 	
-	public void enqueueNodeForLoading(FileToLoad fileToLoad)
+	public void enqueueNodeForLoading(UnloadedResource fileToLoad)
 	{
 		this.filesToLoadQueue.enqueue(fileToLoad);
 		this.tracker.addFileToLoad();
@@ -57,7 +57,7 @@ public class ResourceQueue {
 		return this.resourcesToFinalizeQueue.dequeue();
 	}
 	
-	public synchronized FileToLoad getNextEnqueuedFileToLoad()
+	public synchronized UnloadedResource getNextEnqueuedFileToLoad()
 	{
 		return this.filesToLoadQueue.dequeue();
 	}

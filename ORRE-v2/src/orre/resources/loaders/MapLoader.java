@@ -12,7 +12,7 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
-import orre.resources.FileToLoad;
+import orre.resources.UnloadedResource;
 import orre.resources.loaders.map.MapLoadingContext;
 import orre.resources.loaders.map.MapTexturePack;
 import orre.resources.loaders.map.MapTexturePackLoader;
@@ -22,7 +22,7 @@ import orre.util.XMLLoader;
 
 public class MapLoader {
 
-	public static PartiallyLoadableMap loadMap(FileToLoad currentFile) throws Exception {
+	public static PartiallyLoadableMap loadMap(UnloadedResource currentFile) throws Exception {
 		String mapSrc = currentFile.getPath();
 		ZipFile mapFile = openMap(mapSrc);
 		Document mapXML = readMapXML(mapFile);

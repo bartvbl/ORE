@@ -7,7 +7,7 @@ import nu.xom.Elements;
 import orre.util.XMLLoader;
 
 public class ResourceListFileParser {
-	public static void parseFile(FileToLoad file, ResourceQueue queue)
+	public static void parseFile(UnloadedResource file, ResourceQueue queue)
 	{
 		Document resourceList = XMLLoader.readXML(file.getPath());
 		Element rootElement = resourceList.getRootElement();
@@ -31,7 +31,7 @@ public class ResourceListFileParser {
 			Element fileToLoadElement = filesToLoad.get(i);
 			String src = fileToLoadElement.getAttributeValue("src");
 			String name = fileToLoadElement.getAttributeValue("name");
-			FileToLoad file = new FileToLoad(fileType, destinationCache, src, name);
+			UnloadedResource file = new UnloadedResource(fileType, destinationCache, src, name);
 			file.pathPrefix = pathPrefix;
 			queue.enqueueNodeForLoading(file);
 		}

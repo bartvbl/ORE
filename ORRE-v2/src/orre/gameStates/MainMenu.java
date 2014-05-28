@@ -16,7 +16,7 @@ import orre.geom.mesh.Mesh3D;
 import orre.gl.RenderUtils;
 import orre.gl.renderer.RenderPass;
 import orre.gl.texture.Texture;
-import orre.resources.FileToLoad;
+import orre.resources.UnloadedResource;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceFile;
 import orre.sceneGraph.SceneNode;
@@ -27,8 +27,8 @@ public class MainMenu extends GameState {
 
 	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache) {
 		super(main, eventDispatcher, cache);
-		FileToLoad mainCache = new FileToLoad(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml", "mainCacheList");
-		eventDispatcher.dispatchEvent(new GlobalEvent<FileToLoad>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
+		UnloadedResource mainCache = new UnloadedResource(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml", "mainCacheList");
+		eventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
 		
 	}
 	
@@ -37,8 +37,8 @@ public class MainMenu extends GameState {
 	}
 
 	public void set() {
-		FileToLoad mapFile = new FileToLoad(ResourceFile.MAP_FILE, this.resourceCache, "res/maps/sampleMap.rrm", "map");
-		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<FileToLoad>(GlobalEventType.ENQUEUE_GAME_LOADING_ITEM, mapFile));
+		UnloadedResource mapFile = new UnloadedResource(ResourceFile.MAP_FILE, this.resourceCache, "res/maps/sampleMap.rrm", "map");
+		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_GAME_LOADING_ITEM, mapFile));
 		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<GameStateName>(GlobalEventType.CHANGE_GAME_STATE, GameStateName.GAME_LOADING));
 	}
 	public void unset() {}

@@ -4,7 +4,7 @@ import java.util.List;
 
 import nu.xom.Document;
 import nu.xom.Element;
-import orre.resources.FileToLoad;
+import orre.resources.UnloadedResource;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
 import orre.resources.loaders.models.ModelPartTreeBuilder;
@@ -12,7 +12,7 @@ import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.XMLLoader;
 
 public class ModelLoader {
-	public static BlueprintModel loadModel(FileToLoad file, ResourceQueue queue) throws Exception
+	public static BlueprintModel loadModel(UnloadedResource file, ResourceQueue queue) throws Exception
 	{
 		Document modelXMLDocument = XMLLoader.readXML(file.getPath());
 		Element rootElement = modelXMLDocument.getRootElement();

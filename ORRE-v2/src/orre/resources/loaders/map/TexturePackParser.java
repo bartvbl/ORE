@@ -4,7 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.HashMap;
 
-import orre.resources.FileToLoad;
+import orre.resources.UnloadedResource;
 import orre.resources.loaders.TextureLoader;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import nu.xom.Element;
@@ -48,7 +48,7 @@ public class TexturePackParser {
 	private static MapTexture parseMapTextureFromXML(Element textureElement, String pathPrefix) throws FileNotFoundException, IOException, Exception {
 		String name = textureElement.getAttributeValue("name");
 		String textureSrc = textureElement.getAttributeValue("src");
-		PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(new FileToLoad(pathPrefix, textureSrc));
+		PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(pathPrefix, textureSrc));
 		String widthInTexturesString = textureElement.getAttributeValue("widthInTextures");
 		String heightInTexturesString = textureElement.getAttributeValue("heightInTextures");
 		int widthInTextures = Integer.parseInt(widthInTexturesString);
