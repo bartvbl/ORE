@@ -1,4 +1,4 @@
-package orre.resources.loaders.map;
+package openrr.map.loader;
 
 import java.util.Arrays;
 import java.util.Collection;

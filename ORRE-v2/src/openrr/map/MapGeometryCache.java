@@ -1,6 +1,6 @@
 package openrr.map;
 
-import orre.resources.loaders.map.MapTexturePack;
+import openrr.map.loader.MapTexturePack;
 import orre.sceneGraph.SceneNode;
 
 public class MapGeometryCache {

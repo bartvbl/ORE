@@ -3,6 +3,8 @@ package orre.threads;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
+import openrr.map.loader.MapLoader;
+import openrr.map.loader.PartiallyLoadableMap;
 import orre.animation.Animation;
 import orre.animation.AnimationLoader;
 import orre.resources.ResourceCache;
@@ -13,10 +15,8 @@ import orre.resources.ResourceType;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
 import orre.resources.loaders.LXFMLLoader;
-import orre.resources.loaders.MapLoader;
 import orre.resources.loaders.ModelLoader;
 import orre.resources.loaders.TextureLoader;
-import orre.resources.loaders.map.PartiallyLoadableMap;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import orre.util.FatalExceptionHandler;
 

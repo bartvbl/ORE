@@ -1,4 +1,4 @@
-package orre.resources.loaders;
+package openrr.map.loader;
 
 import java.io.File;
 import java.io.IOException;
@@ -14,11 +14,6 @@ import nu.xom.Element;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 import orre.resources.UnloadedResource;
-import orre.resources.loaders.map.MapLoadingContext;
-import orre.resources.loaders.map.MapTexturePack;
-import orre.resources.loaders.map.MapTexturePackLoader;
-import orre.resources.loaders.map.PartiallyLoadableMap;
-import orre.resources.loaders.map.TileMapLoader;
 import orre.util.XMLLoader;
 
 public class MapLoader {

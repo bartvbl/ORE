@@ -1,4 +1,4 @@
-package orre.resources.loaders.map;
+package openrr.map.loader;
 
 import openrr.map.Orientation;
 import openrr.map.WallType;

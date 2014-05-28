@@ -7,6 +7,8 @@ import java.util.Arrays;
 
 import org.lwjgl.BufferUtils;
 
+import openrr.map.loader.MapTexturePack;
+import openrr.map.loader.SubTextureCoordinate;
 import openrr.map.soil.SoilType;
 import orre.geom.Dimension2D;
 import orre.geom.Vector3D;
@@ -15,8 +17,6 @@ import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryNode;
 import orre.geom.vbo.GeometryBufferGenerator;
 import orre.gl.materials.Material;
-import orre.resources.loaders.map.MapTexturePack;
-import orre.resources.loaders.map.SubTextureCoordinate;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 

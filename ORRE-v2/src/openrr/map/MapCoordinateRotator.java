@@ -1,8 +1,8 @@
 package openrr.map;
 
+import openrr.map.loader.SubTextureCoordinate;
 import orre.geom.Vector3D;
 import orre.geom.Vertex3D;
-import orre.resources.loaders.map.SubTextureCoordinate;
 import orre.util.ArrayUtils;
 
 public class MapCoordinateRotator {

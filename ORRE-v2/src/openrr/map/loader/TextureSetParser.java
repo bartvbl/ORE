@@ -1,4 +1,4 @@
-package orre.resources.loaders.map;
+package openrr.map.loader;
 
 import nu.xom.Element;
 import nu.xom.Elements;

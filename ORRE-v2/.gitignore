@@ -2,3 +2,5 @@
 *.class
 *.lif
 /tools
+*.sddoc
+*.trace
