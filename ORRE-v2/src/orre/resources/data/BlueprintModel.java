@@ -6,6 +6,7 @@ import java.util.HashMap;
 import orre.geom.mesh.Mesh3D;
 import orre.geom.mesh.ModelPart;
 import orre.resources.Finalizable;
+import orre.resources.ResourceCache;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.sceneGraph.CoordinateNode;
@@ -56,8 +57,8 @@ public class BlueprintModel extends Finalizable {
 	}
 
 	@Override
-	public void addToCache() {
-		this.destinationCache.addModel(this);
+	public void addToCache(ResourceCache cache) {
+		cache.addModel(this);
 	}
 
 	@Override

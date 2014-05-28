@@ -4,6 +4,7 @@ import java.nio.DoubleBuffer;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.resources.Finalizable;
+import orre.resources.ResourceCache;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.sceneGraph.SceneNode;
 
@@ -38,7 +39,7 @@ public class PartiallyLoadableModelPart extends Finalizable {
 	}
 
 	public SceneNode createSceneNode() {return null;}
-	public void addToCache() {}
+	public void addToCache(ResourceCache cache) {}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
 		geometryBuffer.setBufferDataFormat(dataType);

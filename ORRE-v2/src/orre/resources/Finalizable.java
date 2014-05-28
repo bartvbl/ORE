@@ -3,13 +3,6 @@ package orre.resources;
 import orre.sceneGraph.SceneNode;
 
 public abstract class Finalizable {
-	protected ResourceCache destinationCache = null;
-	
-	public void setDestinationCache(ResourceCache destinationCache)
-	{
-		this.destinationCache = destinationCache;
-	}
-	
 	public void finalizeAndSendToCache()
 	{
 		this.finalizeResource();
@@ -17,5 +10,5 @@ public abstract class Finalizable {
 	
 	public abstract void finalizeResource();
 	public abstract SceneNode createSceneNode();
-	public abstract void addToCache();
+	public abstract void addToCache(ResourceCache cache);
 }

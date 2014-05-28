@@ -15,7 +15,7 @@ public class ResourceLoader {
 	{
 		this.progressTracker = new ProgressTracker();
 		this.resourceQueue = new ResourceQueue(this.progressTracker, this, cache);
-		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue);
+		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue, cache);
 	}
 	
 	public void registerStartedLoading()

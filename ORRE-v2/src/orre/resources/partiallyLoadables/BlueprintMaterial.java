@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import orre.gl.materials.AbstractMaterial;
 import orre.gl.materials.Material;
+import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.UnloadedResource;
 import orre.resources.Finalizable;
@@ -84,5 +85,5 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 		return this.material.clone();
 	}
 
-	public void addToCache() {}
+	public void addToCache(ResourceCache cache) {}
 }

@@ -29,9 +29,9 @@ public class PartiallyLoadableTexture extends Finalizable{
 		this.imageData = null;
 	}
 	
-	public void addToCache()
+	public void addToCache(ResourceCache cache)
 	{
-		this.destinationCache.addTexture(name, tex);
+		cache.addTexture(name, tex);
 	}
 	
 	public SceneNode createSceneNode()

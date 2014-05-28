@@ -5,11 +5,13 @@ import org.lwjgl.util.Timer;
 public class ResourceFinalizer {
 	private Timer finalizationTimer;
 	private ResourceQueue resourceQueue;
+	private final ResourceCache cache;
 
 	private static final float ALLOWED_TIME_FOR_FINALIZATIONS = 0.014f;
 	
-	public ResourceFinalizer(ResourceQueue resourceQueue) {
+	public ResourceFinalizer(ResourceQueue resourceQueue, ResourceCache cache) {
 		this.resourceQueue = resourceQueue;
+		this.cache = cache;
 		this.finalizationTimer = new Timer();
 	}
 	
@@ -25,7 +27,7 @@ public class ResourceFinalizer {
 				break;
 			}
 			resourceToFinalize.finalizeResource();
-			resourceToFinalize.addToCache();
+			resourceToFinalize.addToCache(cache);
 			Timer.tick();
 		}
 	}

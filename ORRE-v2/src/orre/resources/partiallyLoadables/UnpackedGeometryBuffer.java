@@ -9,6 +9,7 @@ import orre.geom.vbo.BufferDataFormatType;
 import orre.geom.vbo.GeometryNode;
 import orre.geom.vbo.GeometryBufferGenerator;
 import orre.resources.Finalizable;
+import orre.resources.ResourceCache;
 import orre.sceneGraph.SceneNode;
 
 public class UnpackedGeometryBuffer extends Finalizable{
@@ -34,7 +35,7 @@ public class UnpackedGeometryBuffer extends Finalizable{
 		return null;
 	}
 
-	public void addToCache() {}
+	public void addToCache(ResourceCache cache) {}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
 		this.dataFormat = dataType;
