@@ -12,10 +12,10 @@ import nu.xom.ParsingException;
 import nu.xom.ValidityException;
 
 public class XMLLoader {
-	public static Document readXML(String src) {
+	public static Document readXML(File location) {
 		FileInputStream inputStream;
 		try {
-			inputStream = new FileInputStream(src);
+			inputStream = new FileInputStream(location);
 			return XMLLoader.readXML(inputStream);
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();

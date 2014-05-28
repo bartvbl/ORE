@@ -3,7 +3,9 @@ package orre.core;
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
+import java.io.File;
 import java.nio.ByteBuffer;
+
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
@@ -41,7 +43,7 @@ public class GameWindow {
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
 		Display.setResizable(true);
 		Display.setTitle(gameName);
-		Display.setIcon(new ByteBuffer[]{TextureLoader.getImageData("res/icon.png"), TextureLoader.getImageData("res/icon.png")});
+		Display.setIcon(new ByteBuffer[]{TextureLoader.getImageData(new File("res/icon.png")), TextureLoader.getImageData(new File("res/icon.png"))});
 		System.out.println("-- \""+gameName+"\" on ORRE v0.01 (java " + System.getProperty("java.version") + " running on " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", "+System.getProperty("os.arch")+")) --");
 		Display.create();
 	}

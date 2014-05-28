@@ -1,5 +1,6 @@
 package orre.resources.loaders;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.zip.ZipEntry;
@@ -22,16 +23,15 @@ import orre.util.XMLLoader;
 
 public class MapLoader {
 
-	public static PartiallyLoadableMap loadMap(UnloadedResource currentFile) throws Exception {
-		String mapSrc = currentFile.getPath();
-		ZipFile mapFile = openMap(mapSrc);
+	public static PartiallyLoadableMap loadMap(UnloadedResource resource) throws Exception {
+		ZipFile mapFile = openMap(resource.location);
 		Document mapXML = readMapXML(mapFile);
 		MapLoadingContext context = new MapLoadingContext(mapXML, mapFile);
 		PartiallyLoadableMap map = parseMapXML(context);
 		return map;
 	}
 	
-	private static ZipFile openMap(String src) throws IOException {
+	private static ZipFile openMap(File src) throws IOException {
 		ZipFile mapFile = new ZipFile(src);
 		return mapFile;
 	} 

@@ -85,7 +85,7 @@ public class ImageButton extends Button implements DrawableElement {
 	
 	public Texture loadImage(String fileName) {
 		try {
-			return TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(fileName));
+			return TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(new File(fileName)));
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;

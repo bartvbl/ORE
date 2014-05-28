@@ -14,7 +14,7 @@ import orre.util.XMLLoader;
 public class ModelLoader {
 	public static BlueprintModel loadModel(UnloadedResource file, ResourceQueue queue) throws Exception
 	{
-		Document modelXMLDocument = XMLLoader.readXML(file.getPath());
+		Document modelXMLDocument = XMLLoader.readXML(file.location);
 		Element rootElement = modelXMLDocument.getRootElement();
 		BlueprintModel model = new BlueprintModel(file.name);
 		ModelPartTreeBuilder.generatePartTree(model, rootElement);

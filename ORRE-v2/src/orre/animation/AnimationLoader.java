@@ -5,21 +5,23 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import orre.resources.UnloadedResource;
+
 public class AnimationLoader {
-	public static Animation load(String src) {
+	public static Animation load(UnloadedResource animationFile) {
 		try {			
-			return parseAnimationFile(src);
+			return parseAnimationFile(animationFile);
 		}
 		catch(Exception e) {
-			System.out.println("Failed to load animation at \"" + src + "\".");
+			System.out.println("Failed to load animation at \"" + animationFile.location + "\".");
 			System.out.println("Reason: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	private static Animation parseAnimationFile(String src) throws Exception {
-		FileReader fileReader = new FileReader(src);
+	private static Animation parseAnimationFile(UnloadedResource animationFile) throws Exception {
+		FileReader fileReader = new FileReader(animationFile.location);
 		BufferedReader reader = new BufferedReader(fileReader);
 
 		ArrayList<KeyFrame> keyFrames = new ArrayList<KeyFrame>();

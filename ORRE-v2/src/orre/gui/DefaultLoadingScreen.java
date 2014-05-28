@@ -2,6 +2,7 @@ package orre.gui;
 
 import static org.lwjgl.opengl.GL11.*;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -23,9 +24,9 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 	public DefaultLoadingScreen()
 	{
 		try {
-			this.loadingScreen = TextureLoader.loadTextureFromFile("res/images/loadingScreen/loadingScreen.png");
-			this.loadingBar = TextureLoader.loadTextureFromFile("res/images/loadingScreen/loadingBar.png");
-			this.loadingIcon = TextureLoader.loadTextureFromFile("res/images/loadingScreen/busy.png");
+			this.loadingScreen = TextureLoader.loadTextureFromFile(new File("res/images/loadingScreen/loadingScreen.png"));
+			this.loadingBar = TextureLoader.loadTextureFromFile(new File("res/images/loadingScreen/loadingBar.png"));
+			this.loadingIcon = TextureLoader.loadTextureFromFile(new File("res/images/loadingScreen/busy.png"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

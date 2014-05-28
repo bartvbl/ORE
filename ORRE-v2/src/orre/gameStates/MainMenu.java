@@ -1,5 +1,6 @@
 package orre.gameStates;
 
+import java.io.File;
 import java.nio.FloatBuffer;
 
 import openrr.test.LightTestClass;
@@ -18,16 +19,15 @@ import orre.gl.renderer.RenderPass;
 import orre.gl.texture.Texture;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceCache;
-import orre.resources.ResourceFile;
+import orre.resources.ResourceType;
 import orre.sceneGraph.SceneNode;
-
 import static org.lwjgl.opengl.GL11.*;
 
 public class MainMenu extends GameState {
 
 	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache) {
 		super(main, eventDispatcher, cache);
-		UnloadedResource mainCache = new UnloadedResource(ResourceFile.RESOURCE_LIST_FILE, this.resourceCache, "res/reslist.xml", "mainCacheList");
+		UnloadedResource mainCache = new UnloadedResource(ResourceType.RESOURCE_LIST_FILE, new File("res/reslist.xml"), "mainCacheList");
 		eventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
 		
 	}
@@ -37,7 +37,7 @@ public class MainMenu extends GameState {
 	}
 
 	public void set() {
-		UnloadedResource mapFile = new UnloadedResource(ResourceFile.MAP_FILE, this.resourceCache, "res/maps/sampleMap.rrm", "map");
+		UnloadedResource mapFile = new UnloadedResource(ResourceType.MAP_FILE, new File("res/maps/sampleMap.rrm"), "map");
 		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_GAME_LOADING_ITEM, mapFile));
 		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<GameStateName>(GlobalEventType.CHANGE_GAME_STATE, GameStateName.GAME_LOADING));
 	}

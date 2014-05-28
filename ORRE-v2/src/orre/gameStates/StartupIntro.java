@@ -45,7 +45,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 	private int animationFinishedCounter = 0;
 
 	public StartupIntro(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache) {
-		super(main, eventDispatcher, GameStateName.STARTUP_INTRO);
+		super(main, eventDispatcher, GameStateName.STARTUP_INTRO, cache);
 	}
 
 	@Override

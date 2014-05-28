@@ -1,5 +1,6 @@
 package openrr.test;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
@@ -25,7 +26,7 @@ public class Graphic {
 		xOffset = x;
 		yOffset = y;
 		try {
-			image = TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(filePath));
+			image = TextureLoader.createTextureFromImage(TextureLoader.loadImageFromFile(new File(filePath)));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

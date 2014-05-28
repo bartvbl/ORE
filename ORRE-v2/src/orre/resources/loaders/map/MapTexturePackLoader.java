@@ -20,26 +20,25 @@ public class MapTexturePackLoader {
 	public static MapTexturePack buildTexturePack(MapLoadingContext context) throws FileNotFoundException, IOException, Exception {
 		//loading the default texture pack
 		String workingDirectory = System.getProperty("user.dir");
-		MapTexturePack defaultTexturePack = parseTexturePack(workingDirectory + "/res/texturePack.xml", context);
+		MapTexturePack defaultTexturePack = parseTexturePack(new File(workingDirectory + "/res/texturePack.xml"), context);
 		//for supporting texture packs that can override the default one, parse the other texture pack file after loading the default one.
 		//then overwrite those entries in the existing soil library that are defined in the overriding texture pack.
 		return defaultTexturePack;
 	}
 
-	private static MapTexturePack parseTexturePack(String src, MapLoadingContext context) throws FileNotFoundException, IOException, Exception {
+	private static MapTexturePack parseTexturePack(File src, MapLoadingContext context) throws FileNotFoundException, IOException, Exception {
 		Element rootElement = readTexturePackXML(src);
 		MapTexturePack soilLibrary = TexturePackParser.parseTexturePackXML(rootElement, context);
 		return soilLibrary;
 	}
 
-	private static Element readTexturePackXML(String src) {
+	private static Element readTexturePackXML(File src) {
 		//temporary code to make sure the file exists
-		boolean fileExists = new File(src).exists();
+		boolean fileExists = src.exists();
 		if(fileExists) System.out.println("The texture pack file exists.");
 		else System.out.println("The system can not find the texture pack file, which should be located at: " + src + ".");
 		//end temporary code
 		
-		Builder builder = new Builder();
 		Document document = XMLLoader.readXML(src);
 		return document.getRootElement();
 	}

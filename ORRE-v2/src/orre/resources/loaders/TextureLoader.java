@@ -24,7 +24,7 @@ import orre.util.FeedbackProvider;
 
 public class TextureLoader {
 	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(UnloadedResource file) throws FileNotFoundException, IOException, Exception {
-		BufferedImage image = loadImageFromFile(file.getPath());
+		BufferedImage image = loadImageFromFile(file.location);
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
 		return new PartiallyLoadableTexture(file.name, imageData, image.getWidth(), image.getHeight());
 	}
@@ -40,7 +40,7 @@ public class TextureLoader {
 		}
 	}
 	
-	public static ByteBuffer getImageData(String src) throws FileNotFoundException, IOException, Exception
+	public static ByteBuffer getImageData(File src) throws FileNotFoundException, IOException, Exception
 	{
 		BufferedImage image = loadImageFromFile(src);
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
@@ -49,16 +49,16 @@ public class TextureLoader {
 		return bb;
 	}
 	
-	public static Texture loadTextureFromFile(String src) throws FileNotFoundException, IOException, Exception
+	public static Texture loadTextureFromFile(File src) throws FileNotFoundException, IOException, Exception
 	{
 		return createTextureFromImage(loadImageFromFile(src));
 	}
 	
-	public static BufferedImage loadImageFromFile(String src) throws FileNotFoundException, IOException
+	public static BufferedImage loadImageFromFile(File location) throws FileNotFoundException, IOException
 	{
 		BufferedImage img = null;
 		InputStream in = null;
-		in = new FileInputStream(src);
+		in = new FileInputStream(location);
 		img = ImageIO.read(in);
 		AffineTransform tx = AffineTransform.getScaleInstance(1, -1);
         tx.translate(0, -1*img.getHeight(null));

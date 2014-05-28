@@ -1,7 +1,7 @@
 package orre.threads;
 
 import orre.resources.UnloadedResource;
-import orre.resources.ResourceFile;
+import orre.resources.ResourceType;
 import orre.resources.ResourceListFileParser;
 import orre.resources.ResourceQueue;
 import orre.util.Queue;
@@ -28,7 +28,7 @@ public class ResourceFileParsingThread extends Thread{
 	}
 
 	private void parseResourceFile(UnloadedResource file) {
-		if(file.fileType == ResourceFile.RESOURCE_LIST_FILE)
+		if(file.fileType == ResourceType.RESOURCE_LIST_FILE)
 		{
 			ResourceListFileParser.parseFile(file, this.resourceQueue);
 		} else {

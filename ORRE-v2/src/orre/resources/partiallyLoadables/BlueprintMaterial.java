@@ -1,10 +1,12 @@
 package orre.resources.partiallyLoadables;
 
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import orre.gl.materials.AbstractMaterial;
 import orre.gl.materials.Material;
+import orre.resources.ResourceType;
 import orre.resources.UnloadedResource;
 import orre.resources.Finalizable;
 import orre.resources.loaders.TextureLoader;
@@ -48,13 +50,13 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 	}
 	
 	public void setAmbientTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
-		this.ambientTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(context.getContainingDirectory().getPath(), src));
+		this.ambientTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.TEXTURE_FILE, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
 	}
 	public void setDiffuseTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
-		this.diffuseTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(context.getContainingDirectory().getPath(), src));
+		this.diffuseTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.TEXTURE_FILE, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
 	}
 	public void setSpecularTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
-		this.specularTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(context.getContainingDirectory().getPath(), src));
+		this.specularTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.TEXTURE_FILE, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
 	}
 	
 	public void finalizeResource() {

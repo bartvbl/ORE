@@ -31,9 +31,8 @@ public class LXFMLLoader {
 	public static BlueprintModel load(UnloadedResource file, ResourceQueue queue) throws IOException {
 		checkDBFileAvailability();
 		
-		File fileLocation = new File(file.getPath());
-		Mesh mesh = LXFMLReader.readLXFMLFile(fileLocation, dbReader);
-		String modelName = fileLocation.getName();
+		Mesh mesh = LXFMLReader.readLXFMLFile(file.location, dbReader);
+		String modelName = file.location.getName();
 		modelName = modelName.substring(0, modelName.lastIndexOf('.'));
 		return convertMesh(mesh, modelName, queue);
 	}

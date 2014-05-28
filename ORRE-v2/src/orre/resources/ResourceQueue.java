@@ -1,5 +1,7 @@
 package orre.resources;
 
+import java.io.File;
+
 import orre.threads.ResourceFileParsingThread;
 import orre.threads.ResourceLoadingThread;
 import orre.util.Queue;
@@ -11,26 +13,27 @@ public class ResourceQueue {
 	private Queue<UnloadedResource> filesToLoadQueue;
 	private Queue<Finalizable> resourcesToFinalizeQueue;
 
-	private ProgressTracker tracker;
-
-	private ResourceLoader resourceLoader;
+	private final ProgressTracker tracker;
+	private final ResourceLoader resourceLoader;
+	private final ResourceCache cache;
 	
-	public ResourceQueue(ProgressTracker tracker, ResourceLoader loader)
+	public ResourceQueue(ProgressTracker tracker, ResourceLoader loader, ResourceCache cache)
 	{
 		this.itemsToLoadQueue = new Queue<UnloadedResource>();
 		this.filesToLoadQueue = new Queue<UnloadedResource>();
 		this.resourcesToFinalizeQueue = new Queue<Finalizable>();
+		this.cache = cache;
 		this.resourceLoader = loader;
 		
 		this.tracker = tracker;
 	}
 	
-	public void enqueueResourceFile(String src, String name, ResourceFile fileType, ResourceCache destinationCache) {
-		this.itemsToLoadQueue.enqueue(new UnloadedResource(fileType, destinationCache, src, name));
-	}
-
 	public void parseResourceFiles() {
 		new ResourceFileParsingThread(this, this.itemsToLoadQueue).start();
+	}
+	
+	public void enqueueResourceFile(UnloadedResource resource) {
+		this.itemsToLoadQueue.enqueue(resource);
 	}
 	
 	public void enqueueNodeForLoading(UnloadedResource fileToLoad)
@@ -42,7 +45,7 @@ public class ResourceQueue {
 	public void startLoading() {
 		for(int i = 0; i < NUMBER_OF_LOADING_THREADS; i++)
 		{
-			new ResourceLoadingThread(this, this.tracker).start();
+			new ResourceLoadingThread(this, this.tracker, cache).start();
 		}
 		this.resourceLoader.registerStartedLoading();
 	}

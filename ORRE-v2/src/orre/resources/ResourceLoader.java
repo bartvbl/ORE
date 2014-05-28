@@ -11,10 +11,10 @@ public class ResourceLoader {
 	private boolean hasStartedLoading = false;
 	private ResourceFinalizer resourceFinalizer;
 	
-	public ResourceLoader()
+	public ResourceLoader(ResourceCache cache)
 	{
 		this.progressTracker = new ProgressTracker();
-		this.resourceQueue = new ResourceQueue(this.progressTracker, this);
+		this.resourceQueue = new ResourceQueue(this.progressTracker, this, cache);
 		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue);
 	}
 	
@@ -42,13 +42,12 @@ public class ResourceLoader {
 	{
 		this.loadingScreenDrawer = loadingScreen;
 	}
-	
-	public void enqueueResourceFileToBeLoaded(String src, String name, ResourceFile resourceFileType, ResourceCache destinationCache)
-	{
-		this.resourceQueue.enqueueResourceFile(src, name, resourceFileType, destinationCache);
-	}
 
 	public boolean isFinished() {
 		return this.progressTracker.isFinished() && this.resourceQueue.finalizableQueueIsEmpty() && this.hasStartedLoading;
+	}
+
+	public void enqueueResourceFileToBeLoaded(UnloadedResource resource) {
+		this.resourceQueue.enqueueResourceFile(resource);
 	}
 }

@@ -9,7 +9,7 @@ import orre.gl.texture.Texture;
 import orre.gui.LoadingScreenDrawer;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceCache;
-import orre.resources.ResourceFile;
+import orre.resources.ResourceType;
 import orre.resources.ResourceLoader;
 import orre.resources.loaders.TextureLoader;
 
@@ -18,17 +18,17 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 	private ResourceLoader resourceLoader;
 	private final GlobalEventType enqueueResourceEventType;
 
-	public LoadingScreen(GameMain main, GlobalEventDispatcher globalEventDispatcher, GlobalEventType eventType, GameStateName stateName) {
-		super(main, globalEventDispatcher, stateName);
+	public LoadingScreen(GameMain main, GlobalEventDispatcher globalEventDispatcher, GlobalEventType eventType, GameStateName stateName, ResourceCache cache) {
+		super(main, globalEventDispatcher, stateName, cache);
 		globalEventDispatcher.addEventListener(this, eventType);
 		this.enqueueResourceEventType = eventType;
-		this.resourceLoader = new ResourceLoader();
+		this.resourceLoader = new ResourceLoader(cache);
 	}
 	
 	public void set() {
 		if(this.resourceLoader == null)
 		{
-			this.resourceLoader = new ResourceLoader();
+			this.resourceLoader = new ResourceLoader(resourceCache);
 		}
 	}
 	
@@ -47,9 +47,9 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 		return;
 	}
 	
-	protected void enqueueResourceFileToBeLoaded(String src, String name, ResourceFile resourceListFile, ResourceCache destinationCache)
+	protected void enqueueResourceFileToBeLoaded(UnloadedResource resource)
 	{
-		this.resourceLoader.enqueueResourceFileToBeLoaded(src, name, resourceListFile, destinationCache);
+		this.resourceLoader.enqueueResourceFileToBeLoaded(resource);
 	}
 	
 	protected void setLoadingScreen(LoadingScreenDrawer screenDrawer)
@@ -65,7 +65,7 @@ public class LoadingScreen extends SequencableGameState implements EventHandler 
 				return;
 			}
 			UnloadedResource file = (UnloadedResource) event.getEventParameterObject();
-			this.enqueueResourceFileToBeLoaded(file.getPath(), "mainMenuLoadingScreenTexture", file.fileType, file.destinationCache);
+			this.enqueueResourceFileToBeLoaded(file);
 		}
 	}
 

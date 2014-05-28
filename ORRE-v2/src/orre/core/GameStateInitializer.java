@@ -17,11 +17,11 @@ public class GameStateInitializer {
 		stateMap.put(GameStateName.STARTUP_INTRO, intro);
 		
 		
-		SequencableGameState startupLoader = new StartupLoader(main, eventDispatcher, GameStateName.STARTUP_LOADING);
+		SequencableGameState startupLoader = new StartupLoader(main, eventDispatcher, GameStateName.STARTUP_LOADING, cache);
 		startupLoader.setNextState(GameStateName.MAIN_MENU);
 		stateMap.put(GameStateName.STARTUP_LOADING, startupLoader);
 		
-		SequencableGameState gameLoader = new GameLoader(main, eventDispatcher, GameStateName.GAME_LOADING);
+		SequencableGameState gameLoader = new GameLoader(main, eventDispatcher, GameStateName.GAME_LOADING, cache);
 		gameLoader.setNextState(GameStateName.GAME_RUNNING);
 		stateMap.put(GameStateName.GAME_LOADING, gameLoader);
 		
