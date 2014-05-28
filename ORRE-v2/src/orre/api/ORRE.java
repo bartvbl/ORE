@@ -12,7 +12,7 @@ public class ORRE {
 	public static ORRE init(String[] args, String gameName) {
 		readDebugFlag(args);
 		setSwingSettings();
-		GameMain game = new GameMain();
+		GameMain game = new GameMain(gameName);
 		game.initialize();
 		return new ORRE(game);
 	}

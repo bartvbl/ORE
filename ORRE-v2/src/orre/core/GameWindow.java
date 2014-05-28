@@ -1,37 +1,25 @@
 package orre.core;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.*;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
-import java.awt.Canvas;
-import java.awt.Dimension;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 import java.nio.ByteBuffer;
-import java.util.concurrent.atomic.AtomicReference;
-
-import javax.swing.JFrame;
-
-import org.lwjgl.LWJGLException;
 import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 
-import orre.gl.texture.Texture;
 import orre.resources.loaders.TextureLoader;
 
 public class GameWindow {
-	public static final String WINDOW_TITLE = "Terrain";// "Open Rock Raiders - Delta";
 	public static final int DEFAULT_WINDOW_WIDTH = 1024;
 	public static final int DEFAULT_WINDOW_HEIGHT = 768;
 	
-	public static void create()
+	public static void create(String gameName)
 	{
 		try
 		{
-			doInitialization();
+			doInitialization(gameName);
 		}
-		catch(LWJGLException e)
+		catch(Exception e)
 		{
 			e.printStackTrace();
 		}
@@ -42,19 +30,19 @@ public class GameWindow {
 		Display.destroy();
 	}
 	
-	private static void doInitialization() throws LWJGLException
+	private static void doInitialization(String gameName) throws Exception
 	{
-		createDisplay();
+		createDisplay(gameName);
 		initOpenGL();
 	}
-	private static void createDisplay() throws LWJGLException
+	private static void createDisplay(String gameName) throws Exception
 	{
 		Display.setLocation(100, 100);
 		Display.setDisplayMode(new DisplayMode(GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT));
 		Display.setResizable(true);
-		Display.setTitle(WINDOW_TITLE);
-		//Display.setIcon(new ByteBuffer[]{TextureLoader.getImageData("res/icon.png"), TextureLoader.getImageData("res/icon.png")});
-		System.out.println("-- OpenRR v0.01 (java " + System.getProperty("java.version") + " running on " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", "+System.getProperty("os.arch")+")) --");
+		Display.setTitle(gameName);
+		Display.setIcon(new ByteBuffer[]{TextureLoader.getImageData("res/icon.png"), TextureLoader.getImageData("res/icon.png")});
+		System.out.println("-- \""+gameName+"\" on ORRE v0.01 (java " + System.getProperty("java.version") + " running on " + System.getProperty("os.name") + " (" + System.getProperty("os.version") + ", "+System.getProperty("os.arch")+")) --");
 		Display.create();
 	}
 	private static void initOpenGL()

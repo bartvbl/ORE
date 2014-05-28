@@ -19,8 +19,11 @@ public class GameMain implements EventHandler{
 	private GlobalEventDispatcher globalEventDispatcher;
 	private HashMap<GameStateName, AbstractGameState> stateMap;
 	
-	public GameMain() 
+	private final String gameName;
+	
+	public GameMain(String gameName) 
 	{
+		this.gameName = gameName;
 		new Logger();
 		this.globalEventDispatcher = new GlobalEventDispatcher();
 		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
@@ -60,7 +63,7 @@ public class GameMain implements EventHandler{
 	
 	public void initialize()
 	{
-		GameWindow.create();
+		GameWindow.create(gameName);
 		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
 		this.stateMap = stateMap;
 		this.setGameState(GameStateName.STARTUP_LOADING);
