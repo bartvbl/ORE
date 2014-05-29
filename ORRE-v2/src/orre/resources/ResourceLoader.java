@@ -17,9 +17,8 @@ public class ResourceLoader implements EventHandler {
 	private LoadingScreenDrawer loadingScreenDrawer = null;
 	private ProgressTracker progressTracker;
 	private ResourceQueue resourceQueue;
-	private boolean hasStartedParsing = false;
-	private boolean hasStartedLoading = false;
 	private ResourceFinalizer resourceFinalizer;
+	private boolean hasKickedOffLoading = false;
 	
 	//static to allow multiple ResourceLoaders to exist that share registered loaders.
 	private static final HashMap<ResourceType, ResourceTypeLoader> loaders = new HashMap<ResourceType, ResourceTypeLoader>();
@@ -30,31 +29,25 @@ public class ResourceLoader implements EventHandler {
 		loaders.put(ResourceType.TEXTURE_FILE, new TextureLoader());
 		loaders.put(ResourceType.OBJ_MODEL_FILE, new ModelLoader());
 		loaders.put(ResourceType.SOUND_FILE, new SoundLoader());
+		loaders.put(ResourceType.RESOURCE_LIST_FILE, new ResourceListFileParser());
 	}
 	
 	public ResourceLoader(ResourceCache cache, GlobalEventDispatcher globalEventDispatcher)
 	{
 		this.progressTracker = new ProgressTracker();
-		this.resourceQueue = new ResourceQueue(this.progressTracker, this);
+		this.resourceQueue = new ResourceQueue(this.progressTracker);
 		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue, cache);
 		globalEventDispatcher.addEventListener(this, GlobalEventType.REGISTER_RESOURCE_TYPE_LOADER);
 		globalEventDispatcher.addEventListener(this, GlobalEventType.ENQUEUE_LOADING_ITEM);
 	}
-	
-	public void registerStartedLoading()
-	{
-		this.hasStartedLoading = true;
-	}
-	
+
 	public void update()
 	{
-		if(!hasStartedParsing)
-		{
-			hasStartedParsing = true;
-			this.resourceQueue.parseResourceFiles(loaders);
-		} else if(this.hasStartedLoading){
-			this.resourceFinalizer.doFinalizations();
+		if(!hasKickedOffLoading) {
+			this.resourceQueue.startLoading(loaders);
+			hasKickedOffLoading = true;
 		}
+		this.resourceFinalizer.doFinalizations();
 		if(this.loadingScreenDrawer != null)
 		{
 			this.loadingScreenDrawer.draw(this.progressTracker.getProgress());
@@ -67,7 +60,7 @@ public class ResourceLoader implements EventHandler {
 	}
 
 	public boolean isFinished() {
-		return this.progressTracker.isFinished() && this.resourceQueue.finalizableQueueIsEmpty() && this.hasStartedLoading;
+		return this.progressTracker.isFinished() && this.resourceQueue.finalizableQueueIsEmpty();
 	}
 
 	@Override
@@ -85,7 +78,7 @@ public class ResourceLoader implements EventHandler {
 				throw new RuntimeException("Did not receive a parameter of type UnloadedResource.");
 			}
 			UnloadedResource resource = (UnloadedResource) event.getEventParameterObject();
-			this.resourceQueue.enqueueResourceFile(resource);
+			this.resourceQueue.enqueueNodeForLoading(resource);
 		}
 	}
 }

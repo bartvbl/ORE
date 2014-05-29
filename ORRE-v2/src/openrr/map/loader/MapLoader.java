@@ -24,7 +24,6 @@ public class MapLoader implements ResourceTypeLoader {
 	
 	@Override
 	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
-		System.out.println("Loading map");
 		return loadMap(source);
 	}
 	

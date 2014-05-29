@@ -1,38 +1,23 @@
 package orre.resources;
 
-import java.io.File;
 import java.util.HashMap;
 
-import orre.threads.ResourceFileParsingThread;
 import orre.threads.ResourceLoadingThread;
 import orre.util.Queue;
 
 public class ResourceQueue {
 	private static final int NUMBER_OF_LOADING_THREADS = 3;
 	
-	private Queue<UnloadedResource> itemsToLoadQueue;
 	private Queue<UnloadedResource> filesToLoadQueue;
 	private Queue<Finalizable> resourcesToFinalizeQueue;
 
 	private final ProgressTracker tracker;
-	private final ResourceLoader resourceLoader;
 	
-	public ResourceQueue(ProgressTracker tracker, ResourceLoader loader)
+	public ResourceQueue(ProgressTracker tracker)
 	{
-		this.itemsToLoadQueue = new Queue<UnloadedResource>();
 		this.filesToLoadQueue = new Queue<UnloadedResource>();
 		this.resourcesToFinalizeQueue = new Queue<Finalizable>();
-		this.resourceLoader = loader;
-		
 		this.tracker = tracker;
-	}
-	
-	public void parseResourceFiles(HashMap<ResourceType, ResourceTypeLoader> loaders) {
-		new ResourceFileParsingThread(this, this.itemsToLoadQueue, loaders).start();
-	}
-	
-	public void enqueueResourceFile(UnloadedResource resource) {
-		this.itemsToLoadQueue.enqueue(resource);
 	}
 	
 	public void enqueueNodeForLoading(UnloadedResource fileToLoad)
@@ -46,7 +31,6 @@ public class ResourceQueue {
 		{
 			new ResourceLoadingThread(this, this.tracker, registeredLoaders).start();
 		}
-		this.resourceLoader.registerStartedLoading();
 	}
 	
 	public synchronized void enqueueResourceForFinalization(Finalizable finalizable)
@@ -66,5 +50,9 @@ public class ResourceQueue {
 	
 	public boolean finalizableQueueIsEmpty(){
 		return this.resourcesToFinalizeQueue.isEmpty();
+	}
+
+	public boolean isDestroyed() {
+		return false;
 	}
 }

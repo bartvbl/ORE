@@ -7,7 +7,18 @@ import nu.xom.Element;
 import nu.xom.Elements;
 import orre.util.XMLLoader;
 
-public class ResourceListFileParser {
+public class ResourceListFileParser implements ResourceTypeLoader {
+	@Override
+	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+		parseFile(source, queue);
+		return null;
+	}
+	
+	@Override
+	public ResourceType getResourceType() {
+		return ResourceType.RESOURCE_LIST_FILE;
+	}
+	
 	public static void parseFile(UnloadedResource file, ResourceQueue queue)
 	{
 		Document resourceList = XMLLoader.readXML(file.location);

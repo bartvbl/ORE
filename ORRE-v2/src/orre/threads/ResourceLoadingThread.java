@@ -2,7 +2,6 @@ package orre.threads;
 
 import java.util.HashMap;
 
-import orre.resources.ResourceCache;
 import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.Finalizable;
@@ -27,16 +26,20 @@ public class ResourceLoadingThread extends Thread {
 	public void run()
 	{
 		UnloadedResource currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();
-		while(currentFile != null)
+		while(!this.resourceQueue.isDestroyed())
 		{
 			try {
-				loadFile(currentFile);
+				if(currentFile == null) {
+					Thread.sleep(500);
+				} else {
+					loadFile(currentFile);
+					this.tracker.registerFileLoaded();
+				}
 			} catch(Exception e) {
 				e.printStackTrace();
 				FatalExceptionHandler.exitWithErrorMessage("Error occurred during file loading. Message:\n" + e.getMessage());
 			}
 			currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();
-			this.tracker.registerFileLoaded();
 		}
 	}
 
@@ -45,7 +48,6 @@ public class ResourceLoadingThread extends Thread {
 			System.err.println("Can't find a loader for resource type \"" + currentFile.fileType + "\". Has it been registered?");
 			return;
 		}
-		System.out.println("Using " + registeredLoaders.get(currentFile.fileType) + " to load " + currentFile);
 		Finalizable resource = registeredLoaders.get(currentFile.fileType).loadResource(currentFile, resourceQueue);
 		if(resource != null) {
 			this.resourceQueue.enqueueResourceForFinalization(resource);
