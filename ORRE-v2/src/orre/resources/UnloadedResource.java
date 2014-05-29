@@ -14,4 +14,8 @@ public class UnloadedResource {
 		this.fileType = fileType;
 		this.name = name;
 	}
+	
+	public String toString() {
+		return "[UnloadedResource " + fileType + " " + name + "]";
+	}
 }

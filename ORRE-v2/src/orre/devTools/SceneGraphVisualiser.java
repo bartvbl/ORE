@@ -17,15 +17,17 @@ import javax.swing.tree.DefaultTreeModel;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Property;
+import orre.resources.ResourceCache;
 import orre.sceneGraph.SceneNode;
 
 public class SceneGraphVisualiser {
-	public static void showDebugInfo(GameWorld world) {
+	public static void showDebugInfo(GameWorld world, ResourceCache cache) {
 		JFrame window = new JFrame("Scene");
 		JTabbedPane mainTabPane = new JTabbedPane();
 		window.add(mainTabPane);
 		showSceneGraph(world.rootNode, mainTabPane);
 		showGameWorld(world.debugonly_getAllGameOjects(), mainTabPane);
+		showResourceCache(cache, mainTabPane);
 		window.setSize(300, 500);
 		window.setLocation(100, 100);
 		window.setVisible(true);
@@ -74,5 +76,9 @@ public class SceneGraphVisualiser {
 			rootNode.add(objectNode);
 		}
 		worldTree.expandRow(0);
+	}
+	
+	private static void showResourceCache(ResourceCache cache, JTabbedPane mainTabPane) {
+		
 	}
 }

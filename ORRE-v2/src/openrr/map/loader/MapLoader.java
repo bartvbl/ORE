@@ -13,10 +13,25 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.ParsingException;
 import nu.xom.ValidityException;
+import orre.resources.Finalizable;
+import orre.resources.ResourceQueue;
+import orre.resources.ResourceType;
+import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.util.XMLLoader;
 
-public class MapLoader {
+public class MapLoader implements ResourceTypeLoader {
+	
+	@Override
+	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+		System.out.println("Loading map");
+		return loadMap(source);
+	}
+	
+	@Override
+	public ResourceType getResourceType() {
+		return ResourceType.MAP_FILE;
+	}
 
 	public static PartiallyLoadableMap loadMap(UnloadedResource resource) throws Exception {
 		ZipFile mapFile = openMap(resource.location);

@@ -9,6 +9,7 @@ import org.lwjgl.input.Mouse;
 import orre.devTools.SceneGraphVisualiser;
 import orre.gameWorld.core.GameWorld;
 import orre.gl.util.CoordConverter;
+import orre.resources.ResourceCache;
 
 public class InputService implements Service {
 	
@@ -23,11 +24,13 @@ public class InputService implements Service {
 	
 	private final HashMap<Integer, Boolean> keyStateMap;
 	private final GameWorld world;
+	private final ResourceCache cache;
 	
 	private static final double mapMoveSpeed = 0.3d;
 	
-	public InputService(GameWorld world) {
+	public InputService(GameWorld world, ResourceCache cache) {
 		this.world = world;
+		this.cache = cache;
 		try {
 			if(!Mouse.isCreated()) {
 				Mouse.create();
@@ -94,7 +97,7 @@ public class InputService implements Service {
 	private void onKeyDown(int pressedKey) {
 		switch(pressedKey) {
 		case Keyboard.KEY_F3:
-			SceneGraphVisualiser.showDebugInfo(world);
+			SceneGraphVisualiser.showDebugInfo(world, cache);
 		}
 	}
 

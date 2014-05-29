@@ -1,36 +1,26 @@
 package orre.threads;
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.util.HashMap;
 
-import openrr.map.loader.MapLoader;
-import openrr.map.loader.PartiallyLoadableMap;
-import orre.animation.Animation;
-import orre.animation.AnimationLoader;
-import orre.resources.Resource;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.Finalizable;
 import orre.resources.ProgressTracker;
 import orre.resources.ResourceType;
 import orre.resources.ResourceQueue;
-import orre.resources.data.BlueprintModel;
-import orre.resources.loaders.LXFMLLoader;
-import orre.resources.loaders.ModelLoader;
-import orre.resources.loaders.TextureLoader;
-import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 import orre.util.FatalExceptionHandler;
 
 public class ResourceLoadingThread extends Thread {
 	private final ResourceQueue resourceQueue;
 	private final ProgressTracker tracker;
-	private final ResourceCache cache;
+	private final HashMap<ResourceType, ResourceTypeLoader> registeredLoaders;
 
-	public ResourceLoadingThread(ResourceQueue queue, ProgressTracker tracker, ResourceCache cache)
+	public ResourceLoadingThread(ResourceQueue queue, ProgressTracker tracker, HashMap<ResourceType, ResourceTypeLoader> registeredLoaders)
 	{
 		this.resourceQueue = queue;
 		this.tracker = tracker;
-		this.cache = cache;
+		this.registeredLoaders = registeredLoaders;
 		this.setName("Resource loading thread " + this.getId());
 	}
 	
@@ -51,23 +41,12 @@ public class ResourceLoadingThread extends Thread {
 	}
 
 	private void loadFile(UnloadedResource currentFile) throws Exception {
-		Finalizable resource = null;
-		if((currentFile.fileType == ResourceType.MENU_TEXTURE_FILE) || (currentFile.fileType == ResourceType.TEXTURE_FILE))
-		{
-			resource = TextureLoader.partiallyLoadTextureFromFile(currentFile);
-		} else if(currentFile.fileType == ResourceType.OBJ_MODEL_FILE) {
-			resource = ModelLoader.loadModel(currentFile, this.resourceQueue);
-		} else if(currentFile.fileType == ResourceType.LXFML_FILE) {
-			resource = LXFMLLoader.load(currentFile, this.resourceQueue);
-		} else if(currentFile.fileType == ResourceType.MAP_FILE) {
-			resource = MapLoader.loadMap(currentFile);
-		} else if(currentFile.fileType == ResourceType.ANIMATION_FILE) 
-		{
-			Animation animation = AnimationLoader.load(currentFile);
-			if(animation != null) {
-				cache.addResource(new Resource(ResourceType.ANIMATION_FILE, animation.type.toString(), Animation.class, animation));
-			}
+		if(!registeredLoaders.containsKey(currentFile.fileType)) {
+			System.err.println("Can't find a loader for resource type \"" + currentFile.fileType + "\". Has it been registered?");
+			return;
 		}
+		System.out.println("Using " + registeredLoaders.get(currentFile.fileType) + " to load " + currentFile);
+		Finalizable resource = registeredLoaders.get(currentFile.fileType).loadResource(currentFile, resourceQueue);
 		if(resource != null) {
 			this.resourceQueue.enqueueResourceForFinalization(resource);
 		}

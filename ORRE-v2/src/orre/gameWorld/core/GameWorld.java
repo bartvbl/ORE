@@ -23,7 +23,7 @@ public class GameWorld {
 		this.rootNode = rootNode;
 		this.map = map;
 		this.mapContentsNode = mapContentsNode;
-		this.services = new WorldServices(this);
+		this.services = new WorldServices(this, cache);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
 		this.resourceCache = cache;

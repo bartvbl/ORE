@@ -12,7 +12,7 @@ public class GlobalEventDispatcher {
 					+ "', which has no listeners");
 			return;
 		} else {
-			System.out.println("dispatched event: " + event.eventType);
+			System.out.println("dispatched event: " + event.eventType + " - " + event.getEventParameterObject());
 		}
 
 		ArrayList<EventHandler> eventHandlersList = this.listeners.get(event.eventType);

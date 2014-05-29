@@ -6,13 +6,20 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import orre.resources.Finalizable;
+import orre.resources.ResourceQueue;
+import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 
 public class AnimationLoader implements ResourceTypeLoader {
 	@Override
-	public Finalizable loadResource(UnloadedResource source) {
+	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) {
 		return load(source);
+	}
+
+	@Override
+	public ResourceType getResourceType() {
+		return ResourceType.ANIMATION_FILE;
 	}
 	
 	public static Animation load(UnloadedResource animationFile) {

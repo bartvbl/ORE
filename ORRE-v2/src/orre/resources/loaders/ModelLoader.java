@@ -4,6 +4,9 @@ import java.util.List;
 
 import nu.xom.Document;
 import nu.xom.Element;
+import orre.resources.Finalizable;
+import orre.resources.ResourceType;
+import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
@@ -11,7 +14,17 @@ import orre.resources.loaders.models.ModelPartTreeBuilder;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.XMLLoader;
 
-public class ModelLoader {
+public class ModelLoader implements ResourceTypeLoader {
+	@Override
+	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+		return loadModel(source, queue);
+	}
+
+	@Override
+	public ResourceType getResourceType() {
+		return ResourceType.OBJ_MODEL_FILE;
+	}
+
 	public static BlueprintModel loadModel(UnloadedResource file, ResourceQueue queue) throws Exception
 	{
 		Document modelXMLDocument = XMLLoader.readXML(file.location);

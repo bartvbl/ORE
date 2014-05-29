@@ -1,19 +1,25 @@
 package orre.threads;
 
+import java.util.HashMap;
+
+import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceType;
 import orre.resources.ResourceListFileParser;
 import orre.resources.ResourceQueue;
 import orre.util.Queue;
 
+//TODO: this should be moved into the regular loading system where the loader throws in all the resources it finds at the entrance of the resource loading pipeline.
 public class ResourceFileParsingThread extends Thread{
 
-	private Queue<UnloadedResource> remainingItemsQueue;
-	private ResourceQueue resourceQueue;
+	private final Queue<UnloadedResource> remainingItemsQueue;
+	private final ResourceQueue resourceQueue;
+	private final HashMap<ResourceType, ResourceTypeLoader> registeredLoaders;
 
-	public ResourceFileParsingThread(ResourceQueue queue, Queue<UnloadedResource> itemsToLoadQueue) {
+	public ResourceFileParsingThread(ResourceQueue queue, Queue<UnloadedResource> itemsToLoadQueue, HashMap<ResourceType, ResourceTypeLoader> loaders) {
 		this.remainingItemsQueue = itemsToLoadQueue;
 		this.resourceQueue = queue;
+		this.registeredLoaders = loaders;
 	}
 
 	public void run()
@@ -24,7 +30,7 @@ public class ResourceFileParsingThread extends Thread{
 			this.parseResourceFile(file);
 			file = this.remainingItemsQueue.dequeue();
 		}
-		this.resourceQueue.startLoading();
+		this.resourceQueue.startLoading(registeredLoaders);
 	}
 
 	private void parseResourceFile(UnloadedResource file) {

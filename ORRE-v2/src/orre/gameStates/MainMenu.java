@@ -28,7 +28,7 @@ public class MainMenu extends GameState {
 	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache) {
 		super(main, eventDispatcher, cache);
 		UnloadedResource mainCache = new UnloadedResource(ResourceType.RESOURCE_LIST_FILE, new File("res/reslist.xml"), "mainCacheList");
-		eventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_STARTUP_LOADING_ITEM, mainCache));
+		eventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_LOADING_ITEM, mainCache));
 		
 	}
 	
@@ -37,8 +37,8 @@ public class MainMenu extends GameState {
 	}
 
 	public void set() {
-		UnloadedResource mapFile = new UnloadedResource(ResourceType.MAP_FILE, new File("res/maps/sampleMap.rrm"), "map");
-		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_GAME_LOADING_ITEM, mapFile));
+		UnloadedResource mapFile = new UnloadedResource(ResourceType.MAP_FILE, new File("res/maps/sampleMap.rrm"), "MAP");
+		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_LOADING_ITEM, mapFile));
 		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<GameStateName>(GlobalEventType.CHANGE_GAME_STATE, GameStateName.GAME_LOADING));
 	}
 	public void unset() {}

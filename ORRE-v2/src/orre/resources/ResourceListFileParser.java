@@ -20,7 +20,7 @@ public class ResourceListFileParser {
 		queueNodeList(rootNode.getFirstChildElement("animations"), queue, ResourceType.ANIMATION_FILE);
 		queueNodeList(rootNode.getFirstChildElement("models"), queue, ResourceType.OBJ_MODEL_FILE);
 		queueNodeList(rootNode.getFirstChildElement("sounds"), queue, ResourceType.SOUND_FILE);
-		queueNodeList(rootNode.getFirstChildElement("menuTextures"), queue, ResourceType.MENU_TEXTURE_FILE);
+		queueNodeList(rootNode.getFirstChildElement("textures"), queue, ResourceType.TEXTURE_FILE);
 	}
 	
 	private static void queueNodeList(Element fileListRoot, ResourceQueue queue, ResourceType fileType) {

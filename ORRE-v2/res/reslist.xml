@@ -19,8 +19,8 @@
 		<!--<model name="map_stud" src="stud.mdl"/>-->
 	</models>
 	
-	<menuTextures pathPrefix="res/images/">
-		<menuTexture name="mainMenu_skybox" src="mainMenu/skybox.jpg" />
+	<textures pathPrefix="res/images/">
+		<texture name="mainMenu_skybox" src="mainMenu/skybox.jpg" />
 	
 		<!--<menuTexture name="teleportNewRockRaiderButton_Up" src="menus/main/raider.bmp"/>
 		<menuTexture name="teleportNewRockRaiderButton_Down" src="menus/main/praider.bmp"/>
@@ -73,7 +73,7 @@
 		<menuTexture name="ingameMenu_General_BackButton_Down" src="menus/pback.bmp"/>
 		<menuTexture name="ingameMenu_General_MenuBackground_10" src="menus/slot10.png"/>
 		<menuTexture name="ingameMenu_General_MenuBackground_4" src="menus/slot4wo.png"/>-->
-	</menuTextures>
+	</textures>
 	
 	<animations pathPrefix="res/anims/">
 		<animation name="turnWheels" src="turnWheels.anim"/>

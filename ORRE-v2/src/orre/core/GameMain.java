@@ -10,6 +10,8 @@ import orre.events.EventHandler;
 import orre.events.GlobalEventType;
 import orre.gameStates.*;
 import orre.gl.RenderUtils;
+import orre.resources.ResourceCache;
+import orre.resources.ResourceLoader;
 import orre.util.Logger;
 
 public class GameMain implements EventHandler{
@@ -20,6 +22,8 @@ public class GameMain implements EventHandler{
 	private HashMap<GameStateName, AbstractGameState> stateMap;
 	
 	private final String gameName;
+	private final ResourceCache resourceCache;
+	private final ResourceLoader resourceLoader;
 	
 	public GameMain(String gameName) 
 	{
@@ -27,6 +31,8 @@ public class GameMain implements EventHandler{
 		new Logger();
 		this.globalEventDispatcher = new GlobalEventDispatcher();
 		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
+		this.resourceCache = new ResourceCache();
+		this.resourceLoader = new ResourceLoader(resourceCache, globalEventDispatcher);
 	}
 	
 	public void mainLoop()
@@ -64,13 +70,13 @@ public class GameMain implements EventHandler{
 	public void initialize()
 	{
 		GameWindow.create(gameName);
-		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher);
+		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher, resourceCache, resourceLoader);
 		this.stateMap = stateMap;
 		this.setGameState(GameStateName.STARTUP_LOADING);
 	}
 
 	public void handleEvent(GlobalEvent<?> event) {
-		if(event.eventType.equals(GlobalEventType.CHANGE_GAME_STATE))
+		if(event.eventType == GlobalEventType.CHANGE_GAME_STATE)
 		{
 			if((event.getEventParameterObject() == null) || !(event.getEventParameterObject() instanceof GameStateName))
 			{
@@ -78,5 +84,9 @@ public class GameMain implements EventHandler{
 			}
 			this.setGameState((GameStateName) event.getEventParameterObject());
 		}
+	}
+	
+	public void api_dispatchGlobalEvent(GlobalEvent<?> event) {
+		this.globalEventDispatcher.dispatchEvent(event);
 	}
 }

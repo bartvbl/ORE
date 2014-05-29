@@ -18,6 +18,8 @@ import javax.imageio.ImageIO;
 
 import orre.gl.texture.Texture;
 import orre.resources.Finalizable;
+import orre.resources.ResourceQueue;
+import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
@@ -25,8 +27,13 @@ import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 public class TextureLoader implements ResourceTypeLoader {
 	
 	@Override
-	public Finalizable loadResource(UnloadedResource source) throws Exception {
+	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
 		return partiallyLoadTextureFromFile(source);
+	}
+	
+	@Override
+	public ResourceType getResourceType() {
+		return ResourceType.TEXTURE_FILE;
 	}
 	
 	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(UnloadedResource file) throws FileNotFoundException, IOException, Exception {

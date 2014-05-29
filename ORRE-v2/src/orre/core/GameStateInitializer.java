@@ -5,23 +5,23 @@ import java.util.HashMap;
 import orre.events.GlobalEventDispatcher;
 import orre.gameStates.*;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceLoader;
 
 public class GameStateInitializer {
-	public static HashMap<GameStateName, AbstractGameState> initializeGameStates(GameMain main, GlobalEventDispatcher eventDispatcher)
+	public static HashMap<GameStateName, AbstractGameState> initializeGameStates(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ResourceLoader loader)
 	{
 		HashMap<GameStateName, AbstractGameState> stateMap = new HashMap<GameStateName, AbstractGameState>();
 
-		ResourceCache cache = new ResourceCache();
 		StartupIntro intro = new StartupIntro(main, eventDispatcher, cache);
 		intro.setNextState(GameStateName.STARTUP_LOADING);
 		stateMap.put(GameStateName.STARTUP_INTRO, intro);
 		
 		
-		SequencableGameState startupLoader = new StartupLoader(main, eventDispatcher, GameStateName.STARTUP_LOADING, cache);
+		SequencableGameState startupLoader = new StartupLoader(main, eventDispatcher, GameStateName.STARTUP_LOADING, cache, loader);
 		startupLoader.setNextState(GameStateName.MAIN_MENU);
 		stateMap.put(GameStateName.STARTUP_LOADING, startupLoader);
 		
-		SequencableGameState gameLoader = new GameLoader(main, eventDispatcher, GameStateName.GAME_LOADING, cache);
+		SequencableGameState gameLoader = new GameLoader(main, eventDispatcher, GameStateName.GAME_LOADING, cache, loader);
 		gameLoader.setNextState(GameStateName.GAME_RUNNING);
 		stateMap.put(GameStateName.GAME_LOADING, gameLoader);
 		
