@@ -32,4 +32,9 @@ public class GravityProperty extends Property {
 		
 	}
 
+	@Override
+	public void init() {
+		
+	}
+
 }

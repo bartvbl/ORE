@@ -37,4 +37,9 @@ public class Transportable extends Property {
 	public void destroy() {
 		
 	}
+
+	@Override
+	public void init() {
+		
+	}
 }

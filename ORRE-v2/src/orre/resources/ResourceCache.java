@@ -12,54 +12,37 @@ import orre.sound.Sound;
 import orre.sound.SoundType;
 
 public class ResourceCache {
-	private HashMap<String, Texture> textures = new HashMap<String, Texture>();
-	private HashMap<String, BlueprintModel> models = new HashMap<String, BlueprintModel>();
-	private HashMap<SoundType, Sound> sounds = new HashMap<SoundType, Sound>();
-	private Map map;
-	private HashMap<AnimationType, Animation> animations = new HashMap<AnimationType, Animation>();
+	private final HashMap<ResourceType, HashMap<String, Resource>> resourceMap;
+	private final HashMap<ResourceType, Integer> nameMap;
 
 	public ResourceCache()
 	{
-		
+		resourceMap = new HashMap<ResourceType, HashMap<String, Resource>>();
+		nameMap = new HashMap<ResourceType, Integer>();
 	}
 	
-	public void addTexture(String name, Texture tex) {
-		this.textures.put(name, tex);
+	public void addResource(Resource resource) {
+		if(!resourceMap.containsKey(resource.type)) {
+			resourceMap.put(resource.type, new HashMap<String, Resource>());
+		}
+		resourceMap.get(resource.type).put(resource.name, resource);
 	}
 	
-	public Texture getTexture(String name) {
-		return textures.get(name);
-	}
-
-	public void addModel(BlueprintModel model) {
-		this.models.put(model.name, model);
-	}
-	
-	public void setMap(Map map) {
-		this.map = map;
+	public Resource getResource(ResourceType type, String name) {
+		if(resourceMap.containsKey(type)) {
+			return resourceMap.get(type).get(name);
+		} else {
+			throw new RuntimeException("No resource of type " + type + " named " + name);
+		}
 	}
 	
-	public Mesh3D createModelInstace(String name) {
-		return this.models.get(name).createMesh();
-	}
-	
-	public Map getMap() {
-		return this.map;
-	}
-
-	public void addAnimation(Animation animation) {
-		this.animations.put(animation.type, animation);
-	}
-
-	public Animation getAnimation(AnimationType type) {
-		return animations.get(type);
-	}
-	
-	public void addSound(Sound sound) {
-		this.sounds.put(sound.type, sound);
-	}
-	
-	public Sound getSound(SoundType type) {
-		return this.sounds.get(type);
+	public synchronized String uniqueName(ResourceType type) {
+		if(!nameMap.containsKey(type)) {
+			nameMap.put(type, 0);
+		}
+		int nextID = nameMap.get(type);
+		String nextName = type + "_" + nextID;
+		nameMap.put(type, nextID + 1);
+		return nextName;
 	}
 }

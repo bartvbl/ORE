@@ -39,4 +39,9 @@ public class KeyboardCameraController extends Property {
 		return null;
 	}
 
+	@Override
+	public void init() {
+		
+	}
+
 }

@@ -34,5 +34,10 @@ public class Flashlight extends Property {
 	public void destroy() {
 		
 	}
+
+	@Override
+	public void init() {
+		
+	}
 }
 

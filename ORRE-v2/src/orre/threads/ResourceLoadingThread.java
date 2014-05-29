@@ -7,6 +7,7 @@ import openrr.map.loader.MapLoader;
 import openrr.map.loader.PartiallyLoadableMap;
 import orre.animation.Animation;
 import orre.animation.AnimationLoader;
+import orre.resources.Resource;
 import orre.resources.ResourceCache;
 import orre.resources.UnloadedResource;
 import orre.resources.Finalizable;
@@ -64,7 +65,7 @@ public class ResourceLoadingThread extends Thread {
 		{
 			Animation animation = AnimationLoader.load(currentFile);
 			if(animation != null) {
-				cache.addAnimation(animation);
+				cache.addResource(new Resource(ResourceType.ANIMATION_FILE, animation.type.toString(), Animation.class, animation));
 			}
 		}
 		if(resource != null) {

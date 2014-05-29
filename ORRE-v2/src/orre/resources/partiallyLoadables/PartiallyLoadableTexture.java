@@ -2,7 +2,9 @@ package orre.resources.partiallyLoadables;
 
 import orre.gl.texture.Texture;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceType;
 import orre.resources.loaders.TextureLoader;
 import orre.sceneGraph.SceneNode;
 
@@ -31,7 +33,7 @@ public class PartiallyLoadableTexture extends Finalizable{
 	
 	public void addToCache(ResourceCache cache)
 	{
-		cache.addTexture(name, tex);
+		cache.addResource(new Resource(ResourceType.TEXTURE_FILE, name, Texture.class, tex));
 	}
 	
 	public SceneNode createSceneNode()

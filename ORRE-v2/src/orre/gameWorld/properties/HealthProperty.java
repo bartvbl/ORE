@@ -28,4 +28,9 @@ public class HealthProperty extends Property {
 		return null;
 	}
 
+	@Override
+	public void init() {
+		
+	}
+
 }

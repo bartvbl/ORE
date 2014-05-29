@@ -14,4 +14,6 @@ public abstract class Property {
 	public abstract void tick();
 
 	public abstract void destroy();
+
+	public abstract void init();
 }

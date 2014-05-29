@@ -3,7 +3,9 @@ package openrr.map.loader;
 import openrr.map.Map;
 import openrr.map.MapTile;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceType;
 import orre.sceneGraph.SceneNode;
 
 public class PartiallyLoadableMap extends Finalizable {
@@ -29,7 +31,7 @@ public class PartiallyLoadableMap extends Finalizable {
 	}
 
 	public void addToCache(ResourceCache cache) {
-		cache.setMap(map);
+		cache.addResource(new Resource(ResourceType.MAP_FILE, "MAP", Map.class, map));
 	}
 
 }

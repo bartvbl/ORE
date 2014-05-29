@@ -17,6 +17,7 @@ import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
 import orre.gl.shaders.UniformNode;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceType;
 import orre.sceneGraph.Camera;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
@@ -48,7 +49,7 @@ public class GameRunning extends GameState {
 	public void set() {
 		boolean shaderEnabled = true;
 		System.out.println("game has started.");
-		this.map = resourceCache.getMap();
+		this.map = (Map) resourceCache.getResource(ResourceType.MAP_FILE, "MAP").content;
 		
 		this.sceneRoot = new ContainerNode();
 		

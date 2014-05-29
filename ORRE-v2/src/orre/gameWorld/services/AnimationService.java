@@ -10,6 +10,7 @@ import orre.animation.execution.AnimationPlayhead;
 import orre.gameWorld.core.GameWorld;
 import orre.geom.mesh.Mesh3D;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceType;
 import orre.sceneGraph.SceneNode;
 
 public class AnimationService implements Service {
@@ -42,7 +43,8 @@ public class AnimationService implements Service {
 	}
 
 	public void applyAnimation(AnimationType type, Mesh3D animatable) {
-		applyAnimation(world.resourceCache.getAnimation(type), animatable);
+		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.ANIMATION_FILE, type.toString()).content;
+		applyAnimation(animation, animatable);
 	}
 
 	public void applyAnimation(Animation animation, Mesh3D target) {

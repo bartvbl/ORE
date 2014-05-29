@@ -50,4 +50,9 @@ public class TaskExecutor extends Property {
 
 	}
 
+	@Override
+	public void init() {
+		
+	}
+
 }

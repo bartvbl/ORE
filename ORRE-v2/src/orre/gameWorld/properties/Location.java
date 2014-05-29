@@ -26,4 +26,9 @@ public class Location extends Property {
 
 	}
 
+	@Override
+	public void init() {
+		
+	}
+
 }

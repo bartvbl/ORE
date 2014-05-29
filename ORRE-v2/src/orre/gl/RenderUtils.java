@@ -65,6 +65,6 @@ public class RenderUtils {
 	}
 
 	public static void resetSettings() {
-		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 0.5f);
+		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 1f);
 	}
 }
