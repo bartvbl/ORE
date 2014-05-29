@@ -37,8 +37,6 @@ public class BlueprintModel extends Finalizable {
 		partToLink.setDestinationPart(part);
 	}
 
-	public void finalizeResource() {}
-
 	public Mesh3D createMesh() {
 		System.out.println("Creating model: " + name);
 		Mesh3D mesh = new Mesh3D(name);
@@ -59,7 +57,7 @@ public class BlueprintModel extends Finalizable {
 	}
 
 	@Override
-	public void addToCache(ResourceCache cache) {
-		cache.addResource(new Resource(ResourceType.MODEL, name, BlueprintModel.class, this));
+	public Resource finalizeResource() {
+		return new Resource(ResourceType.MODEL, name, BlueprintModel.class, this);
 	}
 }

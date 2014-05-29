@@ -4,6 +4,7 @@ import java.nio.DoubleBuffer;
 
 import orre.geom.vbo.BufferDataFormatType;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceCache;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.sceneGraph.SceneNode;
@@ -27,7 +28,7 @@ public class PartiallyLoadableModelPart extends Finalizable {
 		this.geometryBuffer.addVertex(vertex); 
 	}
 	
-	public void finalizeResource() {
+	public Resource finalizeResource() {
 		if(this.destinationPart == null) {
 			System.out.println("ERROR: missing part in OBJ file: " + name);
 		}
@@ -36,10 +37,8 @@ public class PartiallyLoadableModelPart extends Finalizable {
 		}
 		this.geometryBuffer.finalizeResource();
 		this.destinationPart.addBufferCombo(this.material, this.geometryBuffer.convertToGeometryBuffer());
+		return null;
 	}
-
-	public SceneNode createSceneNode() {return null;}
-	public void addToCache(ResourceCache cache) {}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {
 		geometryBuffer.setBufferDataFormat(dataType);

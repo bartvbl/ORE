@@ -8,13 +8,14 @@ import orre.resources.ResourceType;
 import orre.resources.loaders.TextureLoader;
 import orre.sceneGraph.SceneNode;
 
-public class PartiallyLoadableTexture extends Finalizable{
+public class PartiallyLoadableTexture extends Finalizable {
 	private byte[] imageData;
 	private final int width;
 	private final int height;
 	private Texture tex;
 	public final String name;
 	private boolean hasBeenFinalized = false;
+	private Resource resource;
 
 	public PartiallyLoadableTexture(String name, byte[] imageData, int width, int height) {
 		this.imageData = imageData;
@@ -23,25 +24,16 @@ public class PartiallyLoadableTexture extends Finalizable{
 		this.name = name;
 	}
 
-	public void finalizeResource() {
-		if(hasBeenFinalized) return;
+	public Resource finalizeResource() {
+		if(hasBeenFinalized) return resource;
 		this.hasBeenFinalized = true;
 		Texture tex = TextureLoader.createTexture(imageData, width, height);
 		this.tex = tex;
 		this.imageData = null;
+		this.resource = new Resource(ResourceType.TEXTURE_FILE, name, Texture.class, tex);
+		return resource;
 	}
-	
-	public void addToCache(ResourceCache cache)
-	{
-		cache.addResource(new Resource(ResourceType.TEXTURE_FILE, name, Texture.class, tex));
-	}
-	
-	public SceneNode createSceneNode()
-	{
-		System.out.println("WARNING: textures are not supported for scene nodes. Maybe they will ato some point, though.");
-		return null;
-	}
-	
+
 	public Texture getTexture()
 	{
 		return this.tex;

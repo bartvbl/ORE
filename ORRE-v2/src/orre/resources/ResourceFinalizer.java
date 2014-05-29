@@ -26,8 +26,10 @@ public class ResourceFinalizer {
 			{
 				break;
 			}
-			resourceToFinalize.finalizeResource();
-			resourceToFinalize.addToCache(cache);
+			Resource resource = resourceToFinalize.finalizeResource();
+			if(resource != null) {
+				cache.addResource(resource);
+			}
 			Timer.tick();
 		}
 	}

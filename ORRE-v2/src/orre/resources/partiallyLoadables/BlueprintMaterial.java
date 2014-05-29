@@ -6,6 +6,7 @@ import java.io.IOException;
 
 import orre.gl.materials.AbstractMaterial;
 import orre.gl.materials.Material;
+import orre.resources.Resource;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.UnloadedResource;
@@ -60,8 +61,8 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 		this.specularTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.TEXTURE_FILE, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
 	}
 	
-	public void finalizeResource() {
-		if(isFinalized){return;};
+	public Resource finalizeResource() {
+		if(isFinalized){return null;};
 		if(this.ambientTexture != null) {			
 			this.ambientTexture.finalizeResource();
 			this.material.setAmbientTexture(this.ambientTexture.getTexture());
@@ -75,15 +76,10 @@ public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
 			this.material.setSpecularTexture(this.specularTexture.getTexture());
 		}
 		this.isFinalized = true;
-	}
-
-	public SceneNode createSceneNode() {
 		return null;
 	}
-	
+
 	public Material convertToMaterial() {
 		return this.material.clone();
 	}
-
-	public void addToCache(ResourceCache cache) {}
 }

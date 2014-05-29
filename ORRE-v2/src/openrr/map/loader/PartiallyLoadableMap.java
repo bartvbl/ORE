@@ -19,19 +19,15 @@ public class PartiallyLoadableMap extends Finalizable {
 		this.texturePack = texturePack;
 	}
 
-	public void finalizeResource() {
+	public Resource finalizeResource() {
 		texturePack.finalizeTextures();
 		Map map = new Map(tileMap, texturePack);
 		map.buildAll();
 		this.map = map;
+		return new Resource(ResourceType.MAP_FILE, "MAP", Map.class, map);
 	}
 
 	public SceneNode createSceneNode() {
 		return map.createSceneNode();
 	}
-
-	public void addToCache(ResourceCache cache) {
-		cache.addResource(new Resource(ResourceType.MAP_FILE, "MAP", Map.class, map));
-	}
-
 }
