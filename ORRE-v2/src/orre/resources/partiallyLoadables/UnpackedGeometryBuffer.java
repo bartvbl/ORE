@@ -30,11 +30,6 @@ public class UnpackedGeometryBuffer extends Finalizable{
 
 	public void finalizeResource() {}
 
-	@Override
-	public SceneNode createSceneNode() {
-		return null;
-	}
-
 	public void addToCache(ResourceCache cache) {}
 
 	public void setBufferDataFormat(BufferDataFormatType dataType) {

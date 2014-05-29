@@ -9,6 +9,5 @@ public abstract class Finalizable {
 	}
 	
 	public abstract void finalizeResource();
-	public abstract SceneNode createSceneNode();
 	public abstract void addToCache(ResourceCache cache);
 }

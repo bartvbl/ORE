@@ -62,9 +62,4 @@ public class BlueprintModel extends Finalizable {
 	public void addToCache(ResourceCache cache) {
 		cache.addResource(new Resource(ResourceType.MODEL, name, BlueprintModel.class, this));
 	}
-
-	@Override
-	public SceneNode createSceneNode() {
-		return null;
-	}
 }
