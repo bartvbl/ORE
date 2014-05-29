@@ -13,7 +13,7 @@ import orre.resources.Resource;
 import orre.resources.ResourceCache;
 import orre.sceneGraph.SceneNode;
 
-public class UnpackedGeometryBuffer extends Finalizable{
+public class UnpackedGeometryBuffer implements Finalizable{
 	private DoubleBuffer vertices;
 	private BufferDataFormatType dataFormat;
 	private int numVertices;

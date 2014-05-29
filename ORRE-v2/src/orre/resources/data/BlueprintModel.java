@@ -14,7 +14,7 @@ import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
-public class BlueprintModel extends Finalizable {
+public class BlueprintModel implements Finalizable {
 	private ArrayList<StoredModelPart> topLevelNodeList = new ArrayList<StoredModelPart>();
 	private HashMap<String, StoredModelPart> modelParts = new HashMap<String, StoredModelPart>();
 	public final String name;

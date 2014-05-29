@@ -8,7 +8,7 @@ import orre.resources.ResourceType;
 import orre.resources.loaders.TextureLoader;
 import orre.sceneGraph.SceneNode;
 
-public class PartiallyLoadableTexture extends Finalizable {
+public class PartiallyLoadableTexture implements Finalizable {
 	private byte[] imageData;
 	private final int width;
 	private final int height;

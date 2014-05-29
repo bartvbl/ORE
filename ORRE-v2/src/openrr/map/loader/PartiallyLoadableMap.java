@@ -8,7 +8,7 @@ import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.sceneGraph.SceneNode;
 
-public class PartiallyLoadableMap extends Finalizable {
+public class PartiallyLoadableMap implements Finalizable {
 
 	private MapTile[][] tileMap;
 	private MapTexturePack texturePack;

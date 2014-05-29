@@ -9,7 +9,7 @@ import orre.resources.ResourceCache;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.sceneGraph.SceneNode;
 
-public class PartiallyLoadableModelPart extends Finalizable {
+public class PartiallyLoadableModelPart implements Finalizable {
 	private BlueprintMaterial material;
 	private final UnpackedGeometryBuffer geometryBuffer;
 	

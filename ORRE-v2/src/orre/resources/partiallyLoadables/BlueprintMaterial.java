@@ -15,7 +15,7 @@ import orre.resources.loaders.TextureLoader;
 import orre.resources.loaders.obj.OBJLoadingContext;
 import orre.sceneGraph.SceneNode;
 
-public class BlueprintMaterial extends Finalizable implements AbstractMaterial {
+public class BlueprintMaterial implements Finalizable, AbstractMaterial {
 	public final String name;
 	private PartiallyLoadableTexture ambientTexture = null;
 	private PartiallyLoadableTexture diffuseTexture = null;

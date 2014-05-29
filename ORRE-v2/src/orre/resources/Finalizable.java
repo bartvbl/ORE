@@ -1,5 +1,5 @@
 package orre.resources;
 
-public abstract class Finalizable {
-	public abstract Resource finalizeResource();
+public interface Finalizable {
+	public Resource finalizeResource();
 }
