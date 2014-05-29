@@ -29,11 +29,10 @@ public class ResourceCache {
 	}
 	
 	public Resource getResource(ResourceType type, String name) {
-		if(resourceMap.containsKey(type)) {
+		if(resourceMap.containsKey(type) && resourceMap.get(type).containsKey(name)) {
 			return resourceMap.get(type).get(name);
-		} else {
-			throw new RuntimeException("No resource of type " + type + " named " + name);
 		}
+		throw new RuntimeException("No resource of type " + type + " named " + name);
 	}
 	
 	public synchronized String uniqueName(ResourceType type) {
