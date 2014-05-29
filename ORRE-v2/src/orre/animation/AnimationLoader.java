@@ -5,9 +5,16 @@ import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import orre.resources.Finalizable;
+import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 
-public class AnimationLoader {
+public class AnimationLoader implements ResourceTypeLoader {
+	@Override
+	public Finalizable loadResource(UnloadedResource source) {
+		return load(source);
+	}
+	
 	public static Animation load(UnloadedResource animationFile) {
 		try {			
 			return parseAnimationFile(animationFile);

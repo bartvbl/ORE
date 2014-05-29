@@ -10,13 +10,11 @@ import orre.geom.vbo.GeometryNode;
 import orre.geom.vbo.GeometryBufferGenerator;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
-import orre.resources.ResourceCache;
-import orre.sceneGraph.SceneNode;
 
 public class UnpackedGeometryBuffer implements Finalizable{
 	private DoubleBuffer vertices;
 	private BufferDataFormatType dataFormat;
-	private int numVertices;
+	private final int numVertices;
 	
 	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat, int numVertices) {
 		this.dataFormat = bufferDataFormat;
@@ -44,9 +42,4 @@ public class UnpackedGeometryBuffer implements Finalizable{
 		this.vertices = null;
 		return buffer;
 	}
-
-	public int getVertexCount() {
-		return this.numVertices;
-	}
-
 }

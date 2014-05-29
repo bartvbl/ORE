@@ -5,7 +5,6 @@ import static org.lwjgl.opengl.GL11.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
-import java.awt.image.PixelGrabber;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -18,11 +17,18 @@ import java.nio.IntBuffer;
 import javax.imageio.ImageIO;
 
 import orre.gl.texture.Texture;
+import orre.resources.Finalizable;
+import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
-import orre.util.FeedbackProvider;
 
-public class TextureLoader {
+public class TextureLoader implements ResourceTypeLoader {
+	
+	@Override
+	public Finalizable loadResource(UnloadedResource source) throws Exception {
+		return partiallyLoadTextureFromFile(source);
+	}
+	
 	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(UnloadedResource file) throws FileNotFoundException, IOException, Exception {
 		BufferedImage image = loadImageFromFile(file.location);
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);

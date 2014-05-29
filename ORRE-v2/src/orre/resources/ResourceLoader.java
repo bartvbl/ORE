@@ -1,6 +1,10 @@
 package orre.resources;
 
+import java.util.HashMap;
+
+import orre.animation.AnimationLoader;
 import orre.gui.LoadingScreenDrawer;
+import orre.resources.loaders.TextureLoader;
 
 public class ResourceLoader {
 	
@@ -10,6 +14,15 @@ public class ResourceLoader {
 	private boolean hasStartedParsing = false;
 	private boolean hasStartedLoading = false;
 	private ResourceFinalizer resourceFinalizer;
+	
+	//static to allow multiple ResourceLoaders to exist that share registered loaders.
+	private static final HashMap<ResourceType, ResourceTypeLoader> loaders = new HashMap<ResourceType, ResourceTypeLoader>();
+	
+	static {
+		//initialise the loaders map when this class is first loaded.
+		loaders.put(ResourceType.ANIMATION_FILE, new AnimationLoader());
+		loaders.put(ResourceType.TEXTURE_FILE, new TextureLoader());
+	}
 	
 	public ResourceLoader(ResourceCache cache)
 	{
@@ -49,5 +62,9 @@ public class ResourceLoader {
 
 	public void enqueueResourceFileToBeLoaded(UnloadedResource resource) {
 		this.resourceQueue.enqueueResourceFile(resource);
+	}
+	
+	public void registerResourceTypeLoader(ResourceType type, ResourceTypeLoader loader) {
+		loaders.put(type, loader);
 	}
 }
