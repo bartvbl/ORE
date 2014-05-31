@@ -34,5 +34,5 @@ vec4 lighting()
 void main()
 {
 	vec4 lightValue = lighting();
-	gl_FragColor = (texturesEnabled * texture2D(diffuseTexture, gl_TexCoord[0].st) * lightValue) + ((1.0 - texturesEnabled) * lightValue);
+	gl_FragColor = (1 * texture2D(diffuseTexture, gl_TexCoord[0].st) * lightValue) + ((1.0 - 1) * lightValue);
 }

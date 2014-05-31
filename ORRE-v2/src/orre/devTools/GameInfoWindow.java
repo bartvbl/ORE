@@ -23,7 +23,7 @@ import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.sceneGraph.SceneNode;
 
-public class SceneGraphVisualiser {
+public class GameInfoWindow {
 	public static void showDebugInfo(GameWorld world, ResourceCache cache) {
 		JFrame window = new JFrame("Scene");
 		JTabbedPane mainTabPane = new JTabbedPane();

@@ -6,7 +6,7 @@ import org.lwjgl.LWJGLException;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.input.Mouse;
 
-import orre.devTools.SceneGraphVisualiser;
+import orre.devTools.GameInfoWindow;
 import orre.gameWorld.core.GameWorld;
 import orre.gl.util.CoordConverter;
 import orre.resources.ResourceCache;
@@ -97,7 +97,7 @@ public class InputService implements Service {
 	private void onKeyDown(int pressedKey) {
 		switch(pressedKey) {
 		case Keyboard.KEY_F3:
-			SceneGraphVisualiser.showDebugInfo(world, cache);
+			GameInfoWindow.showDebugInfo(world, cache);
 		}
 	}
 
