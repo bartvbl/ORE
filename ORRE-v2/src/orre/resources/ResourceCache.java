@@ -2,15 +2,6 @@ package orre.resources;
 
 import java.util.HashMap;
 
-import openrr.map.Map;
-import orre.animation.Animation;
-import orre.animation.AnimationType;
-import orre.geom.mesh.Mesh3D;
-import orre.gl.texture.Texture;
-import orre.resources.data.BlueprintModel;
-import orre.sound.Sound;
-import orre.sound.SoundType;
-
 public class ResourceCache {
 	private final HashMap<ResourceType, HashMap<String, Resource>> resourceMap;
 	private final HashMap<ResourceType, Integer> nameMap;

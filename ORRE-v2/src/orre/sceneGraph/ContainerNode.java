@@ -1,6 +1,7 @@
 package orre.sceneGraph;
 
 import java.util.ArrayList;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class ContainerNode implements SceneNode {
@@ -8,6 +9,15 @@ public class ContainerNode implements SceneNode {
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	protected float renderRadius = 0.0f;
 	protected boolean parentHasBeenRegistered = false;
+	private final String name;
+	
+	public ContainerNode() {
+		this.name = "";
+	}
+	
+	public ContainerNode(String name) {
+		this.name = name;
+	}
 	
 	public float getRenderRadius()
 	{
@@ -49,7 +59,7 @@ public class ContainerNode implements SceneNode {
 	}
 	
 	public String toString() {
-		return "Container";
+		return "Container " + name;
 	}
 }
 
