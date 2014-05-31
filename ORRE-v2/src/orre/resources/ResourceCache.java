@@ -44,4 +44,8 @@ public class ResourceCache {
 		nameMap.put(type, nextID + 1);
 		return nextName;
 	}
+
+	public HashMap<ResourceType, HashMap<String, Resource>> debugonly_getResourceMap() {
+		return resourceMap;
+	}
 }

@@ -2,6 +2,7 @@ package orre.devTools;
 
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.HashMap;
 
 import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
@@ -17,7 +18,9 @@ import javax.swing.tree.DefaultTreeModel;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Property;
+import orre.resources.Resource;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceType;
 import orre.sceneGraph.SceneNode;
 
 public class SceneGraphVisualiser {
@@ -79,6 +82,24 @@ public class SceneGraphVisualiser {
 	}
 	
 	private static void showResourceCache(ResourceCache cache, JTabbedPane mainTabPane) {
-		
+		JScrollPane scrollPane = new JScrollPane();
+		JPanel informationPanel = new JPanel();
+		JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, informationPanel);
+		mainTabPane.add("Resource cache", splitter);
+		JTree worldTree = new JTree();
+		scrollPane.setViewportView(worldTree);
+		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("");
+		DefaultTreeModel model = new DefaultTreeModel(rootNode);
+		worldTree.setModel(model);
+		HashMap<ResourceType, HashMap<String, Resource>> resourceMap = cache.debugonly_getResourceMap();
+		for(ResourceType type : resourceMap.keySet()) {
+			DefaultMutableTreeNode typeNode = new DefaultMutableTreeNode(type);
+			for(String name : resourceMap.get(type).keySet()) {
+				DefaultMutableTreeNode nameNode = new DefaultMutableTreeNode(name);
+				typeNode.add(nameNode);
+			}
+			rootNode.add(typeNode);
+		}
+		worldTree.expandRow(0);
 	}
 }
