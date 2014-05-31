@@ -21,7 +21,7 @@ public class ORRE {
 
 	private static void readDebugFlag(String[] args) {
 		for(String arg : args) {
-			if(arg.equals("debug")) {
+			if(arg.equals("debug_dump")) {
 				//debugger for openGL
 				System.setProperty("org.lwjgl.util.Debug", "true");
 				System.loadLibrary("opengl32");
