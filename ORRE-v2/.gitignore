@@ -4,3 +4,5 @@
 /tools
 *.sddoc
 *.trace
+*.pkc
+*.idx
