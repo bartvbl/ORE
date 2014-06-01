@@ -39,6 +39,8 @@ public abstract class Control {
 		
 		return (x < mouseX) && (y < mouseY) && (x + bounds.width > mouseX) && (y + bounds.height > mouseY);
 	}
+	
+	
 
 	public abstract void update();
 }

@@ -1,25 +1,13 @@
 package orre.gameStates;
 
 import java.io.File;
-import java.nio.FloatBuffer;
-
-import org.lwjgl.BufferUtils;
-import org.lwjgl.input.Keyboard;
-import org.lwjgl.opengl.Display;
-
 import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
-import orre.geom.mesh.Mesh3D;
-import orre.gl.RenderUtils;
-import orre.gl.renderer.RenderPass;
-import orre.gl.texture.Texture;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
-import orre.sceneGraph.SceneNode;
-import static org.lwjgl.opengl.GL11.*;
 
 public class MainMenu extends GameState {
 

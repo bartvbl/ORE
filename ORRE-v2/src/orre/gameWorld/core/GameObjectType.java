@@ -8,7 +8,8 @@ public enum GameObjectType {
 	ORE(new PropertyType[]{PropertyType.TRANSPORTABLE, PropertyType.GRAVITY, PropertyType.ORE_APPEARANCE}),
 	TRIGGER(new PropertyType[]{}),
 	CAMERA_CONTROLLER(new PropertyType[]{PropertyType.KEYBOARD_CAMERA_CONTROLLER}), 
-	LIGHT(new PropertyType[]{PropertyType.LIGHT});
+	LIGHT(new PropertyType[]{PropertyType.LIGHT}), 
+	GUI(new PropertyType[]{PropertyType.IS_GUI});
 
 	public final PropertyType[] properties;
 

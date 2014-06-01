@@ -11,16 +11,8 @@ import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
 import orre.gameWorld.properties.Flashlight;
-import orre.geom.mesh.Mesh3D;
-import orre.gl.lighting.Light;
 import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
-import orre.gl.shaders.UniformNode;
-import orre.gui.Corner;
-import orre.gui.GUI;
-import orre.gui.nodes.ButtonNode;
-import orre.gui.nodes.GUIBaseNode;
-import orre.gui.nodes.GUIRootNode;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.sceneGraph.Camera;
@@ -33,7 +25,6 @@ public class GameRunning extends GameState {
 	private Camera defaultCamera;
 	private Flashlight flashLight;
 	private Map map;
-	private GUI gui;
 	
 	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache)
 	{
@@ -48,7 +39,6 @@ public class GameRunning extends GameState {
 	public void executeFrame(long frameNumber) {
 		this.gameWorld.tick();
 		flashLight.tick();
-		this.gui.update();
 		RenderPass.render(sceneRoot);
 		gameWorld.services.inputService.updateMouseTargetLocation();
 	}
@@ -80,8 +70,7 @@ public class GameRunning extends GameState {
 		gameWorld.spawnGameObject(GameObjectType.ORE);
 		gameWorld.spawnGameObject(GameObjectType.ROCK_RAIDER);
 		gameWorld.dispatchMessage(new Message<Camera>(MessageType.ASSUME_CAMERA_CONTROL, defaultCamera), cameraController);
-		
-		this.gui = new GUI(sceneRoot);
+		gameWorld.spawnGameObject(GameObjectType.GUI);
 	}
 	
 	public void unset() {

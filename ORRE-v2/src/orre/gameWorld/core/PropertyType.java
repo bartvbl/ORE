@@ -9,6 +9,7 @@ import orre.gameWorld.properties.OreAppearance;
 import orre.gameWorld.properties.RockRaiderAppearance;
 import orre.gameWorld.properties.TaskExecutor;
 import orre.gameWorld.properties.Transportable;
+import orre.gui.GUI;
 import orre.input.KeyboardCameraController;
 
 public enum PropertyType {
@@ -21,7 +22,8 @@ public enum PropertyType {
 	ORE_APPEARANCE(OreAppearance.class), 
 	CHRYSTAL_APPEARANCE(ChrystalAppearance.class),
 	TASK_EXECUTOR(TaskExecutor.class), 
-	LOCATION(Location.class);
+	LOCATION(Location.class), 
+	IS_GUI(GUI.class);
 
 	public final Class<?> propertyClass;
 
