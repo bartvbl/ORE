@@ -1,6 +1,7 @@
 package orre.gameStates;
 
 import java.io.File;
+
 import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
@@ -8,11 +9,12 @@ import orre.events.GlobalEventType;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
+import orre.scripting.ScriptInterpreter;
 
 public class MainMenu extends GameState {
 
-	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache) {
-		super(main, eventDispatcher, cache);
+	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter) {
+		super(main, eventDispatcher, cache, interpreter);
 		UnloadedResource mainCache = new UnloadedResource(ResourceType.RESOURCE_LIST_FILE, new File("res/reslist.xml"), "mainCacheList");
 		eventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_LOADING_ITEM, mainCache));
 		

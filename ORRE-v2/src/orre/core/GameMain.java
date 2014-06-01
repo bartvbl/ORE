@@ -12,6 +12,7 @@ import orre.gameStates.*;
 import orre.gl.RenderUtils;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceLoader;
+import orre.scripting.ScriptInterpreter;
 import orre.util.Logger;
 
 public class GameMain implements EventHandler{
@@ -24,6 +25,7 @@ public class GameMain implements EventHandler{
 	private final String gameName;
 	private final ResourceCache resourceCache;
 	private final ResourceLoader resourceLoader;
+	private final ScriptInterpreter scriptInterpreter;
 	
 	public GameMain(String gameName) 
 	{
@@ -33,6 +35,7 @@ public class GameMain implements EventHandler{
 		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 		this.resourceCache = new ResourceCache();
 		this.resourceLoader = new ResourceLoader(resourceCache, globalEventDispatcher);
+		this.scriptInterpreter = new ScriptInterpreter(globalEventDispatcher);
 	}
 	
 	public void mainLoop()
@@ -70,7 +73,8 @@ public class GameMain implements EventHandler{
 	public void initialize()
 	{
 		GameWindow.create(gameName);
-		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher, resourceCache, resourceLoader);
+		this.scriptInterpreter.init();
+		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher, resourceCache, resourceLoader, scriptInterpreter);
 		this.stateMap = stateMap;
 		this.setGameState(GameStateName.STARTUP_LOADING);
 	}

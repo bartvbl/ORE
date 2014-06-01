@@ -6,6 +6,7 @@
 	<classpathentry exported="true" kind="lib" path="jars/lzma.jar"/>
 	<classpathentry exported="true" kind="lib" path="jars/xom-1.2.8.jar"/>
 	<classpathentry exported="true" kind="lib" path="jars/log4j-1.2.17.jar"/>
+	<classpathentry kind="lib" path="jars/jython.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.junit.JUNIT_CONTAINER/4"/>
 	<classpathentry exported="true" kind="lib" path="jars/lwjgl_util.jar"/>
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.USER_LIBRARY/AppleJavaExtensions"/>

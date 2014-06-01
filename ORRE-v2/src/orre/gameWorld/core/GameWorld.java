@@ -8,6 +8,7 @@ import openrr.map.Map;
 import orre.gameWorld.services.WorldServices;
 import orre.resources.ResourceCache;
 import orre.sceneGraph.SceneNode;
+import orre.scripting.ScriptInterpreter;
 
 public class GameWorld {
 	public final SceneNode rootNode;
@@ -19,11 +20,11 @@ public class GameWorld {
 	private final HashMap<Integer, GameObject> gameObjectSet;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(SceneNode rootNode, SceneNode mapContentsNode, Map map, ResourceCache cache) {
+	public GameWorld(SceneNode rootNode, SceneNode mapContentsNode, Map map, ResourceCache cache, ScriptInterpreter interpreter) {
 		this.rootNode = rootNode;
 		this.map = map;
 		this.mapContentsNode = mapContentsNode;
-		this.services = new WorldServices(this, cache);
+		this.services = new WorldServices(this, cache, interpreter);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
 		this.resourceCache = cache;

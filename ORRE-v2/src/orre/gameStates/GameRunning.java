@@ -18,6 +18,7 @@ import orre.resources.ResourceType;
 import orre.sceneGraph.Camera;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
+import orre.scripting.ScriptInterpreter;
 
 public class GameRunning extends GameState {
 	private GameWorld gameWorld;
@@ -26,9 +27,9 @@ public class GameRunning extends GameState {
 	private Flashlight flashLight;
 	private Map map;
 	
-	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache)
+	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter)
 	{
-		super(main, eventDispatcher, cache);
+		super(main, eventDispatcher, cache, interpreter);
 		
 	}
 	public void initialize()
@@ -51,7 +52,7 @@ public class GameRunning extends GameState {
 		this.sceneRoot = new ContainerNode();
 		
 		ContainerNode mapContentsRoot = new ContainerNode();
-		this.gameWorld = new GameWorld(sceneRoot, mapContentsRoot, map, this.resourceCache);
+		this.gameWorld = new GameWorld(sceneRoot, mapContentsRoot, map, this.resourceCache, interpreter);
 		GameObject object = new GameObject(GameObjectType.LIGHT, gameWorld);
 		flashLight = new Flashlight(object);
 		defaultCamera = new Camera();

@@ -9,6 +9,7 @@ import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.gui.LoadingScreenDrawer;
 import orre.resources.loaders.ModelLoader;
+import orre.resources.loaders.ScriptLoader;
 import orre.resources.loaders.SoundLoader;
 import orre.resources.loaders.TextureLoader;
 
@@ -30,6 +31,7 @@ public class ResourceLoader implements EventHandler {
 		loaders.put(ResourceType.OBJ_MODEL_FILE, new ModelLoader());
 		loaders.put(ResourceType.SOUND_FILE, new SoundLoader());
 		loaders.put(ResourceType.RESOURCE_LIST_FILE, new ResourceListFileParser());
+		loaders.put(ResourceType.SCRIPT_FILE, new ScriptLoader());
 	}
 	
 	public ResourceLoader(ResourceCache cache, GlobalEventDispatcher globalEventDispatcher)
