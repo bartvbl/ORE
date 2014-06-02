@@ -18,7 +18,7 @@ public class WorldServices {
 		this.soundService = new SoundService();
 		this.inputService = new InputService(world, cache);
 		this.cameraService = new CameraService();
-		this.scriptingService = new ScriptingService(interpreter);
+		this.scriptingService = new ScriptingService(world, interpreter);
 	}
 	
 	public void tickServices() {
@@ -29,7 +29,7 @@ public class WorldServices {
 		this.inputService.tick();
 		this.scriptingService.tick();
 	}
-
+	
 	public void shutdown() {
 		aiService.stop();
 	}

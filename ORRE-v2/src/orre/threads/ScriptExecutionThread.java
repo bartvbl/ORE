@@ -3,10 +3,14 @@ package orre.threads;
 import org.python.util.PythonInterpreter;
 
 import orre.events.GlobalEventDispatcher;
+import orre.gameWorld.core.GameWorld;
 
 public class ScriptExecutionThread extends Thread {
 	private final PythonInterpreter interpreter;
 	private final GlobalEventDispatcher eventDispatcher;
+	
+	private boolean hasUpdatedWorld = false;
+	private GameWorld currentWorld = null;
 
 	public ScriptExecutionThread(GlobalEventDispatcher eventDispatcher) {
 		this.eventDispatcher = eventDispatcher;
@@ -15,7 +19,10 @@ public class ScriptExecutionThread extends Thread {
 	
 	public void run() {
 		while(true) {
-			
+			if(hasUpdatedWorld) {
+				interpreter.set("ORRE_world", currentWorld);
+				hasUpdatedWorld = false;
+			}
 			sleep();
 		}
 	}
@@ -30,5 +37,10 @@ public class ScriptExecutionThread extends Thread {
 	
 	public void execute(String pythonScript) {
 		
+	}
+
+	public void setCurrentWorld(GameWorld world) {
+		this.currentWorld  = world;
+		this.hasUpdatedWorld = true;
 	}
 }
