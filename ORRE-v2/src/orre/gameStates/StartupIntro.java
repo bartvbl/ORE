@@ -20,11 +20,13 @@ import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
 import orre.gl.shaders.UniformNode;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceType;
 import orre.resources.loaders.OBJLoader;
 import orre.resources.loaders.obj.ModelPartType;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
+import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
@@ -64,7 +66,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			brickPart.setMaterial(material);
 			brickPart.finalizeResource();
 			Light light = new Light();
-			ShaderNode shader = new ShaderNode(new File("res/shaders/phong.vert"), new File("res/shaders/phong.frag"));
+			ShaderNode shader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content).createSceneNode();
 			UniformNode uniform = shader.createUniform("texturesEnabled");
 			SceneNode brickNode = brickBlueprint.createSceneNode().getChildren().get(0).getChildren().get(0);
 			this.brickPosition = new CoordinateNode();

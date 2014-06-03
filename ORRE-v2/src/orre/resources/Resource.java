@@ -1,6 +1,6 @@
 package orre.resources;
 
-public class Resource {
+public final class Resource {
 
 	public final ResourceType type;
 	public final String name;

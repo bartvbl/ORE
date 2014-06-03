@@ -91,7 +91,8 @@
 		<animation name="raiderWalking" src="raiderWalking.anim"/>
 	</animations>
 	
+	<!-- The shader loader adds .vert and .frag extensions to the source path -->
 	<shaders pathPrefix="res/shaders/">
-		<shader name="boneShader" geomSrc="boneShader.geom" fragSrc="boneShader.frag" />
+		<shader name="phong" src="phong"/>
 	</shaders>
 </resList>

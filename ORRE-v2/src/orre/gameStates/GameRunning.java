@@ -15,6 +15,7 @@ import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
+import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.Camera;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
@@ -57,7 +58,7 @@ public class GameRunning extends GameState {
 		flashLight = new Flashlight(object);
 		defaultCamera = new Camera();
 		SceneNode mapNode = map.createSceneNode();
-		ShaderNode shader = new ShaderNode(new File("res/shaders/phong.vert"), new File("res/shaders/phong.frag"));
+		ShaderNode shader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content).createSceneNode();
 		sceneRoot.addChild(flashLight.light);
 		if(shaderEnabled) {
 			sceneRoot.addChild(shader);
