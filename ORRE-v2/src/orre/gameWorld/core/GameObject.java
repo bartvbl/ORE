@@ -2,10 +2,14 @@ package orre.gameWorld.core;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicInteger;
+
+import orre.util.Logger;
+import orre.util.Logger.LogType;
 
 public final class GameObject {
 	public final int id;
-	private static int nextUID = 0;
+	private static final AtomicInteger nextUID = new AtomicInteger();
 	public final GameObjectType type;
 	public final GameWorld world;
 	private final ArrayList<Property> properties;
@@ -13,8 +17,7 @@ public final class GameObject {
 	private final HashMap<PropertyDataType, Object> propertyData;
 
 	public GameObject(GameObjectType type, GameWorld world) {
-		this.id = nextUID;
-		nextUID++;
+		this.id = nextUID.getAndIncrement();
 		this.propertyData = new HashMap<PropertyDataType, Object>();
 		this.type = type;
 		this.world = world;
@@ -58,7 +61,15 @@ public final class GameObject {
 		return controlledObjects.size();
 	}
 
-	public Object requestPropertyData(PropertyDataType type) {
+	public Object requestPropertyData(PropertyDataType type, Class<?> expectedDataType) {
+		Object data = propertyData.get(type);
+		if(data == null) {
+			Logger.log("Property data " + type + " not found in object " + this.id, LogType.WARNING);
+			return null;
+		}
+		if(!expectedDataType.isAssignableFrom(data.getClass())) {
+			throw new RuntimeException("Property data type " + type + " was not the same as the expected type (" + data.getClass() + " versus " + expectedDataType + ")");
+		}
 		return propertyData.get(type);
 	}
 	

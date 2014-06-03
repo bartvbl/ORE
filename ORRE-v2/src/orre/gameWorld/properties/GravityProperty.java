@@ -21,7 +21,7 @@ public class GravityProperty extends Property {
 
 	@Override
 	public void tick() {
-		Mesh3D appearance = (Mesh3D) gameObject.requestPropertyData(PropertyDataType.APPEARANCE);
+		Mesh3D appearance = (Mesh3D) gameObject.requestPropertyData(PropertyDataType.APPEARANCE, Mesh3D.class);
 		Point3D location = appearance.root.getLocation();
 		double tileHeight = this.gameObject.world.map.getTileHeightAt(location.x, location.y);
 		appearance.root.setZ(tileHeight);
