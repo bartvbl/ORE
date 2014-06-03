@@ -10,6 +10,8 @@ import orre.gameWorld.core.PropertyDataType;
 import orre.gameWorld.core.PropertyType;
 import orre.geom.Point3D;
 import orre.geom.mesh.Mesh3D;
+import orre.gl.texture.Texture;
+import orre.sceneGraph.SceneNode;
 
 public class Transportable extends Property {
 	private boolean isRegisteredForPickup = false;

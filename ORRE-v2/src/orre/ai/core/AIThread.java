@@ -1,7 +1,5 @@
 package orre.ai.core;
 
-import org.lwjgl.opengl.Display;
-
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskPriorities;
 import orre.gameWorld.core.GameWorld;
