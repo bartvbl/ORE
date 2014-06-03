@@ -88,7 +88,7 @@
 	</textures>
 	
 	<animations pathPrefix="res/anims/">
-		<animation name="turnWheels" src="turnWheels.anim"/>
+		<animation name="raiderWalking" src="raiderWalking.anim"/>
 	</animations>
 	
 	<shaders pathPrefix="res/shaders/">

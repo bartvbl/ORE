@@ -50,7 +50,7 @@ public class TexturePackParser {
 	private static MapTexture parseMapTextureFromXML(Element textureElement, String pathPrefix) throws FileNotFoundException, IOException, Exception {
 		String name = textureElement.getAttributeValue("name");
 		String textureSrc = textureElement.getAttributeValue("src");
-		PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.TEXTURE_FILE, new File(pathPrefix + "/" + textureSrc), "Texture pack texture"));
+		PartiallyLoadableTexture texture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.texture, new File(pathPrefix + "/" + textureSrc), "Texture pack texture"));
 		String widthInTexturesString = textureElement.getAttributeValue("widthInTextures");
 		String heightInTexturesString = textureElement.getAttributeValue("heightInTextures");
 		int widthInTextures = Integer.parseInt(widthInTexturesString);

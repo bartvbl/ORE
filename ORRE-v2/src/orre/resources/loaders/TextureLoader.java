@@ -33,7 +33,7 @@ public class TextureLoader implements ResourceTypeLoader {
 	
 	@Override
 	public ResourceType getResourceType() {
-		return ResourceType.TEXTURE_FILE;
+		return ResourceType.texture;
 	}
 	
 	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(UnloadedResource file) throws FileNotFoundException, IOException, Exception {

@@ -47,7 +47,7 @@ public class GameRunning extends GameState {
 	public void set() {
 		boolean shaderEnabled = true;
 		System.out.println("game has started.");
-		this.map = (Map) resourceCache.getResource(ResourceType.MAP_FILE, "MAP").content;
+		this.map = (Map) resourceCache.getResource(ResourceType.map, "MAP").content;
 		
 		this.sceneRoot = new ContainerNode();
 		

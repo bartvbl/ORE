@@ -15,7 +15,7 @@ public class SoundLoader implements ResourceTypeLoader {
 
 	@Override
 	public ResourceType getResourceType() {
-		return ResourceType.SOUND_FILE;
+		return ResourceType.sound;
 	}
 
 	private Finalizable loadSound(UnloadedResource source) {

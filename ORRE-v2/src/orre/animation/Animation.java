@@ -16,7 +16,7 @@ public class Animation implements Finalizable {
 
 	@Override
 	public Resource finalizeResource() {
-		return new Resource(ResourceType.ANIMATION_FILE, type.toString(), Animation.class, this);
+		return new Resource(ResourceType.animation, type.toString(), Animation.class, this);
 	}
 	
 }

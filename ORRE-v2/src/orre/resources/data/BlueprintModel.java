@@ -58,6 +58,6 @@ public class BlueprintModel implements Finalizable {
 
 	@Override
 	public Resource finalizeResource() {
-		return new Resource(ResourceType.MODEL, name, BlueprintModel.class, this);
+		return new Resource(ResourceType.model, name, BlueprintModel.class, this);
 	}
 }

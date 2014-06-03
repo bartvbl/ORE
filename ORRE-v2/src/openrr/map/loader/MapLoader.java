@@ -29,7 +29,7 @@ public class MapLoader implements ResourceTypeLoader {
 	
 	@Override
 	public ResourceType getResourceType() {
-		return ResourceType.MAP_FILE;
+		return ResourceType.map;
 	}
 
 	public static PartiallyLoadableMap loadMap(UnloadedResource resource) throws Exception {

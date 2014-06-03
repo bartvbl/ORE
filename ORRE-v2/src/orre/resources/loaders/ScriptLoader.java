@@ -16,7 +16,7 @@ public class ScriptLoader implements ResourceTypeLoader {
 
 	@Override
 	public ResourceType getResourceType() {
-		return ResourceType.SCRIPT_FILE;
+		return ResourceType.script;
 	}
 
 }

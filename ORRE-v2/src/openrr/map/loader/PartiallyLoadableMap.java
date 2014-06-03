@@ -24,7 +24,7 @@ public class PartiallyLoadableMap implements Finalizable {
 		Map map = new Map(tileMap, texturePack);
 		map.buildAll();
 		this.map = map;
-		return new Resource(ResourceType.MAP_FILE, "MAP", Map.class, map);
+		return new Resource(ResourceType.map, "MAP", Map.class, map);
 	}
 
 	public SceneNode createSceneNode() {

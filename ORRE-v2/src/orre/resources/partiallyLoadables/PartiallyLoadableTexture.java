@@ -30,7 +30,7 @@ public class PartiallyLoadableTexture implements Finalizable {
 		Texture tex = TextureLoader.createTexture(imageData, width, height);
 		this.tex = tex;
 		this.imageData = null;
-		this.resource = new Resource(ResourceType.TEXTURE_FILE, name, Texture.class, tex);
+		this.resource = new Resource(ResourceType.texture, name, Texture.class, tex);
 		return resource;
 	}
 

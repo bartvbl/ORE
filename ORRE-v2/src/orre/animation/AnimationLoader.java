@@ -19,7 +19,7 @@ public class AnimationLoader implements ResourceTypeLoader {
 
 	@Override
 	public ResourceType getResourceType() {
-		return ResourceType.ANIMATION_FILE;
+		return ResourceType.animation;
 	}
 	
 	public static Animation load(UnloadedResource animationFile) {

@@ -22,7 +22,7 @@ public class ModelLoader implements ResourceTypeLoader {
 
 	@Override
 	public ResourceType getResourceType() {
-		return ResourceType.OBJ_MODEL_FILE;
+		return ResourceType.model;
 	}
 
 	public static BlueprintModel loadModel(UnloadedResource file, ResourceQueue queue) throws Exception

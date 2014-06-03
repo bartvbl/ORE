@@ -43,7 +43,7 @@ public class AnimationService implements Service {
 	}
 
 	public void applyAnimation(AnimationType type, Mesh3D animatable) {
-		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.ANIMATION_FILE, type.toString()).content;
+		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.animation, type.toString()).content;
 		applyAnimation(animation, animatable);
 	}
 

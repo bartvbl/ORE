@@ -5,6 +5,8 @@ import java.io.File;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
+import orre.util.Logger;
+import orre.util.Logger.LogType;
 import orre.util.XMLLoader;
 
 public class ResourceListFileParser implements ResourceTypeLoader {
@@ -16,7 +18,7 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 	
 	@Override
 	public ResourceType getResourceType() {
-		return ResourceType.RESOURCE_LIST_FILE;
+		return ResourceType.resourceList;
 	}
 	
 	public static void parseFile(UnloadedResource file, ResourceQueue queue)
@@ -28,14 +30,21 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 	
 	private static void parseResourceFile(Element rootNode, ResourceQueue queue)
 	{
-		queueNodeList(rootNode.getFirstChildElement("animations"), queue, ResourceType.ANIMATION_FILE);
-		queueNodeList(rootNode.getFirstChildElement("models"), queue, ResourceType.OBJ_MODEL_FILE);
-		queueNodeList(rootNode.getFirstChildElement("sounds"), queue, ResourceType.SOUND_FILE);
-		queueNodeList(rootNode.getFirstChildElement("textures"), queue, ResourceType.TEXTURE_FILE);
+		Elements resourceCategories = rootNode.getChildElements();
+		for(int i = 0; i < resourceCategories.size(); i++) {
+			Element resourceCategory = resourceCategories.get(i);
+			String resourceCategoryName = resourceCategory.getLocalName();
+			
+			if(resourceCategoryName.equals("meta")) {
+				continue;
+			}
+			queueNodeList(resourceCategory, queue);
+		}
 	}
 	
-	private static void queueNodeList(Element fileListRoot, ResourceQueue queue, ResourceType fileType) {
+	private static void queueNodeList(Element fileListRoot, ResourceQueue queue) {
 		String pathPrefix = fileListRoot.getAttributeValue("pathPrefix");
+		
 		
 		Elements filesToLoad = fileListRoot.getChildElements();
 		for(int i = 0; i < filesToLoad.size(); i++)
@@ -43,8 +52,15 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 			Element fileToLoadElement = filesToLoad.get(i);
 			String src = fileToLoadElement.getAttributeValue("src");
 			String name = fileToLoadElement.getAttributeValue("name");
-			UnloadedResource file = new UnloadedResource(fileType, new File(pathPrefix + "/" + src), name);
-			queue.enqueueNodeForLoading(file);
+			String resourceTypeName = fileToLoadElement.getLocalName();
+			try {
+				ResourceType resourceType = ResourceType.valueOf(resourceTypeName);
+				UnloadedResource file = new UnloadedResource(resourceType, new File(pathPrefix + "/" + src), name);
+				queue.enqueueNodeForLoading(file);
+			} catch(IllegalArgumentException e) {
+				Logger.log("Invalid resource type in resource list file: " + resourceTypeName, LogType.ERROR);
+				continue;
+			}
 		}
 	}
 }

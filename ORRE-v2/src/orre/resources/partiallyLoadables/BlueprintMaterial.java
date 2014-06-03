@@ -52,13 +52,13 @@ public class BlueprintMaterial implements Finalizable, AbstractMaterial {
 	}
 	
 	public void setAmbientTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
-		this.ambientTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.TEXTURE_FILE, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
+		this.ambientTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.texture, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
 	}
 	public void setDiffuseTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
-		this.diffuseTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.TEXTURE_FILE, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
+		this.diffuseTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.texture, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
 	}
 	public void setSpecularTexture(String src, OBJLoadingContext context) throws FileNotFoundException, IOException, Exception {
-		this.specularTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.TEXTURE_FILE, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
+		this.specularTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.texture, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
 	}
 	
 	public Resource finalizeResource() {

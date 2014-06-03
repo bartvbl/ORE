@@ -26,12 +26,12 @@ public class ResourceLoader implements EventHandler {
 	
 	static {
 		//initialise the loaders map when this class is first loaded.
-		loaders.put(ResourceType.ANIMATION_FILE, new AnimationLoader());
-		loaders.put(ResourceType.TEXTURE_FILE, new TextureLoader());
-		loaders.put(ResourceType.OBJ_MODEL_FILE, new ModelLoader());
-		loaders.put(ResourceType.SOUND_FILE, new SoundLoader());
-		loaders.put(ResourceType.RESOURCE_LIST_FILE, new ResourceListFileParser());
-		loaders.put(ResourceType.SCRIPT_FILE, new ScriptLoader());
+		loaders.put(ResourceType.animation, new AnimationLoader());
+		loaders.put(ResourceType.texture, new TextureLoader());
+		loaders.put(ResourceType.model, new ModelLoader());
+		loaders.put(ResourceType.sound, new SoundLoader());
+		loaders.put(ResourceType.resourceList, new ResourceListFileParser());
+		loaders.put(ResourceType.script, new ScriptLoader());
 	}
 	
 	public ResourceLoader(ResourceCache cache, GlobalEventDispatcher globalEventDispatcher)
