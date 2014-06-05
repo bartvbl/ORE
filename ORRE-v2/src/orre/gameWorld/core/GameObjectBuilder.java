@@ -10,6 +10,7 @@ public class GameObjectBuilder {
 		for(PropertyType propertyType : propertyTypes) {
 			Property property = createPropertyByType(propertyType, gameObject);
 			gameObject.addProperty(property);
+			property.init();
 		}
 		return gameObject;
 	}
@@ -17,7 +18,6 @@ public class GameObjectBuilder {
 	private static Property createPropertyByType(PropertyType propertyType, GameObject gameObject) {
 		try {
 			Property createdProperty = (Property) propertyType.propertyClass.getConstructors()[0].newInstance(gameObject);
-			createdProperty.init();
 			return createdProperty;
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();

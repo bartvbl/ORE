@@ -28,7 +28,7 @@ public class Transportable extends Property {
 	@Override
 	public void tick() {
 		if(!isRegisteredForPickup) {
-			Mesh3D appearance = (Mesh3D) gameObject.requestPropertyData(PropertyDataType.APPEARANCE, Mesh3D.class);
+			Mesh3D appearance = (Mesh3D) gameObject.requestPropertyData(this.type, PropertyDataType.APPEARANCE, Mesh3D.class);
 			Point3D location = appearance.root.getLocation();
 			gameObject.world.services.aiService.registerTask(new CollectOreTask(gameObject.id, location.in2D()));
 			isRegisteredForPickup = true;
