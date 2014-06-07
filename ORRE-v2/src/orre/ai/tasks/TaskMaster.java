@@ -21,7 +21,7 @@ public class TaskMaster {
 		}
 		this.world = world;
 		this.priorities = priorities;
-	}
+	} 
 	
 	public Task assignTask(int gameObjectID, TaskType[] acceptableTaskTypes, Point2D locationOnMap) {
 		TaskType[] priorityList = priorities.getCurrentPriorities();
