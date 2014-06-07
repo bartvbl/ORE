@@ -1,8 +1,15 @@
 package orre.gameWorld.core;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+
+import orre.util.Logger;
+import orre.util.Logger.LogType;
 
 public class GameObjectBuilder {
+	
+	private static final HashMap<GameObjectType, PropertyType[]> gameObjectTypes = new HashMap<GameObjectType, PropertyType[]>();
+	private static final HashMap<PropertyType, Class<? extends Property>> propertyTypes = new HashMap<PropertyType, Class<? extends Property>>();
 
 	public static GameObject buildGameObjectByType(GameObjectType type, GameWorld gameWorld) {
 		GameObject gameObject = new GameObject(type, gameWorld);
@@ -30,8 +37,16 @@ public class GameObjectBuilder {
 		} catch (InvocationTargetException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Tried to build an object of type " + gameObject.type + ". Failed to create property " + propertyType);
+		Logger.log("Tried to build an object of type " + gameObject.type + ". Failed to create property " + propertyType, LogType.ERROR);
 		return null;
+	}
+
+	public static void registerGameObjectType(GameObjectType type, PropertyType[] propertyTypes) {
+		gameObjectTypes.put(type, propertyTypes);
+	}
+	
+	public static void registerPropertyType(PropertyType type, Class<? extends Property> propertyClass) {
+		propertyTypes.put(type, propertyClass);
 	}
 
 }

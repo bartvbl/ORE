@@ -4,11 +4,13 @@ import java.util.HashMap;
 
 import org.lwjgl.opengl.Display;
 
+import orre.api.GameSettings;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.EventHandler;
 import orre.events.GlobalEventType;
 import orre.gameStates.*;
+import orre.gameWorld.core.GameWorld;
 import orre.gl.RenderUtils;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceLoader;
@@ -26,11 +28,14 @@ public class GameMain implements EventHandler{
 	private final ResourceCache resourceCache;
 	private final ResourceLoader resourceLoader;
 	private final ScriptInterpreter scriptInterpreter;
+	private final GameSettings settings;
 	
-	public GameMain(String gameName) 
+	public GameMain(GameSettings settings) 
 	{
-		this.gameName = gameName;
 		new Logger();
+		this.gameName = settings.gameName;
+		this.settings = settings;
+		GameWorld.setPropertyTypeProvider(settings.propertyTypeProvider);
 		this.globalEventDispatcher = new GlobalEventDispatcher();
 		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 		this.resourceCache = new ResourceCache();
@@ -74,7 +79,7 @@ public class GameMain implements EventHandler{
 	{
 		GameWindow.create(gameName);
 		this.scriptInterpreter.init();
-		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher, resourceCache, resourceLoader, scriptInterpreter);
+		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher, resourceCache, resourceLoader, scriptInterpreter, settings);
 		this.stateMap = stateMap;
 		this.setGameState(GameStateName.STARTUP_LOADING);
 	}

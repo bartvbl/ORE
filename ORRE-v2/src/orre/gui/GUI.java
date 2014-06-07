@@ -10,7 +10,6 @@ import orre.geom.Point2D;
 import orre.gui.controls.Button;
 import orre.gui.controls.Control;
 import orre.gui.nodes.GUIRootNode;
-import orre.sceneGraph.ContainerNode;
 
 public class GUI extends Property {
 	private final ArrayList<Control> topLevelControls = new ArrayList<Control>();

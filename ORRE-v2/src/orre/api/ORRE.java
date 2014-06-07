@@ -6,15 +6,17 @@ import javax.swing.UnsupportedLookAndFeelException;
 import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventType;
+import orre.gameWorld.core.GameObjectType;
+import orre.gameWorld.core.GameWorld;
 import orre.resources.ResourceTypeLoader;
 
 public class ORRE {
 	private final GameMain main;
 
-	public static ORRE init(String[] args, String gameName) {
+	public static ORRE init(String[] args, GameSettings settings) {
 		readDebugFlag(args);
 		setSwingSettings();
-		GameMain game = new GameMain(gameName);
+		GameMain game = new GameMain(settings);
 		game.initialize();
 		return new ORRE(game);
 	}
@@ -53,13 +55,5 @@ public class ORRE {
 	
 	public void registerResourceLoader(ResourceTypeLoader loader, String[] extensions) {
 		main.api_dispatchGlobalEvent(new GlobalEvent<ResourceTypeLoader>(GlobalEventType.REGISTER_RESOURCE_TYPE_LOADER, loader));
-	}
-	
-	public void registerGameObjectType() {
-		
-	}
-	
-	public void registerPropertyType() {
-		
 	}
 }

@@ -2,6 +2,7 @@ package orre.core;
 
 import java.util.HashMap;
 
+import orre.api.GameSettings;
 import orre.events.GlobalEventDispatcher;
 import orre.gameStates.*;
 import orre.resources.ResourceCache;
@@ -9,7 +10,7 @@ import orre.resources.ResourceLoader;
 import orre.scripting.ScriptInterpreter;
 
 public class GameStateInitializer {
-	public static HashMap<GameStateName, AbstractGameState> initializeGameStates(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ResourceLoader loader, ScriptInterpreter interpreter)
+	public static HashMap<GameStateName, AbstractGameState> initializeGameStates(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ResourceLoader loader, ScriptInterpreter interpreter, GameSettings settings)
 	{
 		HashMap<GameStateName, AbstractGameState> stateMap = new HashMap<GameStateName, AbstractGameState>();
 

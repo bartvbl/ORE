@@ -5,6 +5,7 @@ import java.util.Collection;
 import java.util.HashMap;
 
 import openrr.map.Map;
+import orre.api.PropertyTypeProvider;
 import orre.gameWorld.services.WorldServices;
 import orre.resources.ResourceCache;
 import orre.sceneGraph.SceneNode;
@@ -71,13 +72,13 @@ public class GameWorld {
 		object.handleMessage(message);
 	}
 	
-	public void addMessageListener(MessageType type, GameObject object) {
+	public void addMessageListener(MessageType type, GameObject listener) {
 		if(!messageListeners.containsKey(type)) {
 			ArrayList<GameObject> objectList = new ArrayList<GameObject>();
 			messageListeners.put(type, objectList);
 		}
 		ArrayList<GameObject> listenerList = messageListeners.get(type);
-		listenerList.add(object);
+		listenerList.add(listener);
 	}
 
 	public void tick() {
@@ -105,5 +106,9 @@ public class GameWorld {
 
 	public Collection<GameObject> debugonly_getAllGameOjects() {
 		return gameObjectSet.values();
+	}
+
+	public static void setPropertyTypeProvider(PropertyTypeProvider provider) {
+		
 	}
 }
