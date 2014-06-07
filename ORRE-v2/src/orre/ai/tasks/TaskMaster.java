@@ -3,9 +3,9 @@ package orre.ai.tasks;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import openrr.ai.MapTileNode;
 import orre.ai.pathFinding.AStar;
 import orre.ai.pathFinding.Path;
-import orre.ai.pathFinding.map.MapTileNode;
 import orre.gameWorld.core.GameWorld;
 import orre.geom.Point2D;
 
