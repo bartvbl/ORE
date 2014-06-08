@@ -3,6 +3,7 @@ package orre.gameStates;
 import java.io.File;
 
 import openrr.map.Map;
+import openrr.world.properties.Flashlight;
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
 import orre.gameWorld.core.GameObject;
@@ -10,7 +11,6 @@ import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
-import orre.gameWorld.properties.Flashlight;
 import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;

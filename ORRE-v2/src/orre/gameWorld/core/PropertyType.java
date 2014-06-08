@@ -1,13 +1,13 @@
 package orre.gameWorld.core;
 
-import orre.gameWorld.properties.ChrystalAppearance;
-import orre.gameWorld.properties.Flashlight;
-import orre.gameWorld.properties.GravityProperty;
-import orre.gameWorld.properties.HealthProperty;
-import orre.gameWorld.properties.OreAppearance;
-import orre.gameWorld.properties.RockRaiderAppearance;
+import openrr.world.properties.ChrystalAppearance;
+import openrr.world.properties.Flashlight;
+import openrr.world.properties.GravityProperty;
+import openrr.world.properties.HealthProperty;
+import openrr.world.properties.OreAppearance;
+import openrr.world.properties.RockRaiderAppearance;
+import openrr.world.properties.Transportable;
 import orre.gameWorld.properties.TaskExecutor;
-import orre.gameWorld.properties.Transportable;
 import orre.gui.GUI;
 import orre.input.KeyboardCameraController;
 
