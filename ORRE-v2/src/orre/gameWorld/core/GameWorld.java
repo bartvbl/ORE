@@ -4,27 +4,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import openrr.map.Map;
 import orre.api.PropertyTypeProvider;
 import orre.gameWorld.services.WorldServices;
 import orre.resources.ResourceCache;
+import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import orre.scripting.ScriptInterpreter;
 
 public class GameWorld {
 	public final SceneNode rootNode;
-	public final SceneNode mapContentsNode;
-	public final Map map;
 	public final WorldServices services;
 	public final ResourceCache resourceCache;
 
 	private final HashMap<Integer, GameObject> gameObjectSet;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(SceneNode rootNode, SceneNode mapContentsNode, Map map, ResourceCache cache, ScriptInterpreter interpreter) {
-		this.rootNode = rootNode;
-		this.map = map;
-		this.mapContentsNode = mapContentsNode;
+	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter) {
+		this.rootNode = new ContainerNode("Scene root");
 		this.services = new WorldServices(this, cache, interpreter);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
@@ -83,7 +79,6 @@ public class GameWorld {
 
 	public void tick() {
 		this.services.tickServices();
-		this.map.tick();
 		Collection<GameObject> gameObjects = gameObjectSet.values();
 		for(GameObject gameObject : gameObjects) {
 			gameObject.tick();

@@ -1,10 +1,10 @@
 package orre.gameWorld.core;
 
 public abstract class Property {
-	public final PropertyType type;
+	public final String type;
 	protected final GameObject gameObject;
 
-	public Property (PropertyType type, GameObject gameObject) {
+	public Property (String type, GameObject gameObject) {
 		this.type = type;
 		this.gameObject = gameObject;
 	}

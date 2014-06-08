@@ -19,11 +19,6 @@ public class IdleTask extends Task {
 	}
 
 	@Override
-	public Point2D getLocation(Point2D taskExecutorLocation) {
-		return taskExecutorLocation;
-	}
-
-	@Override
 	public boolean isExecutionPossible() {
 		return true;
 	}
@@ -31,6 +26,11 @@ public class IdleTask extends Task {
 	@Override
 	public void plan(Point2D locationOnMap) {
 		//no need
+	}
+
+	@Override
+	public double getPlanCost() {
+		return 0;
 	}
 
 }

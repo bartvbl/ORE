@@ -13,8 +13,8 @@ public abstract class Task {
 	}
 	
 	public abstract boolean isExecutionPossible();
-	public abstract Point2D getLocation(Point2D taskExecutorLocation);
 	public abstract void update();
 	public abstract boolean isFinished();
 	public abstract void plan(Point2D locationOnMap);
+	public abstract double getPlanCost();
 }
