@@ -3,7 +3,6 @@ package orre.ai.tasks;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import openrr.ai.MapTileNode;
 import orre.ai.pathFinding.AStar;
 import orre.ai.pathFinding.Path;
 import orre.gameWorld.core.GameWorld;
@@ -49,31 +48,21 @@ public class TaskMaster {
 
 	private Task findTask(ArrayList<Task> availableTasks, Point2D locationOnMap) {
 		Task bestTask = null;
-		int shortestPathLength = Integer.MAX_VALUE;
+		double lowestPlanCost = Double.MAX_VALUE;
 		for(Task availableTask : availableTasks) {
+			availableTask.plan(locationOnMap);
 			if(!availableTask.isExecutionPossible()) {
 				continue;
 			}
-			Path pathToTask = findPathToTask(locationOnMap, availableTask);
-			if(!pathToTask.isFoundPath) {
-				continue;
-			}
-			int pathLength = pathToTask.getStepCount();
-			if(pathLength < shortestPathLength) {
-				shortestPathLength = pathLength;
+			double planCost = availableTask.getPlanCost();
+			if(planCost < lowestPlanCost) {
+				lowestPlanCost = planCost;
 				bestTask = availableTask;
 			}
 		}
 		return bestTask;
 	}
 
-	private Path findPathToTask(Point2D locationOnMap, Task availableTask) {
-		Point2D taskTargetLocation = availableTask.getLocation(locationOnMap);
-		MapTileNode unitLocation = new MapTileNode(world.map, locationOnMap.x, locationOnMap.y);
-		MapTileNode taskLocation = new MapTileNode(world.map, taskTargetLocation.x, taskTargetLocation.y);
-		Path pathToTask = astar.findPath(unitLocation, taskLocation);
-		return pathToTask;
-	}
 
 	public void registerPendingTask(Task task) {
 		this.taskStorage.get(task.type).add(task);

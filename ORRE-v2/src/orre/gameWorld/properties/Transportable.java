@@ -1,6 +1,6 @@
 package orre.gameWorld.properties;
 
-import orre.ai.tasks.CollectOreTask;
+import openrr.ai.tasks.CollectOreTask;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskType;
 import orre.gameWorld.core.GameObject;
