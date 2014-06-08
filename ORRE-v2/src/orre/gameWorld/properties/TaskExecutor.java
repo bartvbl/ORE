@@ -18,7 +18,7 @@ public class TaskExecutor extends Property {
 	private boolean hasTask = false;
 
 	public TaskExecutor(GameObject gameObject) {
-		super(PropertyType.TASK_EXECUTOR, gameObject);
+		super(PropertyType.TASK_EXECUTOR.toString(), gameObject);
 		this.currentTask = new IdleTask(gameObject.id);
 	}
 
