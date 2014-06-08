@@ -1,6 +1,0 @@
-<ORRModel>
-	<modelFile src="res/mesh/objects3D/chrystal.obj"/>
-	<partStructure>
-		<part name="chrystal" nameInModelFile="chrystal" pivotX="0" pivotY="0" pivotZ ="0" />
-	</partStructure>
-</ORRModel>
