@@ -7,21 +7,20 @@ import java.util.HashMap;
 import orre.api.PropertyTypeProvider;
 import orre.gameWorld.services.WorldServices;
 import orre.resources.ResourceCache;
+import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import orre.scripting.ScriptInterpreter;
 
 public class GameWorld {
 	public final SceneNode rootNode;
-	public final SceneNode mapContentsNode;
 	public final WorldServices services;
 	public final ResourceCache resourceCache;
 
 	private final HashMap<Integer, GameObject> gameObjectSet;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(SceneNode rootNode, SceneNode mapContentsNode, ResourceCache cache, ScriptInterpreter interpreter) {
-		this.rootNode = rootNode;
-		this.mapContentsNode = mapContentsNode;
+	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter) {
+		this.rootNode = new ContainerNode("Scene root");
 		this.services = new WorldServices(this, cache, interpreter);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
