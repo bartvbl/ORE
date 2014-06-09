@@ -3,13 +3,16 @@ package orre.gameWorld.core;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
+import orre.api.PropertyTypeProvider;
 import orre.util.Logger;
 import orre.util.Logger.LogType;
 
 public class GameObjectBuilder {
 	
-	private static final HashMap<GameObjectType, PropertyType[]> gameObjectTypes = new HashMap<GameObjectType, PropertyType[]>();
-	private static final HashMap<PropertyType, Class<? extends Property>> propertyTypes = new HashMap<PropertyType, Class<? extends Property>>();
+	//mapping of GameObjectType -> PropertyType
+	private static final HashMap<Enum<?>, Enum<?>[]> gameObjectTypes = new HashMap<Enum<?>, Enum<?>[]>();
+	//mapping of PropertyType -> Class
+	private static final HashMap<Enum<?>, Class<? extends Property>> propertyTypes = new HashMap<Enum<?>, Class<? extends Property>>();
 
 	public static GameObject buildGameObjectByType(GameObjectType type, GameWorld gameWorld) {
 		GameObject gameObject = new GameObject(type, gameWorld);
@@ -41,12 +44,31 @@ public class GameObjectBuilder {
 		return null;
 	}
 
-	public static void registerGameObjectType(GameObjectType type, PropertyType[] propertyTypes) {
-		gameObjectTypes.put(type, propertyTypes);
+	public static void setPropertyTypeProvider(PropertyTypeProvider provider) {
+		populateGameObjectTypeMap(provider);
+		populatePropertyTypeMap(provider);
+	}
+
+	private static void populateGameObjectTypeMap(PropertyTypeProvider provider) {
+		gameObjectTypes.clear();
+		for(GameObjectType baseType : GameObjectType.values()) {
+			gameObjectTypes.put(baseType, baseType.properties);
+		}
+		Enum<?>[] extendedObjectTypes = provider.getGameObjectTypes();
+		for(Enum<?> gameSpecificObjectType : extendedObjectTypes) {
+			gameObjectTypes.put(gameSpecificObjectType, provider.getProperties(gameSpecificObjectType));
+		}
 	}
 	
-	public static void registerPropertyType(PropertyType type, Class<? extends Property> propertyClass) {
-		propertyTypes.put(type, propertyClass);
+	private static void populatePropertyTypeMap(PropertyTypeProvider provider) {
+		propertyTypes.clear();
+		for(PropertyType baseType : PropertyType.values()) {
+			propertyTypes.put(baseType, baseType.propertyClass);
+		}
+		Enum<?>[] gameSpecificPropertyTypes = provider.getPropertyTypes();
+		for(Enum<?> gameSpecificProperty : gameSpecificPropertyTypes) {
+			propertyTypes.put(gameSpecificProperty, provider.getPropertyClass(gameSpecificProperty));
+		}
 	}
 
 }

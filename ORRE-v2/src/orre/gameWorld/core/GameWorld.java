@@ -108,6 +108,6 @@ public class GameWorld {
 	}
 
 	public static void setPropertyTypeProvider(PropertyTypeProvider provider) {
-		
+		GameObjectBuilder.setPropertyTypeProvider(provider);
 	}
 }

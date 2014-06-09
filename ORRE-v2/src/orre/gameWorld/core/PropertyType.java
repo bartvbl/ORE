@@ -9,7 +9,7 @@ public enum PropertyType {
 	TASK_EXECUTOR(TaskExecutor.class), 
 	IS_GUI(GUI.class);
 
-	public final Class<?> propertyClass;
+	public final Class<? extends Property> propertyClass;
 
 	private PropertyType(Class<? extends Property> propertyClass) {
 		this.propertyClass = propertyClass;
