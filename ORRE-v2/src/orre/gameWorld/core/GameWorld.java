@@ -17,6 +17,8 @@ public class GameWorld {
 	public final ResourceCache resourceCache;
 
 	private final HashMap<Integer, GameObject> gameObjectSet;
+	private final HashMap<PropertyType, ArrayList<Integer>> propertyMap;
+	private final HashMap<GameObjectType, ArrayList<Integer>> objectTypeMap;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
 	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter) {
@@ -24,6 +26,8 @@ public class GameWorld {
 		this.services = new WorldServices(this, cache, interpreter);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
+		this.propertyMap = new HashMap<PropertyType, ArrayList<Integer>>();
+		this.objectTypeMap = new HashMap<GameObjectType, ArrayList<Integer>>();
 		this.resourceCache = cache;
 	}
 	
