@@ -1,10 +1,10 @@
 package orre.gameWorld.core;
 
 public abstract class Property {
-	public final String type;
+	public final Enum<?> type;
 	protected final GameObject gameObject;
 
-	public Property (String type, GameObject gameObject) {
+	public Property (Enum<?> type, GameObject gameObject) {
 		this.type = type;
 		this.gameObject = gameObject;
 	}

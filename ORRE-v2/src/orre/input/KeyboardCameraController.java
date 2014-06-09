@@ -15,7 +15,7 @@ public class KeyboardCameraController extends Property {
 	private InputService service;
 
 	public KeyboardCameraController(GameObject gameObject) {
-		super(PropertyType.KEYBOARD_CAMERA_CONTROLLER.toString(), gameObject);
+		super(PropertyType.KEYBOARD_CAMERA_CONTROLLER, gameObject);
 		gameObject.world.addMessageListener(MessageType.ASSUME_CAMERA_CONTROL, gameObject);
 	}
 
