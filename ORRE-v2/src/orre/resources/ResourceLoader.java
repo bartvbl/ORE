@@ -23,7 +23,7 @@ public class ResourceLoader implements EventHandler {
 	private boolean hasKickedOffLoading = false;
 	
 	//static to allow multiple ResourceLoaders to exist that share registered loaders.
-	private static final HashMap<ResourceType, ResourceTypeLoader> loaders = new HashMap<ResourceType, ResourceTypeLoader>();
+	private static final HashMap<Enum<?>, ResourceTypeLoader> loaders = new HashMap<Enum<?>, ResourceTypeLoader>();
 	
 	static {
 		//initialise the loaders map when this class is first loaded.

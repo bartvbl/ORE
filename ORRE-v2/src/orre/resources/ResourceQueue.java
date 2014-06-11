@@ -26,7 +26,7 @@ public class ResourceQueue {
 		this.tracker.addFileToLoad();
 	}
 
-	public void startLoading(HashMap<ResourceType, ResourceTypeLoader> registeredLoaders) {
+	public void startLoading(HashMap<Enum<?>, ResourceTypeLoader> registeredLoaders) {
 		for(int i = 0; i < NUMBER_OF_LOADING_THREADS; i++)
 		{
 			new ResourceLoadingThread(this, this.tracker, registeredLoaders).start();

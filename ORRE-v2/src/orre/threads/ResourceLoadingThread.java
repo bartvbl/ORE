@@ -13,9 +13,9 @@ import orre.util.FatalExceptionHandler;
 public class ResourceLoadingThread extends Thread {
 	private final ResourceQueue resourceQueue;
 	private final ProgressTracker tracker;
-	private final HashMap<ResourceType, ResourceTypeLoader> registeredLoaders;
+	private final HashMap<Enum<?>, ResourceTypeLoader> registeredLoaders;
 
-	public ResourceLoadingThread(ResourceQueue queue, ProgressTracker tracker, HashMap<ResourceType, ResourceTypeLoader> registeredLoaders)
+	public ResourceLoadingThread(ResourceQueue queue, ProgressTracker tracker, HashMap<Enum<?>, ResourceTypeLoader> registeredLoaders)
 	{
 		this.resourceQueue = queue;
 		this.tracker = tracker;
