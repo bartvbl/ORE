@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import orre.api.PropertyTypeProvider;
 import orre.util.Logger;
 import orre.util.Logger.LogType;
 
@@ -15,14 +16,16 @@ public final class GameObject {
 	private final ArrayList<Property> properties;
 	private final ArrayList<GraphicsObject> controlledObjects;
 	private final HashMap<Enum<?>, Object> propertyData;
+	private final PropertyTypeProvider propertyTypeProvider;
 
-	public GameObject(GameObjectType type, GameWorld world) {
+	public GameObject(GameObjectType type, PropertyTypeProvider propertyTypeProvider, GameWorld world) {
 		this.id = nextUID.getAndIncrement();
 		this.propertyData = new HashMap<Enum<?>, Object>();
 		this.type = type;
 		this.world = world;
 		this.properties = new ArrayList<Property>();
 		this.controlledObjects = new ArrayList<GraphicsObject>();
+		this.propertyTypeProvider = propertyTypeProvider;
 	}
 	
 	public void addProperty(Property property) {
@@ -73,12 +76,12 @@ public final class GameObject {
 		return data;
 	}
 	
-	public void setPropertyData(PropertyDataType type, Object value) {
-		if(!type.expectedReturnDataType.isInstance(value)) {
-			throw new RuntimeException("The property data type " + type + " requires a value of data type " + type.expectedReturnDataType + " and received one of type " + value);
+	public void setPropertyData(Enum<?> propertyDataType, Object value) {
+		if(!propertyTypeProvider.getRequiredDataType(propertyDataType).isInstance(value)) {
+			throw new RuntimeException("The property data type " + propertyDataType + " requires a value of data type " + propertyTypeProvider.getRequiredDataType(propertyDataType) + " and received one of type " + value);
 		}
-		Logger.log("Setting property data: " + type + " -> " + value, LogType.MESSAGE);
-		this.propertyData.put(type, value);
+		Logger.log("Setting property data: " + propertyDataType + " -> " + value, LogType.MESSAGE);
+		this.propertyData.put(propertyDataType, value);
 	}
 	
 	public void takeControl(GraphicsObject object) {

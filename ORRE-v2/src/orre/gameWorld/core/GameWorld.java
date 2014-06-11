@@ -44,7 +44,7 @@ public class GameWorld {
 		}
 	}
 	
-	public int[] getAllGameObjectsByType(GameObjectType type) {
+	public int[] getAllGameObjectsByType(Enum<?> type) {
 		ArrayList<Integer> objectIDs = new ArrayList<Integer>();
 		Collection<GameObject> gameObjects = gameObjectSet.values();
 		for(GameObject object : gameObjects) {

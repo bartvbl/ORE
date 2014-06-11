@@ -13,9 +13,11 @@ public class GameObjectBuilder {
 	private static final HashMap<Enum<?>, Enum<?>[]> gameObjectTypes = new HashMap<Enum<?>, Enum<?>[]>();
 	//mapping of PropertyType -> Class
 	private static final HashMap<Enum<?>, Class<? extends Property>> propertyTypes = new HashMap<Enum<?>, Class<? extends Property>>();
+	
+	private static PropertyTypeProvider propertyTypeProvider;
 
 	public static GameObject buildGameObjectByType(GameObjectType type, GameWorld gameWorld) {
-		GameObject gameObject = new GameObject(type, gameWorld);
+		GameObject gameObject = new GameObject(type, propertyTypeProvider, gameWorld);
 		PropertyType[] propertyTypes = type.properties;
 		for(PropertyType propertyType : propertyTypes) {
 			Property property = createPropertyByType(propertyType, gameObject);
@@ -47,6 +49,7 @@ public class GameObjectBuilder {
 	public static void setPropertyTypeProvider(PropertyTypeProvider provider) {
 		populateGameObjectTypeMap(provider);
 		populatePropertyTypeMap(provider);
+		propertyTypeProvider = provider;
 	}
 
 	private static void populateGameObjectTypeMap(PropertyTypeProvider provider) {
