@@ -1,13 +1,23 @@
 #python side exposed script functions
+
+orre_registeredHandlers = {}
+
 def on(eventType, handler):
-    pass
+	if not eventType in orre_registeredHandlers:
+		orre_registeredHandlers[eventType] = []
+	orre_registeredHandlers[eventType].append(handler)
+	
+def orre_handleEvent(eventType, payload):
+	if eventType in orre_registeredHandlers:
+		for handler in orre_registeredHandlers[eventType]:
+			handler(payload)
 
 def spawn(obectType):
-    pass
+	pass
 
 def createTextButton(x, y, text, handler):
-    pass
+	pass
 
 def createImageButton(x, y, textureResourceName, handler):
-    pass
+	pass
 

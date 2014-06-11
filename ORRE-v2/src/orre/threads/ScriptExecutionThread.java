@@ -32,7 +32,9 @@ public class ScriptExecutionThread extends Thread {
 			
 			synchronized(executionQueue) {
 				while(!executionQueue.isEmpty()) {
-					interpreter.exec(executionQueue.dequeue());
+					String pythonSource = executionQueue.dequeue();
+					System.out.println(pythonSource);
+					interpreter.exec(pythonSource);
 				}
 			}
 				

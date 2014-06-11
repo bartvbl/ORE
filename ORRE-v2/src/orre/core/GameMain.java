@@ -40,7 +40,7 @@ public class GameMain implements EventHandler{
 		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 		this.resourceCache = new ResourceCache();
 		this.resourceLoader = new ResourceLoader(resourceCache, globalEventDispatcher);
-		this.scriptInterpreter = new ScriptInterpreter(globalEventDispatcher);
+		this.scriptInterpreter = ScriptInterpreter.create(globalEventDispatcher);
 	}
 	
 	public void mainLoop()
