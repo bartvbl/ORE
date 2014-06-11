@@ -14,11 +14,11 @@ public final class GameObject {
 	public final GameWorld world;
 	private final ArrayList<Property> properties;
 	private final ArrayList<GraphicsObject> controlledObjects;
-	private final HashMap<PropertyDataType, Object> propertyData;
+	private final HashMap<Enum<?>, Object> propertyData;
 
 	public GameObject(GameObjectType type, GameWorld world) {
 		this.id = nextUID.getAndIncrement();
-		this.propertyData = new HashMap<PropertyDataType, Object>();
+		this.propertyData = new HashMap<Enum<?>, Object>();
 		this.type = type;
 		this.world = world;
 		this.properties = new ArrayList<Property>();
@@ -61,7 +61,7 @@ public final class GameObject {
 		return controlledObjects.size();
 	}
 
-	public Object requestPropertyData(PropertyDataType type, Class<?> expectedDataType) {
+	public Object requestPropertyData(Enum<?> propertyDataType, Class<?> expectedDataType) {
 		Object data = propertyData.get(type);
 		if(data == null) {
 			Logger.log("Property data " + type + " not found in object " + this.id, LogType.WARNING);
