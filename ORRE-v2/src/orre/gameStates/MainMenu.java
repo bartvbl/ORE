@@ -25,8 +25,6 @@ public class MainMenu extends GameState {
 	}
 
 	public void set() {
-		UnloadedResource mapFile = new UnloadedResource(ResourceType.map, new File("res/maps/sampleMap.rrm"), "MAP");
-		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_LOADING_ITEM, mapFile));
 		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<GameStateName>(GlobalEventType.CHANGE_GAME_STATE, GameStateName.GAME_LOADING));
 	}
 	public void unset() {}

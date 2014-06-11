@@ -2,7 +2,6 @@ package orre.resources;
 
 public enum ResourceType {
 	resourceList, 
-	map, 
 	texture, 
 	sound, 
 	animation, 
