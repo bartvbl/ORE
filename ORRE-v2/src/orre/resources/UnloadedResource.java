@@ -5,17 +5,17 @@ import java.io.File;
 
 public class UnloadedResource {
 	public final File location;
-	public final ResourceType fileType;
+	public final Enum<?> resourceType;
 	public final String name;
 	
-	public UnloadedResource(ResourceType fileType, File location, String name)
+	public UnloadedResource(Enum<?> resourceType, File location, String name)
 	{
 		this.location = location;
-		this.fileType = fileType;
+		this.resourceType = resourceType;
 		this.name = name;
 	}
 	
 	public String toString() {
-		return "[UnloadedResource " + fileType + " " + name + "]";
+		return "[UnloadedResource " + resourceType + " " + name + "]";
 	}
 }

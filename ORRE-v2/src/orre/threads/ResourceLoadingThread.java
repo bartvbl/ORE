@@ -44,11 +44,11 @@ public class ResourceLoadingThread extends Thread {
 	}
 
 	private void loadFile(UnloadedResource currentFile) throws Exception {
-		if(!registeredLoaders.containsKey(currentFile.fileType)) {
-			System.err.println("Can't find a loader for resource type \"" + currentFile.fileType + "\". Has it been registered?");
+		if(!registeredLoaders.containsKey(currentFile.resourceType)) {
+			System.err.println("Can't find a loader for resource type \"" + currentFile.resourceType + "\". Has it been registered?");
 			return;
 		}
-		Finalizable resource = registeredLoaders.get(currentFile.fileType).loadResource(currentFile, resourceQueue);
+		Finalizable resource = registeredLoaders.get(currentFile.resourceType).loadResource(currentFile, resourceQueue);
 		if(resource != null) {
 			this.resourceQueue.enqueueResourceForFinalization(resource);
 		}
