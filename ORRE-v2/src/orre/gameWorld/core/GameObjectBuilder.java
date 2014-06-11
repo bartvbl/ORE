@@ -16,10 +16,10 @@ public class GameObjectBuilder {
 	
 	private static PropertyTypeProvider propertyTypeProvider;
 
-	public static GameObject buildGameObjectByType(GameObjectType type, GameWorld gameWorld) {
-		GameObject gameObject = new GameObject(type, propertyTypeProvider, gameWorld);
-		PropertyType[] propertyTypes = type.properties;
-		for(PropertyType propertyType : propertyTypes) {
+	public static GameObject buildGameObjectByType(Enum<?> gameObjectType, GameWorld gameWorld) {
+		GameObject gameObject = new GameObject(gameObjectType, propertyTypeProvider, gameWorld);
+		Enum<?>[] propertyTypes = gameObjectTypes.get(gameObjectType);
+		for(Enum<?> propertyType : propertyTypes) {
 			Property property = createPropertyByType(propertyType, gameObject);
 			gameObject.addProperty(property);
 			property.init();
@@ -27,9 +27,9 @@ public class GameObjectBuilder {
 		return gameObject;
 	}
 
-	private static Property createPropertyByType(PropertyType propertyType, GameObject gameObject) {
+	private static Property createPropertyByType(Enum<?> propertyType, GameObject gameObject) {
 		try {
-			Property createdProperty = (Property) propertyType.propertyClass.getConstructors()[0].newInstance(gameObject);
+			Property createdProperty = (Property) propertyTypes.get(propertyType).getConstructors()[0].newInstance(gameObject);
 			return createdProperty;
 		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
@@ -72,6 +72,11 @@ public class GameObjectBuilder {
 		for(Enum<?> gameSpecificProperty : gameSpecificPropertyTypes) {
 			propertyTypes.put(gameSpecificProperty, provider.getPropertyClass(gameSpecificProperty));
 		}
+	}
+
+	public static Enum<?> getGameObjectTypeFromString(String gameObjectType) {
+		1
+		return null;
 	}
 
 }

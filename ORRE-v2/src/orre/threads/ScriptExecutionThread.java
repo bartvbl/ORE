@@ -10,30 +10,18 @@ import orre.util.Queue;
 
 public class ScriptExecutionThread extends Thread {
 	private final PythonInterpreter interpreter;
-	private final GlobalEventDispatcher eventDispatcher;
 	private final Queue<String> executionQueue = new Queue<String>();
 	
-	private boolean hasUpdatedWorld = false;
-	private GameWorld currentWorld = null;
-
-	public ScriptExecutionThread(GlobalEventDispatcher eventDispatcher) {
-		this.eventDispatcher = eventDispatcher;
+	public ScriptExecutionThread() {
 		this.interpreter = new PythonInterpreter();
-		new ScriptAPI(eventDispatcher, this);
 	}
 	
 	public void run() {
 		interpreter.execfile(GameMain.class.getClassLoader().getResourceAsStream("init.py"));
 		while(true) {
-			if(hasUpdatedWorld) {
-				interpreter.set("ORRE_world", currentWorld);
-				hasUpdatedWorld = false;
-			}
-			
 			synchronized(executionQueue) {
 				while(!executionQueue.isEmpty()) {
 					String pythonSource = executionQueue.dequeue();
-					System.out.println(pythonSource);
 					interpreter.exec(pythonSource);
 				}
 			}
@@ -54,10 +42,5 @@ public class ScriptExecutionThread extends Thread {
 		synchronized(executionQueue) {
 			this.executionQueue.enqueue(pythonScript);
 		}
-	}
-
-	public void setCurrentWorld(GameWorld world) {
-		this.currentWorld  = world;
-		this.hasUpdatedWorld = true;
 	}
 }

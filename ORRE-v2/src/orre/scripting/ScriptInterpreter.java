@@ -13,7 +13,7 @@ public class ScriptInterpreter implements EventHandler {
 	private final ScriptExecutionThread scriptThread;
 
 	private ScriptInterpreter(GlobalEventDispatcher globalEventDispatcher) {
-		this.scriptThread = new ScriptExecutionThread(globalEventDispatcher);
+		this.scriptThread = new ScriptExecutionThread();
 		globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 	}
 	
@@ -31,7 +31,7 @@ public class ScriptInterpreter implements EventHandler {
 	}
 
 	public void setCurrentWorld(GameWorld world) {
-		this.scriptThread.setCurrentWorld(world);
+		ScriptAPI.setCurrentWorld(world);
 	}
 	
 	public void execute(String pythonCode) {

@@ -1,5 +1,7 @@
 #python side exposed script functions
 
+from orre.scripting import ScriptAPI
+
 orre_registeredHandlers = {}
 
 def on(eventType, handler):
@@ -12,8 +14,8 @@ def orre_handleEvent(eventType, payload):
 		for handler in orre_registeredHandlers[eventType]:
 			handler(payload)
 
-def spawn(obectType):
-	pass
+def spawn(objectType):
+	ScriptAPI.spawn(objectType)
 
 def createTextButton(x, y, text, handler):
 	pass

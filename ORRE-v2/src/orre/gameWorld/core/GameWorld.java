@@ -31,8 +31,8 @@ public class GameWorld {
 		this.resourceCache = cache;
 	}
 	
-	public int spawnGameObject(GameObjectType type) {
-		GameObject object = GameObjectBuilder.buildGameObjectByType(type, this);
+	public int spawnGameObject(Enum<?> gameObjectType) {
+		GameObject object = GameObjectBuilder.buildGameObjectByType(gameObjectType, this);
 		gameObjectSet.put(object.id, object);
 		return object.id;
 	}
@@ -109,5 +109,10 @@ public class GameWorld {
 
 	public static void setPropertyTypeProvider(PropertyTypeProvider provider) {
 		GameObjectBuilder.setPropertyTypeProvider(provider);
+	}
+
+	public void api_spawnGameObjectFromString(String gameObjectType) {
+		Enum<?> type = GameObjectBuilder.getGameObjectTypeFromString(gameObjectType);
+		spawnGameObject(type);
 	}
 }

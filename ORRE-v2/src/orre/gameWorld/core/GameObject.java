@@ -11,17 +11,17 @@ import orre.util.Logger.LogType;
 public final class GameObject {
 	public final int id;
 	private static final AtomicInteger nextUID = new AtomicInteger();
-	public final GameObjectType type;
+	public final Enum<?> type;
 	public final GameWorld world;
 	private final ArrayList<Property> properties;
 	private final ArrayList<GraphicsObject> controlledObjects;
 	private final HashMap<Enum<?>, Object> propertyData;
 	private final PropertyTypeProvider propertyTypeProvider;
 
-	public GameObject(GameObjectType type, PropertyTypeProvider propertyTypeProvider, GameWorld world) {
+	public GameObject(Enum<?> gameObjectType, PropertyTypeProvider propertyTypeProvider, GameWorld world) {
 		this.id = nextUID.getAndIncrement();
 		this.propertyData = new HashMap<Enum<?>, Object>();
-		this.type = type;
+		this.type = gameObjectType;
 		this.world = world;
 		this.properties = new ArrayList<Property>();
 		this.controlledObjects = new ArrayList<GraphicsObject>();
