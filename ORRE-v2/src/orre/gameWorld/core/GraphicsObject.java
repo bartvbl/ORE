@@ -4,13 +4,11 @@ import orre.sceneGraph.SceneNode;
 import orre.util.Stack;
 
 public class GraphicsObject {
-	public final GraphicsObjectType type;
 	public final SceneNode rootNode;
 	private final Stack<GameObject> ownership = new Stack<GameObject>();
 
-	public GraphicsObject(GraphicsObjectType type, SceneNode sceneNode) {
+	public GraphicsObject(SceneNode sceneNode) {
 		this.rootNode = sceneNode;
-		this.type = type;
 	}
 	
 	public void takeOwnership(GameObject newOwner) {
