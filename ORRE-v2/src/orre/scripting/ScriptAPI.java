@@ -1,10 +1,14 @@
 package orre.scripting;
 
+import java.io.File;
+
 import orre.events.EventHandler;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.gameWorld.core.GameWorld;
+import orre.resources.ResourceType;
+import orre.resources.UnloadedResource;
 import orre.threads.ScriptExecutionThread;
 
 public class ScriptAPI implements EventHandler {
@@ -17,10 +21,14 @@ public class ScriptAPI implements EventHandler {
 	}
 
 	public static void spawn(String gameObjectType) {
-		currentGameWorld.api_spawnGameObjectFromString(gameObjectType)
+		currentGameWorld.api_spawnGameObjectFromString(gameObjectType);
 	}
 	
 	public void on() {
+		
+	}
+	
+	public static void load() {
 		
 	}
 

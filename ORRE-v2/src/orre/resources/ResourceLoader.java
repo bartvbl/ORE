@@ -9,6 +9,7 @@ import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.gui.LoadingScreenDrawer;
 import orre.resources.loaders.ModelLoader;
+import orre.resources.loaders.ResourceListFileParser;
 import orre.resources.loaders.ScriptLoader;
 import orre.resources.loaders.ShaderLoader;
 import orre.resources.loaders.SoundLoader;

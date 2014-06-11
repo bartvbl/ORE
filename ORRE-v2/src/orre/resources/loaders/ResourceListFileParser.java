@@ -1,10 +1,15 @@
-package orre.resources;
+package orre.resources.loaders;
 
 import java.io.File;
 
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
+import orre.resources.Finalizable;
+import orre.resources.ResourceQueue;
+import orre.resources.ResourceType;
+import orre.resources.ResourceTypeLoader;
+import orre.resources.UnloadedResource;
 import orre.util.Logger;
 import orre.util.Logger.LogType;
 import orre.util.XMLLoader;

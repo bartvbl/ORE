@@ -75,8 +75,11 @@ public class GameObjectBuilder {
 	}
 
 	public static Enum<?> getGameObjectTypeFromString(String gameObjectType) {
-		1
-		return null;
+		try {
+			return GameObjectType.valueOf(gameObjectType);
+		} catch(Exception e) {
+			return propertyTypeProvider.getGameObjectTypeFromString(gameObjectType);
+		}
 	}
 
 }

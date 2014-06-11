@@ -13,4 +13,5 @@ public interface PropertyTypeProvider {
 	public Class<? extends Property> getPropertyClass(Enum<?> gameSpecificPropertyType);
 	//Requires a PropertyDataType
 	public Class<?> getRequiredDataType(Enum<?> gameSpecificDataType);
+	public Enum<?> getGameObjectTypeFromString(String gameObjectType);
 }
