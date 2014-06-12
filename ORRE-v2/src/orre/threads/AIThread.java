@@ -4,11 +4,14 @@ import orre.ai.core.AICommand;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskPriorities;
 import orre.gameWorld.core.GameWorld;
+import orre.gameWorld.core.Message;
+import orre.util.ConcurrentQueue;
 import orre.util.Queue;
 
 public class AIThread extends Thread {
 	private final TaskMaster taskMaster;
 	private final Queue<AICommand> taskQueue = new Queue<AICommand>();
+	private final ConcurrentQueue<Runnable> mainThreadQueue = new ConcurrentQueue<Runnable>();
 	private GameWorld world;
 	private boolean isRunning = true;
 	
@@ -31,7 +34,7 @@ public class AIThread extends Thread {
 				synchronized(taskQueue) {
 					task = taskQueue.dequeue();
 				}
-				task.execute(world, taskMaster);
+				task.execute(world, taskMaster, mainThreadQueue);
 			} else {
 				try {
 					Thread.sleep(1000/60);
@@ -44,5 +47,11 @@ public class AIThread extends Thread {
 
 	public void stopExecution() {
 		isRunning = false;
+	}
+
+	public void executeMainThreadTasks() {
+		while(!this.mainThreadQueue.isEmpty()) {
+			mainThreadQueue.dequeue().run();
+		}
 	}
 }

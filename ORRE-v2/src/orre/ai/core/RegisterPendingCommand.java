@@ -3,6 +3,9 @@ package orre.ai.core;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
 import orre.gameWorld.core.GameWorld;
+import orre.gameWorld.core.Message;
+import orre.util.ConcurrentQueue;
+import orre.util.Queue;
 
 public class RegisterPendingCommand extends AICommand {
 
@@ -13,7 +16,7 @@ public class RegisterPendingCommand extends AICommand {
 	}
 
 	@Override
-	public void execute(GameWorld world, TaskMaster taskMaster) {
+	public void execute(GameWorld world, TaskMaster taskMaster, ConcurrentQueue<Runnable> mainThread) {
 		taskMaster.registerPendingTask(pendingTask);
 	}
 

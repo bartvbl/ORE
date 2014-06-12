@@ -97,6 +97,10 @@ public class CoordinateNode extends ContainerNode {
 		return "Coordinate node";
 	}
 	
+	public double getX() {
+		return x;
+	}
+
 	public double getY() {
 		return this.y;
 	}
@@ -116,4 +120,5 @@ public class CoordinateNode extends ContainerNode {
 	public double getRotationZ() {
 		return rotationZ;
 	}
+
 }

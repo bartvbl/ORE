@@ -20,7 +20,7 @@ public class AIService implements Service {
 	}
 
 	public void tick() {
-		
+		this.aiThread.executeMainThreadTasks();
 	}
 
 	public void registerTask(Task task) {

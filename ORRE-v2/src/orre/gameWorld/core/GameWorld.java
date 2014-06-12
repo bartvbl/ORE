@@ -6,6 +6,7 @@ import java.util.HashMap;
 
 import orre.api.PropertyTypeProvider;
 import orre.gameWorld.services.WorldServices;
+import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
@@ -22,8 +23,8 @@ public class GameWorld {
 	private final HashMap<Enum<?>, int[]> objectTypeMap;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter) {
-		this.rootNode = new ContainerNode("Scene root");
+	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ShaderNode rootNode) {
+		this.rootNode = rootNode;//new ContainerNode("Scene root");
 		this.services = new WorldServices(this, cache, interpreter);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
@@ -35,7 +36,6 @@ public class GameWorld {
 	public int spawnGameObject(Enum<?> gameObjectType) {
 		GameObject object = GameObjectBuilder.buildGameObjectByType(gameObjectType, this);
 		registerGameObject(object);
-		System.out.println("Spawned object of type " + gameObjectType);
 		return object.id;
 	}
 
@@ -123,6 +123,7 @@ public class GameWorld {
 			return returnedData;
 		}
 		catch(Exception e) {
+			e.printStackTrace();
 			return defaultValue;
 		}
 	}

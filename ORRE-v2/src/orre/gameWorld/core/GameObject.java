@@ -73,6 +73,7 @@ public final class GameObject {
 		if(!expectedDataType.isAssignableFrom(data.getClass())) {
 			throw new RuntimeException("Property data type " + propertyDataType + " was not the same as the expected type (" + data.getClass() + " versus " + expectedDataType + ")");
 		}
+		Logger.log("Getting property data of type " + propertyDataType + " -> " + data, LogType.MESSAGE);
 		return data;
 	}
 	
