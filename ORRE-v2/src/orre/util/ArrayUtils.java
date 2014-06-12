@@ -7,4 +7,11 @@ public class ArrayUtils {
 			array[(i - amount + array.length) % array.length] = temp[i];
 		}
 	}
+	
+	public static int[] append(int[] array, int value) {
+		int[] appendedArray = new int[array.length + 1];
+		System.arraycopy(array, 0, appendedArray, 0, array.length);
+		appendedArray[array.length] = value;
+		return appendedArray;
+	}
 }

@@ -10,6 +10,7 @@ import orre.resources.ResourceCache;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import orre.scripting.ScriptInterpreter;
+import orre.util.ArrayUtils;
 
 public class GameWorld {
 	public final SceneNode rootNode;
@@ -17,8 +18,8 @@ public class GameWorld {
 	public final ResourceCache resourceCache;
 
 	private final HashMap<Integer, GameObject> gameObjectSet;
-	private final HashMap<PropertyType, ArrayList<Integer>> propertyMap;
-	private final HashMap<GameObjectType, ArrayList<Integer>> objectTypeMap;
+	private final HashMap<Enum<?>, int[]> propertyMap;
+	private final HashMap<Enum<?>, int[]> objectTypeMap;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
 	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter) {
@@ -26,15 +27,37 @@ public class GameWorld {
 		this.services = new WorldServices(this, cache, interpreter);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
-		this.propertyMap = new HashMap<PropertyType, ArrayList<Integer>>();
-		this.objectTypeMap = new HashMap<GameObjectType, ArrayList<Integer>>();
+		this.propertyMap = new HashMap<Enum<?>, int[]>();
+		this.objectTypeMap = new HashMap<Enum<?>, int[]>();
 		this.resourceCache = cache;
 	}
 	
 	public int spawnGameObject(Enum<?> gameObjectType) {
 		GameObject object = GameObjectBuilder.buildGameObjectByType(gameObjectType, this);
-		gameObjectSet.put(object.id, object);
+		registerGameObject(object);
+		System.out.println("Spawned object of type " + gameObjectType);
 		return object.id;
+	}
+
+	private void registerGameObject(GameObject object) {
+		gameObjectSet.put(object.id, object);
+		Enum<?>[] properties = object.getAttachedPropertyTypes();
+		for(Enum<?> propertyType : properties) {
+			if(!propertyMap.containsKey(propertyType)) {
+				propertyMap.put(propertyType, new int[]{object.id});
+			} else {
+				int[] idArray = propertyMap.get(propertyType);
+				int[] appendedArray = ArrayUtils.append(idArray, object.id);
+				propertyMap.put(propertyType, appendedArray);
+			}
+		}
+		if(!objectTypeMap.containsKey(object.type)) {
+			objectTypeMap.put(object.type, new int[]{object.id});
+		} else {
+			int[] idArray = objectTypeMap.get(object.type);
+			int[] appendedArray = ArrayUtils.append(idArray, object.id);
+			objectTypeMap.put(object.type, appendedArray);
+		}
 	}
 	
 	public void despawnObject(int objectID) {
@@ -42,6 +65,7 @@ public class GameWorld {
 		if(object != null) {
 			object.destroy();
 		}
+		//TODO: remove object from all other maps
 	}
 	
 	public int[] getAllGameObjectsByType(Enum<?> type) {
@@ -114,5 +138,9 @@ public class GameWorld {
 	public void api_spawnGameObjectFromString(String gameObjectType) {
 		Enum<?> type = GameObjectBuilder.getGameObjectTypeFromString(gameObjectType);
 		spawnGameObject(type);
+	}
+
+	public int getOnlyGameObject(Enum<?> gameObjectType) {
+		return objectTypeMap.get(gameObjectType)[0];
 	}
 }

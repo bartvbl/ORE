@@ -35,10 +35,6 @@ public class KeyboardCameraController extends Property {
 	
 	public void destroy() {}
 
-	public Object handlePropertyDataRequest(PropertyDataType type) {
-		return null;
-	}
-
 	@Override
 	public void init() {
 		
