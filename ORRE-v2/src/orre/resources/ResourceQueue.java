@@ -12,12 +12,14 @@ public class ResourceQueue {
 	private Queue<Finalizable> resourcesToFinalizeQueue;
 
 	private final ProgressTracker tracker;
+	private final HashMap<Enum<?>, ResourceTypeLoader> registeredLoaders;
 	
-	public ResourceQueue(ProgressTracker tracker)
+	public ResourceQueue(ProgressTracker tracker, HashMap<Enum<?>, ResourceTypeLoader> registeredLoaders)
 	{
 		this.filesToLoadQueue = new Queue<UnloadedResource>();
 		this.resourcesToFinalizeQueue = new Queue<Finalizable>();
 		this.tracker = tracker;
+		this.registeredLoaders = registeredLoaders;
 	}
 	
 	public void enqueueNodeForLoading(UnloadedResource fileToLoad)
@@ -26,7 +28,7 @@ public class ResourceQueue {
 		this.tracker.addFileToLoad();
 	}
 
-	public void startLoading(HashMap<Enum<?>, ResourceTypeLoader> registeredLoaders) {
+	public void startLoading() {
 		for(int i = 0; i < NUMBER_OF_LOADING_THREADS; i++)
 		{
 			new ResourceLoadingThread(this, this.tracker, registeredLoaders).start();
@@ -54,5 +56,14 @@ public class ResourceQueue {
 
 	public boolean isDestroyed() {
 		return false;
+	}
+
+	public Enum<?> getMatchingResourceType(String resourceTypeName) {
+		for(Enum<?> loaderType : registeredLoaders.keySet()) {
+			if(loaderType.toString().equals(resourceTypeName)) {
+				return loaderType;
+			}
+		}
+		throw new IllegalArgumentException();
 	}
 }

@@ -40,7 +40,7 @@ public class ResourceLoader implements EventHandler {
 	public ResourceLoader(ResourceCache cache, GlobalEventDispatcher globalEventDispatcher)
 	{
 		this.progressTracker = new ProgressTracker();
-		this.resourceQueue = new ResourceQueue(this.progressTracker);
+		this.resourceQueue = new ResourceQueue(this.progressTracker, loaders);
 		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue, cache);
 		globalEventDispatcher.addEventListener(this, GlobalEventType.REGISTER_RESOURCE_TYPE_LOADER);
 		globalEventDispatcher.addEventListener(this, GlobalEventType.ENQUEUE_LOADING_ITEM);
@@ -49,7 +49,7 @@ public class ResourceLoader implements EventHandler {
 	public void update()
 	{
 		if(!hasKickedOffLoading) {
-			this.resourceQueue.startLoading(loaders);
+			this.resourceQueue.startLoading();
 			hasKickedOffLoading = true;
 		}
 		this.resourceFinalizer.doFinalizations();

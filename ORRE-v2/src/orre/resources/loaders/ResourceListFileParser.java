@@ -59,7 +59,7 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 			String name = fileToLoadElement.getAttributeValue("name");
 			String resourceTypeName = fileToLoadElement.getLocalName();
 			try {
-				ResourceType resourceType = ResourceType.valueOf(resourceTypeName);
+				Enum<?> resourceType = queue.getMatchingResourceType(resourceTypeName);
 				UnloadedResource file = new UnloadedResource(resourceType, new File(pathPrefix + "/" + src), name);
 				queue.enqueueNodeForLoading(file);
 			} catch(IllegalArgumentException e) {
