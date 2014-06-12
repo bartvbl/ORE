@@ -29,6 +29,10 @@ public class ScriptInterpreter implements EventHandler {
 	public void init() {
 		scriptThread.start();
 	}
+	
+	public void update() {
+		ScriptAPI.runMainThreadCommand();
+	}
 
 	public void setCurrentWorld(GameWorld world) {
 		ScriptAPI.setCurrentWorld(world);

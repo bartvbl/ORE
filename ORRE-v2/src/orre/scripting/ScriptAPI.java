@@ -10,22 +10,24 @@ import orre.gameWorld.core.GameWorld;
 import orre.resources.ResourceType;
 import orre.resources.UnloadedResource;
 import orre.threads.ScriptExecutionThread;
+import orre.util.ConcurrentQueue;
 
 public class ScriptAPI implements EventHandler {
 	private static ScriptExecutionThread executionThread;
 	private static GameWorld currentGameWorld;
+	private static final ConcurrentQueue<Runnable> runOnMainThreadQueue = new ConcurrentQueue<Runnable>();
 
 	public ScriptAPI(GlobalEventDispatcher eventDispatcher, ScriptExecutionThread scriptExecutionThread) {
 		eventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 		executionThread = scriptExecutionThread;
 	}
 
-	public static void spawn(String gameObjectType) {
-		currentGameWorld.api_spawnGameObjectFromString(gameObjectType);
-	}
-	
-	public void on() {
-		
+	public static void spawn(final String gameObjectType) {
+		runOnMainThreadQueue.enqueue(new Runnable(){
+			public void run() {
+				currentGameWorld.api_spawnGameObjectFromString(gameObjectType);
+			}
+		});
 	}
 	
 	public static void load() {
@@ -42,6 +44,11 @@ public class ScriptAPI implements EventHandler {
 	public static void setCurrentWorld(GameWorld world) {
 		currentGameWorld = world;
 	}
-	
-	
+
+	//run just a single command to avoid command spam
+	public static void runMainThreadCommand() {
+		if(!runOnMainThreadQueue.isEmpty()) {
+			runOnMainThreadQueue.dequeue().run();
+		}
+	}
 }

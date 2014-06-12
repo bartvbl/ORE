@@ -14,7 +14,7 @@ public class ScriptingService implements Service {
 
 	@Override
 	public void tick() {
-		
+		this.interpreter.update();
 	}
 
 }
