@@ -2,12 +2,13 @@ package orre.resources;
 
 import java.util.HashMap;
 
-import orre.animation.AnimationLoader;
 import orre.events.EventHandler;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.gui.LoadingScreenDrawer;
+import orre.resources.loaders.AnimationLoader;
+import orre.resources.loaders.ConfigLoader;
 import orre.resources.loaders.ModelLoader;
 import orre.resources.loaders.ResourceListFileParser;
 import orre.resources.loaders.ScriptLoader;
@@ -35,6 +36,7 @@ public class ResourceLoader implements EventHandler {
 		loaders.put(ResourceType.resourceList, new ResourceListFileParser());
 		loaders.put(ResourceType.script, new ScriptLoader());
 		loaders.put(ResourceType.shader, new ShaderLoader());
+		loaders.put(ResourceType.config, new ConfigLoader());
 	}
 	
 	public ResourceLoader(ResourceCache cache, GlobalEventDispatcher globalEventDispatcher)

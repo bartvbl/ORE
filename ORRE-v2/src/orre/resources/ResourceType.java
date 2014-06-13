@@ -8,5 +8,6 @@ public enum ResourceType {
 	script, 
 	shader, 
 	lxfmlModel, 
-	model
+	model, 
+	config
 }
