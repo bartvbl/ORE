@@ -1,9 +1,9 @@
 animation [name]
-keyframe [name] of duration [time/inifinity] ms
+keyframe [name] of duration [time/inifinity] s
 rotate [part] [degrees] degrees around [x/y/z]-axis 
-spin [part] around [x/y/z]-axis at [rotation] degrees per ms
-translate [part] along [x/y/z]-axis for [units]
-move [part] along [x/y/z]-axis at [units]
+spin [part] around [x/y/z]-axis at [rotation] degrees per s
+translate [part] along [x/y/z]-axis for [units] units
+move [part] along [x/y/z]-axis at [units] per s
 scale [part] along [x/y/z]-axis to [size] percent
 repeat from [keyframe name]
 # comment
