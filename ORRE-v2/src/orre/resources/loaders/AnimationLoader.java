@@ -1,10 +1,15 @@
-package orre.animation;
+package orre.resources.loaders;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+import orre.animation.Animation;
+import orre.animation.AnimationAction;
+import orre.animation.AnimationLineParser;
+import orre.animation.AnimationType;
+import orre.animation.KeyFrame;
 import orre.resources.Finalizable;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
