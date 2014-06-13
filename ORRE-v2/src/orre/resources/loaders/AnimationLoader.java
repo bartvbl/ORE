@@ -53,7 +53,7 @@ public class AnimationLoader implements ResourceTypeLoader {
 		String animationName = parseFirstLine(reader.readLine());
 		
 		while(reader.ready()) {
-			String line = reader.readLine();
+			String line = reader.readLine().trim();
 			if(line.startsWith("keyframe")) {
 				if(keyframeLine != null) {
 					KeyFrame newFrame = parseKeyFrameLine(keyframeLine, actions);
