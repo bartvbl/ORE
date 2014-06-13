@@ -25,6 +25,7 @@ public class ORRE {
 		for(String arg : args) {
 			if(arg.equals("debug_dump")) {
 				//debugger for openGL
+				System.out.println("Debugging enabled!");
 				System.setProperty("org.lwjgl.util.Debug", "true");
 				System.loadLibrary("opengl32");
 			}

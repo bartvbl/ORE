@@ -40,7 +40,7 @@ public class RenderUtils {
 		glDisable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);
 		glLoadIdentity();
-		gluOrtho2D(0, Display.getWidth(), 0, Display.getHeight());
+		glOrtho(0, Display.getWidth(), 0, Display.getHeight(), 1, -1);
 		glMatrixMode(GL_MODELVIEW);
 		glLoadIdentity();
 		glEnable(GL_TEXTURE_2D);

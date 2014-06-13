@@ -52,7 +52,7 @@ public class GameRunning extends GameState {
 		gameWorld.services.cameraService.setCurrentCamera(defaultCamera, gameWorld);
 		int cameraController = gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.dispatchMessage(new Message<Camera>(MessageType.ASSUME_CAMERA_CONTROL, defaultCamera), cameraController);
-		gameWorld.spawnGameObject(GameObjectType.GUI);
+		//gameWorld.spawnGameObject(GameObjectType.GUI);
 	}
 	
 	public void unset() {
