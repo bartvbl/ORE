@@ -28,6 +28,10 @@ public class InputService implements Service {
 	
 	private static final double mapMoveSpeed = 0.3d;
 	
+	private static final HashMap<Integer, String> keyCommands = new HashMap<Integer, String>();
+	
+	
+	
 	public InputService(GameWorld world, ResourceCache cache) {
 		this.world = world;
 		this.cache = cache;
