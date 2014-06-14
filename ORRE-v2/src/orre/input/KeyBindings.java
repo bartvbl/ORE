@@ -29,4 +29,8 @@ public class KeyBindings {
 		bindings.clear();
 	}
 
+	public static boolean hasBindingFor(KeyType type) {
+		return bindings.containsKey(type);
+	}
+
 }
