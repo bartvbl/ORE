@@ -2,8 +2,6 @@ package orre.gui.nodes;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import org.lwjgl.input.Mouse;
-
 import orre.geom.Rectangle;
 import orre.gui.Corner;
 import orre.gui.gl.TextRenderer;
@@ -52,6 +50,7 @@ public class ButtonNode extends GUIBaseNode {
 		TextRenderer.drawString(x1 + padding, y1 + padding, buttonText);
 	}
 	
+	@Override
 	public String toString() {
 		return "Button node";
 	}

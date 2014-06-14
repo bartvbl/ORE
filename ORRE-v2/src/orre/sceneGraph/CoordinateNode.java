@@ -13,6 +13,7 @@ public class CoordinateNode extends ContainerNode {
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	protected float renderRadius = 0.0f;
 	
+	@Override
 	public float getRenderRadius()
 	{
 		return this.renderRadius;
@@ -22,6 +23,7 @@ public class CoordinateNode extends ContainerNode {
 		return new Point3D(x, y, z);
 	}
 	
+	@Override
 	public void preRender() {
 		glPushMatrix();
 		glTranslated(x - pivotX, y - pivotY, z - pivotZ);
@@ -31,6 +33,7 @@ public class CoordinateNode extends ContainerNode {
 		glTranslated(pivotX, pivotY, pivotZ);
 	}
 	
+	@Override
 	public void postRender() {
 		glPopMatrix();
 	}
@@ -93,6 +96,7 @@ public class CoordinateNode extends ContainerNode {
 		this.rotationZ = rotation;
 	}
 	
+	@Override
 	public String toString() {
 		return "Coordinate node";
 	}

@@ -9,9 +9,7 @@ import orre.animation.AnimationType;
 import orre.animation.execution.AnimationPlayhead;
 import orre.gameWorld.core.GameWorld;
 import orre.geom.mesh.Mesh3D;
-import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
-import orre.sceneGraph.SceneNode;
 
 public class AnimationService implements Service {
 	private final GameWorld world;
@@ -23,6 +21,7 @@ public class AnimationService implements Service {
 		this.world = world;
 	}
 	
+	@Override
 	public void tick() {
 		Timer.tick();
 		for(int i = activeAnimations.size() - 1; i >= 0; i--) {

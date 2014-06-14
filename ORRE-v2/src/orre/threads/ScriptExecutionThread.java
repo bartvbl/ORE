@@ -3,9 +3,6 @@ package orre.threads;
 import org.python.util.PythonInterpreter;
 
 import orre.core.GameMain;
-import orre.events.GlobalEventDispatcher;
-import orre.gameWorld.core.GameWorld;
-import orre.scripting.ScriptAPI;
 import orre.util.Queue;
 
 public class ScriptExecutionThread extends Thread {
@@ -16,6 +13,7 @@ public class ScriptExecutionThread extends Thread {
 		this.interpreter = new PythonInterpreter();
 	}
 	
+	@Override
 	public void run() {
 		interpreter.execfile(GameMain.class.getClassLoader().getResourceAsStream("init.py"));
 		while(true) {

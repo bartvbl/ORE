@@ -19,30 +19,37 @@ public class ContainerNode implements SceneNode {
 		this.name = name;
 	}
 	
+	@Override
 	public float getRenderRadius()
 	{
 		return this.renderRadius;
 	}
 
+	@Override
 	public void addChild(SceneNode node) 
 	{
 		this.children.add(node);
 	}
 
+	@Override
 	public void removeChild(SceneNode node) 
 	{
 		this.children.remove(node);
 	}
 
+	@Override
 	public void setVisibility(boolean isVisible) 
 	{
 		this.visible = isVisible;
 	}
 
+	@Override
 	public void render() {}
 
+	@Override
 	public void destroy() {}
 
+	@Override
 	public ArrayList<SceneNode> getChildren() {
 		return this.children;
 	}
@@ -51,13 +58,16 @@ public class ContainerNode implements SceneNode {
 		return this.parentHasBeenRegistered;
 	}
 
+	@Override
 	public void preRender() {
 		glPushMatrix();
 	}
+	@Override
 	public void postRender() {
 		glPopMatrix();
 	}
 	
+	@Override
 	public String toString() {
 		return "Container " + name;
 	}

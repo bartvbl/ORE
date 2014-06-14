@@ -1,6 +1,5 @@
 package orre.scripting;
 
-import orre.events.Event;
 import orre.events.EventHandler;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;

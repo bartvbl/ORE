@@ -22,11 +22,14 @@ public class ModelPart extends CoordinateNode implements SceneNode {
 		this.name = name;
 	}
 	
+	@Override
 	public void render() {
 	}
 
+	@Override
 	public void destroy() {}
 	
+	@Override
 	public String toString() {
 		return "ModelPart " + this.name;
 	}

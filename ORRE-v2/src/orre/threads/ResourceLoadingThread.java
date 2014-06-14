@@ -6,7 +6,6 @@ import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.Finalizable;
 import orre.resources.ProgressTracker;
-import orre.resources.ResourceType;
 import orre.resources.ResourceQueue;
 import orre.util.FatalExceptionHandler;
 
@@ -23,6 +22,7 @@ public class ResourceLoadingThread extends Thread {
 		this.setName("Resource loading thread " + this.getId());
 	}
 	
+	@Override
 	public void run()
 	{
 		UnloadedResource currentFile = this.resourceQueue.getNextEnqueuedFileToLoad();

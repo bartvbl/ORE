@@ -33,15 +33,17 @@ public class Camera extends LeafNode
 		transformationMatrix.translate(new Vector3f(0, 0, (float) mapHeight));
 		transformationMatrix.rotate((float) Math.toRadians(rotation.x), xAxis);
 		
-		transformationMatrix.translate(new Vector3f(0, 0, (float)(location.z)));
+		transformationMatrix.translate(new Vector3f(0, 0, (location.z)));
 		Matrix4f inverse = new Matrix4f();
 		Matrix4f.invert(transformationMatrix, inverse);
 		TransformMatrixUtils.applyMatrixOnCurrentMatrix(inverse);
 	}
 	
+	@Override
 	public void preRender() {
 	}
 	
+	@Override
 	public String toString() {
 		return "Camera";
 	}

@@ -3,8 +3,6 @@ package orre.resources.loaders;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import orre.animation.Animation;
 import orre.animation.AnimationAction;
 import orre.animation.AnimationLineParser;

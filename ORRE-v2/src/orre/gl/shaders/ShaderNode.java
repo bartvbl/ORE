@@ -30,6 +30,7 @@ public class ShaderNode extends ContainerNode {
 		glUseProgram(0);
 	}
 	
+	@Override
 	public String toString() {
 		return "Shader node";
 	}

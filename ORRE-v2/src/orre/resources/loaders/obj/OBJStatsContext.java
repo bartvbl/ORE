@@ -1,6 +1,5 @@
 package orre.resources.loaders.obj;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import orre.geom.vbo.BufferDataFormatType;

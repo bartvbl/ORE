@@ -5,8 +5,6 @@ import org.lwjgl.opengl.Display;
 
 import orre.geom.Rectangle;
 import orre.gui.Corner;
-import orre.gui.nodes.ButtonNode;
-import orre.gui.nodes.GUIBaseNode;
 import orre.sceneGraph.SceneNode;
 
 public abstract class Control {

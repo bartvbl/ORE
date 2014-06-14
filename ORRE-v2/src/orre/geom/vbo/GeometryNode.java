@@ -24,6 +24,7 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 		this.mode = mode;
 	}
 	
+	@Override
 	public void render()
 	{
 		this.drawBufferCombo(this.indexBuffer, this.vertexBuffer);
@@ -72,6 +73,7 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 		
 	}
 	
+	@Override
 	public String toString() {
 		return "GeometryBuffer with " + numberOfVertices + " vertices";
 	}

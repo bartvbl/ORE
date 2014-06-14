@@ -2,7 +2,6 @@ package orre.gl.lighting;
 
 import static org.lwjgl.opengl.GL11.*;
 
-import java.nio.ByteOrder;
 import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
@@ -27,6 +26,7 @@ public class Light extends CoordinateNode implements SceneNode {
 		this.sphere = new Sphere();
 	}
 	
+	@Override
 	public void preRender() {
 		glPushMatrix();
 		if(Keyboard.isKeyDown(Keyboard.KEY_2)) {
@@ -46,6 +46,7 @@ public class Light extends CoordinateNode implements SceneNode {
 		glPopMatrix();
 	}
 	
+	@Override
 	public void postRender() {
 		
 	}
@@ -71,10 +72,12 @@ public class Light extends CoordinateNode implements SceneNode {
 		this.specularLight = specularLight;
 	}
 
+	@Override
 	public void destroy() {
 		
 	}
 	
+	@Override
 	public String toString() {
 		return "Light";
 	}

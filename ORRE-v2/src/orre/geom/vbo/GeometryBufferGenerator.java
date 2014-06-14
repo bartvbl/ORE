@@ -3,9 +3,8 @@ package orre.geom.vbo;
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.ARBBufferObject;
 import org.lwjgl.opengl.ARBVertexBufferObject;
 import org.lwjgl.opengl.GLContext;
 
@@ -37,7 +36,7 @@ public class GeometryBufferGenerator {
 		if (supportsBuffers()) 
 		{
 			IntBuffer buffer = BufferUtils.createIntBuffer(1);
-			ARBVertexBufferObject.glGenBuffersARB(buffer);
+			ARBBufferObject.glGenBuffersARB(buffer);
 			return buffer.get(0);
 		}
 		return 0;
@@ -46,16 +45,16 @@ public class GeometryBufferGenerator {
 	private static void storeVertexData(int bufferIndex, DoubleBuffer geometryData) {
 		if (supportsBuffers()) 
 		{
-			ARBVertexBufferObject.glBindBufferARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, bufferIndex);
-			ARBVertexBufferObject.glBufferDataARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, geometryData, ARBVertexBufferObject.GL_STATIC_DRAW_ARB);
+			ARBBufferObject.glBindBufferARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, bufferIndex);
+			ARBBufferObject.glBufferDataARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, geometryData, ARBBufferObject.GL_STATIC_DRAW_ARB);
 		}
 	}
 	
 	private static void storeIndexData(int bufferIndex, IntBuffer indexes) {
 		if (supportsBuffers()) 
 		{
-			ARBVertexBufferObject.glBindBufferARB(ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB, bufferIndex);
-			ARBVertexBufferObject.glBufferDataARB(ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB, indexes, ARBVertexBufferObject.GL_STATIC_DRAW_ARB);
+			ARBBufferObject.glBindBufferARB(ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB, bufferIndex);
+			ARBBufferObject.glBufferDataARB(ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB, indexes, ARBBufferObject.GL_STATIC_DRAW_ARB);
 		}
 	}
 	
@@ -70,7 +69,7 @@ public class GeometryBufferGenerator {
 			bufferIDBuffer.put(bufferList.get(i));
 		}
 		bufferIDBuffer.rewind();
-		ARBVertexBufferObject.glDeleteBuffersARB(bufferIDBuffer);
+		ARBBufferObject.glDeleteBuffersARB(bufferIDBuffer);
 	}
 	
 	private static boolean supportsBuffers()

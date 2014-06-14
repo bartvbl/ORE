@@ -8,7 +8,6 @@ import orre.api.PropertyTypeProvider;
 import orre.gameWorld.services.WorldServices;
 import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
-import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import orre.scripting.ScriptInterpreter;
 import orre.util.ArrayUtils;

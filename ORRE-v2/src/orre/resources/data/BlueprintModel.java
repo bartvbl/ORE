@@ -7,11 +7,9 @@ import orre.geom.mesh.Mesh3D;
 import orre.geom.mesh.ModelPart;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
-import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.loaders.obj.StoredModelPart;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
-import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
 public class BlueprintModel implements Finalizable {

@@ -7,7 +7,6 @@ import static org.lwjgl.opengl.GL11.GL_PROJECTION_MATRIX;
 import static org.lwjgl.opengl.GL11.GL_VIEWPORT;
 import static org.lwjgl.opengl.GL11.glGetFloat;
 import static org.lwjgl.opengl.GL11.glGetInteger;
-import static org.lwjgl.opengl.GL11.glLoadMatrix;
 import static org.lwjgl.opengl.GL11.glReadPixels;
 import static org.lwjgl.util.glu.GLU.gluProject;
 import static org.lwjgl.util.glu.GLU.gluUnProject;

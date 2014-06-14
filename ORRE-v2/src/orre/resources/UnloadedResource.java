@@ -15,6 +15,7 @@ public class UnloadedResource {
 		this.name = name;
 	}
 	
+	@Override
 	public String toString() {
 		return "[UnloadedResource " + resourceType + " " + name + "]";
 	}

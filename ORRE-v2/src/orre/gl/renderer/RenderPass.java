@@ -3,7 +3,6 @@ package orre.gl.renderer;
 import java.util.ArrayList;
 
 import orre.sceneGraph.SceneNode;
-import orre.util.Stack;
 
 public class RenderPass {
 	public static void render(SceneNode node) {

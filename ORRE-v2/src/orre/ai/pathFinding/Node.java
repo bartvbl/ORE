@@ -2,8 +2,6 @@ package orre.ai.pathFinding;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 
 public class Node implements Comparable<Node> {
 	private final State state;
@@ -20,6 +18,7 @@ public class Node implements Comparable<Node> {
 		this.previousState = null;
 	}
 	
+	@Override
 	public int hashCode() {
 		System.out.println("HashCode used");
 		return state.hashCode();
@@ -70,6 +69,7 @@ public class Node implements Comparable<Node> {
 		this.previousState = node;
 	}
 
+	@Override
 	public int compareTo(Node otherNode) {
 		return Double.compare(this.fValue, otherNode.getHeuristicValue());
 	}
@@ -78,11 +78,13 @@ public class Node implements Comparable<Node> {
 		return this.state.isEqualTo(otherNode.getState());
 	}
 	
+	@Override
 	public boolean equals(Object otherObject) {
 		if(!(otherObject instanceof Node)) return false;
 		return this.isEqualTo(((Node)otherObject));
 	}
 	
+	@Override
 	public String toString() {
 		return this.state.toString();
 	}

@@ -3,14 +3,10 @@ package orre.gui;
 import static org.lwjgl.opengl.GL11.*;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-
 import org.lwjgl.opengl.Display;
 
 import orre.gl.RenderUtils;
 import orre.gl.texture.Texture;
-import orre.resources.loaders.OBJLoader;
 import orre.resources.loaders.TextureLoader;
 
 public class DefaultLoadingScreen implements LoadingScreenDrawer {
@@ -32,6 +28,7 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 		}
 	}
 
+	@Override
 	public void draw(double progress) {
 		RenderUtils.set2DMode();
 		glPushMatrix();
@@ -41,7 +38,7 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 		int x = (int)(0.223f*Display.getWidth());
 		int y = (int)(0.046f*Display.getHeight());
 		int width = (int)((Display.getWidth() - 2.02f*x) * progress);
-		int height = (int)((float)Display.getHeight() / 60f);
+		int height = (int)(Display.getHeight() / 60f);
 		
 		this.loadingBar.bind();
 		glBegin(GL_QUADS);

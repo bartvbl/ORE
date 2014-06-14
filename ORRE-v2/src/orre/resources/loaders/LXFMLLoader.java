@@ -11,11 +11,8 @@ import lib.ldd.lif.AssetsFilePaths;
 import lib.ldd.lif.LIFFile;
 import lib.ldd.lif.LIFReader;
 import lib.ldd.lxfml.LXFMLReader;
-import orre.geom.mesh.Mesh3D;
 import orre.geom.vbo.BufferDataFormatType;
-import orre.geom.vbo.GeometryNode;
 import orre.resources.UnloadedResource;
-import orre.resources.Finalizable;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
 import orre.resources.loaders.obj.ModelPartType;
@@ -54,10 +51,10 @@ public class LXFMLLoader {
 
 	private static BlueprintMaterial convertMaterial(Material material) {
 		BlueprintMaterial converted = new BlueprintMaterial("Brick material " + material.id);
-		float red 	= ((float) material.red)   / 255f;
-		float green = ((float) material.green) / 255f;
-		float blue 	= ((float) material.blue)  / 255f;
-		float alpha = ((float) material.alpha) / 255f;
+		float red 	= (material.red)   / 255f;
+		float green = (material.green) / 255f;
+		float blue 	= (material.blue)  / 255f;
+		float alpha = (material.alpha) / 255f;
 		converted.setDiffuseColour(new float[]{red, green, blue, alpha});
 		return converted;
 	}

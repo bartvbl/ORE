@@ -43,10 +43,12 @@ public class Texture {
 		glEnd();
 	}
 	
+	@Override
 	public Texture clone() {
 		return new Texture(this.textureReference, this.width, this.height);
 	}
 	
+	@Override
 	public String toString() {
 		return "Texture with ID " + this.textureReference;
 	}

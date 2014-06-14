@@ -21,6 +21,7 @@ public abstract class SequencableGameState implements AbstractGameState {
 		this.resourceCache = cache;
 	}
 	
+	@Override
 	public abstract void executeFrame(long frameNumber);
 	
 	public void setNextState(GameStateName mainMenu)

@@ -84,6 +84,7 @@ public class GameMain implements EventHandler{
 		this.setGameState(GameStateName.STARTUP_LOADING);
 	}
 
+	@Override
 	public void handleEvent(GlobalEvent<?> event) {
 		if(event.eventType == GlobalEventType.CHANGE_GAME_STATE)
 		{

@@ -2,7 +2,6 @@ package orre.resources.loaders;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -13,7 +12,6 @@ import orre.resources.loaders.obj.OBJLoadingContext;
 import orre.resources.loaders.obj.OBJStatsContext;
 import orre.resources.loaders.obj.OBJStatsLineReader;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
-import orre.util.FeedbackProvider;
 import orre.util.StringUtils;
 
 public class OBJLoader {

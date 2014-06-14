@@ -4,7 +4,6 @@ import orre.ai.core.AICommand;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskPriorities;
 import orre.gameWorld.core.GameWorld;
-import orre.gameWorld.core.Message;
 import orre.util.ConcurrentQueue;
 import orre.util.Queue;
 
@@ -27,6 +26,7 @@ public class AIThread extends Thread {
 		}
 	}
 	
+	@Override
 	public void run() {
 		while(isRunning) {
 			if(!taskQueue.isEmpty()) {

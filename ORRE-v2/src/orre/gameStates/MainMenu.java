@@ -20,12 +20,15 @@ public class MainMenu extends GameState {
 		
 	}
 	
+	@Override
 	public void executeFrame(long frameNumber) {
 		
 	}
 
+	@Override
 	public void set() {
 		this.globalEventDispatcher.dispatchEvent(new GlobalEvent<GameStateName>(GlobalEventType.CHANGE_GAME_STATE, GameStateName.GAME_LOADING));
 	}
+	@Override
 	public void unset() {}
 }

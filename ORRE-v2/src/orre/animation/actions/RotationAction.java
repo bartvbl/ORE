@@ -19,6 +19,7 @@ public class RotationAction extends AnimationAction {
 		this.axis = axis;
 	}
 
+	@Override
 	public void update(Mesh3D target, double percentElapsed, double timeSinceLastUpdate) {
 		ModelPart part = target.getModelPartByName(partName);
 		double updatedRotation = rotation * percentElapsed;

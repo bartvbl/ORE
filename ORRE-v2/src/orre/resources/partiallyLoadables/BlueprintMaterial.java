@@ -7,13 +7,11 @@ import java.io.IOException;
 import orre.gl.materials.AbstractMaterial;
 import orre.gl.materials.Material;
 import orre.resources.Resource;
-import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.UnloadedResource;
 import orre.resources.Finalizable;
 import orre.resources.loaders.TextureLoader;
 import orre.resources.loaders.obj.OBJLoadingContext;
-import orre.sceneGraph.SceneNode;
 
 public class BlueprintMaterial implements Finalizable, AbstractMaterial {
 	public final String name;
@@ -30,12 +28,15 @@ public class BlueprintMaterial implements Finalizable, AbstractMaterial {
 		this.material = new Material(name);
 	}
 	
+	@Override
 	public void setAmbientColour(float[] colour) {
 		this.material.setAmbientColour(colour);
 	}
+	@Override
 	public void setDiffuseColour(float[] colour) {
 		this.material.setDiffuseColour(colour);
 	}
+	@Override
 	public void setSpecularColour(float[] colour) {
 		this.material.setSpecularColour(colour);
 	}
@@ -47,6 +48,7 @@ public class BlueprintMaterial implements Finalizable, AbstractMaterial {
 		this.material.setShininess(shininess);
 	}
 	
+	@Override
 	public void setAlpha(float alpha) {
 		this.material.setAlpha(alpha);
 	}
@@ -61,6 +63,7 @@ public class BlueprintMaterial implements Finalizable, AbstractMaterial {
 		this.specularTexture = TextureLoader.partiallyLoadTextureFromFile(new UnloadedResource(ResourceType.texture, new File(context.getContainingDirectory().getPath() + "/" +  src), "Material texture"));
 	}
 	
+	@Override
 	public Resource finalizeResource() {
 		if(isFinalized){return null;};
 		if(this.ambientTexture != null) {			

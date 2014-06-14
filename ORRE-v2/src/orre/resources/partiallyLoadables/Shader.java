@@ -6,7 +6,6 @@ import orre.gl.shaders.ShaderNode;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
 import orre.resources.ResourceType;
-import orre.sceneGraph.SceneNode;
 
 public class Shader implements Finalizable {
 

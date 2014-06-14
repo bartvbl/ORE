@@ -3,10 +3,8 @@ package orre.resources.partiallyLoadables;
 import orre.gl.texture.Texture;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
-import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.loaders.TextureLoader;
-import orre.sceneGraph.SceneNode;
 
 public class PartiallyLoadableTexture implements Finalizable {
 	private byte[] imageData;
@@ -24,6 +22,7 @@ public class PartiallyLoadableTexture implements Finalizable {
 		this.name = name;
 	}
 
+	@Override
 	public Resource finalizeResource() {
 		if(hasBeenFinalized) return resource;
 		this.hasBeenFinalized = true;

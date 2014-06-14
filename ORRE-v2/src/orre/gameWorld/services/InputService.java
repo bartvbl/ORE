@@ -28,10 +28,6 @@ public class InputService implements Service {
 	
 	private static final double mapMoveSpeed = 0.3d;
 	
-	private static final HashMap<Integer, String> keyCommands = new HashMap<Integer, String>();
-	
-	
-	
 	public InputService(GameWorld world, ResourceCache cache) {
 		this.world = world;
 		this.cache = cache;
@@ -48,6 +44,15 @@ public class InputService implements Service {
 		this.keyStateMap = new HashMap<Integer, Boolean>();
 	}
 	
+	public void addCommandListener(int gameObjectID, String command) {
+		
+	}
+	
+	public void removeCommandListener(int gameObjectID, String command) {
+		
+	}
+	
+	@Override
 	public void tick() {
 		double mouseDX = Mouse.getDX();
 		double mouseDY = Mouse.getDY();

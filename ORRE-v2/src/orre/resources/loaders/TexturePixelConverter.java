@@ -3,8 +3,6 @@ package orre.resources.loaders;
 import java.awt.image.BufferedImage;
 import java.awt.image.PixelGrabber;
 
-import orre.gl.texture.Texture;
-
 public class TexturePixelConverter {
 	
 	private static int[] getPixels(BufferedImage image) throws InterruptedException

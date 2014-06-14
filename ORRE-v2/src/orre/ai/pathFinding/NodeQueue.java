@@ -40,6 +40,7 @@ public class NodeQueue {
 		return this.queue.size();
 	}
 	
+	@Override
 	public String toString() {
 		return "(" + this.size() + ") " + queue.toString();
 	}

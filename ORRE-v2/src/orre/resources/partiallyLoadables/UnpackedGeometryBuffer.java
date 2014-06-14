@@ -27,6 +27,7 @@ public class UnpackedGeometryBuffer implements Finalizable{
 		vertices.put(vertex);
 	}
 
+	@Override
 	public Resource finalizeResource() {
 		return null;
 	}

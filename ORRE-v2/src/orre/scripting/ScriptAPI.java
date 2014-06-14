@@ -1,14 +1,10 @@
 package orre.scripting;
 
-import java.io.File;
-
 import orre.events.EventHandler;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.gameWorld.core.GameWorld;
-import orre.resources.ResourceType;
-import orre.resources.UnloadedResource;
 import orre.threads.ScriptExecutionThread;
 import orre.util.ConcurrentQueue;
 
@@ -24,6 +20,7 @@ public class ScriptAPI implements EventHandler {
 
 	public static void spawn(final String gameObjectType) {
 		runOnMainThreadQueue.enqueue(new Runnable(){
+			@Override
 			public void run() {
 				currentGameWorld.api_spawnGameObjectFromString(gameObjectType);
 			}

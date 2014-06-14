@@ -2,15 +2,8 @@ package orre.resources.loaders.obj;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-
-import orre.gl.materials.Material;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
-import orre.util.FeedbackProvider;
 import orre.util.StringUtils;
 
 public class MTLLibLoader {

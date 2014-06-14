@@ -1,7 +1,6 @@
 package orre.gl;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.util.glu.GLU.gluOrtho2D;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
 import org.lwjgl.opengl.Display;

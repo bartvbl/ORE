@@ -40,6 +40,7 @@ public class Vector3D {
 		return new Vector3D(x, y, z);
 	}
 	
+	@Override
 	public String toString() {
 		return "vert3D ["+x+", "+y+", "+z+"]";
 	}

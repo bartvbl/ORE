@@ -6,8 +6,6 @@ import javax.swing.UnsupportedLookAndFeelException;
 import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventType;
-import orre.gameWorld.core.GameObjectType;
-import orre.gameWorld.core.GameWorld;
 import orre.resources.ResourceTypeLoader;
 
 public class ORRE {

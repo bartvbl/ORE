@@ -12,9 +12,11 @@ public class PauseMenu extends GameState {
 		super(main, eventDispatcher, cache, interpreter);
 	}
 
+	@Override
 	public void executeFrame(long frameNumber) {
 	}
 
+	@Override
 	public void set() {
 	}
 

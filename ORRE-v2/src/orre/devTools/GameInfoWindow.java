@@ -4,9 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 
-import javax.swing.DefaultListModel;
 import javax.swing.JFrame;
-import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JSplitPane;
@@ -20,7 +18,6 @@ import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Property;
 import orre.resources.Resource;
 import orre.resources.ResourceCache;
-import orre.resources.ResourceType;
 import orre.sceneGraph.SceneNode;
 
 public class GameInfoWindow {

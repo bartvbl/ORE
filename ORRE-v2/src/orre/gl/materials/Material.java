@@ -1,14 +1,11 @@
 package orre.gl.materials;
 
 import java.nio.FloatBuffer;
-import java.util.concurrent.atomic.AtomicReference;
-
 import org.lwjgl.BufferUtils;
 
 import orre.gl.texture.Texture;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
-import orre.sceneGraph.CoordinateNode;
 import static org.lwjgl.opengl.GL11.*;
 
 public class Material extends ContainerNode implements SceneNode, AbstractMaterial {
@@ -47,11 +44,13 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		this.specularTexture = texture;
 	}
 	
+	@Override
 	public void setAmbientColour(float[] colour)
 	{
 		colour = formatColour(colour);
 		this.ambientColour = colour;
 	}
+	@Override
 	public void setDiffuseColour(float[] colour)
 	{
 		colour = formatColour(colour);
@@ -62,6 +61,7 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		setDiffuseColour(new float[]{(float) colour[0], (float) colour[1], (float) colour[2], (float) colour[3]});
 	}
 	
+	@Override
 	public void setSpecularColour(float[] colour)
 	{
 		colour = formatColour(colour);
@@ -91,11 +91,13 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		return colour;
 	}
 	
+	@Override
 	public void setAlpha(float alpha)
 	{
 		this.alpha = alpha;
 	}
 	
+	@Override
 	public void render() 
 	{
 		this.bindTexture();
@@ -124,8 +126,10 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		return this.colourBuffer;
 	}
 	
+	@Override
 	public void destroy(){}
 	
+	@Override
 	public Material clone() {
 		Material material = new Material(this.name);
 		material.setAlpha(this.alpha);
@@ -140,6 +144,7 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		return material;
 	}
 	
+	@Override
 	public String toString() {
 		return "Material " + this.name;
 	}

@@ -5,7 +5,6 @@ import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
-import orre.gameWorld.core.PropertyDataType;
 import orre.gameWorld.services.InputService;
 import orre.sceneGraph.Camera;
 
@@ -19,6 +18,7 @@ public class KeyboardCameraController extends Property {
 		gameObject.world.addMessageListener(MessageType.ASSUME_CAMERA_CONTROL, gameObject);
 	}
 
+	@Override
 	public void handleMessage(Message<?> message) {
 		if(message.type == MessageType.ASSUME_CAMERA_CONTROL) {
 			this.controlledCamera = (Camera) message.getPayload();
@@ -28,11 +28,13 @@ public class KeyboardCameraController extends Property {
 		}
 	}
 
+	@Override
 	public void tick() {
 		this.controlledCamera.setRotation(service.getMapRotationX(), 0, service.getMapRotationZ());
 		this.controlledCamera.setLocation(service.getMapX(), service.getMapY(), service.getMapZ());
 	}
 	
+	@Override
 	public void destroy() {}
 
 	@Override

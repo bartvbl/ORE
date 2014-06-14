@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import orre.geom.mesh.ModelPart;
 import orre.geom.vbo.GeometryNode;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
-import orre.resources.partiallyLoadables.UnpackedGeometryBuffer;
-import orre.sceneGraph.SceneNode;
 
 public class StoredModelPart {
 	

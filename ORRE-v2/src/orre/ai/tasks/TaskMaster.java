@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.ai.pathFinding.AStar;
-import orre.ai.pathFinding.Path;
 import orre.gameWorld.core.GameWorld;
 import orre.geom.Point2D;
 
