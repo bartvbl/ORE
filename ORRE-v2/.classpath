@@ -13,7 +13,7 @@
 	<classpathentry combineaccessrules="false" kind="src" path="/LibLDD"/>
 	<classpathentry kind="lib" path="jars/lwjgl-debug.jar">
 		<attributes>
-			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ORRE-v2/natives"/>
+			<attribute name="org.eclipse.jdt.launching.CLASSPATH_ATTR_LIBRARY_PATH_ENTRY" value="ORE/natives"/>
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="jars/slick.jar"/>
