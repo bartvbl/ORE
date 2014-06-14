@@ -57,8 +57,12 @@ public class MouseDevice {
 		while(Mouse.next()) {
 			int buttonIndex = Mouse.getEventButton();
 			boolean buttonState = Mouse.getEventButtonState();
-			mouseButtonStates[buttonIndex] = buttonState;
-			dispatchButtonChange(buttonIndex, buttonState);
+			
+			if(buttonIndex != -1) {
+				mouseButtonStates[buttonIndex] = buttonState;
+				dispatchButtonChange(buttonIndex, buttonState);
+			}
+			
 		}
 	}
 
