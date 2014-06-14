@@ -2,7 +2,6 @@ package orre.input;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 public class KeyBindings {
 	private static final HashMap<KeyType, ArrayList<String>> bindings = new HashMap<KeyType, ArrayList<String>>();

@@ -52,7 +52,7 @@ public class InputService implements Service {
 	}
 
 	public void removeCommandListener(final int gameObjectID, final String command) {
-
+		dispatcher.removeInputEventListener(command, gameObjectID);
 	}
 
 	@Override
