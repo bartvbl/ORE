@@ -9,10 +9,11 @@ import org.lwjgl.input.Mouse;
 import orre.devTools.GameInfoWindow;
 import orre.gameWorld.core.GameWorld;
 import orre.gl.util.CoordConverter;
+import orre.input.CommandDispatcher;
 import orre.resources.ResourceCache;
 
 public class InputService implements Service {
-	
+
 	private double mapRotationX = 0;
 	private double mapRotationZ = 0;
 	private double mapX = 0;
@@ -21,16 +22,18 @@ public class InputService implements Service {
 	private double mouseX = 0;
 	private double mouseY = 0;
 	private float[] mouseLocation = new float[]{0, 0, 0};
-	
+
 	private final HashMap<Integer, Boolean> keyStateMap;
 	private final GameWorld world;
 	private final ResourceCache cache;
-	
+	private final CommandDispatcher dispatcher;
+
 	private static final double mapMoveSpeed = 0.3d;
-	
-	public InputService(GameWorld world, ResourceCache cache) {
+
+	public InputService(final GameWorld world, final ResourceCache cache) {
 		this.world = world;
 		this.cache = cache;
+		this.dispatcher = new CommandDispatcher(world);
 		try {
 			if(!Mouse.isCreated()) {
 				Mouse.create();
@@ -38,45 +41,45 @@ public class InputService implements Service {
 			if(!Keyboard.isCreated()) {
 				Keyboard.create();
 			}
-		} catch (LWJGLException e) {
+		} catch (final LWJGLException e) {
 			e.printStackTrace();
 		}
 		this.keyStateMap = new HashMap<Integer, Boolean>();
 	}
-	
-	public void addCommandListener(int gameObjectID, String command) {
-		
+
+	public void addCommandListener(final int gameObjectID, final String command) {
+		dispatcher.addInputEventListener(command, gameObjectID);
 	}
-	
-	public void removeCommandListener(int gameObjectID, String command) {
-		
+
+	public void removeCommandListener(final int gameObjectID, final String command) {
+
 	}
-	
+
 	@Override
 	public void tick() {
-		double mouseDX = Mouse.getDX();
-		double mouseDY = Mouse.getDY();
-		double mouseX = Mouse.getX();
-		double mouseY = Mouse.getY();
-		double mouseDWheel = Mouse.getDWheel();
-		
+		final double mouseDX = Mouse.getDX();
+		final double mouseDY = Mouse.getDY();
+		final double mouseX = Mouse.getX();
+		final double mouseY = Mouse.getY();
+		final double mouseDWheel = Mouse.getDWheel();
+
 		if(Mouse.isButtonDown(1)) {
 			mapRotationZ += mouseDX / 4d;
 			mapRotationX -= mouseDY / 4d;
 		}
-		
+
 		double mapDeltaX = 0;
 		double mapDeltaY = 0;
-		
+
 		while(Keyboard.next()) {
-			int pressedKey = Keyboard.getEventKey();
-			boolean isKeyDown = Keyboard.getEventKeyState();
+			final int pressedKey = Keyboard.getEventKey();
+			final boolean isKeyDown = Keyboard.getEventKeyState();
 			keyStateMap.put(pressedKey, isKeyDown);
 			if(isKeyDown) {
 				onKeyDown(pressedKey);
 			}
 		}
-		
+
 		if(keyStateMap.containsKey(Keyboard.KEY_A) && keyStateMap.get(Keyboard.KEY_A)) {
 			mapDeltaX--;
 		}
@@ -89,21 +92,21 @@ public class InputService implements Service {
 		if(keyStateMap.containsKey(Keyboard.KEY_W) && keyStateMap.get(Keyboard.KEY_W)) {
 			mapDeltaY++;
 		}
-		
+
 		if((mapDeltaX != 0) || (mapDeltaY != 0)) {
 			double moveDirection = Math.atan2(mapDeltaX, mapDeltaY);
 			moveDirection -= Math.toRadians(mapRotationZ);
 			mapX += Math.sin(moveDirection) * mapMoveSpeed;
 			mapY += Math.cos(moveDirection) * mapMoveSpeed;
 		}
-		
+
 		mapZ += mouseDWheel / 35d;
-		
+
 		this.mouseX = mouseX;
 		this.mouseY = mouseY;
 	}
 
-	private void onKeyDown(int pressedKey) {
+	private void onKeyDown(final int pressedKey) {
 		switch(pressedKey) {
 		case Keyboard.KEY_F3:
 			GameInfoWindow.showDebugInfo(world, cache);
@@ -121,7 +124,7 @@ public class InputService implements Service {
 	public double getMapX() {
 		return mapX;
 	}
-	
+
 	public double getMapY() {
 		return mapY;
 	}
@@ -133,7 +136,7 @@ public class InputService implements Service {
 	public double getMouseX() {
 		return mouseX;
 	}
-	
+
 	public double getMouseY() {
 		return mouseY;
 	}
