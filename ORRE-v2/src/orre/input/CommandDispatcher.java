@@ -18,8 +18,14 @@ public class CommandDispatcher {
 	}
 
 	public void dispatchCommand(final InputEvent event) {
+		if(!KeyBindings.hasBindingFor(event.type)) {
+			return;
+		}
 		for(String command : KeyBindings.getBindings(event.type)) {
 			Message<InputEvent> message = new Message<InputEvent>(MessageType.INPUT_EVENT, event);
+			if(!commandMap.containsKey(command)) {
+				continue;
+			}
 			for(int gameObjectID : commandMap.get(command)) {
 				world.dispatchMessage(message, gameObjectID);
 				if(event.isConsumed()) {
