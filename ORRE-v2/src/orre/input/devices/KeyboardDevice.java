@@ -22,7 +22,11 @@ public class KeyboardDevice {
 			final double keyValue = isKeyDown ? 1.0 : 0.0;
 			
 			KeyType type = getKeyType(pressedKey);
-			dispatcher.dispatchCommand(new InputEvent(type, keyValue, keyDelta));
+			System.out.println("Keyboard: " + type);
+			
+			if(type != null) {
+				dispatcher.dispatchCommand(new InputEvent(type, keyValue, keyDelta));
+			}
 		}
 	}
 
@@ -289,6 +293,6 @@ public class KeyboardDevice {
 		case Keyboard.KEY_Z:
 			return KeyType.KEY_Z;
 		}
-		throw new RuntimeException("Unknown key type. Has LWJGL been updated?");
+		return null;
 	}
 }
