@@ -3,15 +3,15 @@ package orre.input;
 public class InputEvent {
 	public final double value;
 	public final double delta;
-	public final KeyType type;
+	public final String command;
 
 	private boolean isConsumed;
 
-	public InputEvent(final KeyType type, final double value, final double delta) {
+	public InputEvent(final String command, final double value, final double delta) {
 		this.value = value;
 		this.delta = delta;
 		this.isConsumed = false;
-		this.type = type;
+		this.command = command;
 	}
 
 	public void consume() {

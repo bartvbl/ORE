@@ -17,11 +17,12 @@ public class CommandDispatcher {
 		this.commandMap = new HashMap<String, ArrayList<Integer>>();
 	}
 
-	public void dispatchCommand(final InputEvent event) {
-		if(!KeyBindings.hasBindingFor(event.type)) {
+	public void dispatchCommand(KeyType type, double value, double delta) {
+		if(!KeyBindings.hasBindingFor(type)) {
 			return;
 		}
-		for(String command : KeyBindings.getBindings(event.type)) {
+		for(String command : KeyBindings.getBindings(type)) {
+			final InputEvent event = new InputEvent(command, value, delta);
 			Message<InputEvent> message = new Message<InputEvent>(MessageType.INPUT_EVENT, event);
 			if(!commandMap.containsKey(command)) {
 				continue;

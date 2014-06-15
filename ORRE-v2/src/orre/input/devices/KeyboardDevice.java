@@ -25,7 +25,7 @@ public class KeyboardDevice {
 			System.out.println("Keyboard: " + type);
 			
 			if(type != null) {
-				dispatcher.dispatchCommand(new InputEvent(type, keyValue, keyDelta));
+				dispatcher.dispatchCommand(type, keyValue, keyDelta);
 			}
 		}
 	}

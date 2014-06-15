@@ -30,10 +30,10 @@ public class MouseDevice {
 		final double mouseY = Mouse.getY();
 		
 		if(mouseDX != 0) {
-			dispatcher.dispatchCommand(new InputEvent(KeyType.MOUSE_X, mouseX, mouseDX));
+			dispatcher.dispatchCommand(KeyType.MOUSE_X, mouseX, mouseDX);
 		}
 		if(mouseDY != 0) {
-			dispatcher.dispatchCommand(new InputEvent(KeyType.MOUSE_Y, mouseY, mouseDY));
+			dispatcher.dispatchCommand(KeyType.MOUSE_Y, mouseY, mouseDY);
 		}
 	}
 
@@ -42,13 +42,13 @@ public class MouseDevice {
 		double buttonValue = buttonState ? 1.0 : 0.0;
 		switch(buttonIndex) {
 		case 0:
-			dispatcher.dispatchCommand(new InputEvent(KeyType.MOUSE_LEFT_BUTTON, buttonValue, buttonDelta));
+			dispatcher.dispatchCommand(KeyType.MOUSE_LEFT_BUTTON, buttonValue, buttonDelta);
 			return;
 		case 1:
-			dispatcher.dispatchCommand(new InputEvent(KeyType.MOUSE_RIGHT_BUTTON, buttonValue, buttonDelta));
+			dispatcher.dispatchCommand(KeyType.MOUSE_RIGHT_BUTTON, buttonValue, buttonDelta);
 			return;
 		case 2:
-			dispatcher.dispatchCommand(new InputEvent(KeyType.MOUSE_MIDDLE_BUTTON, buttonValue, buttonDelta));
+			dispatcher.dispatchCommand(KeyType.MOUSE_MIDDLE_BUTTON, buttonValue, buttonDelta);
 			return;
 		}
 	}
@@ -70,7 +70,7 @@ public class MouseDevice {
 		final int mouseWheelDelta = Mouse.getDWheel();
 		if(mouseWheelDelta != 0) {
 			mouseWheelPosition += mouseWheelDelta;
-			dispatcher.dispatchCommand(new InputEvent(KeyType.MOUSE_WHEEL, mouseWheelPosition, mouseWheelDelta));
+			dispatcher.dispatchCommand(KeyType.MOUSE_WHEEL, mouseWheelPosition, mouseWheelDelta);
 		}
 	}
 }
