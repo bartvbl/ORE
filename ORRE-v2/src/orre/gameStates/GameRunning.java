@@ -33,7 +33,6 @@ public class GameRunning extends GameState {
 	public void executeFrame(long frameNumber) {
 		this.gameWorld.tick();
 		RenderPass.render(this.sceneRoot);
-		//gameWorld.services.inputService.updateMouseTargetLocation();
 	}
 	
 	@Override
@@ -49,6 +48,7 @@ public class GameRunning extends GameState {
 		this.gameWorld = new GameWorld(this.resourceCache, interpreter, shader, sceneRoot, cameraContainer);
 		gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.spawnGameObject(GameObjectType.DEV_TOOLS);
+		gameWorld.spawnGameObject(GameObjectType.GUI);
 	}
 	
 	@Override
