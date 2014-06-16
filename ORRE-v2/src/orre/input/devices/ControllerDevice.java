@@ -32,6 +32,9 @@ public class ControllerDevice {
 			this.controller = Controllers.getController(0);
 			buttonStates = new boolean[controller.getButtonCount()];
 			this.axisStates = new double[controller.getAxisCount()];
+			for(int i = 0; i < controller.getAxisCount(); i++) {
+				controller.setDeadZone(i, 0.15f);
+			}
 			this.directionStates = new double[2];
 		} else {
 			this.isEnabled = false;
