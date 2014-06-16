@@ -60,11 +60,10 @@ public class ContainerNode implements SceneNode {
 
 	@Override
 	public void preRender() {
-		glPushMatrix();
 	}
+	
 	@Override
 	public void postRender() {
-		glPopMatrix();
 	}
 	
 	@Override

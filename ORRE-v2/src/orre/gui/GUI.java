@@ -18,7 +18,7 @@ public class GUI extends Property {
 	public GUI(GameObject object) {
 		super(PropertyType.IS_GUI, object);
 		this.guiRoot = new GUIRootNode();
-		object.world.rootNode.addChild(guiRoot);
+		object.world.scene3DRoot.addChild(guiRoot);
 	}
 
 	@Override

@@ -1,6 +1,7 @@
 package orre.gl.materials;
 
 import java.nio.FloatBuffer;
+
 import org.lwjgl.BufferUtils;
 
 import orre.gl.texture.Texture;
@@ -147,6 +148,16 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	@Override
 	public String toString() {
 		return "Material " + this.name;
+	}
+	
+	@Override
+	public void preRender() {
+		glPushMatrix();
+	}
+	
+	@Override
+	public void postRender() {
+		glPopMatrix();
 	}
 
 }

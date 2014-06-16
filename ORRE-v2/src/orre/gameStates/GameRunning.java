@@ -32,7 +32,7 @@ public class GameRunning extends GameState {
 	@Override
 	public void executeFrame(long frameNumber) {
 		this.gameWorld.tick();
-		RenderPass.render(this.gameWorld.rootNode);
+		RenderPass.render(this.gameWorld.scene3DRoot);
 		//gameWorld.services.inputService.updateMouseTargetLocation();
 	}
 	
@@ -46,8 +46,9 @@ public class GameRunning extends GameState {
 		sceneRoot.addChild(cameraContainer);
 		ShaderNode shader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content).createSceneNode();
 		sceneRoot.addChild(shader);
-		this.gameWorld = new GameWorld(this.resourceCache, interpreter, shader, cameraContainer);
+		this.gameWorld = new GameWorld(this.resourceCache, interpreter, shader, sceneRoot, cameraContainer);
 		gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
+		gameWorld.spawnGameObject(GameObjectType.DEV_TOOLS);
 	}
 	
 	@Override

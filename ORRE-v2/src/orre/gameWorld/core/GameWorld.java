@@ -14,17 +14,19 @@ import orre.scripting.ScriptInterpreter;
 import orre.util.ArrayUtils;
 
 public class GameWorld {
-	public final SceneNode rootNode;
+	public final SceneNode scene3DRoot;
 	public final WorldServices services;
 	public final ResourceCache resourceCache;
+	public final ContainerNode sceneRoot;
 
 	private final HashMap<Integer, GameObject> gameObjectSet;
 	private final HashMap<Enum<?>, int[]> propertyMap;
 	private final HashMap<Enum<?>, int[]> objectTypeMap;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ShaderNode rootNode, ContainerNode cameraContainer) {
-		this.rootNode = rootNode;//new ContainerNode("Scene root");
+	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ShaderNode sceneContents, ContainerNode rootNode, ContainerNode cameraContainer) {
+		this.scene3DRoot = sceneContents;//new ContainerNode("Scene root");
+		this.sceneRoot = rootNode;
 		this.services = new WorldServices(this, cache, interpreter, cameraContainer);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();

@@ -21,13 +21,13 @@ import orre.resources.ResourceCache;
 import orre.sceneGraph.SceneNode;
 
 public class GameInfoWindow {
-	public static void showDebugInfo(GameWorld world, ResourceCache cache) {
+	public static void showDebugInfo(GameWorld world) {
 		JFrame window = new JFrame("Scene");
 		JTabbedPane mainTabPane = new JTabbedPane();
 		window.add(mainTabPane);
-		showSceneGraph(world.rootNode, mainTabPane);
+		showSceneGraph(world.sceneRoot, mainTabPane);
 		showGameWorld(world.debugonly_getAllGameOjects(), mainTabPane);
-		showResourceCache(cache, mainTabPane);
+		showResourceCache(world.resourceCache, mainTabPane);
 		window.setSize(300, 500);
 		window.setLocation(100, 100);
 		window.setVisible(true);
