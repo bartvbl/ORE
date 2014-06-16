@@ -30,7 +30,6 @@ public class KeyboardDevice {
 			
 			KeyType type = getKeyType(pressedKey);
 			
-			
 			if (type != null) {
 				dispatcher.dispatchCommand(type, keyValue, keyDelta);
 				if(!isKeyDown) {
@@ -40,8 +39,6 @@ public class KeyboardDevice {
 				}
 			}
 		}
-		
-		
 	}
 
 	private KeyType getKeyType(int pressedKey) {
