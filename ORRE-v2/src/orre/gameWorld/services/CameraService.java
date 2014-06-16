@@ -16,6 +16,7 @@ public class CameraService implements Service {
 	}
 	
 	public void activateCamera(Camera camera) {
+		this.cameraContainer.removeChild(cameraStack.peek());
 		this.cameraContainer.addChild(camera);
 		this.cameraStack.push(camera);
 	}

@@ -3,7 +3,7 @@ package orre.sceneGraph;
 import java.util.ArrayList;
 
 public class LeafNode implements SceneNode {
-	private final ArrayList<SceneNode> children = new ArrayList<SceneNode>();
+	private static final ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	private boolean isVisible = true;
 
 	@Override

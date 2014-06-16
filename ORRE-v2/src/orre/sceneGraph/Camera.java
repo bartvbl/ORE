@@ -14,7 +14,7 @@ public class Camera extends LeafNode
 		transform();
 	}
 	
-	private void transform() {
+	protected void transform() {
 		transformationMatrix.setIdentity();
 	}
 

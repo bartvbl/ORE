@@ -32,7 +32,7 @@ public class GameRunning extends GameState {
 	@Override
 	public void executeFrame(long frameNumber) {
 		this.gameWorld.tick();
-		RenderPass.render(this.gameWorld.scene3DRoot);
+		RenderPass.render(this.sceneRoot);
 		//gameWorld.services.inputService.updateMouseTargetLocation();
 	}
 	
