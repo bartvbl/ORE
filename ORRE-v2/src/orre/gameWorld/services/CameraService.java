@@ -1,24 +1,35 @@
 package orre.gameWorld.services;
 
-import orre.gameWorld.core.GameWorld;
 import orre.sceneGraph.Camera;
+import orre.sceneGraph.ContainerNode;
+import orre.util.Stack;
 
 public class CameraService implements Service {
 
-	private Camera currentCamera = null;
-	private GameWorld world;
+	private final Stack<Camera> cameraStack = new Stack<Camera>();
+	private final ContainerNode cameraContainer;
 
-	public void setCurrentCamera(Camera camera, GameWorld world) {
-		this.currentCamera = camera;
-		this.world = world;
+	public CameraService(ContainerNode cameraContainer) {
+		this.cameraContainer = cameraContainer;
+		Camera defaultCamera = new Camera();
+		activateCamera(defaultCamera);
+	}
+	
+	public void activateCamera(Camera camera) {
+		this.cameraContainer.addChild(camera);
+		this.cameraStack.push(camera);
+	}
+	
+	public void deactivateCurrentCamera() {
+		Camera currentCamera = this.cameraStack.pop();
+		if(cameraStack.isEmpty()) {
+			throw new RuntimeException("Cannot remove the default camera!");
+		}
+		this.cameraContainer.removeChild(currentCamera);
 	}
 	
 	@Override
 	public void tick() {
-		if(currentCamera != null) {
-			
-			//currentCamera.transform(world.map.getTileHeightAt(world.services.inputService.getMapX(), world.services.inputService.getMapY()));
-		}
 	}
 
 }

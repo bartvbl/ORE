@@ -18,7 +18,6 @@ import orre.scripting.ScriptInterpreter;
 public class GameRunning extends GameState {
 	private GameWorld gameWorld;
 	private ContainerNode sceneRoot;
-	private Camera defaultCamera;
 	
 	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter)
 	{
@@ -34,7 +33,7 @@ public class GameRunning extends GameState {
 	public void executeFrame(long frameNumber) {
 		this.gameWorld.tick();
 		RenderPass.render(this.gameWorld.rootNode);
-		gameWorld.services.inputService.updateMouseTargetLocation();
+		//gameWorld.services.inputService.updateMouseTargetLocation();
 	}
 	
 	@Override
@@ -43,15 +42,12 @@ public class GameRunning extends GameState {
 		
 		this.sceneRoot = new ContainerNode();
 		
-		defaultCamera = new Camera();
+		ContainerNode cameraContainer = new ContainerNode();
+		sceneRoot.addChild(cameraContainer);
 		ShaderNode shader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content).createSceneNode();
 		sceneRoot.addChild(shader);
-		//shader.addChild(defaultCamera);
-		this.gameWorld = new GameWorld(this.resourceCache, interpreter, shader);
-		gameWorld.services.cameraService.setCurrentCamera(defaultCamera, gameWorld);
-		int cameraController = gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
-		gameWorld.dispatchMessage(new Message<Camera>(MessageType.ASSUME_CAMERA_CONTROL, defaultCamera), cameraController);
-		//gameWorld.spawnGameObject(GameObjectType.GUI);
+		this.gameWorld = new GameWorld(this.resourceCache, interpreter, shader, cameraContainer);
+		gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 	}
 	
 	@Override

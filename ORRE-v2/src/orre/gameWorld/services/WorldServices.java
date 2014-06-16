@@ -2,6 +2,7 @@ package orre.gameWorld.services;
 
 import orre.gameWorld.core.GameWorld;
 import orre.resources.ResourceCache;
+import orre.sceneGraph.ContainerNode;
 import orre.scripting.ScriptInterpreter;
 
 public class WorldServices {
@@ -12,12 +13,12 @@ public class WorldServices {
 	public final CameraService cameraService;
 	public final ScriptingService scriptingService;
 
-	public WorldServices(GameWorld world, ResourceCache cache, ScriptInterpreter interpreter) {
+	public WorldServices(GameWorld world, ResourceCache cache, ScriptInterpreter interpreter, ContainerNode cameraContainer) {
 		this.animationService = new AnimationService(world);
 		this.aiService = new AIService(world);
 		this.soundService = new SoundService();
 		this.inputService = new InputService(world, cache);
-		this.cameraService = new CameraService();
+		this.cameraService = new CameraService(cameraContainer);
 		this.scriptingService = new ScriptingService(world, interpreter);
 	}
 	

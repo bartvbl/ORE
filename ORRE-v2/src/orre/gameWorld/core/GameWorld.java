@@ -8,6 +8,7 @@ import orre.api.PropertyTypeProvider;
 import orre.gameWorld.services.WorldServices;
 import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
+import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import orre.scripting.ScriptInterpreter;
 import orre.util.ArrayUtils;
@@ -22,9 +23,9 @@ public class GameWorld {
 	private final HashMap<Enum<?>, int[]> objectTypeMap;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ShaderNode rootNode) {
+	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ShaderNode rootNode, ContainerNode cameraContainer) {
 		this.rootNode = rootNode;//new ContainerNode("Scene root");
-		this.services = new WorldServices(this, cache, interpreter);
+		this.services = new WorldServices(this, cache, interpreter, cameraContainer);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
 		this.propertyMap = new HashMap<Enum<?>, int[]>();
