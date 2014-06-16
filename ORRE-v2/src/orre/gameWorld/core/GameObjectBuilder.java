@@ -22,8 +22,8 @@ public class GameObjectBuilder {
 		for(Enum<?> propertyType : propertyTypes) {
 			Property property = createPropertyByType(propertyType, gameObject);
 			gameObject.addProperty(property);
-			property.init();
 		}
+		gameObject.initProperties();
 		return gameObject;
 	}
 

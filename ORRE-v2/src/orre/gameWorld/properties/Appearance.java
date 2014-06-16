@@ -18,7 +18,7 @@ public abstract class Appearance extends Property {
 	}
 	
 	@Override
-	public void init() {
+	public final void init() {
 		this.appearance = ((BlueprintModel) gameObject.world.resourceCache.getResource(ResourceType.model, meshName).content).createMesh();
 		gameObject.takeControl(new GraphicsObject(appearance.root));
 		gameObject.setPropertyData(PropertyDataType.APPEARANCE, appearance);

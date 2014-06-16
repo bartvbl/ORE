@@ -65,11 +65,11 @@ public final class GameObject {
 	}
 
 	public Object requestPropertyData(Enum<?> propertyDataType, Class<?> expectedDataType) {
-		Object data = propertyData.get(propertyDataType);
-		if(data == null) {
+		if(!propertyData.containsKey(propertyDataType)) {
 			Logger.log("Property data " + propertyDataType + " not found in object " + this.id, LogType.WARNING);
 			return null;
 		}
+		Object data = propertyData.get(propertyDataType);
 		if(!expectedDataType.isAssignableFrom(data.getClass())) {
 			throw new RuntimeException("Property data type " + propertyDataType + " was not the same as the expected type (" + data.getClass() + " versus " + expectedDataType + ")");
 		}
@@ -111,5 +111,11 @@ public final class GameObject {
 			propertyTypes.add(property.type);
 		}
 		return propertyTypes.toArray(new Enum<?>[propertyTypes.size()]);
+	}
+
+	public void initProperties() {
+		for(Property property : properties) {
+			property.init();
+		}
 	}
 }
