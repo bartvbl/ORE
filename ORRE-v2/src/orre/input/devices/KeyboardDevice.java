@@ -1,5 +1,7 @@
 package orre.input.devices;
 
+import java.util.ArrayList;
+
 import org.lwjgl.input.Keyboard;
 
 import orre.input.CommandDispatcher;
@@ -8,12 +10,17 @@ import orre.input.KeyType;
 
 public class KeyboardDevice {
 	private final CommandDispatcher dispatcher;
+	private final ArrayList<KeyType> activeKeys = new ArrayList<KeyType>();
 	
 	public KeyboardDevice(CommandDispatcher dispatcher) {
 		this.dispatcher = dispatcher;
 	}
 
 	public void update() {
+		for(KeyType type : activeKeys) {
+			dispatcher.dispatchCommand(type, 1.0, 0.0);
+		}
+		
 		while(Keyboard.next()) {
 			final int pressedKey = Keyboard.getEventKey();
 			final boolean isKeyDown = Keyboard.getEventKeyState();
@@ -22,12 +29,19 @@ public class KeyboardDevice {
 			final double keyValue = isKeyDown ? 1.0 : 0.0;
 			
 			KeyType type = getKeyType(pressedKey);
-			System.out.println("Keyboard: " + type);
 			
-			if(type != null) {
+			
+			if (type != null) {
 				dispatcher.dispatchCommand(type, keyValue, keyDelta);
+				if(!isKeyDown) {
+					activeKeys.remove(type);
+				} else {
+					activeKeys.add(type);
+				}
 			}
 		}
+		
+		
 	}
 
 	private KeyType getKeyType(int pressedKey) {
