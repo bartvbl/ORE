@@ -21,11 +21,12 @@ public abstract class Appearance extends Property {
 	public void init() {
 		this.appearance = ((BlueprintModel) gameObject.world.resourceCache.getResource(ResourceType.model, meshName).content).createMesh();
 		gameObject.takeControl(new GraphicsObject(appearance.root));
-		//gameObject.world.mapContentsNode.addChild(appearance.root);
 		gameObject.setPropertyData(PropertyDataType.APPEARANCE, appearance);
+		this.placeAppearanceInScene();
 		this.initAppearance();
 	}
 
 	protected abstract void initAppearance();
+	protected abstract void placeAppearanceInScene();
 
 }

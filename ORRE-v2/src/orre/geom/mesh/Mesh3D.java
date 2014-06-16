@@ -3,6 +3,7 @@ package orre.geom.mesh;
 import java.util.HashMap;
 
 import orre.sceneGraph.CoordinateNode;
+import orre.sceneGraph.SceneNode;
 
 public class Mesh3D {
 	private HashMap<String, ModelPart> parts = new HashMap<String, ModelPart>();
@@ -14,6 +15,10 @@ public class Mesh3D {
 		this.parts.put("root", root);
 	}
 	
+	public Mesh3D(String string, CoordinateNode rootNode) {
+		this.root = rootNode;
+	}
+
 	public ModelPart getModelPartByName(String name) {
 		return this.parts.get(name);
 	}
