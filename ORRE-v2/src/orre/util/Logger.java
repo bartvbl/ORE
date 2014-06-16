@@ -10,6 +10,10 @@ public class Logger {
 	
 	public static void log(String message, LogType messageType)
 	{
-		System.out.println(messageType + ": " + message);
+		if(messageType != LogType.MESSAGE) {
+			System.err.println(messageType + ": " + message);
+		} else {
+			System.out.println(messageType + ": " + message);
+		}
 	}
 }
