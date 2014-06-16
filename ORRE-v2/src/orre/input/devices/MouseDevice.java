@@ -54,15 +54,19 @@ public class MouseDevice {
 	}
 	
 	private void updateMouseButtons() {
+		for(int i = 0; i < mouseButtonStates.length; i++) {
+			if(mouseButtonStates[i]) {
+				dispatchButtonChange(i, mouseButtonStates[i]);
+			}
+		}
+		
 		while(Mouse.next()) {
 			int buttonIndex = Mouse.getEventButton();
 			boolean buttonState = Mouse.getEventButtonState();
 			
 			if(buttonIndex != -1) {
 				mouseButtonStates[buttonIndex] = buttonState;
-				dispatchButtonChange(buttonIndex, buttonState);
 			}
-			
 		}
 	}
 
