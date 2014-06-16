@@ -23,6 +23,7 @@ public class CameraService implements Service {
 	public void deactivateCurrentCamera() {
 		Camera currentCamera = this.cameraStack.pop();
 		if(cameraStack.isEmpty()) {
+			this.cameraStack.push(currentCamera);
 			throw new RuntimeException("Cannot remove the default camera!");
 		}
 		this.cameraContainer.removeChild(currentCamera);
