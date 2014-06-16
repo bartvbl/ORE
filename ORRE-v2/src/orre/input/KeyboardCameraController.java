@@ -30,8 +30,8 @@ public class KeyboardCameraController extends Property {
 
 	@Override
 	public void tick() {
-		this.controlledCamera.setRotation(service.getMapRotationX(), 0, service.getMapRotationZ());
-		this.controlledCamera.setLocation(service.getMapX(), service.getMapY(), service.getMapZ());
+		//this.controlledCamera.setRotation(service.getMapRotationX(), 0, service.getMapRotationZ());
+		//this.controlledCamera.setLocation(service.getMapX(), service.getMapY(), service.getMapZ());
 	}
 	
 	@Override
