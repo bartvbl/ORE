@@ -24,8 +24,8 @@ public class GameWorld {
 	private final HashMap<Enum<?>, int[]> objectTypeMap;
 	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
 	
-	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ShaderNode sceneContents, ContainerNode rootNode, ContainerNode cameraContainer) {
-		this.scene3DRoot = sceneContents;//new ContainerNode("Scene root");
+	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ContainerNode shader, ContainerNode rootNode, ContainerNode cameraContainer) {
+		this.scene3DRoot = shader;//new ContainerNode("Scene root");
 		this.sceneRoot = rootNode;
 		this.services = new WorldServices(this, cache, interpreter, cameraContainer);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();

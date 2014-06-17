@@ -43,7 +43,7 @@ public class GameRunning extends GameState {
 		
 		ContainerNode cameraContainer = new ContainerNode();
 		sceneRoot.addChild(cameraContainer);
-		ShaderNode shader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content).createSceneNode();
+		ContainerNode shader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content).createSceneNode();
 		sceneRoot.addChild(shader);
 		this.gameWorld = new GameWorld(this.resourceCache, interpreter, shader, sceneRoot, cameraContainer);
 		gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
