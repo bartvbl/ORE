@@ -32,6 +32,8 @@ public class RenderUtils {
 		glEnable(GL_CULL_FACE);
 		glDisable(GL_TEXTURE_2D);
 		glEnable(GL_LIGHTING);
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
 	public static void set2DMode()
@@ -58,8 +60,6 @@ public class RenderUtils {
 		glClearDepth(1.0);
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_BLEND);
-		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glEnable(GL_LIGHTING);
 	}
 
