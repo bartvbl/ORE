@@ -73,7 +73,6 @@ public final class GameObject {
 		if(!expectedDataType.isAssignableFrom(data.getClass())) {
 			throw new RuntimeException("Property data type " + propertyDataType + " was not the same as the expected type (" + data.getClass() + " versus " + expectedDataType + ")");
 		}
-		Logger.log("Getting property data of type " + propertyDataType + " -> " + data, LogType.MESSAGE);
 		return data;
 	}
 	
@@ -81,7 +80,6 @@ public final class GameObject {
 		if(!propertyTypeProvider.getRequiredDataType(propertyDataType).isInstance(value)) {
 			throw new RuntimeException("The property data type " + propertyDataType + " requires a value of data type " + propertyTypeProvider.getRequiredDataType(propertyDataType) + " and received one of type " + value);
 		}
-		Logger.log("Setting property data: " + propertyDataType + " -> " + value, LogType.MESSAGE);
 		this.propertyData.put(propertyDataType, value);
 	}
 	
