@@ -7,5 +7,5 @@ move [part] along [x/y/z]-axis at [units] per s
 scale [part] along [x/y/z]-axis to [size] percent
 repeat from [keyframe name]
 # comment
-set [part] [x/y/z]-axis [rotation/position/scale] to [value] [units/degrees] 
+set [part] [x/y/z]-axis [rotation/position/scale/visibility] to [value] [units/degrees] 
 end animation
