@@ -4,10 +4,13 @@ from orre.scripting import ScriptAPI
 
 orre_registeredHandlers = {}
 
-def on(eventType, handler):
-	if not eventType in orre_registeredHandlers:
-		orre_registeredHandlers[eventType] = []
-	orre_registeredHandlers[eventType].append(handler)
+def on(eventType):
+	def decorator(func):
+		if not eventType in orre_registeredHandlers:
+			orre_registeredHandlers[eventType] = []
+		orre_registeredHandlers[eventType].append(handler)
+		return func
+	return decorator	
 	
 def orre_handleEvent(eventType, payload):
 	if eventType in orre_registeredHandlers:
