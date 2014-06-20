@@ -1,10 +1,10 @@
 package orre.animation.actions;
 
+import orre.animation.Animatable;
 import orre.animation.AnimationAction;
 import orre.animation.AnimationActionType;
 import orre.geom.Axis;
-import orre.geom.mesh.Mesh3D;
-import orre.geom.mesh.ModelPart;
+import orre.sceneGraph.CoordinateNode;
 
 public class TranslateAction extends AnimationAction {
 
@@ -20,8 +20,8 @@ public class TranslateAction extends AnimationAction {
 	}
 
 	@Override
-	public void update(Mesh3D target, double percentElapsed, double timeSinceLastUpdate) {
-		ModelPart part = target.getModelPartByName(partName);
+	public void update(Animatable target, double percentElapsed, double timeSinceLastUpdate) {
+		CoordinateNode part = target.getModelPartByName(partName);
 		double distanceTranslated = percentElapsed * units;
 		if(axis == Axis.x) {
 			part.translate(distanceTranslated, 0, 0);

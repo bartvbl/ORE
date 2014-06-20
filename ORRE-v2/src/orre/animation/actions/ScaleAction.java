@@ -1,9 +1,9 @@
 package orre.animation.actions;
 
+import orre.animation.Animatable;
 import orre.animation.AnimationAction;
 import orre.animation.AnimationActionType;
 import orre.geom.Axis;
-import orre.geom.mesh.Mesh3D;
 
 public class ScaleAction extends AnimationAction {
 
@@ -19,7 +19,7 @@ public class ScaleAction extends AnimationAction {
 	}
 
 	@Override
-	public void update(Mesh3D target, double percentElapsed, double timeSinceLastUpdate) {
+	public void update(Animatable target, double percentElapsed, double timeSinceLastUpdate) {
 		
 	}
 

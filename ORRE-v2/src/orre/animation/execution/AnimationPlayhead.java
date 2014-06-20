@@ -2,6 +2,7 @@ package orre.animation.execution;
 
 import org.lwjgl.util.Timer;
 
+import orre.animation.Animatable;
 import orre.animation.Animation;
 import orre.animation.AnimationAction;
 import orre.animation.KeyFrame;
@@ -11,13 +12,13 @@ import orre.geom.mesh.Mesh3D;
 public class AnimationPlayhead {
 	private final Animation animation;
 	private final Timer timer;
-	private final Mesh3D target;
+	private final Animatable target;
 	private float previousFrameStartTime = 0;
 	private int currentFrameID = 0;
 	private double elapsedTimeInFrame = 0;
 	private boolean isFinished = false;
 
-	public AnimationPlayhead(Animation animation, Mesh3D target) {
+	public AnimationPlayhead(Animation animation, Animatable target) {
 		this.animation = animation;
 		this.timer = new Timer();
 		this.target = target;

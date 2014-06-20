@@ -2,10 +2,11 @@ package orre.geom.mesh;
 
 import java.util.HashMap;
 
+import orre.animation.Animatable;
 import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
-public class Mesh3D {
+public class Mesh3D implements Animatable {
 	private HashMap<String, ModelPart> parts = new HashMap<String, ModelPart>();
 	public final CoordinateNode root;
 	
@@ -19,7 +20,7 @@ public class Mesh3D {
 		this.root = rootNode;
 	}
 
-	public ModelPart getModelPartByName(String name) {
+	public CoordinateNode getModelPartByName(String name) {
 		return this.parts.get(name);
 	}
 
