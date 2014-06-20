@@ -13,12 +13,10 @@ import orre.gui.nodes.GUIRootNode;
 
 public class GUI extends Property {
 	private final ArrayList<Control> topLevelControls = new ArrayList<Control>();
-	private final GUIRootNode guiRoot;
+	private GUIRootNode guiRoot;
 
 	public GUI(GameObject object) {
 		super(PropertyType.IS_GUI, object);
-		this.guiRoot = new GUIRootNode();
-		object.world.sceneRoot.addChild(guiRoot);
 	}
 
 	@Override
@@ -40,9 +38,8 @@ public class GUI extends Property {
 
 	@Override
 	public void init() {
-		Button button = Button.create(Corner.TOP_RIGHT, new Point2D(8, 8), 5, "This is a test button");
-		guiRoot.addChild(button.sceneNode);
-		topLevelControls.add(button);
+		this.guiRoot = new GUIRootNode();
+		gameObject.world.sceneRoot.addChild(guiRoot);
 	}
 
 }

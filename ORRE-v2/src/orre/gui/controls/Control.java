@@ -5,17 +5,12 @@ import org.lwjgl.opengl.Display;
 
 import orre.geom.Rectangle;
 import orre.gui.Corner;
+import orre.gui.elements.GUIElement;
 import orre.sceneGraph.SceneNode;
 
-public abstract class Control {
-	public final Rectangle bounds;
-	public final SceneNode sceneNode;
-	public final Corner orientation;
-
+public abstract class Control extends GUIElement {
 	public Control(SceneNode node, Corner orientation, Rectangle bounds) {
-		this.bounds = bounds;
-		this.sceneNode = node;
-		this.orientation = orientation;
+		super(bounds, orientation, node);
 	}
 	
 	protected boolean mouseOver() {
@@ -37,8 +32,6 @@ public abstract class Control {
 		
 		return (x < mouseX) && (y < mouseY) && (x + bounds.width > mouseX) && (y + bounds.height > mouseY);
 	}
-	
-	
 
 	public abstract void update();
 }
