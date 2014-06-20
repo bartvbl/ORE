@@ -9,8 +9,8 @@ import orre.gui.elements.GUIElement;
 import orre.sceneGraph.SceneNode;
 
 public abstract class Control extends GUIElement {
-	public Control(SceneNode node, Corner orientation, Rectangle bounds) {
-		super(bounds, orientation, node);
+	public Control(SceneNode node, Corner orientation, Rectangle bounds, String name) {
+		super(bounds, orientation, node, name);
 	}
 	
 	protected boolean mouseOver() {
