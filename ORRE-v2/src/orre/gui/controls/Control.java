@@ -4,13 +4,15 @@ import org.lwjgl.input.Mouse;
 import org.lwjgl.opengl.Display;
 
 import orre.geom.Rectangle;
+import orre.gui.Bounds;
 import orre.gui.Corner;
 import orre.gui.elements.GUIElement;
+import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
 public abstract class Control extends GUIElement {
-	public Control(SceneNode node, Corner orientation, Rectangle bounds, String name) {
-		super(bounds, orientation, node, name);
+	public Control(CoordinateNode node, Bounds bounds, String name) {
+		super(bounds, node, name);
 	}
 	
 	protected boolean mouseOver() {

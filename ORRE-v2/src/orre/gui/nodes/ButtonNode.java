@@ -11,7 +11,7 @@ public class ButtonNode extends GUIBaseNode {
 	private final String buttonText;
 	private boolean isHovering = false;
 	
-	public ButtonNode(Rectangle bounds, Corner corner, double padding, String buttonText) {
+	public ButtonNode(double padding, String buttonText) {
 		super(bounds, corner);
 		this.padding = padding;
 		this.buttonText = buttonText;

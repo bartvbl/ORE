@@ -1,18 +1,21 @@
 package orre.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
 import orre.geom.Point2D;
-import orre.gui.controls.Button;
+import orre.gui.controls.TextButton;
 import orre.gui.controls.Control;
+import orre.gui.elements.GUIElement;
 import orre.gui.nodes.GUIRootNode;
 
 public class GUI extends Property {
-	private final ArrayList<Control> topLevelControls = new ArrayList<Control>();
+	private final ArrayList<Control> activeControls = new ArrayList<Control>();
+	private final ArrayList<Menu> activeMenus = new ArrayList<Menu>();
 	private GUIRootNode guiRoot;
 
 	public GUI(GameObject object) {
@@ -26,7 +29,7 @@ public class GUI extends Property {
 
 	@Override
 	public void tick() {
-		for(Control control : topLevelControls) {
+		for(Control control : activeControls) {
 			control.update();
 		}
 	}

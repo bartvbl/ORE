@@ -1,21 +1,17 @@
 package orre.gui.elements;
 
-import orre.geom.Rectangle;
-import orre.gui.Corner;
-import orre.sceneGraph.SceneNode;
+import orre.gui.Bounds;
+import orre.sceneGraph.CoordinateNode;
 
 public abstract class GUIElement {
 
-	public final SceneNode sceneNode;
+	public final CoordinateNode sceneNode;
 	public final String name;
 
-	protected final Rectangle bounds;
-	protected final Corner orientation;
-
+	protected final Bounds bounds;
 	
-	public GUIElement(Rectangle bounds, Corner orientation, SceneNode node, String name) {
+	public GUIElement(Bounds bounds, CoordinateNode node, String name) {
 		this.bounds = bounds;
-		this.orientation = orientation;
 		this.sceneNode = node;
 		this.name = name;
 	}
