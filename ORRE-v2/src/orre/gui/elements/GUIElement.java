@@ -1,19 +1,32 @@
 package orre.gui.elements;
 
+import java.util.ArrayList;
+
 import orre.gui.Bounds;
+import orre.gui.baseNodes.GUIBaseNode;
 import orre.sceneGraph.CoordinateNode;
 
 public abstract class GUIElement {
 
-	public final CoordinateNode sceneNode;
+	public final GUIBaseNode sceneNode;
 	public final String name;
-
-	protected final Bounds bounds;
+	public final Bounds bounds;
 	
-	public GUIElement(Bounds bounds, CoordinateNode node, String name) {
+	private final ArrayList<GUIElement> childElements = new ArrayList<GUIElement>();
+	
+	public GUIElement(Bounds bounds, GUIBaseNode node, String name) {
 		this.bounds = bounds;
 		this.sceneNode = node;
 		this.name = name;
 	}
+	
+	public void addChild(GUIElement child) {
+		this.childElements.add(child);
+	}
 
+	public ArrayList<GUIElement> getChildren() {
+		return childElements;
+	}
+
+	public void update(double x, double y, double width, double height) {}
 }
