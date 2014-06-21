@@ -16,7 +16,8 @@ import org.newdawn.slick.UnicodeFont;
 import org.newdawn.slick.font.effects.ColorEffect;
 import org.newdawn.slick.font.effects.Effect;
 import org.newdawn.slick.opengl.TextureImpl;
-
+//needs a reimplementation
+@Deprecated
 public class TextRenderer {
 	private static final UnicodeFont font = new UnicodeFont(new Font("Arial", Font.BOLD, 12));
 	
