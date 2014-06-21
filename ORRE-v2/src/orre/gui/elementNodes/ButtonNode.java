@@ -1,10 +1,7 @@
 package orre.gui.elementNodes;
 
 import static org.lwjgl.opengl.GL11.*;
-import orre.geom.Rectangle;
-import orre.gui.Corner;
 import orre.gui.baseNodes.GUIBaseNode;
-import orre.gui.gl.TextRenderer;
 
 public class ButtonNode extends GUIBaseNode {
 	private boolean isHovering = false;

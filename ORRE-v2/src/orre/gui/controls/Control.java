@@ -23,6 +23,7 @@ public abstract class Control extends GUIElement {
 		this.y = y;
 		this.width = width;
 		this.height = height;
+		this.update();
 	}
 
 	public void updateMouse(double mouseX, double mouseY, boolean mouseState) {
@@ -38,6 +39,8 @@ public abstract class Control extends GUIElement {
 		}
 		wasMousePressed = mouseState;
 	}
+
+	protected abstract void update();
 
 	protected void onClick() {}
 	protected void onMouseOut() {}
