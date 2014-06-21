@@ -8,7 +8,7 @@ def on(eventType):
 	def decorator(func):
 		if not eventType in orre_registeredHandlers:
 			orre_registeredHandlers[eventType] = []
-		orre_registeredHandlers[eventType].append(handler)
+		orre_registeredHandlers[eventType].append(func)
 		return func
 	return decorator	
 	
