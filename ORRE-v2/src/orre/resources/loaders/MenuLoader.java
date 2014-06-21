@@ -1,5 +1,7 @@
 package orre.resources.loaders;
 
+import java.util.Arrays;
+
 import nu.xom.Element;
 import nu.xom.Elements;
 import orre.gui.Bounds;
@@ -51,7 +53,45 @@ public class MenuLoader implements ResourceTypeLoader {
 	}
 
 	private Bounds readBounds(Element element) {
-		return null;
+		String x = element.getAttributeValue("x");
+		String y = element.getAttributeValue("y");
+		String width = element.getAttributeValue("width");
+		String height = element.getAttributeValue("height");
+		
+		double[] xValue = readValue(x);
+		double[] yValue = readValue(y);
+		double[] widthValue = readValue(width);
+		double[] heightValue = readValue(height);
+		
+		return new Bounds(
+				xValue[0], xValue[1], 
+				yValue[0], yValue[1], 
+				widthValue[0], widthValue[1], 
+				heightValue[0], heightValue[1]);
+	}
+
+	private double[] readValue(String expression) {
+		double[] value = new double[2];
+		StringBuffer numberBuffer = new StringBuffer();
+		for(int i = 0; i < expression.length(); i++) {
+			char currentChar = expression.charAt(i);
+			if(Character.isDigit(currentChar) || currentChar == '.' || currentChar == '-') {
+				numberBuffer.append(currentChar);
+			} else if(currentChar == '%') {
+				double percentValue = Double.parseDouble(numberBuffer.toString());
+				value[0] = percentValue;
+				//empty the string buffer for reuse
+				numberBuffer.setLength(0);
+			} else if(currentChar == 'p' && expression.charAt(i+1) == 'x') {
+				double pixelValue = Double.parseDouble(numberBuffer.toString());
+				value[1] = pixelValue;
+				//empty the string buffer for reuse
+				numberBuffer.setLength(0);
+			}
+			//ignore any other characters
+		}
+		System.out.println(Arrays.toString(value));
+		return value;
 	}
 
 	@Override
