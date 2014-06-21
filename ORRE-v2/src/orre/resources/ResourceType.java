@@ -9,5 +9,6 @@ public enum ResourceType {
 	shader, 
 	lxfmlModel, 
 	model, 
-	config
+	config, 
+	menu
 }
