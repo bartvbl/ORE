@@ -9,16 +9,19 @@ import orre.animation.Animatable;
 import orre.gui.controls.Control;
 import orre.gui.elements.Container;
 import orre.gui.elements.GUIElement;
+import orre.resources.Finalizable;
+import orre.resources.Resource;
+import orre.resources.ResourceType;
 import orre.sceneGraph.CoordinateNode;
 
-public class Menu implements Animatable {
+public class Menu implements Animatable, Finalizable {
 	public final String name;
-	public final Container root;
+	public final GUIElement root;
 	
 	private final HashMap<String, GUIElement> registeredElements = new HashMap<String, GUIElement>();
 	private final ArrayList<Control> menuControls = new ArrayList<Control>();
 
-	public Menu(String name, Container root) {
+	public Menu(String name, GUIElement root) {
 		this.name = name;
 		this.root = root;
 	}
@@ -56,5 +59,10 @@ public class Menu implements Animatable {
 		for(GUIElement child : element.getChildren()) {
 			updateBounds(child, width, height);
 		}
+	}
+
+	@Override
+	public Resource finalizeResource() {
+		return new Resource(ResourceType.menu, this.name, Menu.class, this);
 	}
 }
