@@ -1,39 +1,45 @@
 package orre.gui.controls;
 
-import org.lwjgl.input.Mouse;
-import org.lwjgl.opengl.Display;
-
-import orre.geom.Rectangle;
 import orre.gui.Bounds;
-import orre.gui.Corner;
+import orre.gui.baseNodes.GUIBaseNode;
 import orre.gui.elements.GUIElement;
-import orre.sceneGraph.CoordinateNode;
-import orre.sceneGraph.SceneNode;
 
 public abstract class Control extends GUIElement {
-	public Control(CoordinateNode node, Bounds bounds, String name) {
+	private double x;
+	private double y;
+	private double width;
+	private double height;
+	
+	private boolean wasMouseOver;
+	private boolean wasMousePressed;
+
+	public Control(GUIBaseNode node, Bounds bounds, String name) {
 		super(bounds, node, name);
 	}
 	
-	protected boolean mouseOver() {
-		int mouseX = Mouse.getX();
-		int mouseY = Mouse.getY();
-
-		double x, y;
-		
-		if((orientation == Corner.BOTTOM_RIGHT) || (orientation == Corner.TOP_RIGHT)) {
-			x = Display.getWidth() - bounds.width - bounds.x1;
-		} else {
-			x = bounds.x1;
-		}
-		if((orientation == Corner.TOP_LEFT) || (orientation == Corner.TOP_RIGHT)) {
-			y = Display.getHeight() - bounds.height - bounds.y1;
-		} else {
-			y = bounds.y1;
-		}
-		
-		return (x < mouseX) && (y < mouseY) && (x + bounds.width > mouseX) && (y + bounds.height > mouseY);
+	@Override
+	public void update(double x, double y, double width, double height) {
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
 	}
 
-	public abstract void update();
+	public void updateMouse(double mouseX, double mouseY, boolean mouseState) {
+		if((x < mouseX) && (y < mouseY) && (x + width > mouseX) && (y + height > mouseY)) {
+			this.onMouseOver();
+			wasMouseOver = true;
+			if(!wasMousePressed && mouseState) {
+				this.onClick();
+			}
+		} else if(wasMouseOver) {
+			wasMouseOver = false;
+			this.onMouseOut();
+		}
+		wasMousePressed = mouseState;
+	}
+
+	protected void onClick() {}
+	protected void onMouseOut() {}
+	protected void onMouseOver() {}
 }
