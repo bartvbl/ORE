@@ -90,7 +90,6 @@ public class MenuLoader implements ResourceTypeLoader {
 			}
 			//ignore any other characters
 		}
-		System.out.println(Arrays.toString(value));
 		return value;
 	}
 
