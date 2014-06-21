@@ -1,4 +1,4 @@
-package orre.gui.nodes;
+package orre.gui.baseNodes;
 
 import orre.gl.RenderUtils;
 import static org.lwjgl.opengl.GL11.*;
