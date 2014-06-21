@@ -1,22 +1,21 @@
 package orre.gui;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
-import orre.geom.Point2D;
-import orre.gui.controls.TextButton;
+import orre.gui.baseNodes.GUIRootNode;
 import orre.gui.controls.Control;
-import orre.gui.elements.GUIElement;
-import orre.gui.nodes.GUIRootNode;
 
 public class GUI extends Property {
-	private final ArrayList<Control> activeControls = new ArrayList<Control>();
 	private final ArrayList<Menu> activeMenus = new ArrayList<Menu>();
 	private GUIRootNode guiRoot;
+	
+	private double mouseX;
+	private double mouseY;
+	private boolean mouseState;
 
 	public GUI(GameObject object) {
 		super(PropertyType.IS_GUI, object);
@@ -29,8 +28,8 @@ public class GUI extends Property {
 
 	@Override
 	public void tick() {
-		for(Control control : activeControls) {
-			control.update();
+		for(Menu menu : activeMenus) {
+			menu.update(mouseX, mouseY, mouseState);
 		}
 	}
 
@@ -43,6 +42,9 @@ public class GUI extends Property {
 	public void init() {
 		this.guiRoot = new GUIRootNode();
 		gameObject.world.sceneRoot.addChild(guiRoot);
+		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
+		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");
+		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select");
 	}
 
 }
