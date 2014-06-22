@@ -39,7 +39,9 @@ public class MenuLoader implements ResourceTypeLoader {
 			Elements childElements = element.getChildElements();
 			Container container = new Container(bounds, name);
 			for(int i = 0; i < childElements.size(); i++) {
-				container.addChild(readElement(childElements.get(i)));
+				GUIElement child = readElement(childElements.get(i));
+				container.addChild(child);
+				container.sceneNode.addChild(child.sceneNode);
 			}
 			return container;
 		} else if(tagName.equals("image")) {
