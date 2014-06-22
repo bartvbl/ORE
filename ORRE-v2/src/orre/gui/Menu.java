@@ -1,5 +1,7 @@
 package orre.gui;
 
+import static org.lwjgl.opengl.GL11.*;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 

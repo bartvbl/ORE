@@ -1,6 +1,7 @@
 package orre.gui.controls;
 
 import orre.gui.Bounds;
+import static org.lwjgl.opengl.GL11.*;
 import orre.gui.baseNodes.GUIBaseNode;
 import orre.gui.elements.GUIElement;
 
@@ -27,7 +28,6 @@ public abstract class Control extends GUIElement {
 	}
 
 	public void updateMouse(double mouseX, double mouseY, boolean mouseState) {
-		System.out.println(x + " vs " + mouseX);
 		if((x < mouseX) && (y < mouseY) && (x + width > mouseX) && (y + height > mouseY)) {
 			this.onMouseOver();
 			wasMouseOver = true;

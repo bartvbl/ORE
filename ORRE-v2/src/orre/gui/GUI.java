@@ -39,6 +39,7 @@ public class GUI extends Property {
 			} else if(event.command.equals("select")) {
 				mouseState = event.value == 1.0;
 			}
+			updateMenus();
 		}
 	}
 
@@ -47,6 +48,10 @@ public class GUI extends Property {
 		for(Menu menu : activeMenus) {
 			menu.update(mouseX, mouseY, mouseState);
 		}
+		
+	}
+	
+	private void updateMenus() {
 	}
 
 	@Override
@@ -61,6 +66,7 @@ public class GUI extends Property {
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select");
+		updateMenus();
 	}
 	
 	private void showMenu(String menuName) {

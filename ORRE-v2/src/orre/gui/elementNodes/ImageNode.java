@@ -1,12 +1,6 @@
 package orre.gui.elementNodes;
 
-import static org.lwjgl.opengl.GL11.GL_QUADS;
-import static org.lwjgl.opengl.GL11.GL_TEXTURE_2D;
-import static org.lwjgl.opengl.GL11.glBegin;
-import static org.lwjgl.opengl.GL11.glEnable;
-import static org.lwjgl.opengl.GL11.glEnd;
-import static org.lwjgl.opengl.GL11.glTexCoord2d;
-import static org.lwjgl.opengl.GL11.glVertex2d;
+import static org.lwjgl.opengl.GL11.*;
 import orre.gl.texture.Texture;
 import orre.gui.baseNodes.GUIBaseNode;
 
@@ -20,6 +14,7 @@ public class ImageNode extends GUIBaseNode {
 
 	@Override
 	protected void draw(double x1, double y1, double x2, double y2) {
+		glColor4d(1, 1, 1, 1);
 		glEnable(GL_TEXTURE_2D);
 		texture.bind();
 		glBegin(GL_QUADS);

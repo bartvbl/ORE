@@ -62,4 +62,8 @@ public class ImageButton extends Control {
 	protected void onMouseOver() {
 		buttonNode.setOverState();
 	}	
+	
+	public String toString() {
+		return "ImageButton " + this.name;
+	}
 }
