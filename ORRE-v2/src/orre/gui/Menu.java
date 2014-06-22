@@ -11,6 +11,7 @@ import orre.gui.elements.Container;
 import orre.gui.elements.GUIElement;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
+import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.sceneGraph.CoordinateNode;
 
@@ -64,5 +65,16 @@ public class Menu implements Animatable, Finalizable {
 	@Override
 	public Resource finalizeResource() {
 		return new Resource(ResourceType.menu, this.name, Menu.class, this);
+	}
+
+	public void initGraphics(ResourceCache resourceCache) {
+		initElementGraphics(root, resourceCache);
+	}
+	
+	private void initElementGraphics(GUIElement element, ResourceCache resourceCache) {
+		element.initGraphics(resourceCache);
+		for(GUIElement child : element.getChildren()) {
+			initElementGraphics(child, resourceCache);
+		}
 	}
 }
