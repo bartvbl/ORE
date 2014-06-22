@@ -46,7 +46,7 @@ public class MenuLoader implements ResourceTypeLoader {
 			return container;
 		} else if(tagName.equals("image")) {
 			String imageName = element.getAttributeValue("image");
-			return new ImageElement(bounds, name, imageName);
+			return ImageElement.create(bounds, name, imageName);
 		} else if(tagName.equals("imageButton")) {
 			String upImageName = element.getAttributeValue("upImage");
 			String overImageName = element.getAttributeValue("overImage");
@@ -85,7 +85,7 @@ public class MenuLoader implements ResourceTypeLoader {
 				numberBuffer.append(currentChar);
 			} else if(currentChar == '%') {
 				double percentValue = Double.parseDouble(numberBuffer.toString());
-				value[0] = percentValue;
+				value[0] = percentValue / 100.0;
 				//empty the string buffer for reuse
 				numberBuffer.setLength(0);
 			} else if(currentChar == 'p' && expression.charAt(i+1) == 'x') {
