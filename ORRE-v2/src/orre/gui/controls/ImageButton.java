@@ -31,6 +31,8 @@ public class ImageButton extends Control {
 	protected void update() {
 		
 	}
+	
+	
 
 	@Override
 	public void initGraphics(ResourceCache resourceCache) {
@@ -39,5 +41,25 @@ public class ImageButton extends Control {
 		Texture downTexture = (Texture) resourceCache.getResource(ResourceType.texture, downImageName).content;
 		Texture disabledTexture = (Texture) resourceCache.getResource(ResourceType.texture, disabledImageName).content;
 		buttonNode.setTextures(upTexture, overTexture, downTexture, disabledTexture);
+	}
+
+	@Override
+	protected void onClick() {
+		
+	}
+
+	@Override
+	protected void onMouseDown() {
+		buttonNode.setDownState();
+	}
+
+	@Override
+	protected void onMouseOut() {
+		buttonNode.setUpState();
+	}
+
+	@Override
+	protected void onMouseOver() {
+		buttonNode.setOverState();
 	}	
 }

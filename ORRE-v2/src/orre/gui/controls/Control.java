@@ -27,9 +27,13 @@ public abstract class Control extends GUIElement {
 	}
 
 	public void updateMouse(double mouseX, double mouseY, boolean mouseState) {
+		System.out.println(x + " vs " + mouseX);
 		if((x < mouseX) && (y < mouseY) && (x + width > mouseX) && (y + height > mouseY)) {
 			this.onMouseOver();
 			wasMouseOver = true;
+			if(mouseState) {
+				this.onMouseDown();
+			}
 			if(!wasMousePressed && mouseState) {
 				this.onClick();
 			}
@@ -40,9 +44,11 @@ public abstract class Control extends GUIElement {
 		wasMousePressed = mouseState;
 	}
 
+
 	protected abstract void update();
 
-	protected void onClick() {}
-	protected void onMouseOut() {}
-	protected void onMouseOver() {}
+	protected abstract void onClick();
+	protected abstract void onMouseDown();
+	protected abstract void onMouseOut();
+	protected abstract void onMouseOver();
 }

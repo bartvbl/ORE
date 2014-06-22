@@ -9,6 +9,7 @@ import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
 import orre.gui.baseNodes.GUIRootNode;
 import orre.gui.controls.Control;
+import orre.input.InputEvent;
 import orre.resources.ResourceType;
 
 public class GUI extends Property {
@@ -29,6 +30,15 @@ public class GUI extends Property {
 			showMenu((String)message.getPayload());
 		} else if(message.type == MessageType.SHOW_MENU) {
 			hideMenu((String)message.getPayload());
+		} else if(message.type == MessageType.INPUT_EVENT) {
+			InputEvent event = (InputEvent) message.getPayload();
+			if(event.command.equals("mouseMovedX")) {
+				mouseX = event.value;
+			} else if(event.command.equals("mouseMovedY")) {
+				mouseY = event.value;
+			} else if(event.command.equals("select")) {
+				mouseState = event.value == 1.0;
+			}
 		}
 	}
 

@@ -26,8 +26,16 @@ public class Menu implements Animatable, Finalizable {
 	public Menu(String name, GUIElement root) {
 		this.name = name;
 		this.root = root;
+		findElements(root);
 	}
 	
+	private void findElements(GUIElement element) {
+		registerGUIElement(element);
+		for(GUIElement child : element.getChildren()) {
+			findElements(child);
+		}
+	}
+
 	public void registerGUIElement(GUIElement element) {
 		this.registeredElements.put(element.name, element);
 		if(element instanceof Control) {
@@ -45,21 +53,21 @@ public class Menu implements Animatable, Finalizable {
 	}
 
 	public void update(double mouseX, double mouseY, boolean mouseState) {
-		updateBounds(root, Display.getWidth(), Display.getHeight());
+		updateBounds(root, 0, 0, Display.getWidth(), Display.getHeight());
 		for(Control control : menuControls) {
 			control.updateMouse(mouseX, mouseY, mouseState);
 		}
 	}
 	
-	private void updateBounds(GUIElement element, double parentWidth, double parentHeight) {
+	private void updateBounds(GUIElement element, double parentX, double parentY, double parentWidth, double parentHeight) {
 		double x = element.bounds.getX(parentWidth, parentHeight);
 		double y = element.bounds.getY(parentWidth, parentHeight);
 		double width = element.bounds.getWidth(parentWidth, parentHeight);
 		double height = element.bounds.getHeight(parentWidth, parentHeight);
 		element.sceneNode.updateBounds(x, y, width, height);
-		element.update(x, y, width, height);
+		element.update(x + parentX, y + parentY, width, height);
 		for(GUIElement child : element.getChildren()) {
-			updateBounds(child, width, height);
+			updateBounds(child, x + parentX, y + parentY, width, height);
 		}
 	}
 
