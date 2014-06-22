@@ -66,6 +66,9 @@ public class MouseDevice {
 			
 			if(buttonIndex != -1) {
 				mouseButtonStates[buttonIndex] = buttonState;
+				if(!buttonState) {
+					dispatchButtonChange(buttonIndex, buttonState);
+				}
 			}
 		}
 	}
