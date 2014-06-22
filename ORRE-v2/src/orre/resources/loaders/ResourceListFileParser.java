@@ -57,6 +57,9 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 			Element fileToLoadElement = filesToLoad.get(i);
 			String src = fileToLoadElement.getAttributeValue("src");
 			String name = fileToLoadElement.getAttributeValue("name");
+			if(name == null) {
+				Logger.log("A resource with path " + src + " has no name!", LogType.ERROR);
+			}
 			String resourceTypeName = fileToLoadElement.getLocalName();
 			try {
 				Enum<?> resourceType = queue.getMatchingResourceType(resourceTypeName);

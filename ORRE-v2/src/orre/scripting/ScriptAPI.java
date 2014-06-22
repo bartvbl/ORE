@@ -14,7 +14,6 @@ public class ScriptAPI implements EventHandler {
 	private static GUIScriptHandler guiHandler;
 
 	public ScriptAPI(GlobalEventDispatcher eventDispatcher) {
-		System.out.println("Initialising the scripting API...");
 		eventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 		guiHandler = new GUIScriptHandler();
 	}
