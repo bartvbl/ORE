@@ -9,14 +9,13 @@ import orre.threads.ScriptExecutionThread;
 import orre.util.ConcurrentQueue;
 
 public class ScriptAPI implements EventHandler {
-	private static ScriptExecutionThread executionThread;
 	private static GameWorld currentGameWorld;
 	private static final ConcurrentQueue<Runnable> runOnMainThreadQueue = new ConcurrentQueue<Runnable>();
 	private static GUIScriptHandler guiHandler;
 
-	public ScriptAPI(GlobalEventDispatcher eventDispatcher, ScriptExecutionThread scriptExecutionThread) {
+	public ScriptAPI(GlobalEventDispatcher eventDispatcher) {
+		System.out.println("Initialising the scripting API...");
 		eventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
-		executionThread = scriptExecutionThread;
 		guiHandler = new GUIScriptHandler();
 	}
 

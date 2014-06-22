@@ -13,6 +13,7 @@ public class ScriptInterpreter implements EventHandler {
 
 	private ScriptInterpreter(GlobalEventDispatcher globalEventDispatcher) {
 		this.scriptThread = new ScriptExecutionThread();
+		new ScriptAPI(globalEventDispatcher);
 		globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 	}
 	
