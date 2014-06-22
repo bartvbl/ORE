@@ -21,6 +21,7 @@ public class Menu implements Animatable, Finalizable {
 	
 	private final HashMap<String, GUIElement> registeredElements = new HashMap<String, GUIElement>();
 	private final ArrayList<Control> menuControls = new ArrayList<Control>();
+	private boolean graphicsInitialised = false;
 
 	public Menu(String name, GUIElement root) {
 		this.name = name;
@@ -68,7 +69,9 @@ public class Menu implements Animatable, Finalizable {
 	}
 
 	public void initGraphics(ResourceCache resourceCache) {
-		initElementGraphics(root, resourceCache);
+		if(!this.graphicsInitialised ) {
+			initElementGraphics(root, resourceCache);
+		}
 	}
 	
 	private void initElementGraphics(GUIElement element, ResourceCache resourceCache) {
