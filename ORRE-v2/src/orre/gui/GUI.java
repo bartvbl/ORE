@@ -4,10 +4,12 @@ import java.util.ArrayList;
 
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
+import orre.gameWorld.core.MessageType;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
 import orre.gui.baseNodes.GUIRootNode;
 import orre.gui.controls.Control;
+import orre.resources.ResourceType;
 
 public class GUI extends Property {
 	private final ArrayList<Menu> activeMenus = new ArrayList<Menu>();
@@ -23,7 +25,11 @@ public class GUI extends Property {
 
 	@Override
 	public void handleMessage(Message<?> message) {
-		
+		if(message.type == MessageType.SHOW_MENU) {
+			showMenu((String)message.getPayload());
+		} else if(message.type == MessageType.SHOW_MENU) {
+			hideMenu((String)message.getPayload());
+		}
 	}
 
 	@Override
@@ -45,6 +51,22 @@ public class GUI extends Property {
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select");
+	}
+	
+	private void showMenu(String menuName) {
+		Menu menu = (Menu) gameObject.world.resourceCache.getResource(ResourceType.menu, menuName).content;
+		if(!activeMenus.contains(menu)) {
+			activeMenus.add(menu);
+			guiRoot.addChild(menu.root.sceneNode);
+		}
+	}
+	
+	private void hideMenu(String menuName) {
+		Menu menu = (Menu) gameObject.world.resourceCache.getResource(ResourceType.menu, menuName).content;
+		if(activeMenus.contains(menu)) {
+			activeMenus.remove(menu);
+			guiRoot.removeChild(menu.root.sceneNode);
+		}
 	}
 
 }
