@@ -1,6 +1,7 @@
 #python side exposed script functions
 
 from orre.scripting import ScriptAPI
+from orre.scripting import GUIScriptHandler
 
 orre_registeredHandlers = {}
 
@@ -26,3 +27,12 @@ def createTextButton(x, y, text, handler):
 def createImageButton(x, y, textureResourceName, handler):
 	pass
 
+def GUI:
+	def show(menu):
+		GUIScriptHandler.show(menu)
+	def hide(menu):
+		GUIScriptHandler.hide(menu)
+	def animateMenu(menu, animationName):
+		GUIScriptHandler.animate(menu, animationName)
+	
+gui = GUI()

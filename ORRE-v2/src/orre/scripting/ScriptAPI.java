@@ -12,10 +12,12 @@ public class ScriptAPI implements EventHandler {
 	private static ScriptExecutionThread executionThread;
 	private static GameWorld currentGameWorld;
 	private static final ConcurrentQueue<Runnable> runOnMainThreadQueue = new ConcurrentQueue<Runnable>();
+	private static GUIScriptHandler guiHandler;
 
 	public ScriptAPI(GlobalEventDispatcher eventDispatcher, ScriptExecutionThread scriptExecutionThread) {
 		eventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
 		executionThread = scriptExecutionThread;
+		guiHandler = new GUIScriptHandler();
 	}
 
 	public static void spawn(final String gameObjectType) {
@@ -40,6 +42,7 @@ public class ScriptAPI implements EventHandler {
 
 	public static void setCurrentWorld(GameWorld world) {
 		currentGameWorld = world;
+		guiHandler.setCurrentWorld(world);
 	}
 
 	//run just a single command to avoid command spam
