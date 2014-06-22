@@ -27,12 +27,12 @@ def createTextButton(x, y, text, handler):
 def createImageButton(x, y, textureResourceName, handler):
 	pass
 
-def GUI:
-	def show(menu):
+class GUI:
+	def show(self, menu):
 		GUIScriptHandler.show(menu)
-	def hide(menu):
+	def hide(self, menu):
 		GUIScriptHandler.hide(menu)
-	def animateMenu(menu, animationName):
+	def animateMenu(self, menu, animationName):
 		GUIScriptHandler.animate(menu, animationName)
 	
 gui = GUI()
