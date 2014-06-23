@@ -4,6 +4,7 @@ import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
+import orre.gui.AnimateMenuCommand;
 
 public class GUIScriptHandler {
 
@@ -26,7 +27,7 @@ public class GUIScriptHandler {
 	}
 	
 	public static void animate(String menuName, String animationName) {
-		
+		gameWorld.dispatchMessage(new Message<AnimateMenuCommand>(MessageType.ANIMATE_MENU, new AnimateMenuCommand(menuName, animationName)), getGUIID());
 	}
 
 }

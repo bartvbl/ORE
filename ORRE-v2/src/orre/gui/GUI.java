@@ -2,6 +2,7 @@ package orre.gui;
 
 import java.util.ArrayList;
 
+import orre.animation.Animation;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
@@ -40,6 +41,11 @@ public class GUI extends Property {
 				mouseState = event.value == 1.0;
 			}
 			updateMenus();
+		} else if(message.type == MessageType.ANIMATE_MENU) {
+			AnimateMenuCommand command = (AnimateMenuCommand) message.getPayload();
+			Animation animation = (Animation) gameObject.world.resourceCache.getResource(ResourceType.animation, command.animationName).content;
+			Menu menu = getMenuByName(command.menuName);
+			this.gameObject.world.services.animationService.applyAnimation(animation, menu);
 		}
 	}
 
@@ -67,6 +73,15 @@ public class GUI extends Property {
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select");
 		updateMenus();
+	}
+	
+	private Menu getMenuByName(String menuName) {
+		for(Menu menu : this.activeMenus) {
+			if(menu.name.equals(menuName)) {
+				return menu;
+			}
+		}
+		return null;
 	}
 	
 	private void showMenu(String menuName) {

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import org.lwjgl.util.Timer;
 
+import orre.animation.Animatable;
 import orre.animation.Animation;
 import orre.animation.AnimationType;
 import orre.animation.execution.AnimationPlayhead;
@@ -40,13 +41,18 @@ public class AnimationService implements Service {
 			}
 		}
 	}
-
+	
+	//Workaround for a NoSuchMethodError.
 	public void applyAnimation(AnimationType type, Mesh3D animatable) {
+		applyAnimation(type, (Animatable)animatable);
+	}
+
+	public void applyAnimation(AnimationType type, Animatable animatable) {
 		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.animation, type.toString()).content;
 		applyAnimation(animation, animatable);
 	}
 
-	public void applyAnimation(Animation animation, Mesh3D target) {
+	public void applyAnimation(Animation animation, Animatable target) {
 		AnimationPlayhead playHead = new AnimationPlayhead(animation, target);
 		activeAnimations.add(playHead);
 	}
