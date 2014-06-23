@@ -5,27 +5,30 @@ from orre.scripting import GUIScriptHandler
 
 orre_registeredHandlers = {}
 
-def on(eventType):
+def on(eventType, **conditions):
 	def decorator(func):
 		if not eventType in orre_registeredHandlers:
 			orre_registeredHandlers[eventType] = []
-		orre_registeredHandlers[eventType].append(func)
+		orre_registeredHandlers[eventType].append((func, conditions))
 		return func
-	return decorator	
+	return decorator
 	
-def orre_handleEvent(eventType, payload):
+def orre_eventConditionsSatisfied(conditions, parameters):
+	for condition in conditions:
+		if condition in parameters:
+			if parameters[condition] != conditions[condition]:
+				return False
+	return True
+	
+def orre_handleEvent(eventType, parameters):
 	if eventType in orre_registeredHandlers:
-		for handler in orre_registeredHandlers[eventType]:
-			handler(payload)
+		for registration in orre_registeredHandlers[eventType]:
+			handler, conditions = registration
+			if orre_eventConditionsSatisfied(conditions, parameters):
+				handler(parameters)
 
 def spawn(objectType):
 	ScriptAPI.spawn(objectType)
-
-def createTextButton(x, y, text, handler):
-	pass
-
-def createImageButton(x, y, textureResourceName, handler):
-	pass
 
 class GUI:
 	def show(self, menu):

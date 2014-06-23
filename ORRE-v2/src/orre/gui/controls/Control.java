@@ -1,5 +1,7 @@
 package orre.gui.controls;
 
+import java.util.HashMap;
+
 import orre.gameWorld.core.GameWorld;
 import orre.gui.Bounds;
 import static org.lwjgl.opengl.GL11.*;
@@ -17,6 +19,7 @@ public abstract class Control extends GUIElement {
 	
 	private final String onClickAction;
 	private GameWorld world;
+	private final HashMap<String, String> eventParams = new HashMap<String, String>();
 
 	public Control(GUIBaseNode node, Bounds bounds, String name, String onClickAction) {
 		super(bounds, node, name);
@@ -42,7 +45,8 @@ public abstract class Control extends GUIElement {
 			if(!wasMousePressed && mouseState) {
 				this.onClick();
 				if(onClickAction != null) {
-					this.world.services.scriptingService.dispatchScriptEvent("UIEvent", onClickAction);
+					eventParams.put("action", onClickAction);
+					this.world.services.scriptingService.dispatchScriptEvent("UIEvent", eventParams);
 				}
 			}
 		} else if(wasMouseOver) {

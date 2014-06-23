@@ -1,5 +1,7 @@
 package orre.gameWorld.services;
 
+import java.util.HashMap;
+
 import orre.gameWorld.core.GameWorld;
 import orre.scripting.ScriptInterpreter;
 
@@ -17,8 +19,8 @@ public class ScriptingService implements Service {
 		this.interpreter.update();
 	}
 
-	public void dispatchScriptEvent(String eventType, String parameter) {
-		this.interpreter.dispatchScriptEvent(eventType, parameter);
+	public void dispatchScriptEvent(String eventType, HashMap<String, String> parameters) {
+		this.interpreter.dispatchScriptEvent(eventType, parameters);
 	}
 
 }

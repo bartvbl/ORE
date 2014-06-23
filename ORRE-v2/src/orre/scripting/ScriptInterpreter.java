@@ -1,5 +1,10 @@
 package orre.scripting;
 
+import java.util.HashMap;
+
+import org.python.core.PyDictionary;
+import org.python.core.PyString;
+
 import orre.events.EventHandler;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
@@ -42,14 +47,21 @@ public class ScriptInterpreter implements EventHandler {
 		this.scriptThread.execute(pythonCode);
 	}
 	
-	public void dispatchScriptEvent(String type, String parameters) {
-		this.scriptThread.execute("orre_handleEvent('" + type + "', '"+parameters+"')");
+	public void dispatchScriptEvent(String type, HashMap<String, String> parameters) {
+		
+		PyDictionary dict = new PyDictionary();
+		for(String key : parameters.keySet()) {
+			dict.put(key, parameters.get(key));
+		}
+		this.scriptThread.execute("orre_handleEvent('" + type + "', "+ dict.toString() +")");
 	}
 
 	@Override
 	public void handleEvent(GlobalEvent<?> event) {
 		if(event.eventType == GlobalEventType.CHANGE_GAME_STATE) {
-			this.dispatchScriptEvent("gameStateChanged", event.getEventParameterObject().toString());
+			HashMap<String, String> params = new HashMap<String, String>();
+			params.put("newState", event.getEventParameterObject().toString());
+			this.dispatchScriptEvent("gameStateChanged", params);
 		}
 	}
 	
