@@ -26,6 +26,9 @@ public class ButtonNode extends GUIBaseNode {
 	
 	@Override
 	protected void draw(double x1, double y1, double x2, double y2) {
+		if(textures[activeTextureIndex] == null) {
+			return;
+		}
 		glColor4d(1, 1, 1, 1);
 		glEnable(GL_TEXTURE_2D);
 		textures[activeTextureIndex].bind();

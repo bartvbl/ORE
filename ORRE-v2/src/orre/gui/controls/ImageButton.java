@@ -36,10 +36,22 @@ public class ImageButton extends Control {
 
 	@Override
 	public void initGraphics(ResourceCache resourceCache) {
-		Texture upTexture = (Texture) resourceCache.getResource(ResourceType.texture, upImageName).content;
-		Texture overTexture = (Texture) resourceCache.getResource(ResourceType.texture, overImageName).content;
-		Texture downTexture = (Texture) resourceCache.getResource(ResourceType.texture, downImageName).content;
-		Texture disabledTexture = (Texture) resourceCache.getResource(ResourceType.texture, disabledImageName).content;
+		Texture upTexture = null;
+		Texture overTexture = null;
+		Texture downTexture = null; 
+		Texture disabledTexture = null;
+		if(upImageName != null) {
+			upTexture = (Texture) resourceCache.getResource(ResourceType.texture, upImageName).content;
+		}
+		if(overImageName != null) {
+			overTexture = (Texture) resourceCache.getResource(ResourceType.texture, overImageName).content;
+		}
+		if(downImageName != null) {
+			downTexture = (Texture) resourceCache.getResource(ResourceType.texture, downImageName).content;
+		}
+		if(disabledImageName != null) {
+			disabledTexture = (Texture) resourceCache.getResource(ResourceType.texture, disabledImageName).content;
+		}
 		buttonNode.setTextures(upTexture, overTexture, downTexture, disabledTexture);
 	}
 
