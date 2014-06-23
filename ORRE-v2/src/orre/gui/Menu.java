@@ -25,11 +25,16 @@ public class Menu implements Animatable, Finalizable {
 	private final HashMap<String, GUIElement> registeredElements = new HashMap<String, GUIElement>();
 	private final ArrayList<Control> menuControls = new ArrayList<Control>();
 	private boolean graphicsInitialised = false;
+	private int activeAnimationCount = 0;
+	private GameWorld world;
+	private final HashMap<String, String> animationEventParams;
 
 	public Menu(String name, GUIElement root) {
 		this.name = name;
 		this.root = root;
 		findElements(root);
+		animationEventParams = new HashMap<String, String>();
+		animationEventParams.put("menuName", name);
 	}
 	
 	private void findElements(GUIElement element) {
@@ -56,6 +61,9 @@ public class Menu implements Animatable, Finalizable {
 	}
 
 	public void update(double mouseX, double mouseY, boolean mouseState) {
+		if(activeAnimationCount != 0) {
+			return;
+		}
 		updateBounds(root, 0, 0, Display.getWidth(), Display.getHeight());
 		for(Control control : menuControls) {
 			control.updateMouse(mouseX, mouseY, mouseState);
@@ -93,8 +101,20 @@ public class Menu implements Animatable, Finalizable {
 	}
 
 	public void initEventHandlers(GameWorld world) {
+		this.world = world;
 		for(Control control : menuControls) {
 			control.setCurrentWorld(world);
 		}
+	}
+
+	@Override
+	public void notifyAnimationStart() {
+		activeAnimationCount++;
+	}
+
+	@Override
+	public void notifyAnimationEnd() {
+		activeAnimationCount--;
+		world.services.scriptingService.dispatchScriptEvent("GUI_AnimationComplete", animationEventParams);
 	}
 }

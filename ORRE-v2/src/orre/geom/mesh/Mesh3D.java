@@ -29,4 +29,14 @@ public class Mesh3D implements Animatable {
 	public void addPart(String name, ModelPart part) {
 		this.parts.put(name, part);
 	}
+
+	@Override
+	public void notifyAnimationStart() {
+		
+	}
+
+	@Override
+	public void notifyAnimationEnd() {
+		
+	}
 }

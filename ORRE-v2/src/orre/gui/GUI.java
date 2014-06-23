@@ -29,7 +29,7 @@ public class GUI extends Property {
 	public void handleMessage(Message<?> message) {
 		if(message.type == MessageType.SHOW_MENU) {
 			showMenu((String)message.getPayload());
-		} else if(message.type == MessageType.SHOW_MENU) {
+		} else if(message.type == MessageType.HIDE_MENU) {
 			hideMenu((String)message.getPayload());
 		} else if(message.type == MessageType.INPUT_EVENT) {
 			InputEvent event = (InputEvent) message.getPayload();

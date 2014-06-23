@@ -91,4 +91,9 @@ public class AnimationPlayhead {
 		return this.isFinished;
 	}
 
+
+	public void notifyAnimationEnd() {
+		target.notifyAnimationEnd();
+	}
+
 }

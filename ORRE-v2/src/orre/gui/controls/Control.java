@@ -46,7 +46,7 @@ public abstract class Control extends GUIElement {
 				this.onClick();
 				if(onClickAction != null) {
 					eventParams.put("action", onClickAction);
-					this.world.services.scriptingService.dispatchScriptEvent("UIEvent", eventParams);
+					this.world.services.scriptingService.dispatchScriptEvent("GUI_Click", eventParams);
 				}
 			}
 		} else if(wasMouseOver) {

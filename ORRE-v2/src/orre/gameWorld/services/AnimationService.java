@@ -36,6 +36,7 @@ public class AnimationService implements Service {
 		}
 		for(int i = 0; i < activeAnimations.size(); i++) {
 			if(activeAnimations.get(i).isFinished()) {
+				activeAnimations.get(i).notifyAnimationEnd();
 				activeAnimations.remove(i);
 				i--;
 			}
@@ -55,6 +56,7 @@ public class AnimationService implements Service {
 	public void applyAnimation(Animation animation, Animatable target) {
 		AnimationPlayhead playHead = new AnimationPlayhead(animation, target);
 		activeAnimations.add(playHead);
+		target.notifyAnimationStart();
 	}
 
 }
