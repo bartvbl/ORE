@@ -14,7 +14,7 @@ public class ImageButton extends Control {
 	private final String disabledImageName;
 
 	public static ImageButton create(Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName) {
-		ButtonNode buttonNode = new ButtonNode();
+		ButtonNode buttonNode = new ButtonNode(name);
 		return new ImageButton(buttonNode, bounds, name, upImageName, overImageName, downImageName, disabledImageName);
 	}
 

@@ -7,7 +7,12 @@ import orre.gui.baseNodes.GUIBaseNode;
 public class ButtonNode extends GUIBaseNode {
 	private final Texture[] textures = new Texture[4];
 	private int activeTextureIndex = 0;
+	private final String name;
 	
+	public ButtonNode(String name) {
+		this.name = name;
+	}
+
 	public void setUpState() {
 		activeTextureIndex = 0;
 	}
@@ -46,7 +51,7 @@ public class ButtonNode extends GUIBaseNode {
 	
 	@Override
 	public String toString() {
-		return "Button node";
+		return "Button node (" + name + ")";
 	}
 
 	public void setTextures(Texture upTexture, Texture overTexture, Texture downTexture, Texture disabledTexture) {
