@@ -8,6 +8,7 @@ import java.util.HashMap;
 import org.lwjgl.opengl.Display;
 
 import orre.animation.Animatable;
+import orre.gameWorld.core.GameWorld;
 import orre.gui.controls.Control;
 import orre.gui.elements.Container;
 import orre.gui.elements.GUIElement;
@@ -88,6 +89,12 @@ public class Menu implements Animatable, Finalizable {
 		element.initGraphics(resourceCache);
 		for(GUIElement child : element.getChildren()) {
 			initElementGraphics(child, resourceCache);
+		}
+	}
+
+	public void initEventHandlers(GameWorld world) {
+		for(Control control : menuControls) {
+			control.setCurrentWorld(world);
 		}
 	}
 }

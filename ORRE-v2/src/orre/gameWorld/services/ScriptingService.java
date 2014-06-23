@@ -17,4 +17,8 @@ public class ScriptingService implements Service {
 		this.interpreter.update();
 	}
 
+	public void dispatchScriptEvent(String eventType, String parameter) {
+		this.interpreter.dispatchScriptEvent(eventType, parameter);
+	}
+
 }

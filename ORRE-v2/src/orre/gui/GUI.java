@@ -73,6 +73,7 @@ public class GUI extends Property {
 		Menu menu = (Menu) gameObject.world.resourceCache.getResource(ResourceType.menu, menuName).content;
 		if(!activeMenus.contains(menu)) {
 			menu.initGraphics(gameObject.world.resourceCache);
+			menu.initEventHandlers(gameObject.world);
 			activeMenus.add(menu);
 			guiRoot.addChild(menu.root.sceneNode);
 		}

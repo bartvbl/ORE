@@ -1,5 +1,6 @@
 package orre.gui.controls;
 
+import orre.gameWorld.core.GameWorld;
 import orre.gui.Bounds;
 import static org.lwjgl.opengl.GL11.*;
 import orre.gui.baseNodes.GUIBaseNode;
@@ -15,6 +16,7 @@ public abstract class Control extends GUIElement {
 	private boolean wasMousePressed;
 	
 	private final String onClickAction;
+	private GameWorld world;
 
 	public Control(GUIBaseNode node, Bounds bounds, String name, String onClickAction) {
 		super(bounds, node, name);
@@ -39,6 +41,9 @@ public abstract class Control extends GUIElement {
 			}
 			if(!wasMousePressed && mouseState) {
 				this.onClick();
+				if(onClickAction != null) {
+					this.world.services.scriptingService.dispatchScriptEvent("UIEvent", onClickAction);
+				}
 			}
 		} else if(wasMouseOver) {
 			wasMouseOver = false;
@@ -54,4 +59,8 @@ public abstract class Control extends GUIElement {
 	protected abstract void onMouseDown();
 	protected abstract void onMouseOut();
 	protected abstract void onMouseOver();
+
+	public void setCurrentWorld(GameWorld world) {
+		this.world = world;
+	}
 }
