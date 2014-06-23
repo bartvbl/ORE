@@ -7,6 +7,7 @@ import nu.xom.Elements;
 import orre.gui.Bounds;
 import orre.gui.Menu;
 import orre.gui.controls.ImageButton;
+import orre.gui.controls.ImageToggleButton;
 import orre.gui.elements.Container;
 import orre.gui.elements.GUIElement;
 import orre.gui.elements.ImageElement;
@@ -47,12 +48,16 @@ public class MenuLoader implements ResourceTypeLoader {
 		} else if(tagName.equals("image")) {
 			String imageName = element.getAttributeValue("image");
 			return ImageElement.create(bounds, name, imageName);
-		} else if(tagName.equals("imageButton")) {
+		} else if(tagName.equals("imageButton") || tagName.equals("imageToggleButton")) {
 			String upImageName = element.getAttributeValue("upImage");
 			String overImageName = element.getAttributeValue("overImage");
 			String downImageName = element.getAttributeValue("downImage");
 			String disabledImageName = element.getAttributeValue("disabledImage");
-			return ImageButton.create(bounds, name, upImageName, overImageName, downImageName, disabledImageName);
+			if(tagName.equals("imageButton")) {
+				return ImageButton.create(bounds, name, upImageName, overImageName, downImageName, disabledImageName);
+			} else {
+				return ImageToggleButton.create(bounds, name, upImageName, overImageName, downImageName, disabledImageName);
+			}
 		} else {
 			throw new RuntimeException("Unknown element: " + tagName);
 		}

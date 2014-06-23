@@ -18,7 +18,7 @@ public class ImageButton extends Control {
 		return new ImageButton(buttonNode, bounds, name, upImageName, overImageName, downImageName, disabledImageName);
 	}
 
-	private ImageButton(ButtonNode node, Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName) {
+	protected ImageButton(ButtonNode node, Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName) {
 		super(node, bounds, name);
 		this.buttonNode = node;
 		this.upImageName = upImageName;
