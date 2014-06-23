@@ -53,10 +53,11 @@ public class MenuLoader implements ResourceTypeLoader {
 			String overImageName = element.getAttributeValue("overImage");
 			String downImageName = element.getAttributeValue("downImage");
 			String disabledImageName = element.getAttributeValue("disabledImage");
+			String onClickAction = element.getAttributeValue("onClick");
 			if(tagName.equals("imageButton")) {
-				return ImageButton.create(bounds, name, upImageName, overImageName, downImageName, disabledImageName);
+				return ImageButton.create(bounds, name, upImageName, overImageName, downImageName, disabledImageName, onClickAction);
 			} else {
-				return ImageToggleButton.create(bounds, name, upImageName, overImageName, downImageName, disabledImageName);
+				return ImageToggleButton.create(bounds, name, upImageName, overImageName, downImageName, disabledImageName, onClickAction);
 			}
 		} else {
 			throw new RuntimeException("Unknown element: " + tagName);

@@ -1,22 +1,19 @@
 package orre.gui.controls;
 
-import orre.gl.texture.Texture;
 import orre.gui.Bounds;
 import orre.gui.elementNodes.ButtonNode;
-import orre.resources.ResourceCache;
-import orre.resources.ResourceType;
 
 public class ImageToggleButton extends ImageButton {
 	private final ButtonNode buttonNode;
 	private boolean isSelected = false;
 	
-	public static ImageToggleButton create(Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName) {
+	public static ImageToggleButton create(Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName, String onClickAction) {
 		ButtonNode buttonNode = new ButtonNode(name);
-		return new ImageToggleButton(buttonNode, bounds, name, upImageName, overImageName, downImageName, disabledImageName);
+		return new ImageToggleButton(buttonNode, bounds, name, upImageName, overImageName, downImageName, disabledImageName, onClickAction);
 	}
 
-	private ImageToggleButton(ButtonNode node, Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName) {
-		super(node, bounds, name, upImageName, overImageName, downImageName, disabledImageName);
+	private ImageToggleButton(ButtonNode node, Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName, String onClickAction) {
+		super(node, bounds, name, upImageName, overImageName, downImageName, disabledImageName, onClickAction);
 		this.buttonNode = node;
 	}
 
@@ -51,6 +48,6 @@ public class ImageToggleButton extends ImageButton {
 	}	
 	
 	public String toString() {
-		return "ImageButton " + this.name;
+		return "ImageToggleButton " + this.name;
 	}
 }

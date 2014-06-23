@@ -13,9 +13,12 @@ public abstract class Control extends GUIElement {
 	
 	private boolean wasMouseOver;
 	private boolean wasMousePressed;
+	
+	private final String onClickAction;
 
-	public Control(GUIBaseNode node, Bounds bounds, String name) {
+	public Control(GUIBaseNode node, Bounds bounds, String name, String onClickAction) {
 		super(bounds, node, name);
+		this.onClickAction = onClickAction;
 	}
 	
 	@Override

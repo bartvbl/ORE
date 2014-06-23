@@ -13,13 +13,13 @@ public class ImageButton extends Control {
 	private final String downImageName;
 	private final String disabledImageName;
 
-	public static ImageButton create(Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName) {
+	public static ImageButton create(Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName, String onClickAction) {
 		ButtonNode buttonNode = new ButtonNode(name);
-		return new ImageButton(buttonNode, bounds, name, upImageName, overImageName, downImageName, disabledImageName);
+		return new ImageButton(buttonNode, bounds, name, upImageName, overImageName, downImageName, disabledImageName, onClickAction);
 	}
 
-	protected ImageButton(ButtonNode node, Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName) {
-		super(node, bounds, name);
+	protected ImageButton(ButtonNode node, Bounds bounds, String name, String upImageName, String overImageName, String downImageName, String disabledImageName, String onClickAction) {
+		super(node, bounds, name, onClickAction);
 		this.buttonNode = node;
 		this.upImageName = upImageName;
 		this.overImageName = overImageName;
