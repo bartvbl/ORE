@@ -2,12 +2,9 @@ package orre.geom.vbo;
 
 import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 import org.lwjgl.BufferUtils;
 import static org.lwjgl.opengl.GL15.*;
 import org.lwjgl.opengl.GLContext;
-
-
 
 public class GeometryBufferGenerator {
 	

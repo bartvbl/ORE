@@ -1,13 +1,9 @@
 package orre.geom.vbo;
 
-import static org.lwjgl.opengl.ARBBufferObject.glBindBufferARB;
-import static org.lwjgl.opengl.ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB;
-import static org.lwjgl.opengl.ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB;
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL15.glDeleteBuffers;
+import static org.lwjgl.opengl.GL15.*;
 
 import java.nio.IntBuffer;
-import java.util.ArrayList;
 
 import org.lwjgl.BufferUtils;
 
@@ -38,10 +34,12 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 	
 	private void drawBufferCombo(int indexBufferID, int vertexBufferID)
 	{
-		glBindBufferARB(GL_ARRAY_BUFFER_ARB, vertexBufferID);
+		glBindBuffer(GL_ARRAY_BUFFER, vertexBufferID);
 		this.setDataPointers();
-		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, indexBufferID);
 		glDrawElements(mode.glEnum, this.numberOfVertices, GL_UNSIGNED_INT, 0);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
 		this.unsetDataPointers();
 	}
 
