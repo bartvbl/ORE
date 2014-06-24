@@ -26,7 +26,7 @@ public class GeometryBufferGenerator {
 		storeIndexData(indexBufferID, indexes);
 		storeVertexData(vertexBufferID, geometryData);
 		
-		return new GeometryNode(indexBufferID, vertexBufferID, dataFormat, vertexCount, DrawingMode.TRIANGLES);
+		return new GeometryNode(indexBufferID, vertexBufferID, dataFormat, vertexCount, indexCount, DrawingMode.TRIANGLES);
 	}
 	
 	private static int createBuffer() {
@@ -102,6 +102,6 @@ public class GeometryBufferGenerator {
 		storeIndexData(indexBufferID, normalIndices);
 		storeVertexData(vertexBufferID, vertexBuffer);
 		
-		return new GeometryNode(indexBufferID, vertexBufferID, BufferDataFormatType.VERTICES, vertexCount*2, DrawingMode.LINES);
+		return new GeometryNode(indexBufferID, vertexBufferID, BufferDataFormatType.VERTICES, vertexCount*2, vertexCount * 2 * 2, DrawingMode.LINES);
 	}
 }
