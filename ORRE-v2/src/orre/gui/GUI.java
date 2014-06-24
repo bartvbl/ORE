@@ -85,8 +85,8 @@ public class GUI extends Property {
 	}
 	
 	private void showMenu(String menuName) {
-		Menu menu = (Menu) gameObject.world.resourceCache.getResource(ResourceType.menu, menuName).content;
-		if(!activeMenus.contains(menu)) {
+		if(getMenuByName(menuName) == null) {
+			Menu menu = (Menu) gameObject.world.resourceCache.getResource(ResourceType.menu, menuName).content;
 			menu.initGraphics(gameObject.world.resourceCache);
 			menu.initEventHandlers(gameObject.world);
 			activeMenus.add(menu);
@@ -96,8 +96,8 @@ public class GUI extends Property {
 	}
 	
 	private void hideMenu(String menuName) {
-		Menu menu = (Menu) gameObject.world.resourceCache.getResource(ResourceType.menu, menuName).content;
-		if(activeMenus.contains(menu)) {
+		Menu menu = getMenuByName(menuName);
+		if(menu != null) {
 			activeMenus.remove(menu);
 			guiRoot.removeChild(menu.root.sceneNode);
 		}

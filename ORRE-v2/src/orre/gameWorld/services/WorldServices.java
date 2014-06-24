@@ -24,11 +24,11 @@ public class WorldServices {
 	
 	public void tickServices() {
 		this.cameraService.tick();
-		this.animationService.tick();
 		this.aiService.tick();
 		this.soundService.tick();
 		this.inputService.tick();
 		this.scriptingService.tick();
+		this.animationService.tick();
 	}
 	
 	public void shutdown() {
