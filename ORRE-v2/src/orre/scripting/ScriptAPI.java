@@ -19,7 +19,7 @@ public class ScriptAPI implements EventHandler {
 	}
 
 	public static void spawn(final String gameObjectType) {
-		runOnMainThreadQueue.enqueue(new Runnable(){
+		runOnMainThread(new Runnable(){
 			@Override
 			public void run() {
 				currentGameWorld.api_spawnGameObjectFromString(gameObjectType);
@@ -29,6 +29,10 @@ public class ScriptAPI implements EventHandler {
 	
 	public static void load() {
 		
+	}
+	
+	public static void runOnMainThread(Runnable runnable) {
+		runOnMainThreadQueue.enqueue(runnable);
 	}
 
 	@Override

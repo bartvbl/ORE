@@ -18,16 +18,31 @@ public class GUIScriptHandler {
 		return gameWorld.getOnlyGameObject(GameObjectType.GUI);
 	}
 	
-	public static void show(String menuName) {
-		gameWorld.dispatchMessage(new Message<String>(MessageType.SHOW_MENU, menuName), getGUIID());
+	public static void show(final String menuName) {
+		ScriptAPI.runOnMainThread(new Runnable() {
+			@Override
+			public void run() {
+				gameWorld.dispatchMessage(new Message<String>(MessageType.SHOW_MENU, menuName), getGUIID());
+			}
+		});
 	}
 	
-	public static void hide(String menuName) {
-		gameWorld.dispatchMessage(new Message<String>(MessageType.HIDE_MENU, menuName), getGUIID());
+	public static void hide(final String menuName) {
+		ScriptAPI.runOnMainThread(new Runnable() {
+			@Override
+			public void run() {
+				gameWorld.dispatchMessage(new Message<String>(MessageType.HIDE_MENU, menuName), getGUIID());
+			}
+		});
 	}
 	
-	public static void animate(String menuName, String animationName) {
-		gameWorld.dispatchMessage(new Message<AnimateMenuCommand>(MessageType.ANIMATE_MENU, new AnimateMenuCommand(menuName, animationName)), getGUIID());
+	public static void animate(final String menuName, final String animationName) {
+		ScriptAPI.runOnMainThread(new Runnable() {
+			@Override
+			public void run() {
+				gameWorld.dispatchMessage(new Message<AnimateMenuCommand>(MessageType.ANIMATE_MENU, new AnimateMenuCommand(menuName, animationName)), getGUIID());
+			}
+		});
 	}
 
 }
