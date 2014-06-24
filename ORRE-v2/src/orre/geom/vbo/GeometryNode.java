@@ -4,6 +4,12 @@ import static org.lwjgl.opengl.ARBBufferObject.glBindBufferARB;
 import static org.lwjgl.opengl.ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB;
 import static org.lwjgl.opengl.ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB;
 import static org.lwjgl.opengl.GL11.*;
+import static org.lwjgl.opengl.GL15.glDeleteBuffers;
+
+import java.nio.IntBuffer;
+import java.util.ArrayList;
+
+import org.lwjgl.BufferUtils;
 
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
@@ -36,7 +42,7 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 		this.setDataPointers();
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB, indexBufferID);
 		glDrawElements(mode.glEnum, this.numberOfVertices, GL_UNSIGNED_INT, 0);
-		//glDrawRangeElements(GL_QUADS, 0, 24, 4, GL_UNSIGNED_INT, 0);
+		this.unsetDataPointers();
 	}
 
 	private void setDataPointers() {
@@ -63,14 +69,24 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 				glTexCoordPointer(2, GL_DOUBLE, stride, 3 * bytesPerDouble);
 				
 				glEnableClientState(GL_NORMAL_ARRAY);
-				glNormalPointer(GL_DOUBLE, stride, (3 + 2) * bytesPerDouble);	
+				glNormalPointer(GL_DOUBLE, stride, (3 + 2) * bytesPerDouble);
 				break;
 		}
+	}
+	
+	private void unsetDataPointers() {
+		glDisableClientState(GL_VERTEX_ARRAY);
+		glDisableClientState(GL_TEXTURE_COORD_ARRAY);
+		glDisableClientState(GL_NORMAL_ARRAY);
 	}
 
 	@Override
 	public void destroy() {
-		
+		IntBuffer bufferIDBuffer = BufferUtils.createIntBuffer(2);
+		bufferIDBuffer.put(indexBuffer);
+		bufferIDBuffer.put(vertexBuffer);
+		bufferIDBuffer.rewind();
+		glDeleteBuffers(bufferIDBuffer);
 	}
 	
 	@Override

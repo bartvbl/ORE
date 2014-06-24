@@ -4,9 +4,10 @@ import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 import java.util.ArrayList;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.ARBBufferObject;
-import org.lwjgl.opengl.ARBVertexBufferObject;
+import static org.lwjgl.opengl.GL15.*;
 import org.lwjgl.opengl.GLContext;
+
+
 
 public class GeometryBufferGenerator {
 	
@@ -36,7 +37,7 @@ public class GeometryBufferGenerator {
 		if (supportsBuffers()) 
 		{
 			IntBuffer buffer = BufferUtils.createIntBuffer(1);
-			ARBBufferObject.glGenBuffersARB(buffer);
+			glGenBuffers(buffer);
 			return buffer.get(0);
 		}
 		return 0;
@@ -45,31 +46,19 @@ public class GeometryBufferGenerator {
 	private static void storeVertexData(int bufferIndex, DoubleBuffer geometryData) {
 		if (supportsBuffers()) 
 		{
-			ARBBufferObject.glBindBufferARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, bufferIndex);
-			ARBBufferObject.glBufferDataARB(ARBVertexBufferObject.GL_ARRAY_BUFFER_ARB, geometryData, ARBBufferObject.GL_STATIC_DRAW_ARB);
+			glBindBuffer(GL_ARRAY_BUFFER, bufferIndex);
+			glBufferData(GL_ARRAY_BUFFER, geometryData, GL_STATIC_DRAW);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
 		}
 	}
 	
 	private static void storeIndexData(int bufferIndex, IntBuffer indexes) {
 		if (supportsBuffers()) 
 		{
-			ARBBufferObject.glBindBufferARB(ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB, bufferIndex);
-			ARBBufferObject.glBufferDataARB(ARBVertexBufferObject.GL_ELEMENT_ARRAY_BUFFER_ARB, indexes, ARBBufferObject.GL_STATIC_DRAW_ARB);
+			glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferIndex);
+			glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexes, GL_STATIC_DRAW);
+			glBindBuffer(GL_ARRAY_BUFFER, 0);
 		}
-	}
-	
-	private static void destroyBuffers(ArrayList<Integer> bufferList) {
-		if(!supportsBuffers())
-		{
-			return;
-		}
-		IntBuffer bufferIDBuffer = BufferUtils.createIntBuffer(bufferList.size());
-		for(int i = 0; i < bufferList.size(); i++)
-		{
-			bufferIDBuffer.put(bufferList.get(i));
-		}
-		bufferIDBuffer.rewind();
-		ARBBufferObject.glDeleteBuffersARB(bufferIDBuffer);
 	}
 	
 	private static boolean supportsBuffers()
