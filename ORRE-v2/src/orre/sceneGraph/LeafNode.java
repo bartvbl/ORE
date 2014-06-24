@@ -45,4 +45,9 @@ public class LeafNode implements SceneNode {
 		return 0;
 	}
 
+	@Override
+	public boolean isVisible() {
+		return isVisible;
+	}
+
 }

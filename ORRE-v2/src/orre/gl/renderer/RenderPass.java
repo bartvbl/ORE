@@ -6,6 +6,9 @@ import orre.sceneGraph.SceneNode;
 
 public class RenderPass {
 	public static void render(SceneNode node) {
+		if(!node.isVisible()) {
+			return;
+		}
 		node.preRender();
 		node.render();
 			

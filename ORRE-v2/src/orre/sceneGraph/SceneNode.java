@@ -14,6 +14,8 @@ public interface SceneNode {
 	public void destroy();
 	
 	public void setVisibility(boolean isVisible);
+	public boolean isVisible();
+
 	public float getRenderRadius();
 	
 }

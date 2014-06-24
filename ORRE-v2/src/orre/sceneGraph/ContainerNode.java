@@ -70,5 +70,10 @@ public class ContainerNode implements SceneNode {
 	public String toString() {
 		return "Container " + name;
 	}
+
+	@Override
+	public boolean isVisible() {
+		return this.visible;
+	}
 }
 
