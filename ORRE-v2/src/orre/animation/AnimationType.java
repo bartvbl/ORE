@@ -5,5 +5,6 @@ public enum AnimationType {
 	raiderPickup, 
 	raiderApplause,
 	
-	hideSidebar
+	hideSidebar,
+	showSidebar,
 }

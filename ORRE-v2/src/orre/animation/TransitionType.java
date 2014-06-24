@@ -1,5 +1,5 @@
 package orre.animation;
 
 public enum TransitionType {
-	position, rotation, scale
+	position, rotation, scale, visibility
 }

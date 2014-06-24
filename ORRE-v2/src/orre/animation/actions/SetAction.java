@@ -41,6 +41,8 @@ public class SetAction extends AnimationAction {
 			} else if(axis == Axis.z) {
 				part.setRotationZ(value);
 			}
+		} else if(valueType == TransitionType.visibility) {
+			part.setVisibility(value == 1.0);
 		}
 	}
 
