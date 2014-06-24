@@ -8,15 +8,14 @@ import org.lwjgl.opengl.GLContext;
 
 public class GeometryBufferGenerator {
 	
-	public static GeometryNode generateGeometryBuffer(BufferDataFormatType dataFormat, DoubleBuffer geometryData, IntBuffer indices) {
-		int vertexCount = geometryData.capacity() / dataFormat.elementsPerVertex;
+	public static GeometryNode generateGeometryBuffer(BufferDataFormatType dataFormat, DoubleBuffer geometryData, IntBuffer indices, int vertexCount, int indexCount) {
 		
-		GeometryNode geometryBuffer = storeBuffersInVRAM(geometryData, indices, dataFormat, vertexCount);
+		GeometryNode geometryBuffer = storeBuffersInVRAM(geometryData, indices, dataFormat, vertexCount, indexCount);
 		
 		return geometryBuffer;
 	}
 
-	private static GeometryNode storeBuffersInVRAM(DoubleBuffer geometryData, IntBuffer indexes, BufferDataFormatType dataFormat, int vertexCount)
+	private static GeometryNode storeBuffersInVRAM(DoubleBuffer geometryData, IntBuffer indexes, BufferDataFormatType dataFormat, int vertexCount, int indexCount)
 	{
 		geometryData.rewind();
 		indexes.rewind();

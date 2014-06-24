@@ -39,7 +39,7 @@ public class UnpackedGeometryBuffer implements Finalizable{
 	public GeometryNode convertToGeometryBuffer() {
 		IntBuffer indices = BufferUtils.createIntBuffer(this.numVertices);
 		for(int i = 0; i < this.numVertices; i++) indices.put(i);
-		GeometryNode buffer = GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, vertices, indices);
+		GeometryNode buffer = GeometryBufferGenerator.generateGeometryBuffer(this.dataFormat, vertices, indices, numVertices, numVertices);
 		this.vertices = null;
 		return buffer;
 	}

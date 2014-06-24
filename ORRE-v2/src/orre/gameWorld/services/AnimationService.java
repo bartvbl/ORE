@@ -56,6 +56,7 @@ public class AnimationService implements Service {
 	public void applyAnimation(Animation animation, Animatable target) {
 		AnimationPlayhead playHead = new AnimationPlayhead(animation, target);
 		activeAnimations.add(playHead);
+		playHead.updateAnimation();
 		target.notifyAnimationStart();
 	}
 
