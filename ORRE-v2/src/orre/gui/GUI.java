@@ -91,6 +91,7 @@ public class GUI extends Property {
 			menu.initEventHandlers(gameObject.world);
 			activeMenus.add(menu);
 			guiRoot.addChild(menu.root.sceneNode);
+			menu.update(mouseX, mouseY, mouseState);
 		}
 	}
 	

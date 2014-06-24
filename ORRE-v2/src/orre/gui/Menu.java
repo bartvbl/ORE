@@ -95,6 +95,7 @@ public class Menu implements Animatable, Finalizable {
 	
 	private void initElementGraphics(GUIElement element, ResourceCache resourceCache) {
 		element.initGraphics(resourceCache);
+		element.sceneNode.setVisibility(true);
 		for(GUIElement child : element.getChildren()) {
 			initElementGraphics(child, resourceCache);
 		}
