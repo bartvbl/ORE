@@ -38,17 +38,17 @@ public abstract class Control extends GUIElement {
 	public void updateMouse(double mouseX, double mouseY, boolean mouseState) {
 		if((x < mouseX) && (y < mouseY) && (x + width > mouseX) && (y + height > mouseY)) {
 			this.onMouseOver();
-			wasMouseOver = true;
 			if(mouseState) {
 				this.onMouseDown();
 			}
-			if(!wasMousePressed && mouseState) {
+			if(!wasMousePressed && mouseState && wasMouseOver) {
 				this.onClick();
 				if(onClickAction != null) {
 					eventParams.put("action", onClickAction);
 					this.world.services.scriptingService.dispatchScriptEvent("GUI_Click", eventParams);
 				}
 			}
+			wasMouseOver = true;
 		} else if(wasMouseOver) {
 			wasMouseOver = false;
 			this.onMouseOut();
