@@ -11,8 +11,10 @@ import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 
 public class GeometryNode extends ContainerNode implements SceneNode {
-	private final int indexBuffer;
-	private final int vertexBuffer;
+	//exposed to package to allow data to be updated
+	final int indexBuffer;
+	final int vertexBuffer;
+	
 	private final BufferDataFormatType dataFormat;
 	private final DrawingMode mode;
 	private final int numberOfVertices;
