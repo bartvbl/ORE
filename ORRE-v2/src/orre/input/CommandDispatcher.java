@@ -27,7 +27,12 @@ public class CommandDispatcher {
 			if(!commandMap.containsKey(command)) {
 				continue;
 			}
-			for(int gameObjectID : commandMap.get(command)) {
+			//commandMap can be modified while handling an event.
+			//handlers are intended to only concern themselves; not registering handlers on other objects.
+			//This is assumed to be the case here.
+			ArrayList<Integer> handlers = commandMap.get(command);
+			for(int i = handlers.size() - 1; i >= 0; i--) {
+				int gameObjectID = handlers.get(i);
 				world.dispatchMessage(message, gameObjectID);
 				if(event.isConsumed()) {
 					break;
@@ -45,7 +50,8 @@ public class CommandDispatcher {
 	
 	public void removeInputEventListener(String command, int gameObjectID) {
 		if(commandMap.containsKey(command)) {
-			commandMap.get(command).remove(gameObjectID);
+			int objectIndex = commandMap.get(command).indexOf(gameObjectID);
+			commandMap.get(command).remove(objectIndex);
 		}
 	}
 }

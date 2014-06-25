@@ -35,8 +35,10 @@ public abstract class Control extends GUIElement {
 		this.update();
 	}
 
-	public void updateMouse(double mouseX, double mouseY, boolean mouseState) {
+	public boolean updateMouse(double mouseX, double mouseY, boolean mouseState) {
+		boolean hasConsumedMouse = false;
 		if((x < mouseX) && (y < mouseY) && (x + width > mouseX) && (y + height > mouseY)) {
+			hasConsumedMouse = true;
 			this.onMouseOver();
 			if(mouseState) {
 				this.onMouseDown();
@@ -54,6 +56,7 @@ public abstract class Control extends GUIElement {
 			this.onMouseOut();
 		}
 		wasMousePressed = mouseState;
+		return hasConsumedMouse;
 	}
 
 

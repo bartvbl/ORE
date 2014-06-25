@@ -40,7 +40,7 @@ public class GUI extends Property {
 			} else if(event.command.equals("select")) {
 				mouseState = event.value == 1.0;
 			}
-			updateMenus();
+			updateMenus(event);
 		} else if(message.type == MessageType.ANIMATE_MENU) {
 			AnimateMenuCommand command = (AnimateMenuCommand) message.getPayload();
 			Animation animation = (Animation) gameObject.world.resourceCache.getResource(ResourceType.animation, command.animationName).content;
@@ -51,13 +51,15 @@ public class GUI extends Property {
 
 	@Override
 	public void tick() {
-		for(Menu menu : activeMenus) {
-			menu.update(mouseX, mouseY, mouseState);
-		}
 		
 	}
-	
-	private void updateMenus() {
+
+	private void updateMenus(InputEvent event) {
+		for(Menu menu : activeMenus) {
+			if(menu.update(mouseX, mouseY, mouseState)) {
+				event.consume();
+			}
+		}
 	}
 
 	@Override
@@ -72,7 +74,6 @@ public class GUI extends Property {
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select");
-		updateMenus();
 	}
 	
 	private Menu getMenuByName(String menuName) {

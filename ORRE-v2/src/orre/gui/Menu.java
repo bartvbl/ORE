@@ -60,14 +60,16 @@ public class Menu implements Animatable, Finalizable {
 		return registeredElements.get(name).sceneNode;
 	}
 
-	public void update(double mouseX, double mouseY, boolean mouseState) {
+	public boolean update(double mouseX, double mouseY, boolean mouseState) {
 		if(activeAnimationCount != 0) {
-			return;
+			return false;
 		}
 		updateBounds(root, 0, 0, Display.getWidth(), Display.getHeight());
+		boolean hasConsumedMouse = false;
 		for(Control control : menuControls) {
-			control.updateMouse(mouseX, mouseY, mouseState);
+			hasConsumedMouse = hasConsumedMouse || control.updateMouse(mouseX, mouseY, mouseState);
 		}
+		return hasConsumedMouse;
 	}
 	
 	private void updateBounds(GUIElement element, double parentX, double parentY, double parentWidth, double parentHeight) {
