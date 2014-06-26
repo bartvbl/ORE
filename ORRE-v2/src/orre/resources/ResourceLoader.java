@@ -9,6 +9,7 @@ import orre.events.GlobalEventType;
 import orre.gui.LoadingScreenDrawer;
 import orre.resources.loaders.AnimationLoader;
 import orre.resources.loaders.ConfigLoader;
+import orre.resources.loaders.LXFMLLoader;
 import orre.resources.loaders.MenuLoader;
 import orre.resources.loaders.ModelLoader;
 import orre.resources.loaders.ResourceListFileParser;
@@ -39,6 +40,7 @@ public class ResourceLoader implements EventHandler {
 		loaders.put(ResourceType.shader, new ShaderLoader());
 		loaders.put(ResourceType.config, new ConfigLoader());
 		loaders.put(ResourceType.menu, new MenuLoader());
+		loaders.put(ResourceType.lxfmlModel, new LXFMLLoader());
 	}
 	
 	public ResourceLoader(ResourceCache cache, GlobalEventDispatcher globalEventDispatcher)

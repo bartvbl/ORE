@@ -2,6 +2,9 @@ package orre.resources.loaders;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.DoubleBuffer;
+
+import org.lwjgl.BufferUtils;
 
 import lib.ldd.data.GeometryWithMaterial;
 import lib.ldd.data.Material;
@@ -12,6 +15,9 @@ import lib.ldd.lif.LIFFile;
 import lib.ldd.lif.LIFReader;
 import lib.ldd.lxfml.LXFMLReader;
 import orre.geom.vbo.BufferDataFormatType;
+import orre.resources.Finalizable;
+import orre.resources.ResourceType;
+import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceQueue;
 import orre.resources.data.BlueprintModel;
@@ -20,21 +26,22 @@ import orre.resources.loaders.obj.StoredModelPart;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 
-public class LXFMLLoader {
+public class LXFMLLoader implements ResourceTypeLoader {
 	private static final File assetsFile = new File("res/Assets.lif");
-	private static final LIFReader dbReader = openDBReader();
-	private static IOException assetsFileError = null;
-
-	public static BlueprintModel load(UnloadedResource file, ResourceQueue queue) throws IOException {
+	
+	@Override
+	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+		System.out.println("Loading LXFML file..");
 		checkDBFileAvailability();
+		LIFReader dbReader = openDBReader();
 		
-		Mesh mesh = LXFMLReader.readLXFMLFile(file.location, dbReader);
-		String modelName = file.location.getName();
+		Mesh mesh = LXFMLReader.readLXFMLFile(source.location, dbReader);
+		String modelName = source.location.getName();
 		modelName = modelName.substring(0, modelName.lastIndexOf('.'));
 		return convertMesh(mesh, modelName, queue);
 	}
 
-	private static BlueprintModel convertMesh(Mesh mesh, String modelName, ResourceQueue queue) {
+	private BlueprintModel convertMesh(Mesh mesh, String modelName, ResourceQueue queue) {
 		BlueprintModel model = new BlueprintModel(modelName);
 		for(GeometryWithMaterial group : mesh.contents) {
 			BlueprintMaterial material = convertMaterial(group.material);
@@ -49,7 +56,7 @@ public class LXFMLLoader {
 		return model;
 	}
 
-	private static BlueprintMaterial convertMaterial(Material material) {
+	private BlueprintMaterial convertMaterial(Material material) {
 		BlueprintMaterial converted = new BlueprintMaterial("Brick material " + material.id);
 		float red 	= (material.red)   / 255f;
 		float green = (material.green) / 255f;
@@ -59,30 +66,37 @@ public class LXFMLLoader {
 		return converted;
 	}
 	
-	private static PartiallyLoadableModelPart convertGeometryGroup(VBOContents geometryGroup, String name) {
+	private PartiallyLoadableModelPart convertGeometryGroup(VBOContents geometryGroup, String name) {
 		int vertexCount = geometryGroup.vertices.length / 3;
+		DoubleBuffer vertexBuffer = BufferUtils.createDoubleBuffer(geometryGroup.vertices.length + geometryGroup.normals.length);
 		PartiallyLoadableModelPart part = new PartiallyLoadableModelPart(name, vertexCount, BufferDataFormatType.VERTICES_AND_NORMALS);
-		for(int i = 0; i < geometryGroup.vertices.length; i++) {
-			
+		for(int i = 0; i < geometryGroup.vertices.length; i+=3) {
+			vertexBuffer.put(geometryGroup.vertices[i]).put(geometryGroup.vertices[i+1]).put(geometryGroup.vertices[i+2]);
+			vertexBuffer.put(geometryGroup.normals[i]).put(geometryGroup.normals[i+1]).put(geometryGroup.normals[i+2]);
 		}
-		return null;
+		return part;
 	}
 
-	private static void checkDBFileAvailability() throws IOException {
-		if(dbReader == null) {
-			throw new IOException("Failed to load Assets.lif file", assetsFileError);
+	private void checkDBFileAvailability() throws IOException {
+		if(!assetsFile.exists()) {
+			throw new IOException("The Assets.lif file was not found.");
 		}
 	}
 
-	private static LIFReader openDBReader() {
+	private LIFReader openDBReader() throws IOException {
+		checkDBFileAvailability();
 		try {
 			LIFReader assetsReader = LIFReader.openLIFFile(assetsFile);
 			LIFFile dbFile = assetsReader.getFileAt(AssetsFilePaths.dbFile);
 			return assetsReader.readInternalLIFFile(dbFile);
 		} catch (IOException e) {
-			assetsFileError  = e;
-			return null;
+			throw new IOException("Failed to load Assets.lif file", e);
 		}
+	}
+
+	@Override
+	public Enum<?> getResourceType() {
+		return ResourceType.lxfmlModel;
 	}
 
 }
