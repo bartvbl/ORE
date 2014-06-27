@@ -158,6 +158,7 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	@Override
 	public void postRender() {
 		glPopMatrix();
+		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 }
