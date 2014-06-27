@@ -15,12 +15,12 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 	final int indexBuffer;
 	final int vertexBuffer;
 	
-	private final BufferDataFormatType dataFormat;
+	private final VBOFormat dataFormat;
 	private final DrawingMode mode;
 	private final int numberOfVertices;
 	private final int indexCount;
 
-	public GeometryNode(int indexBuffer, int vertexBuffer, BufferDataFormatType dataFormat, int numVertices, int indexCount, DrawingMode mode)
+	public GeometryNode(int indexBuffer, int vertexBuffer, VBOFormat dataFormat, int numVertices, int indexCount, DrawingMode mode)
 	{
 		this.indexBuffer = indexBuffer;
 		this.vertexBuffer = vertexBuffer;

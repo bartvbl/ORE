@@ -11,7 +11,7 @@ public class VertexBuffer {
 	private static final int ELEMENTS_PER_TEXCOORD = 2;
 	private static final int ELEMENTS_PER_NORMAL = 3;
 
-	private final BufferDataFormatType dataFormat;
+	private final VBOFormat dataFormat;
 	
 	private final DoubleBuffer vertex;
 	
@@ -19,7 +19,7 @@ public class VertexBuffer {
 	private final double[] normalCoordinate = new double[ELEMENTS_PER_NORMAL];
 	private final double[] texCoordinate = new double[ELEMENTS_PER_TEXCOORD];
 	
-	public VertexBuffer(int numVertices, int numTexCoords, int numNormals, BufferDataFormatType dataFormat)
+	public VertexBuffer(int numVertices, int numTexCoords, int numNormals, VBOFormat dataFormat)
 	{
 		this.dataFormat = dataFormat;
 		this.vertices = DoubleBuffer.allocate(ELEMENTS_PER_VERTEX * numVertices);

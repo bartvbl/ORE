@@ -46,7 +46,7 @@ public class ModelLoader implements ResourceTypeLoader {
 	
 	private static void linkPartsToPartTree(BlueprintModel model, List<PartiallyLoadableModelPart> parts) {
 		for(PartiallyLoadableModelPart part : parts) {
-			model.linkGeometryPartToModelPart(part.name, part);
+			model.linkGeometryPartToModelPart(part);
 		}
 	}
 	

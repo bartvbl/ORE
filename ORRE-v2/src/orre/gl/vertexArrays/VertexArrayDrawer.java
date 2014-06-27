@@ -7,7 +7,7 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.VBOFormat;
 import orre.geom.vbo.GeometryBufferGenerator;
 import orre.geom.vbo.GeometryNode;
 
@@ -22,7 +22,7 @@ public class VertexArrayDrawer {
 	public static void drawTriangles(double[] vertices, int[] indices, int axisCount, int vertexCount) {
 		vertexBuffer.put(vertices).flip();
 		indexBuffer.put(indices).flip();
-		GeometryNode tmpNode = GeometryBufferGenerator.generateGeometryBuffer(BufferDataFormatType.VERTICES, vertexBuffer, indexBuffer, vertexCount, indices.length);
+		GeometryNode tmpNode = GeometryBufferGenerator.generateGeometryBuffer(VBOFormat.VERTICES, vertexBuffer, indexBuffer, vertexCount, indices.length);
 		tmpNode.render();
 		tmpNode.destroy();
 		//draw(GL_TRIANGLES, vertices.length / 3, vertices, axisCount);

@@ -2,7 +2,7 @@ package orre.resources.loaders.obj;
 
 import java.util.List;
 
-import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.VBOFormat;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 
 public class OBJStatsContext {
@@ -13,7 +13,7 @@ public class OBJStatsContext {
 	private ModelPartStatTracker modelPartTracker;
 	
 	private boolean bufferDataTypeHasBeenSet = false;
-	private BufferDataFormatType dataFormat = BufferDataFormatType.VERTICES_TEXTURES_NORMALS;
+	private VBOFormat dataFormat = VBOFormat.VERTICES_TEXTURES_NORMALS;
 	
 	public OBJStatsContext() {
 		this.modelPartTracker = new ModelPartStatTracker();
@@ -39,11 +39,11 @@ public class OBJStatsContext {
 	public boolean bufferDataTypeHasBeenSet() {
 		return this.bufferDataTypeHasBeenSet;
 	}
-	public void setBufferDataFormat(BufferDataFormatType dataFormat) {
+	public void setBufferDataFormat(VBOFormat dataFormat) {
 		this.dataFormat = dataFormat;
 		this.bufferDataTypeHasBeenSet = true;
 	}
-	public BufferDataFormatType getBufferDataFormat() {
+	public VBOFormat getBufferDataFormat() {
 		return this.dataFormat;
 	}
 

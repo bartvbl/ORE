@@ -2,10 +2,12 @@ package orre.resources.partiallyLoadables;
 
 import java.nio.DoubleBuffer;
 
-import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.VBOFormat;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
 import orre.resources.loaders.obj.StoredModelPart;
+import orre.util.Logger;
+import orre.util.Logger.LogType;
 
 public class PartiallyLoadableModelPart implements Finalizable {
 	private BlueprintMaterial material;
@@ -14,7 +16,7 @@ public class PartiallyLoadableModelPart implements Finalizable {
 	public final String name;
 	private StoredModelPart destinationPart;
 
-	public PartiallyLoadableModelPart(String name, int numVertices, BufferDataFormatType bufferDataFormatType) {
+	public PartiallyLoadableModelPart(String name, int numVertices, VBOFormat bufferDataFormatType) {
 		this.geometryBuffer = new UnpackedGeometryBuffer(bufferDataFormatType, numVertices);
 		this.name = name;
 	}
@@ -29,7 +31,8 @@ public class PartiallyLoadableModelPart implements Finalizable {
 	@Override
 	public Resource finalizeResource() {
 		if(this.destinationPart == null) {
-			System.out.println("ERROR: missing part in OBJ file: " + name);
+			Logger.log("missing part in model: " + name, LogType.ERROR);
+			return null;
 		}
 		if(this.material != null) {
 			this.material.finalizeResource();
@@ -39,7 +42,7 @@ public class PartiallyLoadableModelPart implements Finalizable {
 		return null;
 	}
 
-	public void setBufferDataFormat(BufferDataFormatType dataType) {
+	public void setBufferDataFormat(VBOFormat dataType) {
 		geometryBuffer.setBufferDataFormat(dataType);
 	}
 

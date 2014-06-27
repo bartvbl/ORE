@@ -3,7 +3,7 @@ package orre.resources.loaders.obj;
 import java.util.ArrayList;
 import java.util.List;
 
-import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.VBOFormat;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 
 public class ModelPartStatTracker {
@@ -53,7 +53,7 @@ public class ModelPartStatTracker {
 		this.verticesInCurrentPart++;
 	}
 	
-	public List<PartiallyLoadableModelPart> generateModelParts(BufferDataFormatType dataFormat) {
+	public List<PartiallyLoadableModelPart> generateModelParts(VBOFormat dataFormat) {
 		this.updateCurrentPartRecord();
 		
 		ArrayList<PartiallyLoadableModelPart> modelParts = new ArrayList<PartiallyLoadableModelPart>();

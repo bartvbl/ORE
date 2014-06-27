@@ -30,13 +30,12 @@ public class BlueprintModel implements Finalizable {
 		this.modelParts.put(part.name, part);
 	}
 	
-	public void linkGeometryPartToModelPart(String partName, PartiallyLoadableModelPart partToLink) {
-		StoredModelPart part = this.modelParts.get(partName);
+	public void linkGeometryPartToModelPart(PartiallyLoadableModelPart partToLink) {
+		StoredModelPart part = this.modelParts.get(partToLink.name);
 		partToLink.setDestinationPart(part);
 	}
 
 	public Mesh3D createMesh() {
-		System.out.println("Creating model: " + name);
 		Mesh3D mesh = new Mesh3D(name);
 		for(StoredModelPart part : this.topLevelNodeList) {
 			addChildren(mesh, mesh.root, part);

@@ -5,7 +5,7 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import orre.geom.vbo.BufferDataFormatType;
+import orre.geom.vbo.VBOFormat;
 import orre.geom.vbo.GeometryNode;
 import orre.geom.vbo.GeometryBufferGenerator;
 import orre.resources.Finalizable;
@@ -13,10 +13,10 @@ import orre.resources.Resource;
 
 public class UnpackedGeometryBuffer implements Finalizable{
 	private DoubleBuffer vertices;
-	private BufferDataFormatType dataFormat;
+	private VBOFormat dataFormat;
 	private final int numVertices;
 	
-	public UnpackedGeometryBuffer(BufferDataFormatType bufferDataFormat, int numVertices) {
+	public UnpackedGeometryBuffer(VBOFormat bufferDataFormat, int numVertices) {
 		this.dataFormat = bufferDataFormat;
 		this.numVertices = numVertices;
 		int vertexBufferSize = bufferDataFormat.elementsPerVertex*numVertices;
@@ -32,7 +32,7 @@ public class UnpackedGeometryBuffer implements Finalizable{
 		return null;
 	}
 
-	public void setBufferDataFormat(BufferDataFormatType dataType) {
+	public void setBufferDataFormat(VBOFormat dataType) {
 		this.dataFormat = dataType;
 	}
 

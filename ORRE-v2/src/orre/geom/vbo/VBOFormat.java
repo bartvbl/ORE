@@ -1,6 +1,6 @@
 package orre.geom.vbo;
 
-public enum BufferDataFormatType {
+public enum VBOFormat {
 	VERTICES (3),
 	VERTICES_AND_TEXTURES (5),
 	VERTICES_AND_NORMALS (6),
@@ -8,7 +8,7 @@ public enum BufferDataFormatType {
 	
 	public final int elementsPerVertex;
 
-	private BufferDataFormatType(int elementSize)
+	private VBOFormat(int elementSize)
 	{
 		this.elementsPerVertex = elementSize;
 	}

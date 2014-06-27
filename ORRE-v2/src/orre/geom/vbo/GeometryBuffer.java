@@ -10,7 +10,7 @@ public class GeometryBuffer {
 	private final DoubleBuffer geometryBuffer;
 	private final IntBuffer indexBuffer;
 
-	public GeometryBuffer(int vertexCount, int indexCount, BufferDataFormatType dataFormat) {
+	public GeometryBuffer(int vertexCount, int indexCount, VBOFormat dataFormat) {
 		this.vertexCount = vertexCount;
 		this.indexCount = indexCount;
 		
