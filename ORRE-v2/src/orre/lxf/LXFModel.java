@@ -3,11 +3,12 @@ package orre.lxf;
 import java.util.HashMap;
 import java.util.Set;
 
+import orre.animation.Animatable;
 import orre.gl.materials.Material;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
 import orre.sceneGraph.CoordinateNode;
 
-public class LXFModel {
+public class LXFModel implements Animatable {
 
 	public final String name;
 	private final HashMap<String, LXFPart> partMap = new HashMap<String, LXFPart>();
@@ -26,6 +27,21 @@ public class LXFModel {
 				material.addChild(part);
 			}
 		}
+	}
+
+	@Override
+	public CoordinateNode getModelPartByName(String name) {
+		return partMap.get(name);
+	}
+
+	@Override
+	public void notifyAnimationStart() {
+		
+	}
+
+	@Override
+	public void notifyAnimationEnd() {
+		
 	}
 
 }
