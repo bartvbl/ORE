@@ -3,8 +3,8 @@ package orre.gl.shaders;
 import static org.lwjgl.opengl.GL20.*;
 import orre.sceneGraph.ContainerNode;
 
-public class UniformNode extends ContainerNode {
-	private final String variableName;
+public class Uniform {
+	public final String variableName;
 	private final int programID;
 
 	private enum DataType {INT, FLOAT};
@@ -14,7 +14,7 @@ public class UniformNode extends ContainerNode {
 	private float floatValue;
 	private int uniformLocation = -1;
 	
-	UniformNode(String variableName, int programID) {
+	Uniform(String variableName, int programID) {
 		this.variableName = variableName;
 		this.programID = programID;
 	}
@@ -29,8 +29,7 @@ public class UniformNode extends ContainerNode {
 		this.currentDataType = DataType.FLOAT;
 	}
 	
-	@Override
-	public void preRender() {
+	public void set() {
 		if(uniformLocation == -1) {
 			uniformLocation = glGetUniformLocation(programID, variableName);
 		}
@@ -42,10 +41,5 @@ public class UniformNode extends ContainerNode {
 			glUniform1f(uniformLocation, this.floatValue);
 			break;
 		}
-	}
-	
-	@Override
-	public void postRender() {
-		
 	}
 }

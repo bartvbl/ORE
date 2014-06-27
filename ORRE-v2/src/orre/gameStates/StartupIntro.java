@@ -18,7 +18,7 @@ import orre.gl.lighting.Light;
 import orre.gl.materials.Material;
 import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
-import orre.gl.shaders.UniformNode;
+import orre.gl.shaders.Uniform;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.loaders.OBJLoader;
@@ -67,7 +67,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			brickPart.finalizeResource();
 			Light light = new Light();
 			ShaderNode shader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content).createSceneNode();
-			UniformNode uniform = shader.createUniform("texturesEnabled");
+			Uniform uniform = shader.createUniform("texturesEnabled");
 			SceneNode brickNode = brickBlueprint.createSceneNode().getChildren().get(0).getChildren().get(0);
 			this.brickPosition = new CoordinateNode();
 			uniform.setValue(0f);
@@ -77,7 +77,6 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			light.setDiffuseLight(new float[]{1f, 1f, 1f, 1f});
 			light.setSpecularLight(new float[]{1f, 1f, 1f, 1f});
 			light.addChild(shader);
-			shader.addChild(uniform);
 			shader.addChild(brickPosition);
 			buildImage(logoImage, brickNode, brickPosition);
 			animationFinishedCounter = 0;

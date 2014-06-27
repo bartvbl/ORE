@@ -11,8 +11,8 @@ public class ShaderNode extends ContainerNode {
 		this.programID = programID;
 	}
 	
-	public UniformNode createUniform(String variableName) {
-		return new UniformNode(variableName, programID);
+	public Uniform createUniform(String variableName) {
+		return new Uniform(variableName, programID);
 	}
 
 	@Override
@@ -23,6 +23,7 @@ public class ShaderNode extends ContainerNode {
 	@Override
 	public void render() {
 		glUseProgram(programID);
+		ActiveShader.setActiveShader(this);
 	}
 	
 	@Override

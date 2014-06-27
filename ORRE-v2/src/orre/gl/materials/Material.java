@@ -4,6 +4,7 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import orre.gl.shaders.ActiveShader;
 import orre.gl.texture.Texture;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
@@ -113,8 +114,10 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		if(this.diffuseTexture != null) {
 			glEnable(GL_TEXTURE_2D);
 			this.diffuseTexture.bind();
+			ActiveShader.setUniformValue("texturesEnabled", 1.0f);
 		} else {
 			glDisable(GL_TEXTURE_2D);
+			ActiveShader.setUniformValue("texturesEnabled", 0.0f);
 		}
 	}
 
