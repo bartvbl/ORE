@@ -9,7 +9,7 @@ public class ContainerNode implements SceneNode {
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	protected float renderRadius = 0.0f;
 	protected boolean parentHasBeenRegistered = false;
-	private final String name;
+	protected final String name;
 	
 	public ContainerNode() {
 		this.name = "";

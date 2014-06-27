@@ -13,6 +13,12 @@ public class CoordinateNode extends ContainerNode {
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	protected float renderRadius = 0.0f;
 	
+	public CoordinateNode(String name) {
+		super(name);
+	}
+	
+	public CoordinateNode() {}
+
 	@Override
 	public float getRenderRadius()
 	{
@@ -98,7 +104,7 @@ public class CoordinateNode extends ContainerNode {
 	
 	@Override
 	public String toString() {
-		return "Coordinate node";
+		return "Coordinate node " + (name == null ? "" : name);
 	}
 	
 	public double getX() {
