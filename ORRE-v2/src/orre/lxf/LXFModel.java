@@ -44,4 +44,9 @@ public class LXFModel implements Animatable {
 		
 	}
 
+	@Override
+	public CoordinateNode getRootNode() {
+		return rootNode;
+	}
+
 }

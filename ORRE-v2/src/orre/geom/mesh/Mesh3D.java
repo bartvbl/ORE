@@ -39,4 +39,9 @@ public class Mesh3D implements Animatable {
 	public void notifyAnimationEnd() {
 		
 	}
+
+	@Override
+	public CoordinateNode getRootNode() {
+		return root;
+	}
 }

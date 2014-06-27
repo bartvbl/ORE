@@ -3,6 +3,7 @@ package orre.gameWorld.properties;
 import orre.ai.tasks.IdleTask;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskType;
+import orre.animation.Animatable;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
@@ -35,8 +36,8 @@ public class TaskExecutor extends Property {
 	@Override
 	public void tick() {
 		if(currentTask.isFinished() || !hasTask) {
-			Mesh3D appearance = (Mesh3D) gameObject.requestPropertyData(PropertyDataType.APPEARANCE, Mesh3D.class);
-			Point3D location = appearance.root.getLocation();
+			Animatable appearance = (Animatable) gameObject.requestPropertyData(PropertyDataType.APPEARANCE, Animatable.class);
+			Point3D location = appearance.getRootNode().getLocation();
 			Point2D location2D = location.in2D();
 			this.gameObject.world.services.aiService.assignTask(this.gameObject.id, new TaskType[]{TaskType.COLLECT_ORE}, location2D);
 			hasTask = true;

@@ -123,4 +123,9 @@ public class Menu implements Animatable, Finalizable {
 	public String toString() {
 		return "Menu " + name;
 	}
+
+	@Override
+	public CoordinateNode getRootNode() {
+		return root.sceneNode;
+	}
 }
