@@ -2,9 +2,14 @@ package orre.resources.loaders;
 
 import java.io.File;
 import java.io.IOException;
+
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
 import lib.ldd.data.GeometryWithMaterial;
 import lib.ldd.data.Material;
 import lib.ldd.data.Mesh;
+import lib.ldd.data.VBOContents;
 import lib.ldd.lif.AssetsFilePaths;
 import lib.ldd.lif.LIFFile;
 import lib.ldd.lif.LIFReader;
@@ -20,6 +25,14 @@ import orre.resources.partiallyLoadables.BlueprintMaterial;
 
 public class LXFMLLoader implements ResourceTypeLoader {
 	private static final File assetsFile = new File("res/Assets.lif");
+	private static final Matrix4f geometryConversionMatrix = new Matrix4f();
+	
+	static {
+		//LXFML models flip axis
+		geometryConversionMatrix.rotate((float) (Math.PI / 2d), new Vector3f(1, 0, 0));
+		//Scale to map size
+		geometryConversionMatrix.scale(new Vector3f(0.08f, 0.08f, 0.08f));
+	}
 	
 	@Override
 	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
@@ -39,7 +52,8 @@ public class LXFMLLoader implements ResourceTypeLoader {
 			BlueprintMaterial material = convertMaterial(group.material);
 			LXFBlueprintPart[] parts = new LXFBlueprintPart[group.geometry.length];
 			for(int i = 0; i < group.geometry.length; i++) {
-				parts[i] = new LXFBlueprintPart(group.geometry[i], "part " + partCounter);
+				VBOContents contents = group.geometry[i].transform(geometryConversionMatrix);
+				parts[i] = new LXFBlueprintPart(contents, "part " + partCounter);
 				partCounter++;
 				queue.enqueueResourceForFinalization(parts[i]);
 			}
