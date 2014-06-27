@@ -4,11 +4,12 @@ import java.util.HashMap;
 import java.util.Set;
 
 import orre.animation.Animatable;
+import orre.geom.mesh.Model;
 import orre.gl.materials.Material;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
 import orre.sceneGraph.CoordinateNode;
 
-public class LXFModel implements Animatable {
+public class LXFModel implements Model, Animatable {
 
 	public final String name;
 	private final HashMap<String, LXFPart> partMap = new HashMap<String, LXFPart>();

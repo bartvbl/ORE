@@ -6,7 +6,7 @@ import orre.animation.Animatable;
 import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
-public class Mesh3D implements Animatable {
+public class Mesh3D implements Animatable, Model {
 	private HashMap<String, ModelPart> parts = new HashMap<String, ModelPart>();
 	public final CoordinateNode root;
 	

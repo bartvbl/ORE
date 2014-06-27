@@ -9,7 +9,7 @@ import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceQueue;
-import orre.resources.data.BlueprintModel;
+import orre.resources.data.OBJBlueprintModel;
 import orre.resources.loaders.models.ModelPartTreeBuilder;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.XMLLoader;
@@ -25,11 +25,11 @@ public class ModelLoader implements ResourceTypeLoader {
 		return ResourceType.model;
 	}
 
-	public static BlueprintModel loadModel(UnloadedResource file, ResourceQueue queue) throws Exception
+	public static OBJBlueprintModel loadModel(UnloadedResource file, ResourceQueue queue) throws Exception
 	{
 		Document modelXMLDocument = XMLLoader.readXML(file.location);
 		Element rootElement = modelXMLDocument.getRootElement();
-		BlueprintModel model = new BlueprintModel(file.name);
+		OBJBlueprintModel model = new OBJBlueprintModel(file.name);
 		ModelPartTreeBuilder.generatePartTree(model, rootElement);
 		List<PartiallyLoadableModelPart> parts = loadOBJFile(model, rootElement);
 		linkPartsToPartTree(model, parts);
@@ -37,14 +37,14 @@ public class ModelLoader implements ResourceTypeLoader {
 		return model;
 	}
 	
-	private static List<PartiallyLoadableModelPart> loadOBJFile(BlueprintModel model, Element rootElement) throws Exception {
+	private static List<PartiallyLoadableModelPart> loadOBJFile(OBJBlueprintModel model, Element rootElement) throws Exception {
 		
 		Element modelFileElement = rootElement.getFirstChildElement("modelFile");
 		List<PartiallyLoadableModelPart> parts = OBJLoader.load(modelFileElement.getAttributeValue("src"));
 		return parts;
 	}
 	
-	private static void linkPartsToPartTree(BlueprintModel model, List<PartiallyLoadableModelPart> parts) {
+	private static void linkPartsToPartTree(OBJBlueprintModel model, List<PartiallyLoadableModelPart> parts) {
 		for(PartiallyLoadableModelPart part : parts) {
 			model.linkGeometryPartToModelPart(part);
 		}

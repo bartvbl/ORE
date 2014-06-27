@@ -11,7 +11,7 @@ import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
-import orre.resources.data.BlueprintModel;
+import orre.resources.data.OBJBlueprintModel;
 import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.Camera;
 import orre.sceneGraph.ContainerNode;

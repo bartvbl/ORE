@@ -3,7 +3,9 @@ package orre.resources.data;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import orre.geom.mesh.BlueprintModel;
 import orre.geom.mesh.Mesh3D;
+import orre.geom.mesh.Model;
 import orre.geom.mesh.ModelPart;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
@@ -12,12 +14,12 @@ import orre.resources.loaders.obj.StoredModelPart;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.sceneGraph.SceneNode;
 
-public class BlueprintModel implements Finalizable {
+public class OBJBlueprintModel implements BlueprintModel, Finalizable {
 	private ArrayList<StoredModelPart> topLevelNodeList = new ArrayList<StoredModelPart>();
 	private HashMap<String, StoredModelPart> modelParts = new HashMap<String, StoredModelPart>();
 	public final String name;
 	
-	public BlueprintModel(String name)
+	public OBJBlueprintModel(String name)
 	{
 		this.name = name;
 	}
@@ -35,7 +37,7 @@ public class BlueprintModel implements Finalizable {
 		partToLink.setDestinationPart(part);
 	}
 
-	public Mesh3D createMesh() {
+	private Mesh3D createMesh() {
 		Mesh3D mesh = new Mesh3D(name);
 		for(StoredModelPart part : this.topLevelNodeList) {
 			addChildren(mesh, mesh.root, part);
@@ -55,6 +57,11 @@ public class BlueprintModel implements Finalizable {
 
 	@Override
 	public Resource finalizeResource() {
-		return new Resource(ResourceType.model, name, BlueprintModel.class, this);
+		return new Resource(ResourceType.model, name, OBJBlueprintModel.class, this);
+	}
+
+	@Override
+	public Model createInstance() {
+		return createMesh();
 	}
 }

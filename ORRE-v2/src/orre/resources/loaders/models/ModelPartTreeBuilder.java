@@ -5,7 +5,7 @@ import java.util.List;
 
 import nu.xom.Element;
 import nu.xom.Elements;
-import orre.resources.data.BlueprintModel;
+import orre.resources.data.OBJBlueprintModel;
 import orre.resources.loaders.obj.ModelPartType;
 import orre.resources.loaders.obj.StoredModelPart;
 
@@ -13,7 +13,7 @@ public class ModelPartTreeBuilder {
 	private static final String PHYSICAL_PART = "part";
 	private static final String VIRTUAL_PART = "shaderPart";
 
-	public static List<StoredModelPart> generatePartTree(BlueprintModel model, Element rootElement) {
+	public static List<StoredModelPart> generatePartTree(OBJBlueprintModel model, Element rootElement) {
 		Element partStructureElement = rootElement.getFirstChildElement("partStructure");
 		Elements partElements = partStructureElement.getChildElements();
 		ArrayList<StoredModelPart> partList = new ArrayList<StoredModelPart>();
@@ -26,7 +26,7 @@ public class ModelPartTreeBuilder {
 		return partList;
 	}
 
-	private static StoredModelPart parseTreeNode(Element nodeElement, BlueprintModel model) {
+	private static StoredModelPart parseTreeNode(Element nodeElement, OBJBlueprintModel model) {
 		ModelPartType partType = getPartType(nodeElement);
 		String partName = nodeElement.getAttributeValue("nameInModelFile");
 		StoredModelPart newPart = new StoredModelPart(partType, partName);
@@ -61,7 +61,7 @@ public class ModelPartTreeBuilder {
 		return ModelPartType.PHYSICAL;
 	}
 	
-	private static void parseChildNodes(StoredModelPart newPart, Element nodeElement, BlueprintModel model) {
+	private static void parseChildNodes(StoredModelPart newPart, Element nodeElement, OBJBlueprintModel model) {
 		Elements childElements = nodeElement.getChildElements();
 		for(int i = 0; i < childElements.size(); i++) {
 			newPart.addChild(parseTreeNode(childElements.get(i), model));

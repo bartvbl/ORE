@@ -13,6 +13,7 @@ import orre.gameWorld.messages.NewTaskMessage;
 import orre.geom.Point2D;
 import orre.geom.Point3D;
 import orre.geom.mesh.Mesh3D;
+import orre.geom.mesh.Model;
 
 public class TaskExecutor extends Property {
 	private Task currentTask;
@@ -36,7 +37,7 @@ public class TaskExecutor extends Property {
 	@Override
 	public void tick() {
 		if(currentTask.isFinished() || !hasTask) {
-			Animatable appearance = (Animatable) gameObject.requestPropertyData(PropertyDataType.APPEARANCE, Animatable.class);
+			Model appearance = (Model) gameObject.requestPropertyData(PropertyDataType.APPEARANCE, Model.class);
 			Point3D location = appearance.getRootNode().getLocation();
 			Point2D location2D = location.in2D();
 			this.gameObject.world.services.aiService.assignTask(this.gameObject.id, new TaskType[]{TaskType.COLLECT_ORE}, location2D);

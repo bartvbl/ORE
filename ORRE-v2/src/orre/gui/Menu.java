@@ -9,6 +9,7 @@ import org.lwjgl.opengl.Display;
 
 import orre.animation.Animatable;
 import orre.gameWorld.core.GameWorld;
+import orre.geom.mesh.Model;
 import orre.gui.controls.Control;
 import orre.gui.elements.Container;
 import orre.gui.elements.GUIElement;
@@ -122,10 +123,5 @@ public class Menu implements Animatable, Finalizable {
 	
 	public String toString() {
 		return "Menu " + name;
-	}
-
-	@Override
-	public CoordinateNode getRootNode() {
-		return root.sceneNode;
 	}
 }
