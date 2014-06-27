@@ -102,12 +102,6 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	@Override
 	public void render() 
 	{
-		this.bindTexture();
-		glMaterialf(GL_FRONT, GL_SHININESS, shininess);
-		glMaterial(GL_FRONT, GL_AMBIENT, this.fillColourBuffer(this.ambientColour, this.alpha));
-		glMaterial(GL_FRONT, GL_DIFFUSE, this.fillColourBuffer(this.diffuseColour, this.alpha));
-		glMaterial(GL_FRONT, GL_SPECULAR, this.fillColourBuffer(this.specularColour, this.alpha));
-		glMaterial(GL_FRONT, GL_EMISSION, this.fillColourBuffer(this.emissionColour, this.alpha));
 	}
 	
 	private void bindTexture() {
@@ -121,11 +115,11 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		}
 	}
 
-	private FloatBuffer fillColourBuffer(float[] colour, float alpha) {
+	private FloatBuffer fillColourBuffer(float[] colour) {
 		this.colourBuffer.put(colour[0]);
 		this.colourBuffer.put(colour[1]);
 		this.colourBuffer.put(colour[2]);
-		this.colourBuffer.put(alpha);
+		this.colourBuffer.put(colour[3] * alpha);
 		this.colourBuffer.rewind();
 		return this.colourBuffer;
 	}
@@ -156,12 +150,17 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	@Override
 	public void preRender() {
 		glPushMatrix();
+		this.bindTexture();
+		glMaterialf(GL_FRONT, GL_SHININESS, shininess);
+		glMaterial(GL_FRONT, GL_AMBIENT, this.fillColourBuffer(this.ambientColour));
+		glMaterial(GL_FRONT, GL_DIFFUSE, this.fillColourBuffer(this.diffuseColour));
+		glMaterial(GL_FRONT, GL_SPECULAR, this.fillColourBuffer(this.specularColour));
+		glMaterial(GL_FRONT, GL_EMISSION, this.fillColourBuffer(this.emissionColour));
 	}
 	
 	@Override
 	public void postRender() {
 		glPopMatrix();
-		glBindTexture(GL_TEXTURE_2D, 0);
 	}
 
 }
