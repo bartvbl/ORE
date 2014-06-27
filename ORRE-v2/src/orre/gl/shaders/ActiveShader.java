@@ -23,7 +23,7 @@ public class ActiveShader {
 	}
 
 	private static Uniform getUniformByName(String uniformName) {
-		ArrayList<Uniform> uniforms = uniformMap.get(uniformName);
+		ArrayList<Uniform> uniforms = uniformMap.get(currentActiveShader);
 		if(uniforms == null) {
 			uniforms = new ArrayList<Uniform>();
 			uniformMap.put(currentActiveShader, uniforms);

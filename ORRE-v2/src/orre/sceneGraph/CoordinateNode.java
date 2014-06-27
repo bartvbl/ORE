@@ -3,6 +3,7 @@ package orre.sceneGraph;
 import java.util.ArrayList;
 
 import orre.geom.Point3D;
+import orre.gl.shaders.ActiveShader;
 import static org.lwjgl.opengl.GL11.*;
 
 public class CoordinateNode extends ContainerNode {

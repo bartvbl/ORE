@@ -7,6 +7,7 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import orre.gl.shaders.ActiveShader;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 

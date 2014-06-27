@@ -17,18 +17,18 @@ public class ShaderNode extends ContainerNode {
 
 	@Override
 	public void preRender() {
-		
-	}
-	
-	@Override
-	public void render() {
 		glUseProgram(programID);
 		ActiveShader.setActiveShader(this);
 	}
 	
 	@Override
+	public void render() {
+	}
+	
+	@Override
 	public void postRender() {
 		glUseProgram(0);
+		ActiveShader.setActiveShader(null);
 	}
 	
 	@Override
