@@ -69,7 +69,12 @@ public class LXFMLLoader implements ResourceTypeLoader {
 		float green = (material.green) / 255f;
 		float blue 	= (material.blue)  / 255f;
 		float alpha = (material.alpha) / 255f;
-		converted.setDiffuseColour(new float[]{red, green, blue, alpha});
+		float[] colour = new float[]{red, green, blue, alpha};
+		converted.setDiffuseColour(colour);
+		converted.setAmbientColour(colour);
+		if(alpha < 1.0f) {
+			converted.setEmissionColour(colour);
+		}
 		return converted;
 	}
 
