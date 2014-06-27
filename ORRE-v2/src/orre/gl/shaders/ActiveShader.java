@@ -17,12 +17,24 @@ public class ActiveShader {
 		}
 	}
 	
-	public static void setUniformValue(String uniformName, int value) {
+	public static void setUniformValue1f(String uniformName, int value) {
 		Uniform uniform = getUniformByName(uniformName);
-		uniform.setValue(value);
+		if(uniform != null) {
+			uniform.setValue(value);
+		}
+	}
+	
+	public static void setUniformValue1f(String uniformName, float value) {
+		Uniform uniform = getUniformByName(uniformName);
+		if(uniform != null) {
+			uniform.setValue(value);
+		}
 	}
 
 	private static Uniform getUniformByName(String uniformName) {
+		if(currentActiveShader == null) {
+			return null;
+		}
 		ArrayList<Uniform> uniforms = uniformMap.get(currentActiveShader);
 		if(uniforms == null) {
 			uniforms = new ArrayList<Uniform>();
@@ -45,8 +57,10 @@ public class ActiveShader {
 		return null;
 	}
 
-	public static void setUniformValue(String uniformName, float value) {
-		Uniform uniform = getUniformByName(uniformName);
-		uniform.setValue(value);
+	public static void printUniformValue(String variableName) {
+		Uniform uniform = getUniformByName(variableName);
+		if(uniform != null) {
+			System.out.println(uniform.toString());
+		}
 	}
 }

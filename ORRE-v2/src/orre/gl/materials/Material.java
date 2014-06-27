@@ -99,21 +99,6 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		this.alpha = alpha;
 	}
 	
-	@Override
-	public void render() 
-	{
-	}
-	
-	private void bindTexture() {
-		if(this.diffuseTexture != null) {
-			glEnable(GL_TEXTURE_2D);
-			this.diffuseTexture.bind();
-			ActiveShader.setUniformValue("texturesEnabled", 1.0f);
-		} else {
-			glDisable(GL_TEXTURE_2D);
-			ActiveShader.setUniformValue("texturesEnabled", 0.0f);
-		}
-	}
 
 	private FloatBuffer fillColourBuffer(float[] colour) {
 		this.colourBuffer.put(colour[0]);
@@ -156,6 +141,22 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		glMaterial(GL_FRONT, GL_DIFFUSE, this.fillColourBuffer(this.diffuseColour));
 		glMaterial(GL_FRONT, GL_SPECULAR, this.fillColourBuffer(this.specularColour));
 		glMaterial(GL_FRONT, GL_EMISSION, this.fillColourBuffer(this.emissionColour));
+	}
+	
+	private void bindTexture() {
+		if(this.diffuseTexture != null) {
+			glEnable(GL_TEXTURE_2D);
+			this.diffuseTexture.bind();
+			ActiveShader.setUniformValue1f("texturesEnabled", 1.0f);
+		} else {
+			glDisable(GL_TEXTURE_2D);
+			ActiveShader.setUniformValue1f("texturesEnabled", 0.0f);
+		}
+	}
+	
+	@Override
+	public void render() 
+	{
 	}
 	
 	@Override

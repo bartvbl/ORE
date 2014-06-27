@@ -17,16 +17,19 @@ public class Uniform {
 	Uniform(String variableName, int programID) {
 		this.variableName = variableName;
 		this.programID = programID;
+		currentDataType = DataType.FLOAT;
 	}
 	
 	public void setValue(int value) {
 		this.intValue = value;
 		this.currentDataType = DataType.INT;
+		this.set();
 	}
 	
 	public void setValue(float value) {
 		this.floatValue = value;
 		this.currentDataType = DataType.FLOAT;
+		this.set();
 	}
 	
 	public void set() {
@@ -41,5 +44,10 @@ public class Uniform {
 			glUniform1f(uniformLocation, this.floatValue);
 			break;
 		}
+	}
+	
+	@Override
+	public String toString() {
+		return "Uniform [" + intValue + ", " + floatValue + ", " + currentDataType + "]";
 	}
 }
