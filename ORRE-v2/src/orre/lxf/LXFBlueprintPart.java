@@ -10,7 +10,6 @@ import orre.geom.vbo.GeometryBufferGenerator;
 import orre.geom.vbo.GeometryNode;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
-import orre.sceneGraph.SceneNode;
 import lib.ldd.data.VBOContents;
 
 public class LXFBlueprintPart implements Finalizable {
@@ -23,9 +22,9 @@ public class LXFBlueprintPart implements Finalizable {
 		this.vboContents = vboContents;
 		this.name = name;
 	}
-	
-	public SceneNode getSceneNode() {
-		return compiledVBOContents;
+
+	public LXFPart getPartInstance() {
+		return new LXFPart(name, compiledVBOContents);
 	}
 
 	@Override
@@ -53,5 +52,6 @@ public class LXFBlueprintPart implements Finalizable {
 		compiledVBOContents = GeometryBufferGenerator.generateGeometryBuffer(dataFormat, geometryBuffer, indices, vertexCount, indexCount);
 		return null;
 	}
+
 
 }
