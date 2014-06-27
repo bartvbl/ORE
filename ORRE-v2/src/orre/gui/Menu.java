@@ -51,10 +51,6 @@ public class Menu implements Animatable, Finalizable {
 			this.menuControls.add((Control) element);
 		}
 	}
-	
-	public void setAnimationActive(boolean isActive) {
-		
-	}
 
 	@Override
 	public CoordinateNode getModelPartByName(String name) {
