@@ -6,5 +6,5 @@ public enum AnimationType {
 	raiderApplause,
 	
 	hideSidebar,
-	showSidebar,
+	showSidebar, teleportBuilding,
 }
