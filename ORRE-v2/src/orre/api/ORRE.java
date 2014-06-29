@@ -7,6 +7,7 @@ import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventType;
 import orre.resources.ResourceTypeLoader;
+import orre.util.FatalExceptionHandler;
 
 public class ORRE {
 	private final GameMain main;
@@ -49,7 +50,12 @@ public class ORRE {
 	}
 	
 	public void run() {
-		main.mainLoop();
+		try {
+			main.mainLoop();
+		} catch(Exception e) {
+			FatalExceptionHandler.exitWithErrorMessage(e.getMessage());
+			e.printStackTrace();
+		}
 	}
 	
 	public void registerResourceLoader(ResourceTypeLoader loader, String[] extensions) {
