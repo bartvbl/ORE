@@ -53,8 +53,8 @@ public class ORRE {
 		try {
 			main.mainLoop();
 		} catch(Exception e) {
-			FatalExceptionHandler.exitWithErrorMessage(e.getMessage());
 			e.printStackTrace();
+			FatalExceptionHandler.exitWithErrorMessage(e.getMessage());
 		}
 	}
 	
