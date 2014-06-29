@@ -40,8 +40,7 @@ public class LXFMLLoader implements ResourceTypeLoader {
 		LIFReader dbReader = openDBReader();
 		
 		Mesh mesh = LXFMLReader.readLXFMLFile(source.location, dbReader);
-		String modelName = source.location.getName();
-		modelName = modelName.substring(0, modelName.lastIndexOf('.'));
+		String modelName = source.name;
 		return convertMesh(mesh, modelName, queue);
 	}
 
