@@ -5,7 +5,7 @@ import orre.geom.Point2D;
 public class IdleTask extends Task {
 
 	public IdleTask(int gameObjectID) {
-		super(TaskType.IDLE, gameObjectID);
+		super(BasicTaskType.IDLE, gameObjectID);
 	}
 
 	@Override

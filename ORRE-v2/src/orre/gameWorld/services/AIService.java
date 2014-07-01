@@ -3,7 +3,6 @@ package orre.gameWorld.services;
 import orre.ai.core.AssignTaskCommand;
 import orre.ai.core.RegisterPendingCommand;
 import orre.ai.tasks.Task;
-import orre.ai.tasks.TaskType;
 import orre.gameWorld.core.GameWorld;
 import orre.geom.Point2D;
 import orre.threads.AIThread;
@@ -26,8 +25,8 @@ public class AIService implements Service {
 		this.aiThread.enqueueTask(new RegisterPendingCommand(task));
 	}
 
-	public void assignTask(int id, TaskType[] acceptableTaskTypes, Point2D locationOnMap) {
-		this.aiThread.enqueueTask(new AssignTaskCommand(id, acceptableTaskTypes, locationOnMap));
+	public void assignTask(int id, Enum<?>[] assignableTaskTypes, Point2D locationOnMap) {
+		this.aiThread.enqueueTask(new AssignTaskCommand(id, assignableTaskTypes, locationOnMap));
 	}
 
 	public void stop() {

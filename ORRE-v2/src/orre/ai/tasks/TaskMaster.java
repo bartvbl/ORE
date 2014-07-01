@@ -8,22 +8,19 @@ import orre.gameWorld.core.GameWorld;
 import orre.geom.Point2D;
 
 public class TaskMaster {
-	private final HashMap<TaskType, ArrayList<Task>> taskStorage = new HashMap<TaskType, ArrayList<Task>>();
+	private final HashMap<Enum<?>, ArrayList<Task>> taskStorage = new HashMap<Enum<?>, ArrayList<Task>>();
 	private final AStar astar = new AStar();
 	private final GameWorld world;
 	private final TaskPriorities priorities;
 	
 	public TaskMaster(GameWorld world, TaskPriorities priorities) {
-		for(TaskType type : TaskType.values()) {
-			taskStorage.put(type, new ArrayList<Task>());
-		}
 		this.world = world;
 		this.priorities = priorities;
 	}
 	
-	public Task assignTask(int gameObjectID, TaskType[] acceptableTaskTypes, Point2D locationOnMap) {
-		TaskType[] priorityList = priorities.getCurrentPriorities();
-		for(TaskType priority : priorityList) {
+	public Task assignTask(int gameObjectID, Enum<?>[] acceptableTaskTypes, Point2D locationOnMap) {
+		Enum<?>[] priorityList = priorities.getCurrentPriorities();
+		for(Enum<?> priority : priorityList) {
 			if(canHandleTaskType(priority, acceptableTaskTypes)) {
 				final ArrayList<Task> availableTasks = taskStorage.get(priority);
 				Task foundTask = findTask(availableTasks, locationOnMap);
@@ -36,8 +33,8 @@ public class TaskMaster {
 		return new IdleTask(gameObjectID);
 	}
 	
-	private boolean canHandleTaskType(TaskType priority, TaskType[] acceptableTaskTypes) {
-		for(TaskType acceptableType : acceptableTaskTypes) {
+	private boolean canHandleTaskType(Enum<?> priority, Enum<?>[] acceptableTaskTypes) {
+		for(Enum<?> acceptableType : acceptableTaskTypes) {
 			if(acceptableType == priority) {
 				return true;
 			}

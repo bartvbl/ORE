@@ -7,7 +7,6 @@ import orre.input.KeyboardCameraController;
 
 public enum PropertyType {
 	KEYBOARD_CAMERA_CONTROLLER(KeyboardCameraController.class), 
-	TASK_EXECUTOR(TaskExecutor.class), 
 	IS_GUI(GUI.class), 
 	DEV_TOOLS(DevTools.class);
 

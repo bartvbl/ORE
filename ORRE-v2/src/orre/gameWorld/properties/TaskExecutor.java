@@ -2,26 +2,25 @@ package orre.gameWorld.properties;
 
 import orre.ai.tasks.IdleTask;
 import orre.ai.tasks.Task;
-import orre.ai.tasks.TaskType;
-import orre.animation.Animatable;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyDataType;
-import orre.gameWorld.core.PropertyType;
 import orre.gameWorld.messages.NewTaskMessage;
 import orre.geom.Point2D;
 import orre.geom.Point3D;
-import orre.geom.mesh.Mesh3D;
 import orre.geom.mesh.Model;
 
-public class TaskExecutor extends Property {
+public abstract class TaskExecutor extends Property {
 	private Task currentTask;
 	private boolean hasTask = false;
 
-	public TaskExecutor(GameObject gameObject) {
-		super(PropertyType.TASK_EXECUTOR, gameObject);
+	private final Enum<?>[] assignableTaskTypes;
+
+	public TaskExecutor(GameObject gameObject, Enum<?> propertyType, Enum<?>[] assignableTaskTypes) {
+		super(propertyType, gameObject);
 		this.currentTask = new IdleTask(gameObject.id);
+		this.assignableTaskTypes = assignableTaskTypes;
 	}
 
 	@Override
@@ -40,7 +39,7 @@ public class TaskExecutor extends Property {
 			Model appearance = (Model) gameObject.requestPropertyData(PropertyDataType.APPEARANCE, Model.class);
 			Point3D location = appearance.getRootNode().getLocation();
 			Point2D location2D = location.in2D();
-			this.gameObject.world.services.aiService.assignTask(this.gameObject.id, new TaskType[]{TaskType.COLLECT_ORE}, location2D);
+			this.gameObject.world.services.aiService.assignTask(this.gameObject.id, assignableTaskTypes, location2D);
 			hasTask = true;
 		} else if(hasTask) {
 			currentTask.update();
