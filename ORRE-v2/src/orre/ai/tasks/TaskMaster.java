@@ -18,19 +18,19 @@ public class TaskMaster {
 		this.priorities = priorities;
 	}
 	
-	public Task assignTask(int gameObjectID, Enum<?>[] acceptableTaskTypes, Point2D locationOnMap) {
+	public Task assignTask(TaskRequest request) {
 		Enum<?>[] priorityList = priorities.getCurrentPriorities();
 		for(Enum<?> priority : priorityList) {
-			if(canHandleTaskType(priority, acceptableTaskTypes)) {
+			if(canHandleTaskType(priority, request.acceptableTaskTypes)) {
 				final ArrayList<Task> availableTasks = taskStorage.get(priority);
-				Task foundTask = findTask(availableTasks, locationOnMap);
+				Task foundTask = findTask(availableTasks, request);
 				if(foundTask != null) {
 					return foundTask;
 				}
 			}
 		}
 		//no task available -> idle
-		return new IdleTask(gameObjectID);
+		return new IdleTask(request.targetID);
 	}
 	
 	private boolean canHandleTaskType(Enum<?> priority, Enum<?>[] acceptableTaskTypes) {
@@ -42,15 +42,15 @@ public class TaskMaster {
 		return false;
 	}
 
-	private Task findTask(ArrayList<Task> availableTasks, Point2D locationOnMap) {
+	private Task findTask(ArrayList<Task> availableTasks, TaskRequest request) {
 		Task bestTask = null;
 		double lowestPlanCost = Double.MAX_VALUE;
 		for(Task availableTask : availableTasks) {
-			availableTask.plan(locationOnMap);
-			if(!availableTask.isExecutionPossible()) {
+			Plan plan = availableTask.plan(request);
+			if((plan == null) || (!plan.isExecutionPossible())) {
 				continue;
 			}
-			double planCost = availableTask.getPlanCost();
+			double planCost = plan.getPlanCost();
 			if(planCost < lowestPlanCost) {
 				lowestPlanCost = planCost;
 				bestTask = availableTask;

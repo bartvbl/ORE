@@ -9,28 +9,7 @@ public class IdleTask extends Task {
 	}
 
 	@Override
-	public void update() {
-		
+	public Plan plan(TaskRequest request) {
+		return null;
 	}
-
-	@Override
-	public boolean isFinished() {
-		return false;
-	}
-
-	@Override
-	public boolean isExecutionPossible() {
-		return true;
-	}
-
-	@Override
-	public void plan(Point2D locationOnMap) {
-		//no need
-	}
-
-	@Override
-	public double getPlanCost() {
-		return 0;
-	}
-
 }
