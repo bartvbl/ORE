@@ -3,6 +3,7 @@ package orre.gameWorld.properties;
 import orre.ai.tasks.Assignment;
 import orre.ai.tasks.IdleTask;
 import orre.ai.tasks.Task;
+import orre.ai.tasks.TaskRequest;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.Property;
@@ -16,7 +17,7 @@ public abstract class TaskExecutor extends Property {
 	private Assignment currentAssignment;
 	private boolean hasTask = false;
 
-	private final Enum<?>[] assignableTaskTypes;
+	protected final Enum<?>[] assignableTaskTypes;
 
 	public TaskExecutor(GameObject gameObject, Enum<?> propertyType, Enum<?>[] assignableTaskTypes) {
 		super(propertyType, gameObject);
@@ -36,16 +37,15 @@ public abstract class TaskExecutor extends Property {
 	@Override
 	public void tick() {
 		if(currentAssignment.plan.isFinished() || !hasTask) {
-			Model appearance = (Model) gameObject.requestPropertyData(PropertyDataType.APPEARANCE, Model.class);
-			Point3D location = appearance.getRootNode().getLocation();
-			Point2D location2D = location.in2D();
-			
-			this.gameObject.world.services.aiService.assignTask(this.gameObject.id, assignableTaskTypes, location2D);
+			TaskRequest request = generateTaskRequest();
+			this.gameObject.world.services.aiService.assignTask(request);
 			hasTask = true;
 		} else if(hasTask) {
 			currentAssignment.plan.update();
 		}
 	}
+
+	protected abstract TaskRequest generateTaskRequest();
 
 	@Override
 	public void destroy() {
