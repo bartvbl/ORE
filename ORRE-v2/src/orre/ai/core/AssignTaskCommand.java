@@ -1,10 +1,11 @@
 package orre.ai.core;
 
+import orre.ai.tasks.Assignment;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskRequest;
 import orre.gameWorld.core.GameWorld;
-import orre.gameWorld.messages.NewTaskMessage;
+import orre.gameWorld.messages.NewAssignmentMessage;
 import orre.util.ConcurrentQueue;
 
 public class AssignTaskCommand extends AICommand {
@@ -17,11 +18,11 @@ public class AssignTaskCommand extends AICommand {
 
 	@Override
 	public void execute(final GameWorld world, TaskMaster taskMaster, ConcurrentQueue<Runnable> mainThreadQueue) {
-		final Task task = taskMaster.assignTask(request);
+		final Assignment task = taskMaster.assignTask(request);
 		mainThreadQueue.enqueue(new Runnable(){
 			@Override
 			public void run() {
-				world.dispatchMessage(new NewTaskMessage(task), request.targetID);
+				world.dispatchMessage(new NewAssignmentMessage(task), request.targetID);
 			}
 		});
 	}
