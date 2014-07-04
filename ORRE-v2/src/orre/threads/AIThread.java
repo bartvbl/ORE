@@ -1,6 +1,6 @@
 package orre.threads;
 
-import orre.ai.core.AICommand;
+import orre.ai.commands.AICommand;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskPriorities;
 import orre.gameWorld.core.GameWorld;

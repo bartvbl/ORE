@@ -8,7 +8,7 @@ import orre.gameWorld.core.MessageType;
 public class NewAssignmentMessage extends Message<Assignment> {
 
 	public NewAssignmentMessage(Assignment assignment) {
-		super(MessageType.NEW_TASK, assignment);
+		super(MessageType.ASSIGN_TASK, assignment);
 	}
 
 }

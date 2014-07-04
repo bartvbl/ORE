@@ -6,6 +6,7 @@ import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskRequest;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
+import orre.gameWorld.core.MessageType;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyDataType;
 import orre.gameWorld.messages.NewAssignmentMessage;
@@ -26,11 +27,20 @@ public abstract class TaskExecutor extends Property {
 
 	@Override
 	public void handleMessage(Message<?> message) {
-		if(message instanceof NewAssignmentMessage) {
+		if(message.type == MessageType.ASSIGN_TASK) {
+			this.abort();
 			NewAssignmentMessage newTask = (NewAssignmentMessage) message;
 			this.currentAssignment = newTask.getPayload();
 			hasTask = true;
 			System.out.println("Received new task: " + currentAssignment);
+		} else if(message.type == MessageType.RUN_ACTION) {
+			this.abort();
+		}
+	}
+
+	private void abort() {
+		if(hasTask) {
+			this.gameObject.world.services.aiService.returnTask(currentAssignment.task);
 		}
 	}
 

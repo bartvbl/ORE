@@ -1,4 +1,4 @@
-package orre.ai.core;
+package orre.ai.commands;
 
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;

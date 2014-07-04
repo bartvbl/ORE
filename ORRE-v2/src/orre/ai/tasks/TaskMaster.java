@@ -18,8 +18,6 @@ public class TaskMaster {
 		this.priorities = priorities;
 	}
 	
-	
-	
 	public Assignment assignTask(TaskRequest request) {
 		Enum<?>[] priorityList = priorities.getCurrentPriorities();
 		for(Enum<?> priority : priorityList) {
@@ -65,6 +63,10 @@ public class TaskMaster {
 	}
 
 	public void registerPendingTask(Task task) {
+		this.taskStorage.get(task.type).add(task);
+	}
+
+	public void returnTask(Task task) {
 		this.taskStorage.get(task.type).add(task);
 	}
 }

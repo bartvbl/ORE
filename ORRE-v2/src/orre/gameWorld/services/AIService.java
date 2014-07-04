@@ -1,7 +1,8 @@
 package orre.gameWorld.services;
 
-import orre.ai.core.AssignTaskCommand;
-import orre.ai.core.RegisterPendingCommand;
+import orre.ai.commands.AssignTaskCommand;
+import orre.ai.commands.RegisterPendingCommand;
+import orre.ai.commands.ReturnTaskCommand;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskRequest;
 import orre.gameWorld.core.GameWorld;
@@ -32,5 +33,9 @@ public class AIService implements Service {
 
 	public void stop() {
 		this.aiThread.stopExecution();
+	}
+
+	public void returnTask(Task task) {
+		this.aiThread.enqueueTask(new ReturnTaskCommand(task));
 	}
 }
