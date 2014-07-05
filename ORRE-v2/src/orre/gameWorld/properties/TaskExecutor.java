@@ -38,7 +38,6 @@ public abstract class TaskExecutor extends Property {
 			NewAssignmentMessage newTask = (NewAssignmentMessage) message;
 			this.currentAssignment = newTask.getPayload();
 			state = TaskExecutorState.REQUESTED_TASK;
-			System.out.println(this.gameObject.id + " Received new task: " + currentAssignment);
 		} else if(message.type == MessageType.RUN_ACTION) {
 			this.abort();
 		}
@@ -46,7 +45,6 @@ public abstract class TaskExecutor extends Property {
 
 	private void abort() {
 		if(state == TaskExecutorState.EXECUTING_TASK) {
-			System.out.println("Aborting existing assignment " + this.gameObject.id);
 			this.gameObject.world.services.aiService.returnTask(currentAssignment.task);
 		}
 	}
@@ -56,7 +54,6 @@ public abstract class TaskExecutor extends Property {
 		if((state == TaskExecutorState.IDLE) || ((state == TaskExecutorState.EXECUTING_TASK) && currentAssignment.plan.isFinished())) {
 			TaskRequest request = generateTaskRequest();
 			this.gameObject.world.services.aiService.assignTask(request);
-			System.out.println("Requesting new task " + this.gameObject.id);
 			state = TaskExecutorState.REQUESTED_TASK;
 		} else if(state == TaskExecutorState.EXECUTING_TASK) {
 			currentAssignment.plan.update();

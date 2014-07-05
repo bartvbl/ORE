@@ -3,15 +3,14 @@ package orre.ai.tasks;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-import orre.ai.pathFinding.AStar;
+import orre.ai.tasks.idleTask.IdleTask;
 import orre.gameWorld.core.GameWorld;
-import orre.geom.Point2D;
 
 public class TaskMaster {
 	private final HashMap<Enum<?>, ArrayList<Task>> taskStorage = new HashMap<Enum<?>, ArrayList<Task>>();
-	private final AStar astar = new AStar();
 	private final GameWorld world;
 	private final TaskPriorities priorities;
+	private final TaskSupplier taskSupplier = new TaskSupplier();
 	
 	public TaskMaster(GameWorld world, TaskPriorities priorities) {
 		this.world = world;
