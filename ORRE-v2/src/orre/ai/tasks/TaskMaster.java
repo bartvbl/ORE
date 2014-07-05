@@ -31,7 +31,7 @@ public class TaskMaster {
 		}
 		//no task available -> idle
 		IdleTask idleTask = new IdleTask(request.targetID);
-		return new Assignment(idleTask, idleTask.plan(request));
+		return idleTask.plan(request);
 	}
 	
 	private boolean canHandleTaskType(Enum<?> priority, Enum<?>[] acceptableTaskTypes) {
@@ -44,29 +44,29 @@ public class TaskMaster {
 	}
 
 	private Assignment findBestAssignment(ArrayList<Task> availableTasks, TaskRequest request) {
-		Plan planOfBestTask = null;
-		Task bestTask = null;
 		double lowestPlanCost = Double.MAX_VALUE;
+		Assignment bestAssignment = null;
 		for(Task availableTask : availableTasks) {
-			Plan plan = availableTask.plan(request);
-			if((plan == null) || (!plan.isExecutionPossible())) {
+			Assignment assignment = availableTask.plan(request);
+			if((assignment.plan == null) || (!assignment.plan.isExecutionPossible())) {
 				continue;
 			}
-			double planCost = plan.getPlanCost();
+			double planCost = assignment.plan.getPlanCost();
 			if(planCost < lowestPlanCost) {
 				lowestPlanCost = planCost;
-				planOfBestTask = plan;
-				bestTask = availableTask;
+				bestAssignment = assignment;
 			}
 		}
-		return new Assignment(bestTask, planOfBestTask);
+		return bestAssignment;
 	}
 
 	public void registerPendingTask(Task task) {
 		this.taskStorage.get(task.type).add(task);
 	}
 
-	public void returnTask(Task task) {
-		this.taskStorage.get(task.type).add(task);
+	public void returnTask(Task[] tasks) {
+		for(Task task : tasks) {
+			this.taskStorage.get(task.type).add(task);
+		}
 	}
 }

@@ -35,7 +35,7 @@ public class AIService implements Service {
 		this.aiThread.stopExecution();
 	}
 
-	public void returnTask(Task task) {
+	public void returnTask(Task[] task) {
 		this.aiThread.enqueueTask(new ReturnTaskCommand(task));
 	}
 }

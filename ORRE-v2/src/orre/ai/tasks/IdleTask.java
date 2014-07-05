@@ -9,7 +9,7 @@ public class IdleTask extends Task {
 	}
 
 	@Override
-	public Plan plan(TaskRequest request) {
+	public Assignment plan(TaskRequest request) {
 		return null;
 	}
 }

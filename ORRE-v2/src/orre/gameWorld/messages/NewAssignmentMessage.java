@@ -1,6 +1,7 @@
 package orre.gameWorld.messages;
 
 import orre.ai.tasks.Assignment;
+import orre.ai.tasks.Plan;
 import orre.ai.tasks.Task;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;

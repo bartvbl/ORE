@@ -1,6 +1,7 @@
 package orre.ai.commands;
 
 import orre.ai.tasks.Assignment;
+import orre.ai.tasks.Plan;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskRequest;
@@ -18,11 +19,11 @@ public class AssignTaskCommand extends AICommand {
 
 	@Override
 	public void execute(final GameWorld world, TaskMaster taskMaster, ConcurrentQueue<Runnable> mainThreadQueue) {
-		final Assignment task = taskMaster.assignTask(request);
+		final Assignment assignment = taskMaster.assignTask(request);
 		mainThreadQueue.enqueue(new Runnable(){
 			@Override
 			public void run() {
-				world.dispatchMessage(new NewAssignmentMessage(task), request.targetID);
+				world.dispatchMessage(new NewAssignmentMessage(assignment), request.targetID);
 			}
 		});
 	}

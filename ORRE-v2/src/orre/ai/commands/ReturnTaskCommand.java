@@ -7,10 +7,10 @@ import orre.util.ConcurrentQueue;
 
 public class ReturnTaskCommand extends AICommand {
 
-	private final Task task;
+	private final Task[] task;
 
-	public ReturnTaskCommand(Task task) {
-		this.task = task;
+	public ReturnTaskCommand(Task[] tasks) {
+		this.task = tasks;
 	}
 
 	@Override
