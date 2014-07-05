@@ -1,9 +1,9 @@
 package orre.gameWorld.properties;
 
 import orre.ai.tasks.Assignment;
-import orre.ai.tasks.IdleTask;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskRequest;
+import orre.ai.tasks.idleTask.IdleTask;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
@@ -15,8 +15,14 @@ import orre.geom.Point3D;
 import orre.geom.mesh.Model;
 
 public abstract class TaskExecutor extends Property {
+	private enum TaskExecutorState {
+		IDLE,
+		REQUESTED_TASK,
+		EXECUTING_TASK
+	};
+	private TaskExecutorState state = TaskExecutorState.IDLE;
+	
 	private Assignment currentAssignment;
-	private boolean hasTask = false;
 
 	protected final Enum<?>[] assignableTaskTypes;
 
@@ -31,26 +37,28 @@ public abstract class TaskExecutor extends Property {
 			this.abort();
 			NewAssignmentMessage newTask = (NewAssignmentMessage) message;
 			this.currentAssignment = newTask.getPayload();
-			hasTask = true;
-			System.out.println("Received new task: " + currentAssignment);
+			state = TaskExecutorState.REQUESTED_TASK;
+			System.out.println(this.gameObject.id + " Received new task: " + currentAssignment);
 		} else if(message.type == MessageType.RUN_ACTION) {
 			this.abort();
 		}
 	}
 
 	private void abort() {
-		if(hasTask) {
+		if(state == TaskExecutorState.EXECUTING_TASK) {
+			System.out.println("Aborting existing assignment " + this.gameObject.id);
 			this.gameObject.world.services.aiService.returnTask(currentAssignment.task);
 		}
 	}
 
 	@Override
 	public void tick() {
-		if(currentAssignment.plan.isFinished() || !hasTask) {
+		if((state == TaskExecutorState.IDLE) || ((state == TaskExecutorState.EXECUTING_TASK) && currentAssignment.plan.isFinished())) {
 			TaskRequest request = generateTaskRequest();
 			this.gameObject.world.services.aiService.assignTask(request);
-			hasTask = true;
-		} else if(hasTask) {
+			System.out.println("Requesting new task " + this.gameObject.id);
+			state = TaskExecutorState.REQUESTED_TASK;
+		} else if(state == TaskExecutorState.EXECUTING_TASK) {
 			currentAssignment.plan.update();
 		}
 	}
