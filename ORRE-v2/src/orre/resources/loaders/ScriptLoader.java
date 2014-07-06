@@ -16,6 +16,7 @@ public class ScriptLoader implements ResourceTypeLoader {
 	@Override
 	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
 		String pythonSource = loadFileContents(source.location);
+		ScriptInterpreter.get().addToPythonPath(source.location.getParentFile());
 		ScriptInterpreter.get().execute(pythonSource);
 		return null;
 	}

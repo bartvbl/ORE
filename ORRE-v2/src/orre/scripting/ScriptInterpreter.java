@@ -1,5 +1,7 @@
 package orre.scripting;
 
+import java.io.File;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import org.python.core.PyDictionary;
@@ -15,6 +17,7 @@ import orre.threads.ScriptExecutionThread;
 public class ScriptInterpreter implements EventHandler {
 	private static ScriptInterpreter instance;
 	private final ScriptExecutionThread scriptThread;
+	private final ArrayList<String> pythonPathList = new ArrayList<String>();
 
 	private ScriptInterpreter(GlobalEventDispatcher globalEventDispatcher) {
 		this.scriptThread = new ScriptExecutionThread();
@@ -62,6 +65,16 @@ public class ScriptInterpreter implements EventHandler {
 			HashMap<String, String> params = new HashMap<String, String>();
 			params.put("newState", event.getEventParameterObject().toString());
 			this.dispatchScriptEvent("gameStateChanged", params);
+		}
+	}
+
+	public void addToPythonPath(File directory) {
+		String directoryPath = directory.getAbsolutePath();
+		// Fix for recognising windows paths
+		directoryPath = directoryPath.replace('\\', '/');
+		if(!pythonPathList.contains(directoryPath)) {
+			this.scriptThread.execute("sys.path.append('" + directoryPath + "')");
+			pythonPathList.add(directoryPath);
 		}
 	}
 	
