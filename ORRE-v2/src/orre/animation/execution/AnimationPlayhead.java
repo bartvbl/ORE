@@ -32,6 +32,9 @@ public class AnimationPlayhead {
 		if(currentFrame.isInstant) {
 			updateFrame(0, true);
 			nextFrame();
+			if(this.isFinished()) {
+				return;
+			}
 		}
 		
 		if(elapsedTimeInFrame + elapsedTime > currentFrame.duration) {
