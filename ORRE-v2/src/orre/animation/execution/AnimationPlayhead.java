@@ -29,29 +29,40 @@ public class AnimationPlayhead {
 		float currentTime = timer.getTime();
 		double elapsedTime = currentTime - previousFrameStartTime;
 		
+		if(currentFrame.isInstant) {
+			updateFrame(0, true);
+			nextFrame();
+		}
+		
 		if(elapsedTimeInFrame + elapsedTime > currentFrame.duration) {
 			if(currentFrame.isInfinite) {
-				updateFrame(elapsedTime);
+				updateFrame(elapsedTime, false);
 			} else {
-				updateFrame(currentFrame.duration - elapsedTimeInFrame);
+				updateFrame(currentFrame.duration - elapsedTimeInFrame, false);
 				double remainingTime = elapsedTimeInFrame + elapsedTime - currentFrame.duration;
 				elapsedTimeInFrame -= currentFrame.duration;
 				nextFrame();
 				if(!isFinished()) {
-					updateFrame(remainingTime);
+					updateFrame(remainingTime, false);
 				}
 			}
 		} else {
-			updateFrame(elapsedTime);
+			updateFrame(elapsedTime, false);
 		}
 		
 		elapsedTimeInFrame += elapsedTime;
 		previousFrameStartTime = currentTime;
 	}
 
-	private void updateFrame(double elapsedTime) {
+	private void updateFrame(double elapsedTime, boolean isInstantUpdate) {
 		KeyFrame currentFrame = animation.keyFrames[currentFrameID];
-		double percentElapsed = elapsedTime / currentFrame.duration;
+		
+		double percentElapsed;
+		if(isInstantUpdate) {
+			percentElapsed = 1;
+		} else {
+			percentElapsed = elapsedTime / currentFrame.duration;
+		}
 		
 		for(AnimationAction action : currentFrame.actions) {
 			action.update(target, percentElapsed, elapsedTime);
@@ -90,7 +101,6 @@ public class AnimationPlayhead {
 	public boolean isFinished() {
 		return this.isFinished;
 	}
-
 
 	public void notifyAnimationEnd() {
 		target.notifyAnimationEnd();

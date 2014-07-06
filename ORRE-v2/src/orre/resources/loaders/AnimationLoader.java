@@ -91,16 +91,19 @@ public class AnimationLoader implements ResourceTypeLoader {
 		String[] tokens = line.split(" ");
 		double duration = 0;
 		boolean isInfinite = false;
+		boolean isInstant = false;
 		if(tokens[4].equals("infinity")) {
 			isInfinite = true;
+		} else if(tokens[4].equals("instant")) {
+			isInstant = true;
 		} else {
 			duration = Double.parseDouble(tokens[4]);
 			if(duration == 0) {
-				throw new Exception("The duration of a keyframe can not be 0. If you want an instantanious change, use a tiny duration instead.");
+				throw new Exception("The duration of a keyframe can not be 0. If you want an instantanious change, use \"of duration instant\".");
 			}
 		}
 		AnimationAction[] actionList = actions.toArray(new AnimationAction[actions.size()]);
-		KeyFrame newFrame = new KeyFrame(tokens[1], duration, isInfinite, actionList);
+		KeyFrame newFrame = new KeyFrame(tokens[1], duration, isInfinite, isInstant, actionList);
 		return newFrame;
 	}
 }
