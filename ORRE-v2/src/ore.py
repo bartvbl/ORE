@@ -43,6 +43,12 @@ class GUI:
 		GUIScriptHandler.hide(menu)
 	def animateMenu(self, menu, animationName):
 		GUIScriptHandler.animate(menu, animationName)
+	def orre_notifyAnimationEventHandled(self, menu):
+		GUIScriptHandler.notifyAnimationEndHandled(menu)
+	
+@on('GUI_AnimationEventHandled')
+def notifyAnimationEventHandled(eventParams):
+	gui.orre_notifyAnimationEventHandled(eventParams['menuName'])
 	
 gui = GUI()
 

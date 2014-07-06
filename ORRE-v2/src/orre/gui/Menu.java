@@ -113,8 +113,12 @@ public class Menu implements Animatable, Finalizable {
 
 	@Override
 	public void notifyAnimationEnd() {
-		activeAnimationCount--;
 		world.services.scriptingService.dispatchScriptEvent("GUI_AnimationComplete", animationEventParams);
+		world.services.scriptingService.dispatchScriptEvent("GUI_AnimationEventHandled", animationEventParams);
+	}
+	
+	public void notifyAnimationEndHandled() {
+		activeAnimationCount--;
 	}
 	
 	public String toString() {

@@ -15,6 +15,7 @@ import orre.resources.ResourceType;
 
 public class GUI extends Property {
 	private final ArrayList<Menu> activeMenus = new ArrayList<Menu>();
+	private final ArrayList<Menu> inactiveMenus = new ArrayList<Menu>();
 	private GUIRootNode guiRoot;
 	
 	private double mouseX;
@@ -44,8 +45,19 @@ public class GUI extends Property {
 		} else if(message.type == MessageType.ANIMATE_MENU) {
 			AnimateMenuCommand command = (AnimateMenuCommand) message.getPayload();
 			Animation animation = (Animation) gameObject.world.resourceCache.getResource(ResourceType.animation, command.animationName).content;
-			Menu menu = getMenuByName(command.menuName);
+			Menu menu = getMenuByName(command.menuName, activeMenus);
 			this.gameObject.world.services.animationService.applyAnimation(animation, menu);
+		} else if(message.type == MessageType.ANIMATION_END_HANDLED) {
+			String menuName = (String) message.getPayload();
+			Menu menu = getMenuByName(menuName, activeMenus);
+			if(menu != null) {
+				menu.notifyAnimationEndHandled();
+			} else {
+				Menu inactiveMenu = getMenuByName(menuName, inactiveMenus);
+				if(inactiveMenu != null) {
+					inactiveMenu.notifyAnimationEndHandled();
+				}
+			}
 		}
 	}
 
@@ -76,8 +88,8 @@ public class GUI extends Property {
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select");
 	}
 	
-	private Menu getMenuByName(String menuName) {
-		for(Menu menu : this.activeMenus) {
+	private Menu getMenuByName(String menuName, ArrayList<Menu> menuList) {
+		for(Menu menu : menuList) {
 			if(menu.name.equals(menuName)) {
 				return menu;
 			}
@@ -86,20 +98,24 @@ public class GUI extends Property {
 	}
 	
 	private void showMenu(String menuName) {
-		if(getMenuByName(menuName) == null) {
+		if(getMenuByName(menuName, activeMenus) == null) {
 			Menu menu = (Menu) gameObject.world.resourceCache.getResource(ResourceType.menu, menuName).content;
 			menu.initGraphics(gameObject.world.resourceCache);
 			menu.initEventHandlers(gameObject.world);
 			activeMenus.add(menu);
+			if(inactiveMenus.contains(menu)) {
+				inactiveMenus.remove(menu);
+			}
 			guiRoot.addChild(menu.root.sceneNode);
 			menu.update(mouseX, mouseY, mouseState);
 		}
 	}
 	
 	private void hideMenu(String menuName) {
-		Menu menu = getMenuByName(menuName);
+		Menu menu = getMenuByName(menuName, activeMenus);
 		if(menu != null) {
 			activeMenus.remove(menu);
+			inactiveMenus.add(menu);
 			guiRoot.removeChild(menu.root.sceneNode);
 		}
 	}

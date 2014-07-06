@@ -16,6 +16,7 @@ public enum MessageType implements EnforcedClassEnum {
 	SHOW_MENU(String.class),
 	HIDE_MENU(String.class),
 	ANIMATE_MENU(AnimateMenuCommand.class), 
+	ANIMATION_END_HANDLED(String.class), 
 	;
 
 	public final Class<?> requiredPayloadDataType;

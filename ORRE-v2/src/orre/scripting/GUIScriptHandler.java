@@ -44,5 +44,14 @@ public class GUIScriptHandler {
 			}
 		});
 	}
+	
+	public static void notifyAnimationEndHandled(final String menuName) {
+		ScriptAPI.runOnMainThread(new Runnable() {
+			@Override
+			public void run() {
+				gameWorld.dispatchMessage(new Message<String>(MessageType.ANIMATION_END_HANDLED, menuName), getGUIID());
+			}
+		});
+	}
 
 }
