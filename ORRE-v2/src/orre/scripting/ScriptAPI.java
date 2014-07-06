@@ -47,9 +47,8 @@ public class ScriptAPI implements EventHandler {
 		guiHandler.setCurrentWorld(world);
 	}
 
-	//run just a single command to avoid command spam
 	public static void runMainThreadCommand() {
-		if(!runOnMainThreadQueue.isEmpty()) {
+		while(!runOnMainThreadQueue.isEmpty()) {
 			runOnMainThreadQueue.dequeue().run();
 		}
 	}
