@@ -12,6 +12,8 @@ import orre.gui.baseNodes.GUIRootNode;
 import orre.gui.controls.Control;
 import orre.input.InputEvent;
 import orre.resources.ResourceType;
+import orre.util.Logger;
+import orre.util.Logger.LogType;
 
 public class GUI extends Property {
 	private final ArrayList<Menu> activeMenus = new ArrayList<Menu>();
@@ -46,7 +48,11 @@ public class GUI extends Property {
 			AnimateMenuCommand command = (AnimateMenuCommand) message.getPayload();
 			Animation animation = (Animation) gameObject.world.resourceCache.getResource(ResourceType.animation, command.animationName).content;
 			Menu menu = getMenuByName(command.menuName, activeMenus);
-			this.gameObject.world.services.animationService.applyAnimation(animation, menu);
+			if(menu != null) {
+				this.gameObject.world.services.animationService.applyAnimation(animation, menu);
+			} else {
+				Logger.log("Menu " + command.menuName + " can not be animated, as the menu is not currently visible.", LogType.ERROR);
+			}
 		} else if(message.type == MessageType.ANIMATION_END_HANDLED) {
 			String menuName = (String) message.getPayload();
 			Menu menu = getMenuByName(menuName, activeMenus);
@@ -108,6 +114,8 @@ public class GUI extends Property {
 			}
 			guiRoot.addChild(menu.root.sceneNode);
 			menu.update(mouseX, mouseY, mouseState);
+		} else {
+			Logger.log("Menu '"+menuName+"' can not be shown. It might already be visible, or it doesn't exist.", LogType.ERROR);
 		}
 	}
 	
