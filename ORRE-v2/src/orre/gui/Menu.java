@@ -64,7 +64,8 @@ public class Menu implements Animatable, Finalizable {
 		updateBounds(root, 0, 0, Display.getWidth(), Display.getHeight());
 		boolean hasConsumedMouse = false;
 		for(Control control : menuControls) {
-			hasConsumedMouse = hasConsumedMouse || control.updateMouse(mouseX, mouseY, mouseState);
+			boolean controlUpdateResult = control.updateMouse(mouseX, mouseY, mouseState);
+			hasConsumedMouse = hasConsumedMouse || controlUpdateResult;
 		}
 		return hasConsumedMouse;
 	}
