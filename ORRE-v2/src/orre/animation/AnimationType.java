@@ -9,5 +9,7 @@ public enum AnimationType {
 	showSidebar, 
 	hideRadarPanel,
 	showRadarPanel,
+	showPrioritiesPanel,
+	hidePrioritiesPanel,
 	teleportBuilding,
 }
