@@ -7,7 +7,7 @@ import orre.resources.ResourceCache;
 public class Container extends GUIElement {
 
 	public Container(Bounds bounds, String name) {
-		super(bounds, new ContainerElementNode(), name);
+		super(bounds, new ContainerElementNode(name), name);
 	}
 
 	@Override

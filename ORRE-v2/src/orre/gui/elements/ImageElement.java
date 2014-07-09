@@ -12,7 +12,7 @@ public class ImageElement extends GUIElement {
 	private final ImageNode node;
 
 	public static ImageElement create(Bounds bounds, String name, String imageName) {
-		ImageNode node = new ImageNode();
+		ImageNode node = new ImageNode(name);
 		return new ImageElement(bounds, name, imageName, node);
 	}
 		

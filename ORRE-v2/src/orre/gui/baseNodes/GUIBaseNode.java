@@ -6,9 +6,13 @@ import orre.sceneGraph.SceneNode;
 public abstract class GUIBaseNode extends CoordinateNode implements SceneNode {
 	private double width;
 	private double height;
-
+	
 	public GUIBaseNode() {
 		
+	}
+
+	public GUIBaseNode(String name) {
+		super(name);
 	}
 	
 	public void updateBounds(double x, double y, double width, double height) {

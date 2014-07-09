@@ -8,8 +8,8 @@ public class ImageNode extends GUIBaseNode {
 	
 	private Texture texture;
 
-	public ImageNode() {
-		
+	public ImageNode(String name) {
+		super(name);
 	}
 
 	@Override
@@ -31,6 +31,10 @@ public class ImageNode extends GUIBaseNode {
 
 	public void setTexture(Texture texture) {
 		this.texture = texture;
+	}
+	
+	public String toString() {
+		return "Image node (" + name + ")";
 	}
 
 }
