@@ -10,5 +10,5 @@ public abstract class Task {
 		this.gameObjectID = gameObjectID;
 	}
 	
-	public abstract Assignment plan(TaskRequest request);
+	public abstract Assignment plan(TaskRequest request, TaskMaster taskMaster);
 }

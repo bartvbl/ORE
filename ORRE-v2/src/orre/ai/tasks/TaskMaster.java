@@ -30,7 +30,7 @@ public class TaskMaster {
 		}
 		//no task available -> idle
 		IdleTask idleTask = new IdleTask(request.targetID);
-		return idleTask.plan(request);
+		return idleTask.plan(request, this);
 	}
 	
 	private boolean canHandleTaskType(Enum<?> priority, Enum<?>[] acceptableTaskTypes) {
@@ -46,7 +46,7 @@ public class TaskMaster {
 		double lowestPlanCost = Double.MAX_VALUE;
 		Assignment bestAssignment = null;
 		for(Task availableTask : availableTasks) {
-			Assignment assignment = availableTask.plan(request);
+			Assignment assignment = availableTask.plan(request, this);
 			if((assignment.plan == null) || (!assignment.plan.isExecutionPossible())) {
 				continue;
 			}

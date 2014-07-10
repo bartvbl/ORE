@@ -5,6 +5,7 @@ import orre.ai.tasks.Assignment;
 import orre.ai.tasks.BasicTaskType;
 import orre.ai.tasks.Plan;
 import orre.ai.tasks.Task;
+import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskRequest;
 import orre.geom.Point2D;
 
@@ -15,7 +16,7 @@ public class IdleTask extends Task {
 	}
 
 	@Override
-	public Assignment plan(TaskRequest request) {
+	public Assignment plan(TaskRequest request, TaskMaster taskMaster) {
 		return new Assignment(new Task[]{this}, new Plan(new Action[]{new IdleAction()}));
 	}
 }
