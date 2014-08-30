@@ -10,5 +10,6 @@ public enum ResourceType {
 	lxfmlModel, 
 	model, 
 	config, 
-	menu
+	menu, 
+	stlFile
 }
