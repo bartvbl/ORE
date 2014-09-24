@@ -4,6 +4,7 @@ import static org.lwjgl.opengl.GL11.*;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Set;
 
 import org.lwjgl.opengl.Display;
 
@@ -124,5 +125,11 @@ public class Menu implements Animatable, Finalizable {
 	
 	public String toString() {
 		return "Menu " + name;
+	}
+
+	@Override
+	public String[] getModelParts() {
+		Set<String> menuParts = registeredElements.keySet();
+		return menuParts.toArray(new String[menuParts.size()]);
 	}
 }

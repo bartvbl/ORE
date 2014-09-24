@@ -1,6 +1,7 @@
 package orre.geom.mesh;
 
 import java.util.HashMap;
+import java.util.Set;
 
 import orre.animation.Animatable;
 import orre.sceneGraph.CoordinateNode;
@@ -43,5 +44,11 @@ public class Mesh3D implements Animatable, Model {
 	@Override
 	public CoordinateNode getRootNode() {
 		return root;
+	}
+
+	@Override
+	public String[] getModelParts() {
+		Set<String> modelParts = parts.keySet();
+		return modelParts.toArray(new String[modelParts.size()]);
 	}
 }

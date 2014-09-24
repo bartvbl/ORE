@@ -12,7 +12,7 @@ public class RotationAction extends AnimationAction {
 	private final double rotation;
 	private final Axis axis;
 
-	public RotationAction(String partName, double rotation, Axis axis) {
+	public RotationAction(String partName, Axis axis, double rotation) {
 		super(AnimationActionType.ROTATE);
 		this.partName = partName;
 		this.rotation = rotation;

@@ -40,7 +40,7 @@ public class AnimationLineParser {
 		String partName = tokens[1];
 		double rotation = Double.parseDouble(tokens[2]);
 		Axis axis = parseAxis(tokens[5]);
-		return new RotationAction(partName, rotation, axis);
+		return new RotationAction(partName, axis, rotation);
 	}
 
 	private static AnimationAction parseSpinLine(String[] tokens) {

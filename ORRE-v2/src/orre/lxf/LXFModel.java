@@ -53,4 +53,10 @@ public class LXFModel implements Model, Animatable {
 		return rootNode;
 	}
 
+	@Override
+	public String[] getModelParts() {
+		Set<String> modelParts = partMap.keySet();
+		return modelParts.toArray(new String[modelParts.size()]);
+	}
+
 }
