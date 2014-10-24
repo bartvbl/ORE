@@ -35,7 +35,6 @@ public class TranslateAction extends AnimationAction {
 		double previousPercentage = ease.calculateAnimationPercentage(totalPercentElapsed);
 		double currentPercentage = ease.calculateAnimationPercentage(totalPercentElapsed + percentElapsed);
 		double percentageDelta = currentPercentage - previousPercentage;
-		System.out.println(percentageDelta + " -> " + totalPercentElapsed);
 		
 		double distanceTranslated = percentageDelta * units;
 		if(axis == Axis.x) {
