@@ -37,6 +37,7 @@ public abstract class TaskExecutor extends Property {
 			this.abort();
 			NewAssignmentMessage newTask = (NewAssignmentMessage) message;
 			this.currentAssignment = newTask.getPayload();
+			System.out.println("Task executor received new assignment: " + currentAssignment.task[0].type);
 			state = TaskExecutorState.REQUESTED_TASK;
 		} else if(message.type == MessageType.RUN_ACTION) {
 			this.abort();

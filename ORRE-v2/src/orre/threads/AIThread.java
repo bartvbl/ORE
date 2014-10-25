@@ -15,8 +15,7 @@ public class AIThread extends Thread {
 	private boolean isRunning = true;
 	
 	public AIThread(GameWorld world) {
-		TaskPriorities priorities = new TaskPriorities();
-		this.taskMaster = new TaskMaster(world, priorities);
+		this.taskMaster = new TaskMaster(world);
 		this.world = world;
 	}
 	

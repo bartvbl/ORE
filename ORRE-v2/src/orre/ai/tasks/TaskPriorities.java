@@ -24,4 +24,11 @@ public class TaskPriorities {
 	public Enum<?>[] getCurrentPriorities() {
 		return priorities.toArray(new Enum<?>[priorities.size()]);
 	}
+
+	public void update(Enum<?>[] taskTypePriorities) {
+		priorities.clear();
+		for(Enum<?> priority : taskTypePriorities) {
+			priorities.add(priority);
+		}
+	}
 }
