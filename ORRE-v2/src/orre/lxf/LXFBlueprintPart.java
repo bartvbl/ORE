@@ -4,6 +4,7 @@ import java.nio.DoubleBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.util.vector.Vector4f;
 
 import orre.geom.vbo.VBOFormat;
 import orre.geom.vbo.GeometryBufferGenerator;
@@ -24,7 +25,10 @@ public class LXFBlueprintPart implements Finalizable {
 	}
 
 	public LXFPart getPartInstance() {
-		return new LXFPart(name, compiledVBOContents);
+		LXFPart part = new LXFPart(name, compiledVBOContents);
+		Vector4f origin = vboContents.getOrigin();
+		part.setPivotLocation(origin.x, origin.y, origin.z);
+		return part;
 	}
 
 	@Override
