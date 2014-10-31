@@ -11,30 +11,33 @@ public class TaskMaster {
 	private final HashMap<Enum<?>, ArrayList<Task>> taskStorage = new HashMap<Enum<?>, ArrayList<Task>>();
 	private final GameWorld world;
 	private final TaskPriorities priorities;
-	private final TaskSupplier taskSupplier = new TaskSupplier();
+	private final TaskSupplier taskSupplier;
 	
 	public TaskMaster(GameWorld world) {
 		this.world = world;
 		this.priorities = new TaskPriorities();
+		taskSupplier = new TaskSupplier(world);
 	}
 	
-	public Assignment assignTask(TaskRequest request) {
+	public Assignment findAssignment(TaskRequest request) {
 		System.out.println("Handling task assignment: " + Arrays.toString(request.acceptableTaskTypes));
 		Enum<?>[] priorityList = priorities.getCurrentPriorities();
 		for(Enum<?> priority : priorityList) {
-			if(canHandleTaskType(priority, request.acceptableTaskTypes)) {
-				if(hasTasksAvailable(priority)) {
-					final ArrayList<Task> availableTasks = taskStorage.get(priority);
-					Assignment bestAssignment = findBestAssignment(availableTasks, request);
-					if(bestAssignment != null) {
-						return bestAssignment;
-					}
+			if(canHandleTaskType(priority, request.acceptableTaskTypes) && hasTasksAvailable(priority)) {
+				final ArrayList<Task> availableTasks = taskStorage.get(priority);
+				Assignment bestAssignment = findBestAssignment(availableTasks, request);
+				if(bestAssignment != null) {
+					return bestAssignment;
 				}
 			}
 		}
 		//no task available -> idle
 		IdleTask idleTask = new IdleTask(request.targetID);
 		return idleTask.plan(request, this);
+	}
+	
+	public void assignTask() {
+		
 	}
 
 	private boolean canHandleTaskType(Enum<?> priority, Enum<?>[] acceptableTaskTypes) {

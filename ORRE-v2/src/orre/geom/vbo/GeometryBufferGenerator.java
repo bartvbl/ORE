@@ -64,7 +64,6 @@ public class GeometryBufferGenerator {
 
 	public static GeometryNode generateNormalsGeometryBuffer(VBOFormat dataFormat, DoubleBuffer geometryData, IntBuffer indices) {
 		int vertexCount = geometryData.capacity() / dataFormat.elementsPerVertex;
-		System.out.println("Building " + vertexCount + " vertices");
 		DoubleBuffer vertexBuffer = BufferUtils.createDoubleBuffer(vertexCount * 2 * 3);
 		IntBuffer normalIndices = BufferUtils.createIntBuffer(vertexCount * 2 * 2);
 		geometryData.rewind();

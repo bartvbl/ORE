@@ -3,19 +3,21 @@ package orre.threads;
 import orre.ai.commands.AICommand;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskPriorities;
+import orre.ai.tasks.TaskSupplier;
+import orre.ai.tasks.TaskTracker;
 import orre.gameWorld.core.GameWorld;
 import orre.util.ConcurrentQueue;
 import orre.util.Queue;
 
 public class AIThread extends Thread {
-	private final TaskMaster taskMaster;
 	private final Queue<AICommand> taskQueue = new Queue<AICommand>();
 	private final ConcurrentQueue<Runnable> mainThreadQueue = new ConcurrentQueue<Runnable>();
+	private final TaskSupplier taskSupplier;
 	private GameWorld world;
 	private boolean isRunning = true;
 	
 	public AIThread(GameWorld world) {
-		this.taskMaster = new TaskMaster(world);
+		this.taskSupplier = new TaskSupplier(world);
 		this.world = world;
 	}
 	
@@ -33,7 +35,7 @@ public class AIThread extends Thread {
 				synchronized(taskQueue) {
 					task = taskQueue.dequeue();
 				}
-				task.execute(world, taskMaster, mainThreadQueue);
+				task.execute(world, taskSupplier, mainThreadQueue);
 			} else {
 				try {
 					Thread.sleep(1000/60);
