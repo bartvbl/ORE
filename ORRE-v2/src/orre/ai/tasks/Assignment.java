@@ -8,4 +8,11 @@ public class Assignment {
 		this.tasks = task;
 		this.plan = plan;
 	}
+
+	public Assignment next(Assignment nextAssignment) {
+		Task[] combinedTasks = new Task[nextAssignment.tasks.length + this.tasks.length];
+		Plan combinedPlan = this.plan.append(nextAssignment.plan);
+		
+		return new Assignment(combinedTasks, combinedPlan);
+	}
 }

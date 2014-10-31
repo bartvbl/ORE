@@ -11,12 +11,10 @@ public class TaskMaster {
 	private final HashMap<Enum<?>, ArrayList<Task>> taskStorage = new HashMap<Enum<?>, ArrayList<Task>>();
 	private final GameWorld world;
 	private final TaskPriorities priorities;
-	private final TaskSupplier taskSupplier;
 	
 	public TaskMaster(GameWorld world) {
 		this.world = world;
 		this.priorities = new TaskPriorities();
-		taskSupplier = new TaskSupplier(world);
 	}
 	
 	public Assignment findAssignment(TaskRequest request) {

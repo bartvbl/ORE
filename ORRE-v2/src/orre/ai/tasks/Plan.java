@@ -32,4 +32,11 @@ public final class Plan {
 		}
 		return costSum;
 	}
+
+	public Plan append(Plan plan) {
+		Action[] allActions = new Action[actions.length + plan.actions.length];
+		System.arraycopy(actions, 0, allActions, 0, actions.length);
+		System.arraycopy(plan.actions, 0, allActions, actions.length, plan.actions.length);
+		return new Plan(allActions);
+	}
 }

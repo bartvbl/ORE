@@ -15,7 +15,7 @@ public class TaskSupplier {
 	public Assignment assignTask(TaskRequest request) {
 		Assignment assignment = taskMaster.findAssignment(request);
 		taskTracker.assign(assignment, request.targetID);
-		return null;
+		return assignment;
 	}
 
 	public void registerPendingTask(Task pendingTask) {
