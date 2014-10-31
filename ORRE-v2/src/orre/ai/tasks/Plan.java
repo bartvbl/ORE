@@ -1,8 +1,25 @@
 package orre.ai.tasks;
 
 public final class Plan {
+	private static final class ImpossibleAction extends Action {
+
+		@Override
+		public boolean isExecutionPossible() { return false; }
+
+		@Override
+		public void update() {}
+
+		@Override
+		public boolean isFinished() { return false; }
+
+		@Override
+		public double getCost() { return 0; }
+
+	}
+
 	private int activeAction = 0;
 	private final Action[] actions;
+	public static final Plan impossiblePlan = new Plan(new Action[]{new ImpossibleAction()});
 	
 	public Plan(Action[] actions) {
 		this.actions = actions;
