@@ -27,7 +27,7 @@ public class LXFBlueprintPart implements Finalizable {
 	public LXFPart getPartInstance() {
 		LXFPart part = new LXFPart(name, compiledVBOContents);
 		Vector4f origin = vboContents.getOrigin();
-		part.setPivotLocation(origin.x, origin.y, origin.z);
+		part.setPivotLocation(-origin.x, -origin.y, -origin.z);
 		return part;
 	}
 
