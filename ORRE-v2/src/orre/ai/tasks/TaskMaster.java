@@ -18,7 +18,6 @@ public class TaskMaster {
 	}
 	
 	public Assignment findAssignment(TaskRequest request) {
-		System.out.println("Handling task assignment: " + Arrays.toString(request.acceptableTaskTypes));
 		Enum<?>[] priorityList = priorities.getCurrentPriorities();
 		for(Enum<?> priority : priorityList) {
 			if(canHandleTaskType(priority, request.acceptableTaskTypes) && hasTasksAvailable(priority)) {

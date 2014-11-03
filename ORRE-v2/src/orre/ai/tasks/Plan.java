@@ -27,7 +27,7 @@ public final class Plan {
 	
 	public boolean isExecutionPossible() {
 		for(Action action : actions) {
-			if(action.isExecutionPossible()) {
+			if(!action.isExecutionPossible()) {
 				return false;
 			}
 		}
