@@ -1,6 +1,10 @@
 package orre.gameWorld.services;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Set;
 
 import org.lwjgl.util.Timer;
 
@@ -14,9 +18,8 @@ import orre.resources.ResourceType;
 
 public class AnimationService implements Service {
 	private final GameWorld world;
-	
-	private ArrayList<AnimationPlayhead> activeAnimations = new ArrayList<AnimationPlayhead>();
-
+	private final HashMap<Integer, AnimationPlayhead> activeAnimations = new HashMap<Integer, AnimationPlayhead>();
+	private final ArrayList<Integer> activeAnimationIDs = new ArrayList<Integer>();
 
 	public AnimationService(GameWorld world) {
 		this.world = world;
@@ -25,39 +28,50 @@ public class AnimationService implements Service {
 	@Override
 	public void tick() {
 		Timer.tick();
-		for(int i = activeAnimations.size() - 1; i >= 0; i--) {
-			AnimationPlayhead playHead = activeAnimations.get(i);
+		for(int i = activeAnimationIDs.size() - 1; i >= 0; i--) {
+			int animationID = activeAnimationIDs.get(i);
+			AnimationPlayhead playHead = activeAnimations.get(animationID);
 			try {
 				playHead.updateAnimation();
 			} catch(NullPointerException e) {
-				activeAnimations.remove(playHead);
+				stopAnimation(animationID);
 				System.err.println("Animation caused an error. Aborting. Message: " + e.getMessage());
 			}
 		}
-		for(int i = 0; i < activeAnimations.size(); i++) {
-			if(activeAnimations.get(i).isFinished()) {
-				activeAnimations.get(i).notifyAnimationEnd();
-				activeAnimations.remove(i);
+		for(int i = 0; i < activeAnimationIDs.size(); i++) {
+			int animationID = activeAnimationIDs.get(i);
+			AnimationPlayhead playHead = activeAnimations.get(animationID);
+			if(playHead.isFinished()) {
+				stopAnimation(playHead.id);
 				i--;
 			}
 		}
 	}
-	
+
 	//Workaround for a NoSuchMethodError.
-	public void applyAnimation(AnimationType type, Mesh3D animatable) {
-		applyAnimation(type, (Animatable)animatable);
+	public int applyAnimation(AnimationType type, Mesh3D animatable) {
+		return applyAnimation(type, (Animatable)animatable);
 	}
 
-	public void applyAnimation(AnimationType type, Animatable animatable) {
+	public int applyAnimation(AnimationType type, Animatable animatable) {
 		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.animation, type.toString()).content;
-		applyAnimation(animation, animatable);
+		return applyAnimation(animation, animatable);
 	}
 
-	public void applyAnimation(Animation animation, Animatable target) {
+	public int applyAnimation(Animation animation, Animatable target) {
 		AnimationPlayhead playHead = new AnimationPlayhead(animation, target);
-		activeAnimations.add(playHead);
+		activeAnimations.put(playHead.id, playHead);
+		activeAnimationIDs.add(playHead.id);
 		playHead.updateAnimation();
 		target.notifyAnimationStart();
+		return playHead.id;
 	}
+	
+	public void stopAnimation(int animationID) {
+		activeAnimations.remove(animationID);
+		activeAnimationIDs.remove(animationID);
+	}
+	
+	
 
 }

@@ -35,4 +35,8 @@ public class Path {
 	public int getStepCount() {
 		return path.size();
 	}
+
+	public boolean isAtStart() {
+		return indexOfCurrentStep == 0;
+	}
 }

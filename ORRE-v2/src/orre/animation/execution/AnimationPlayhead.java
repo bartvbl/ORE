@@ -1,5 +1,7 @@
 package orre.animation.execution;
 
+import java.util.concurrent.atomic.AtomicInteger;
+
 import org.lwjgl.util.Timer;
 
 import orre.animation.Animatable;
@@ -17,11 +19,15 @@ public class AnimationPlayhead {
 	private int currentFrameID = 0;
 	private double elapsedTimeInFrame = 0;
 	private boolean isFinished = false;
+	
+	private static AtomicInteger counter = new AtomicInteger();
+	public final int id;
 
 	public AnimationPlayhead(Animation animation, Animatable target) {
 		this.animation = animation;
 		this.timer = new Timer();
 		this.target = target;
+		id = counter.getAndIncrement();
 	}
 	
 	public void updateAnimation() {

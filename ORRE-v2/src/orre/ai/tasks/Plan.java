@@ -1,5 +1,7 @@
 package orre.ai.tasks;
 
+import java.util.Arrays;
+
 public final class Plan {
 	private static final class ImpossibleAction extends Action {
 
