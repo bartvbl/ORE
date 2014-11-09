@@ -15,6 +15,7 @@ public final class GameObject {
 	public final GameWorld world;
 	private final ArrayList<Property> properties;
 	private final ArrayList<Property> tickingProperties;
+	private final ArrayList<Property> tickOnceProperties;
 	private final ArrayList<GraphicsObject> controlledObjects;
 	private final HashMap<Enum<?>, Object> propertyData;
 	private final PropertyTypeProvider propertyTypeProvider;
@@ -26,6 +27,7 @@ public final class GameObject {
 		this.world = world;
 		this.properties = new ArrayList<Property>();
 		this.tickingProperties = new ArrayList<Property>();
+		this.tickOnceProperties = new ArrayList<Property>();
 		this.controlledObjects = new ArrayList<GraphicsObject>();
 		this.propertyTypeProvider = propertyTypeProvider;
 	}
@@ -50,6 +52,9 @@ public final class GameObject {
 	}
 
 	public void tick() {
+		if(!tickOnceProperties.isEmpty()) {
+			tickOnceProperties.remove(0).tick();
+		}
 		if(tickingProperties.size() > 0) {
 			for(Property property : tickingProperties) {
 				property.tick();
@@ -61,6 +66,10 @@ public final class GameObject {
 		for(Property property : properties) {
 			property.handleMessage(message);
 		}
+	}
+	
+	public void tickOnce(Property property) {
+		this.tickOnceProperties.add(property);
 	}
 	
 	public GraphicsObject getGraphicsObject(int index) {
