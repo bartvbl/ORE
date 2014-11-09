@@ -27,7 +27,7 @@ public abstract class TaskExecutor extends Property {
 	protected final Enum<?>[] assignableTaskTypes;
 
 	public TaskExecutor(GameObject gameObject, Enum<?> propertyType, Enum<?>[] assignableTaskTypes) {
-		super(propertyType, gameObject);
+		super(propertyType, gameObject, true);
 		this.assignableTaskTypes = assignableTaskTypes;
 	}
 
