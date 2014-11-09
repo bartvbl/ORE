@@ -32,16 +32,6 @@ public class Mesh3D implements Animatable, Model {
 	}
 
 	@Override
-	public void notifyAnimationStart() {
-		
-	}
-
-	@Override
-	public void notifyAnimationEnd() {
-		
-	}
-
-	@Override
 	public CoordinateNode getRootNode() {
 		return root;
 	}

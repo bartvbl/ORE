@@ -1,6 +1,7 @@
 package orre.gui;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import orre.animation.Animation;
 import orre.gameWorld.core.GameObject;
@@ -18,6 +19,7 @@ import orre.util.Logger.LogType;
 public class GUI extends Property {
 	private final ArrayList<Menu> activeMenus = new ArrayList<Menu>();
 	private final ArrayList<Menu> inactiveMenus = new ArrayList<Menu>();
+	private final HashMap<Integer, Menu> animatedMenus = new HashMap<Integer, Menu>();
 	private GUIRootNode guiRoot;
 	
 	private double mouseX;
@@ -49,7 +51,9 @@ public class GUI extends Property {
 			Animation animation = (Animation) gameObject.world.resourceCache.getResource(ResourceType.animation, command.animationName).content;
 			Menu menu = getMenuByName(command.menuName, activeMenus);
 			if(menu != null) {
-				this.gameObject.world.services.animationService.applyAnimation(animation, menu);
+				int animationID = this.gameObject.world.services.animationService.applyAnimation(animation, menu);
+				this.animatedMenus.put(animationID, menu);
+				menu.notifyAnimationStart();
 			} else {
 				Logger.log("Menu " + command.menuName + " can not be animated, as the menu is not currently visible.", LogType.ERROR);
 			}
@@ -63,6 +67,12 @@ public class GUI extends Property {
 				if(inactiveMenu != null) {
 					inactiveMenu.notifyAnimationEndHandled();
 				}
+			}
+		} else if(message.type == MessageType.ANIMATION_ENDED) {
+			int animationID = (int) message.getPayload();
+			Menu menu = this.animatedMenus.get(animationID);
+			if(menu != null) {
+				menu.notifyAnimationEnd();
 			}
 		}
 	}
@@ -89,6 +99,7 @@ public class GUI extends Property {
 	public void init() {
 		this.guiRoot = new GUIRootNode();
 		gameObject.world.sceneRoot.addChild(guiRoot);
+		gameObject.world.addMessageListener(MessageType.ANIMATION_ENDED, this.gameObject);
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select");

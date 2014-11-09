@@ -71,7 +71,7 @@ public class AnimationService implements Service {
 	
 	public void stopAnimation(int animationID) {
 		activeAnimations.remove(animationID);
-		activeAnimationIDs.remove(animationID);
+		activeAnimationIDs.remove((Integer)animationID); //cast to avoid (int index) overload
 		this.world.dispatchMessage(new Message<Integer>(MessageType.ANIMATION_ENDED, animationID));
 	}
 	

@@ -39,16 +39,6 @@ public class LXFModel implements Model, Animatable {
 	}
 
 	@Override
-	public void notifyAnimationStart() {
-		
-	}
-
-	@Override
-	public void notifyAnimationEnd() {
-		
-	}
-
-	@Override
 	public CoordinateNode getRootNode() {
 		return rootNode;
 	}
