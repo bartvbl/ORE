@@ -14,6 +14,7 @@ public final class GameObject {
 	public final Enum<?> type;
 	public final GameWorld world;
 	private final ArrayList<Property> properties;
+	private final ArrayList<Property> tickingProperties;
 	private final ArrayList<GraphicsObject> controlledObjects;
 	private final HashMap<Enum<?>, Object> propertyData;
 	private final PropertyTypeProvider propertyTypeProvider;
@@ -24,6 +25,7 @@ public final class GameObject {
 		this.type = gameObjectType;
 		this.world = world;
 		this.properties = new ArrayList<Property>();
+		this.tickingProperties = new ArrayList<Property>();
 		this.controlledObjects = new ArrayList<GraphicsObject>();
 		this.propertyTypeProvider = propertyTypeProvider;
 	}
@@ -31,6 +33,9 @@ public final class GameObject {
 	public void addProperty(Property property) {
 		if(!properties.contains(property)) {			
 			this.properties.add(property);
+			if(property.requiresFastTick) {
+				this.tickingProperties.add(property);
+			}
 		}
 	}
 	
@@ -45,8 +50,10 @@ public final class GameObject {
 	}
 
 	public void tick() {
-		for(Property property : properties) {
-			property.tick();
+		if(tickingProperties.size() > 0) {
+			for(Property property : tickingProperties) {
+				property.tick();
+			}
 		}
 	}
 
