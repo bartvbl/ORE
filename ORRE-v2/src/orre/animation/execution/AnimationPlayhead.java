@@ -9,7 +9,6 @@ import orre.animation.Animation;
 import orre.animation.AnimationAction;
 import orre.animation.KeyFrame;
 import orre.animation.actions.RepeatAction;
-import orre.geom.mesh.Mesh3D;
 
 public class AnimationPlayhead {
 	private final Animation animation;
@@ -110,9 +109,4 @@ public class AnimationPlayhead {
 	public boolean isFinished() {
 		return this.isFinished;
 	}
-
-	public void notifyAnimationEnd() {
-		target.notifyAnimationEnd();
-	}
-
 }

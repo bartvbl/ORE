@@ -13,6 +13,8 @@ import orre.animation.Animation;
 import orre.animation.AnimationType;
 import orre.animation.execution.AnimationPlayhead;
 import orre.gameWorld.core.GameWorld;
+import orre.gameWorld.core.Message;
+import orre.gameWorld.core.MessageType;
 import orre.geom.mesh.Mesh3D;
 import orre.resources.ResourceType;
 
@@ -63,13 +65,14 @@ public class AnimationService implements Service {
 		activeAnimations.put(playHead.id, playHead);
 		activeAnimationIDs.add(playHead.id);
 		playHead.updateAnimation();
-		target.notifyAnimationStart();
+		//TODO: dispatch animation start message
 		return playHead.id;
 	}
 	
 	public void stopAnimation(int animationID) {
 		activeAnimations.remove(animationID);
 		activeAnimationIDs.remove(animationID);
+		this.world.dispatchMessage(new Message<Integer>(MessageType.ANIMATION_ENDED, animationID));
 	}
 	
 	
