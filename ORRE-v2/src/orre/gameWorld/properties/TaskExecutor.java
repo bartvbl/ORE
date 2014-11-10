@@ -45,7 +45,13 @@ public abstract class TaskExecutor extends Property {
 
 	private void abort() {
 		if(state == TaskExecutorState.EXECUTING_TASK) {
-			this.gameObject.world.services.aiService.returnTask(currentAssignment.tasks);
+			this.gameObject.world.services.aiService.returnTask(this.gameObject.id);
+		}
+	}
+	
+	private void reportAssignmentCompletion() {
+		if(state == TaskExecutorState.EXECUTING_TASK) {
+			this.gameObject.world.services.aiService.reportAssignmentCompletion(this.gameObject.id);
 		}
 	}
 
@@ -56,6 +62,7 @@ public abstract class TaskExecutor extends Property {
 		} else if(state == TaskExecutorState.EXECUTING_TASK) {
 			currentAssignment.plan.update();
 			if(currentAssignment.plan.isFinished()) {
+				reportAssignmentCompletion();
 				requestNewTask();
 			}
 		}

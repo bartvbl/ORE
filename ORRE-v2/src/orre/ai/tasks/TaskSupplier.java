@@ -1,5 +1,7 @@
 package orre.ai.tasks;
 
+import java.util.ArrayList;
+
 import orre.gameWorld.core.GameWorld;
 
 public class TaskSupplier {
@@ -8,8 +10,8 @@ public class TaskSupplier {
 	private final TaskTracker taskTracker;
 
 	public TaskSupplier(GameWorld world) {
-		this.taskMaster = new TaskMaster(world);
 		this.taskTracker = new TaskTracker();
+		this.taskMaster = new TaskMaster(world, taskTracker);
 	}
 
 	public Assignment assignTask(TaskRequest request) {
@@ -19,15 +21,19 @@ public class TaskSupplier {
 	}
 
 	public void registerPendingTask(Task pendingTask) {
-		taskMaster.registerPendingTask(pendingTask);
-	}
-
-	public void returnTask(Task[] task) {
-		taskMaster.returnTask(task);
+		taskTracker.registerPendingTask(pendingTask);
 	}
 
 	public void updatePriorities(Enum<?>[] priorities) {
 		taskMaster.updatePriorities(priorities);
+	}
+
+	public void markTaskComplete(int gameObjectID) {
+		taskTracker.markCompleted(gameObjectID);
+	}
+
+	public void returnTask(int gameObjectID) {
+		taskTracker.abort(gameObjectID);
 	}
 
 }

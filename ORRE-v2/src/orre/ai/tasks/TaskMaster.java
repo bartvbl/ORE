@@ -8,20 +8,21 @@ import orre.ai.tasks.idleTask.IdleTask;
 import orre.gameWorld.core.GameWorld;
 
 public class TaskMaster {
-	private final HashMap<Enum<?>, ArrayList<Task>> taskStorage = new HashMap<Enum<?>, ArrayList<Task>>();
 	private final GameWorld world;
 	private final TaskPriorities priorities;
+	private final TaskTracker tracker;
 	
-	public TaskMaster(GameWorld world) {
+	public TaskMaster(GameWorld world, TaskTracker taskTracker) {
 		this.world = world;
 		this.priorities = new TaskPriorities();
+		this.tracker = taskTracker;
 	}
 	
 	public Assignment findAssignment(TaskRequest request) {
 		Enum<?>[] priorityList = priorities.getCurrentPriorities();
 		for(Enum<?> priority : priorityList) {
 			if(canHandleTaskType(priority, request.acceptableTaskTypes) && hasTasksAvailable(priority)) {
-				final ArrayList<Task> availableTasks = taskStorage.get(priority);
+				final ArrayList<Task> availableTasks = tracker.getTasksByType(priority);
 				Assignment bestAssignment = findBestAssignment(availableTasks, request);
 				if(bestAssignment != null) {
 					return bestAssignment;
@@ -47,7 +48,7 @@ public class TaskMaster {
 	}
 	
 	private boolean hasTasksAvailable(Enum<?> priority) {
-		return taskStorage.containsKey(priority);
+		return tracker.hasTasksAvailable(priority);
 	}
 
 	private Assignment findBestAssignment(ArrayList<Task> availableTasks, TaskRequest request) {
@@ -67,21 +68,7 @@ public class TaskMaster {
 		return bestAssignment;
 	}
 
-	public void registerPendingTask(Task task) {
-		System.out.println("Registering new task of type " + task.type);
-		if(!this.taskStorage.containsKey(task.type)) {
-			this.taskStorage.put(task.type, new ArrayList<Task>());
-		}
-		this.taskStorage.get(task.type).add(task);
-	}
-	
 	public void updatePriorities(Enum<?>[] taskTypePriorities) {
 		this.priorities.update(taskTypePriorities);
-	}
-
-	public void returnTask(Task[] tasks) {
-		for(Task task : tasks) {
-			this.taskStorage.get(task.type).add(task);
-		}
 	}
 }

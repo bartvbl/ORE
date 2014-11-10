@@ -2,6 +2,7 @@ package orre.gameWorld.services;
 
 import orre.ai.commands.AssignTaskCommand;
 import orre.ai.commands.RegisterPendingCommand;
+import orre.ai.commands.ReportCompletionTask;
 import orre.ai.commands.ReturnTaskCommand;
 import orre.ai.commands.UpdatePrioritiesCommand;
 import orre.ai.tasks.Task;
@@ -36,11 +37,15 @@ public class AIService implements Service {
 		this.aiThread.stopExecution();
 	}
 
-	public void returnTask(Task[] task) {
-		this.aiThread.enqueueTask(new ReturnTaskCommand(task));
+	public void returnTask(int gameObjectID) {
+		this.aiThread.enqueueTask(new ReturnTaskCommand(gameObjectID));
 	}
 
 	public void updatePriorities(Enum<?>[] taskTypes) {
 		this.aiThread.enqueueTask(new UpdatePrioritiesCommand(taskTypes));
+	}
+
+	public void reportAssignmentCompletion(int gameObjectID) {
+		this.aiThread.enqueueTask(new ReportCompletionTask(gameObjectID));
 	}
 }
