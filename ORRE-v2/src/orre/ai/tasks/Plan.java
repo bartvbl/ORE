@@ -61,4 +61,8 @@ public final class Plan {
 		System.arraycopy(plan.actions, 0, allActions, actions.length, plan.actions.length);
 		return new Plan(allActions);
 	}
+	
+	public String toString() {
+		return "Plan " + Arrays.toString(actions);
+	}
 }
