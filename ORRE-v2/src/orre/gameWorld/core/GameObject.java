@@ -8,7 +8,7 @@ import orre.api.PropertyTypeProvider;
 import orre.util.Logger;
 import orre.util.Logger.LogType;
 
-public final class GameObject {
+public final class GameObject implements MessageHandler {
 	public final int id;
 	private static final AtomicInteger nextUID = new AtomicInteger();
 	public final Enum<?> type;

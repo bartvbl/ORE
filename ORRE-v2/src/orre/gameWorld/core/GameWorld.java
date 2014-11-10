@@ -22,14 +22,14 @@ public class GameWorld {
 	private final HashMap<Integer, GameObject> gameObjectSet;
 	private final HashMap<Enum<?>, int[]> propertyMap;
 	private final HashMap<Enum<?>, int[]> objectTypeMap;
-	private final HashMap<MessageType, ArrayList<GameObject>> messageListeners;
+	private final HashMap<MessageType, ArrayList<MessageHandler>> messageListeners;
 	
 	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ContainerNode shader, ContainerNode rootNode, ContainerNode cameraContainer) {
 		this.scene3DRoot = shader;//new ContainerNode("Scene root");
 		this.sceneRoot = rootNode;
 		this.services = new WorldServices(this, cache, interpreter, cameraContainer);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
-		this.messageListeners = new HashMap<MessageType, ArrayList<GameObject>>();
+		this.messageListeners = new HashMap<MessageType, ArrayList<MessageHandler>>();
 		this.propertyMap = new HashMap<Enum<?>, int[]>();
 		this.objectTypeMap = new HashMap<Enum<?>, int[]>();
 		this.resourceCache = cache;
@@ -87,8 +87,8 @@ public class GameWorld {
 	}
 	
 	public void dispatchMessage(Message<?> message) {
-		ArrayList<GameObject> listenerList = messageListeners.get(message.type);
-		for(GameObject listener : listenerList) {
+		ArrayList<MessageHandler> listenerList = messageListeners.get(message.type);
+		for(MessageHandler listener : listenerList) {
 			listener.handleMessage(message);
 		}
 	}
@@ -98,12 +98,12 @@ public class GameWorld {
 		object.handleMessage(message);
 	}
 	
-	public void addMessageListener(MessageType type, GameObject listener) {
+	public void addMessageListener(MessageType type, MessageHandler listener) {
 		if(!messageListeners.containsKey(type)) {
-			ArrayList<GameObject> objectList = new ArrayList<GameObject>();
+			ArrayList<MessageHandler> objectList = new ArrayList<MessageHandler>();
 			messageListeners.put(type, objectList);
 		}
-		ArrayList<GameObject> listenerList = messageListeners.get(type);
+		ArrayList<MessageHandler> listenerList = messageListeners.get(type);
 		listenerList.add(listener);
 	}
 
