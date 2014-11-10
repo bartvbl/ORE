@@ -12,6 +12,7 @@ import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import orre.scripting.ScriptInterpreter;
 import orre.util.ArrayUtils;
+import orre.util.Queue;
 
 public class GameWorld {
 	public final SceneNode scene3DRoot;
@@ -23,6 +24,7 @@ public class GameWorld {
 	private final HashMap<Enum<?>, int[]> propertyMap;
 	private final HashMap<Enum<?>, int[]> objectTypeMap;
 	private final HashMap<MessageType, ArrayList<MessageHandler>> messageListeners;
+	private final Queue<Integer> despawnQueue;
 	
 	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ContainerNode shader, ContainerNode rootNode, ContainerNode cameraContainer) {
 		this.scene3DRoot = shader;//new ContainerNode("Scene root");
@@ -32,6 +34,7 @@ public class GameWorld {
 		this.messageListeners = new HashMap<MessageType, ArrayList<MessageHandler>>();
 		this.propertyMap = new HashMap<Enum<?>, int[]>();
 		this.objectTypeMap = new HashMap<Enum<?>, int[]>();
+		this.despawnQueue = new Queue<Integer>();
 		this.resourceCache = cache;
 	}
 	
@@ -63,11 +66,7 @@ public class GameWorld {
 	}
 	
 	public void despawnObject(int objectID) {
-		GameObject object = gameObjectSet.remove(objectID);
-		if(object != null) {
-			object.destroy();
-		}
-		//TODO: remove object from all other maps
+		despawnQueue.enqueue(objectID);
 	}
 	
 	public int[] getAllGameObjectsByType(Enum<?> type) {
@@ -112,6 +111,13 @@ public class GameWorld {
 		Collection<GameObject> gameObjects = gameObjectSet.values();
 		for(GameObject gameObject : gameObjects) {
 			gameObject.tick();
+		}
+		while(!despawnQueue.isEmpty()) {
+			int objectID = despawnQueue.dequeue();
+			GameObject object = gameObjectSet.remove(objectID);
+			if(object != null) {
+				object.destroy();
+			}
 		}
 	}
 	
