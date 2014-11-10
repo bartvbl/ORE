@@ -38,6 +38,9 @@ public final class Plan {
 	
 	public void update() {
 		this.actions[activeAction].update();
+		if(actions[activeAction].isFinished() && (activeAction < actions.length - 1)) {
+			activeAction++;
+		}
 	}
 	
 	public boolean isFinished() {
