@@ -94,7 +94,12 @@ public class GameWorld {
 	
 	public void dispatchMessage(Message<?> message, int destinationObject) {
 		GameObject object = gameObjectSet.get(destinationObject);
-		object.handleMessage(message);
+		if(object != null) {
+			object.handleMessage(message);
+		} else {
+			System.err.println("Attempted to send message to object " + destinationObject + ", which no longer exists.");
+			System.err.println("Sent message was of type " + message.type);
+		}
 	}
 	
 	public void addMessageListener(MessageType type, MessageHandler listener) {
@@ -116,6 +121,7 @@ public class GameWorld {
 			int objectID = despawnQueue.dequeue();
 			GameObject object = gameObjectSet.remove(objectID);
 			if(object != null) {
+				System.out.println("Destroying object of type " + object.type);
 				object.destroy();
 			}
 		}
