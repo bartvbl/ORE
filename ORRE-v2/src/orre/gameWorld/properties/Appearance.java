@@ -29,8 +29,15 @@ public abstract class Appearance extends Property {
 		this.placeAppearanceInScene();
 		this.initAppearance();
 	}
+	
+	@Override
+	public final void destroy() {
+		this.removeAppearenceFromScene();
+	}
+
 
 	protected abstract void initAppearance();
 	protected abstract void placeAppearanceInScene();
+	protected abstract void removeAppearenceFromScene();
 
 }
