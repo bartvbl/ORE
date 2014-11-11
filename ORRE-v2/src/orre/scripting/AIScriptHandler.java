@@ -10,7 +10,7 @@ public class AIScriptHandler {
 		gameWorld = world;
 	}
 	
-	public static void show(final Task task) {
+	public static void registerTask(final Task task) {
 		ScriptAPI.runOnMainThread(new Runnable() {
 			@Override
 			public void run() {

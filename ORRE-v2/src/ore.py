@@ -3,7 +3,7 @@
 import sys
 
 from orre.scripting import ScriptAPI
-from orre.scripting import GUIScriptHandler
+from orre.scripting import GUIScriptHandler, AIScriptHandler
 
 if not 'orre_registeredHandlers' in globals():
 	global orre_registeredHandlers
@@ -45,10 +45,14 @@ class GUI:
 		GUIScriptHandler.animate(menu, animationName)
 	def orre_notifyAnimationEventHandled(self, menu):
 		GUIScriptHandler.notifyAnimationEndHandled(menu)
+
+class AI:
+	def registerTask(self, task):
+		AIScriptHandler.registerTask(task)
 	
 @on('GUI_AnimationEventHandled')
 def notifyAnimationEventHandled(eventParams):
 	gui.orre_notifyAnimationEventHandled(eventParams['menuName'])
 	
 gui = GUI()
-
+ai = AI()

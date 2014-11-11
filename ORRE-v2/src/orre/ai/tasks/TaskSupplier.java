@@ -21,6 +21,7 @@ public class TaskSupplier {
 	}
 
 	public void registerPendingTask(Task pendingTask) {
+		System.out.println("Registering pending task: " + pendingTask.type);
 		taskTracker.registerPendingTask(pendingTask);
 	}
 

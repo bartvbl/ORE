@@ -150,9 +150,9 @@ public class GameWorld {
 		GameObjectBuilder.setPropertyTypeProvider(provider);
 	}
 
-	public void api_spawnGameObjectFromString(String gameObjectType) {
+	public int api_spawnGameObjectFromString(String gameObjectType) {
 		Enum<?> type = GameObjectBuilder.getGameObjectTypeFromString(gameObjectType);
-		spawnGameObject(type);
+		return spawnGameObject(type);
 	}
 
 	public int getOnlyGameObject(Enum<?> gameObjectType) {
