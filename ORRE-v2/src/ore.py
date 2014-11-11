@@ -34,7 +34,7 @@ def orre_handleEvent(eventType, parameters):
 				handler(parameters)
 
 def spawn(objectType):
-	ScriptAPI.spawn(objectType)
+	return ScriptAPI.spawn(objectType)
 
 class GUI:
 	def show(self, menu):
