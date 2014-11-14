@@ -27,7 +27,6 @@ public final class Plan {
 
 	private int activeAction = 0;
 	private final Action[] actions;
-	private boolean hasStarted = false;
 	public static final Plan impossiblePlan = new Plan(new Action[]{new ImpossibleAction()});
 	
 	public Plan(Action[] actions) {
@@ -44,10 +43,6 @@ public final class Plan {
 	}
 	
 	public void update() {
-		if(!hasStarted) {
-			actions[activeAction].start();
-			hasStarted = true;
-		}
 		this.actions[activeAction].update();
 		if(actions[activeAction].isFinished() && (activeAction < actions.length - 1)) {
 			actions[activeAction].end();
@@ -80,5 +75,9 @@ public final class Plan {
 	
 	public String toString() {
 		return "Plan " + Arrays.toString(actions);
+	}
+
+	public void start() {
+		actions[0].start();
 	}
 }

@@ -39,6 +39,7 @@ public abstract class TaskExecutor extends Property {
 			this.abort();
 			NewAssignmentMessage newTask = (NewAssignmentMessage) message;
 			this.currentAssignment = newTask.getPayload();
+			currentAssignment.plan.start();
 			state = TaskExecutorState.EXECUTING_TASK;
 		} else if(message.type == MessageType.RUN_ACTION) {
 			this.abort();
