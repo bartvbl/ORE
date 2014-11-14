@@ -11,5 +11,6 @@ public enum AnimationType {
 	showRadarPanel,
 	showPrioritiesPanel,
 	hidePrioritiesPanel,
-	teleportBuilding,
+	teleportBuilding, 
+	teleportRockRaider,
 }

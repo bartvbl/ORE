@@ -31,7 +31,7 @@ public class TaskMaster {
 		}
 		//no task available -> idle
 		IdleTask idleTask = new IdleTask(request.targetID);
-		return idleTask.plan(request, this);
+		return idleTask.plan(request, this, world);
 	}
 	
 	public void assignTask() {
@@ -55,7 +55,7 @@ public class TaskMaster {
 		double lowestPlanCost = Double.MAX_VALUE;
 		Assignment bestAssignment = null;
 		for(Task availableTask : availableTasks) {
-			Assignment assignment = availableTask.plan(request, this);
+			Assignment assignment = availableTask.plan(request, this, world);
 			if((assignment.plan == null) || (!assignment.plan.isExecutionPossible())) {
 				continue;
 			}

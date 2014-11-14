@@ -14,7 +14,7 @@ public class IdleAction extends Action {
 
 	@Override
 	public boolean isExecutionPossible() {
-		return true;
+		return false; // can't be executed to allow it to be representative of "there's no task for you at the moment" as well as "the task you requested isn't available."
 	}
 
 	@Override

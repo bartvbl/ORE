@@ -19,4 +19,8 @@ public class Assignment {
 		
 		return new Assignment(combinedTasks, combinedPlan);
 	}
+
+	public void abort() {
+		System.out.println("Assignment: abort() isn't implemented.");
+	}
 }

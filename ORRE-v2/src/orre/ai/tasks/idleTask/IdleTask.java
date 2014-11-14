@@ -7,6 +7,7 @@ import orre.ai.tasks.Plan;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskMaster;
 import orre.ai.tasks.TaskRequest;
+import orre.gameWorld.core.GameWorld;
 import orre.geom.Point2D;
 
 public class IdleTask extends Task {
@@ -16,7 +17,7 @@ public class IdleTask extends Task {
 	}
 
 	@Override
-	public Assignment plan(TaskRequest request, TaskMaster taskMaster) {
+	public Assignment plan(TaskRequest request, TaskMaster taskMaster, GameWorld world) {
 		return new Assignment(new Task[]{this}, new Plan(new Action[]{new IdleAction()}));
 	}
 }

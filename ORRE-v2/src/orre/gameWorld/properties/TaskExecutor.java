@@ -1,5 +1,7 @@
 package orre.gameWorld.properties;
 
+import java.util.Arrays;
+
 import orre.ai.tasks.Assignment;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskRequest;
@@ -45,6 +47,7 @@ public abstract class TaskExecutor extends Property {
 
 	private void abort() {
 		if(state == TaskExecutorState.EXECUTING_TASK) {
+			currentAssignment.abort();
 			this.gameObject.world.services.aiService.returnTask(this.gameObject.id);
 		}
 	}
