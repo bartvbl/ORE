@@ -48,7 +48,7 @@ public class OBJBlueprintModel implements BlueprintModel, Finalizable {
 	private void addChildren(Mesh3D mesh, SceneNode node, StoredModelPart part) {
 		ModelPart modelPart = part.createSceneNode();
 		node.addChild(modelPart);
-		mesh.addPart(part.nameInModel, modelPart);
+		mesh.addPart(part.name, modelPart);
 		ArrayList<StoredModelPart> children = part.getChildren();
 		for(StoredModelPart child : children) {
 			addChildren(mesh, modelPart, child);
