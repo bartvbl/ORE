@@ -60,7 +60,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 			
 			List<PartiallyLoadableModelPart> partList = OBJLoader.load("res/mesh/objects3D/singleBrick.obj");
 			PartiallyLoadableModelPart brickPart = partList.get(0);
-			StoredModelPart brickBlueprint = new StoredModelPart(ModelPartType.PHYSICAL, "single brick");
+			StoredModelPart brickBlueprint = new StoredModelPart(ModelPartType.PHYSICAL, "single brick", "none");
 			brickPart.setDestinationPart(brickBlueprint);
 			BlueprintMaterial material = new BlueprintMaterial("untitled-1");
 			brickPart.setMaterial(material);

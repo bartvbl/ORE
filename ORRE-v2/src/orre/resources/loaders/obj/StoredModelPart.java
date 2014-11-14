@@ -9,6 +9,7 @@ import orre.resources.partiallyLoadables.BlueprintMaterial;
 public class StoredModelPart {
 	
 	public final ModelPartType partType;
+	public final String nameInModel;
 	public final String name;
 	private ArrayList<BlueprintMaterial> materials = new ArrayList<BlueprintMaterial>();
 	private ArrayList<GeometryNode> geometryBuffers = new ArrayList<GeometryNode>();
@@ -16,9 +17,10 @@ public class StoredModelPart {
 	
 	private ArrayList<StoredModelPart> childList = new ArrayList<StoredModelPart>();
 
-	public StoredModelPart(ModelPartType partType, String name)
+	public StoredModelPart(ModelPartType partType, String nameInModel, String name)
 	{
 		this.partType = partType;
+		this.nameInModel = nameInModel;
 		this.name = name;
 	}
 	
@@ -47,7 +49,7 @@ public class StoredModelPart {
 		ModelPart part = new ModelPart();
 		for(int i = 0; i < this.materials.size(); i++) {
 			part.setPivotLocation(pivotX, pivotY, pivotZ);
-			part.addMaterialAndGeometryBufferCombo(this.materials.get(i).convertToMaterial(), this.geometryBuffers.get(i), this.name);
+			part.addMaterialAndGeometryBufferCombo(this.materials.get(i).convertToMaterial(), this.geometryBuffers.get(i), this.nameInModel);
 		}
 		return part;
 	}

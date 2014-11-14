@@ -13,23 +13,23 @@ public class ModelPartTreeBuilder {
 	private static final String PHYSICAL_PART = "part";
 	private static final String VIRTUAL_PART = "shaderPart";
 
-	public static List<StoredModelPart> generatePartTree(OBJBlueprintModel model, Element rootElement) {
+	public static void generatePartTree(OBJBlueprintModel model, Element rootElement) {
 		Element partStructureElement = rootElement.getFirstChildElement("partStructure");
 		Elements partElements = partStructureElement.getChildElements();
-		ArrayList<StoredModelPart> partList = new ArrayList<StoredModelPart>();
 		for(int i = 0; i < partElements.size(); i++)
 		{
 			Element currentElement = partElements.get(i);
 			StoredModelPart modelPart = parseTreeNode(currentElement, model);
 			model.addTopLevelPart(modelPart);
+			System.out.println("Top level part: " + modelPart.nameInModel);
 		}
-		return partList;
 	}
 
 	private static StoredModelPart parseTreeNode(Element nodeElement, OBJBlueprintModel model) {
 		ModelPartType partType = getPartType(nodeElement);
-		String partName = nodeElement.getAttributeValue("nameInModelFile");
-		StoredModelPart newPart = new StoredModelPart(partType, partName);
+		String partName = nodeElement.getAttributeValue("name");
+		String modelFilePartName = nodeElement.getAttributeValue("nameInModelFile");
+		StoredModelPart newPart = new StoredModelPart(partType, modelFilePartName, partName);
 		model.registerPart(newPart);
 		if(partType == ModelPartType.PHYSICAL) {			
 			parsePivotLocation(newPart, nodeElement);

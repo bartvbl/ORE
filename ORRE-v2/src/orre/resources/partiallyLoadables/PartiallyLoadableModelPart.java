@@ -49,5 +49,9 @@ public class PartiallyLoadableModelPart implements Finalizable {
 	public void setDestinationPart(StoredModelPart part) {
 		this.destinationPart = part;
 	}
+	
+	public String toString() {
+		return "ModelPart " + name;
+	}
 
 }
