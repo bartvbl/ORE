@@ -14,7 +14,7 @@ public class IdleAction extends Action {
 
 	@Override
 	public boolean isExecutionPossible() {
-		return false;
+		return true;
 	}
 
 	@Override
@@ -38,6 +38,16 @@ public class IdleAction extends Action {
 	@Override
 	public double getCost() {
 		return 0;
+	}
+
+	@Override
+	public void start() {
+		
+	}
+
+	@Override
+	public void end() {
+		
 	}
 
 }

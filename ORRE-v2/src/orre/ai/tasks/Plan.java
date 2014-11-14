@@ -17,6 +17,12 @@ public final class Plan {
 		@Override
 		public double getCost() { return 0; }
 
+		@Override
+		public void start() {}
+
+		@Override
+		public void end() {}
+
 	}
 
 	private int activeAction = 0;
