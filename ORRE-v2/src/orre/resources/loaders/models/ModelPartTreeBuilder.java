@@ -21,7 +21,6 @@ public class ModelPartTreeBuilder {
 			Element currentElement = partElements.get(i);
 			StoredModelPart modelPart = parseTreeNode(currentElement, model);
 			model.addTopLevelPart(modelPart);
-			System.out.println("Top level part: " + modelPart.nameInModel);
 		}
 	}
 

@@ -17,11 +17,12 @@ public class Mesh3D implements Animatable, Model {
 		this.parts.put("root", root);
 	}
 	
-	public Mesh3D(String string, CoordinateNode rootNode) {
+	public Mesh3D(CoordinateNode rootNode) {
 		this.root = rootNode;
 	}
 
 	public CoordinateNode getModelPartByName(String name) {
+		assert parts.get(name) != null;
 		return this.parts.get(name);
 	}
 
