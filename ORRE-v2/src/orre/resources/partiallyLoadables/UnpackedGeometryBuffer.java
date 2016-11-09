@@ -1,6 +1,7 @@
 package orre.resources.partiallyLoadables;
 
 import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
@@ -12,7 +13,7 @@ import orre.resources.Finalizable;
 import orre.resources.Resource;
 
 public class UnpackedGeometryBuffer implements Finalizable{
-	private DoubleBuffer vertices;
+	private FloatBuffer vertices;
 	private VBOFormat dataFormat;
 	private final int numVertices;
 	
@@ -20,10 +21,10 @@ public class UnpackedGeometryBuffer implements Finalizable{
 		this.dataFormat = bufferDataFormat;
 		this.numVertices = numVertices;
 		int vertexBufferSize = bufferDataFormat.elementsPerVertex*numVertices;
-		this.vertices = BufferUtils.createDoubleBuffer(vertexBufferSize);
+		this.vertices = BufferUtils.createFloatBuffer(vertexBufferSize);
 	}
 	
-	public void addVertex(DoubleBuffer vertex) {
+	public void addVertex(FloatBuffer vertex) {
 		vertices.put(vertex);
 	}
 

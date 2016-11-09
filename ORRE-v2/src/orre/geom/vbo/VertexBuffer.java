@@ -1,11 +1,12 @@
 package orre.geom.vbo;
 
 import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 
 public class VertexBuffer {
-	private final DoubleBuffer vertices;
-	private final DoubleBuffer textureCoordinates;
-	private final DoubleBuffer normals;
+	private final FloatBuffer vertices;
+	private final FloatBuffer textureCoordinates;
+	private final FloatBuffer normals;
 	
 	private static final int ELEMENTS_PER_VERTEX = 3;
 	private static final int ELEMENTS_PER_TEXCOORD = 2;
@@ -13,35 +14,35 @@ public class VertexBuffer {
 
 	private final VBOFormat dataFormat;
 	
-	private final DoubleBuffer vertex;
+	private final FloatBuffer vertex;
 	
-	private final double[] vertexCoordinate = new double[ELEMENTS_PER_VERTEX];
-	private final double[] normalCoordinate = new double[ELEMENTS_PER_NORMAL];
-	private final double[] texCoordinate = new double[ELEMENTS_PER_TEXCOORD];
+	private final float[] vertexCoordinate = new float[ELEMENTS_PER_VERTEX];
+	private final float[] normalCoordinate = new float[ELEMENTS_PER_NORMAL];
+	private final float[] texCoordinate = new float[ELEMENTS_PER_TEXCOORD];
 	
 	public VertexBuffer(int numVertices, int numTexCoords, int numNormals, VBOFormat dataFormat)
 	{
 		this.dataFormat = dataFormat;
-		this.vertices = DoubleBuffer.allocate(ELEMENTS_PER_VERTEX * numVertices);
-		this.textureCoordinates = DoubleBuffer.allocate(ELEMENTS_PER_TEXCOORD * numTexCoords);
-		this.normals = DoubleBuffer.allocate(ELEMENTS_PER_NORMAL * numNormals);
-		this.vertex = DoubleBuffer.allocate(dataFormat.elementsPerVertex);
+		this.vertices = FloatBuffer.allocate(ELEMENTS_PER_VERTEX * numVertices);
+		this.textureCoordinates = FloatBuffer.allocate(ELEMENTS_PER_TEXCOORD * numTexCoords);
+		this.normals = FloatBuffer.allocate(ELEMENTS_PER_NORMAL * numNormals);
+		this.vertex = FloatBuffer.allocate(dataFormat.elementsPerVertex);
 	}
 	
-	public void addVertex(double x, double y, double z)
+	public void addVertex(float x, float y, float z)
 	{
 		this.vertices.put(x).put(y).put(z);
 	}
-	public void addTextureCoordinate(double u, double v) 
+	public void addTextureCoordinate(float u, float v) 
 	{
 		this.textureCoordinates.put(u).put(v);
 	}
-	public void addNormal(double x, double y, double z) 
+	public void addNormal(float x, float y, float z) 
 	{
 		this.normals.put(x).put(y).put(z);
 	}
 	
-	public DoubleBuffer getVertex(int vertexIndex, int textureIndex, int normalIndex)
+	public FloatBuffer getVertex(int vertexIndex, int textureIndex, int normalIndex)
 	{
 		vertex.rewind();
 		copyVertexIntoVertexArray(ELEMENTS_PER_VERTEX*vertexIndex);//the temporary texture array is formatted such that the vertex always comes first no matter the texture/normal format of the OBJ file

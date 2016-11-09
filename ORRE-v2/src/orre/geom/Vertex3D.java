@@ -1,16 +1,16 @@
 package orre.geom;
 
 public class Vertex3D {
-	public final double x;
-	public final double y;
-	public final double z;
-	public final double texU;
-	public final double texV;
-	public final double normX;
-	public final double normY;
-	public final double normZ;
+	public final float x;
+	public final float y;
+	public final float z;
+	public final float texU;
+	public final float texV;
+	public final float normX;
+	public final float normY;
+	public final float normZ;
 
-	public Vertex3D(double x, double y, double z, double texU, double texV, double normX, double normY, double normZ) {
+	public Vertex3D(float x, float y, float z, float texU, float texV, float normX, float normY, float normZ) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
@@ -21,8 +21,8 @@ public class Vertex3D {
 		this.normZ = normZ;
 	}
 
-	public double[] toArray() {
-		return new double[]{x, y, z, texU, texV, normX, normY, normZ};
+	public float[] toArray() {
+		return new float[]{x, y, z, texU, texV, normX, normY, normZ};
 	}
 	
 	@Override

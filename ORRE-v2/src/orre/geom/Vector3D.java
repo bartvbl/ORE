@@ -1,17 +1,17 @@
 package orre.geom;
 
 public class Vector3D {
-	public final double x;
-	public final double y;
-	public final double z;
+	public final float x;
+	public final float y;
+	public final float z;
 	
-	public Vector3D(double x, double y, double z) {
+	public Vector3D(float x, float y, float z) {
 		this.x = x;
 		this.y = y;
 		this.z = z;
 	}
 	
-	public Vector3D(double[] vector) {
+	public Vector3D(float[] vector) {
 		this.x = vector[0];
 		this.y = vector[1];
 		this.z = vector[2];
@@ -22,9 +22,9 @@ public class Vector3D {
 	}
 	
 	public Vector3D vectorProduct(Vector3D vector) {
-		double x = (this.y*vector.z) - (this.z*vector.y);
-		double y = (this.z*vector.x) - (this.x*vector.z);
-		double z = (this.x*vector.y) - (this.y*vector.x);
+		float x = (this.y*vector.z) - (this.z*vector.y);
+		float y = (this.z*vector.x) - (this.x*vector.z);
+		float z = (this.x*vector.y) - (this.y*vector.x);
 		return new Vector3D(x, y, z);
 	}
 	
@@ -33,10 +33,10 @@ public class Vector3D {
 	}
 	
 	public Vector3D normalize() {
-		double length = this.getLength();
-		double x = this.x/length;
-		double y = this.y/length;
-		double z = this.z/length;
+		float length = (float) this.getLength();
+		float x = this.x/length;
+		float y = this.y/length;
+		float z = this.z/length;
 		return new Vector3D(x, y, z);
 	}
 	

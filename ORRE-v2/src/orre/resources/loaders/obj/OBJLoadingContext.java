@@ -2,6 +2,7 @@ package orre.resources.loaders.obj;
 
 import java.io.File;
 import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class OBJLoadingContext {
 		return this.temporaryVertesBuffer;
 	}
 
-	public void addVertexToCurrentModelPart(DoubleBuffer vertex) {
+	public void addVertexToCurrentModelPart(FloatBuffer vertex) {
 		this.currentModelPart.addVertex(vertex);
 	}
 

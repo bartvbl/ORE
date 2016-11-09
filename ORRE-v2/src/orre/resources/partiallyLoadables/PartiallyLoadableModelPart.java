@@ -1,6 +1,7 @@
 package orre.resources.partiallyLoadables;
 
 import java.nio.DoubleBuffer;
+import java.nio.FloatBuffer;
 
 import orre.geom.vbo.VBOFormat;
 import orre.resources.Finalizable;
@@ -24,7 +25,7 @@ public class PartiallyLoadableModelPart implements Finalizable {
 	public void setMaterial(BlueprintMaterial newMaterial) {
 		this.material = newMaterial;
 	}
-	public void addVertex(DoubleBuffer vertex) {
+	public void addVertex(FloatBuffer vertex) {
 		this.geometryBuffer.addVertex(vertex); 
 	}
 	
