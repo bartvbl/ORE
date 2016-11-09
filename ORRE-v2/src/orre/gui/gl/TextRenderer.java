@@ -7,7 +7,12 @@ import static org.lwjgl.opengl.GL11.glPushMatrix;
 import static org.lwjgl.opengl.GL11.glScaled;
 import static org.lwjgl.opengl.GL11.glTranslated;
 
+import java.awt.Canvas;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
+import java.awt.font.FontRenderContext;
+import java.awt.image.BufferedImage;
 import java.util.List;
 
 import org.newdawn.slick.Color;
@@ -19,36 +24,20 @@ import org.newdawn.slick.opengl.TextureImpl;
 //needs a reimplementation
 @Deprecated
 public class TextRenderer {
-	private static final UnicodeFont font = new UnicodeFont(new Font("Arial", Font.BOLD, 12));
 	
-	static {
-		font.addAsciiGlyphs();
-		List<Effect> effects = font.getEffects();
-		effects.add(new ColorEffect(java.awt.Color.BLACK));
-		try {
-			font.loadGlyphs();
-		} catch (SlickException e) {
-			e.printStackTrace();
-		}
-	}
+	private static final Font font = new Font("Arial", Font.PLAIN, 12);
 	
 	public static void drawString(double x, double y, String string) {
-		glPushMatrix();
-		glScaled(1, -1, 1);
-		glTranslated(0, -14 + -2 * y, 0);
-		TextureImpl.bindNone();
-		Color fontColour = Color.black;
-		font.drawString((float)x, (float)y, string, fontColour);
-		TextureImpl.unbind();
-		glDisable(GL_TEXTURE_2D);
-		glPopMatrix();
+		BufferedImage image = new BufferedImage(128, 128, BufferedImage.TYPE_INT_ARGB);
+		Graphics2D graphics = (Graphics2D) image.getGraphics();
+		FontRenderContext context = graphics.getFontRenderContext();
 	}
 	
-	public static int getWidth(String string) {
-		return font.getWidth(string);
+	public static int getStringWidth(String string) {
+		return 0;
 	}
 	
-	public static int getHeight(String string) {
-		return font.getHeight(string);
+	public static int getStringHeight(String string) {
+		return 0;
 	}
 }
