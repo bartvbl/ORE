@@ -4,7 +4,6 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import orre.gl.renderer.RenderContext;
 import orre.gl.shaders.ActiveShader;
 import orre.gl.texture.Texture;
 import orre.rendering.RenderState;
@@ -147,7 +146,7 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	}
 	
 	@Override
-	public void render() 
+	public void render(RenderState state) 
 	{
 	}
 	

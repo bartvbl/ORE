@@ -6,7 +6,7 @@ import orre.rendering.RenderState;
 
 public interface SceneNode {
 	public void preRender(RenderState state);
-	public void render();
+	public void render(RenderState state);
 	public void postRender(RenderState state);
 	
 	public void addChild(SceneNode node);

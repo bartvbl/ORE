@@ -1,5 +1,6 @@
 package orre.gui.baseNodes;
 
+import orre.rendering.RenderState;
 import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
@@ -23,7 +24,7 @@ public abstract class GUIBaseNode extends CoordinateNode implements SceneNode {
 	}
 
 	@Override
-	public void render() {
+	public void render(RenderState state) {
 		this.draw(0, 0, width, height);
 	}
 

@@ -13,7 +13,7 @@ public class LeafNode implements SceneNode {
 	}
 
 	@Override
-	public void render() {
+	public void render(RenderState state) {
 	}
 
 	@Override

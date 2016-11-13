@@ -1,16 +1,13 @@
 package orre.geom.vbo;
 
-import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.GL31;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL15.*;
 import static org.lwjgl.opengl.GL20.*;
 import static org.lwjgl.opengl.GL30.*;
-import static org.lwjgl.opengl.GL40.*;
 
 public class GeometryBufferGenerator {
 	
@@ -22,26 +19,21 @@ public class GeometryBufferGenerator {
 		int arrayID = glGenVertexArrays();
 		glBindVertexArray(arrayID);
 		
-		storeBuffersInVRAM(geometryData, indices, dataFormat, vertexCount, indexCount);
-		
-		return new GeometryNode(arrayID, indexCount, vertexCount, drawingMode);
-	}
-
-	private static void storeBuffersInVRAM(FloatBuffer geometryData, IntBuffer indexes, VBOFormat dataFormat, int vertexCount, int indexCount)
-	{
 		geometryData.rewind();
-		indexes.rewind();
+		indices.rewind();
 		
 		int vertexBufferID = createBuffer();
 		int indexBufferID = createBuffer();
 		
-		storeIndexData(indexBufferID, indexes);
+		storeIndexData(indexBufferID, indices);
 		storeVertexData(vertexBufferID, geometryData);
 		
 		// Since all data is stored in single buffers, we don't need to bind other buffers for setting these up
 		setDataPointers(dataFormat);
+		
+		return new GeometryNode(arrayID, indexCount, vertexCount, drawingMode, new int[]{vertexBufferID, indexBufferID});
 	}
-	
+
 	private static void setDataPointers(VBOFormat dataFormat) {
 		int bytesPerFloat = 4;
 		

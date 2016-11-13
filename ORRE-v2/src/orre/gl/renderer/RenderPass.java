@@ -11,7 +11,7 @@ public class RenderPass {
 			return;
 		}
 		node.preRender(state);
-		node.render();
+		node.render(state);
 			
 		ArrayList<SceneNode> children = node.getChildren();
 		for(SceneNode child : children) {

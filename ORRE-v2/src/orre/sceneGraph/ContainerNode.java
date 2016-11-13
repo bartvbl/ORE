@@ -46,7 +46,7 @@ public class ContainerNode implements SceneNode {
 	}
 
 	@Override
-	public void render() {}
+	public void render(RenderState state) {}
 
 	@Override
 	public void destroy() {}

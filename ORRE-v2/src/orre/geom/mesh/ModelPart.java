@@ -2,6 +2,7 @@ package orre.geom.mesh;
 
 import orre.geom.vbo.GeometryNode;
 import orre.gl.materials.Material;
+import orre.rendering.RenderState;
 import orre.sceneGraph.SceneNode;
 import orre.sceneGraph.CoordinateNode;
 
@@ -23,7 +24,7 @@ public class ModelPart extends CoordinateNode implements SceneNode {
 	}
 	
 	@Override
-	public void render() {
+	public void render(RenderState state) {
 	}
 
 	@Override

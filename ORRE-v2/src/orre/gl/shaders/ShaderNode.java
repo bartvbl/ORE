@@ -23,7 +23,7 @@ public class ShaderNode extends ContainerNode {
 	}
 	
 	@Override
-	public void render() {
+	public void render(RenderState state) {
 	}
 	
 	@Override

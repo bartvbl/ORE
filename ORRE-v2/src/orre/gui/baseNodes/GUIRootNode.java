@@ -1,7 +1,6 @@
 package orre.gui.baseNodes;
 
 import orre.gl.RenderUtils;
-import orre.gl.renderer.RenderContext;
 import orre.rendering.RenderState;
 
 import static org.lwjgl.opengl.GL11.*;
