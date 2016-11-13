@@ -10,7 +10,7 @@ public class StartupLoader extends LoadingScreen {
 
 	public StartupLoader(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName, ResourceCache cache, ResourceLoader loader) {
 		super(main, eventDispatcher, stateName, cache, loader);
-		this.setLoadingScreen(new DefaultLoadingScreen());
+		this.setLoadingScreen(new DefaultLoadingScreen(loader));
 	}
 
 }

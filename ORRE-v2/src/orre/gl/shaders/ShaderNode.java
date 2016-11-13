@@ -19,7 +19,6 @@ public class ShaderNode extends ContainerNode {
 	@Override
 	public void preRender(RenderState state) {
 		glUseProgram(programID);
-		ActiveShader.setActiveShader(this);
 	}
 	
 	@Override
@@ -29,7 +28,6 @@ public class ShaderNode extends ContainerNode {
 	@Override
 	public void postRender(RenderState state) {
 		glUseProgram(0);
-		ActiveShader.setActiveShader(null);
 	}
 	
 	@Override

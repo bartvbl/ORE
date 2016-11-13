@@ -14,9 +14,10 @@ import orre.gl.texture.Texture;
 import orre.gl.vao.GeometryNode;
 import orre.rendering.RenderState;
 import orre.rendering.ShaderProperty;
+import orre.resources.ResourceLoader;
 import orre.resources.loaders.TextureLoader;
 
-public class DefaultLoadingScreen implements LoadingScreenDrawer {
+public class DefaultLoadingScreen extends LoadingScreenDrawer {
 	
 	private Texture loadingScreen;
 	private Texture loadingBar;
@@ -26,8 +27,9 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 	private int rotation = 0;
 	private Texture loadingIcon;
 	
-	public DefaultLoadingScreen()
+	public DefaultLoadingScreen(ResourceLoader loader)
 	{
+		super(loader);
 		try {
 			this.loadingScreen = TextureLoader.loadTextureFromFile(new File("res/images/loadingScreen/loadingScreen.png"));
 			this.loadingBar = TextureLoader.loadTextureFromFile(new File("res/images/loadingScreen/loadingBar.png"));
@@ -47,10 +49,12 @@ public class DefaultLoadingScreen implements LoadingScreenDrawer {
 		
 		glColor4f(1, 1, 1, 1);
 		
-		state.shaders.setPropertyi(ShaderProperty.TEXTURE, loadingScreen.id);
+		loadingScreen.bind(state);
 		state.transformations.pushMatrix();
 		Matrix4f current = state.transformations.peekMatrix();
 		current = Matrix4f.scale(new Vector3f(Display.getWidth(), Display.getHeight(), 0), current, current);
+		state.transformations.setMatrix(current);
+		System.out.println(current);
 		RenderPass.renderSingleNode(texturedQuadVAO, state);
 //		
 //		this.loadingScreen.blit(0, 0, Display.getWidth(), Display.getHeight());

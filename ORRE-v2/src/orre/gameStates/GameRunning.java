@@ -4,17 +4,11 @@ import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
 import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
-import orre.gameWorld.core.Message;
-import orre.gameWorld.core.MessageType;
-import orre.geom.mesh.Mesh3D;
 import orre.gl.renderer.RenderPass;
-import orre.gl.shaders.ShaderNode;
 import orre.rendering.RenderState;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
-import orre.resources.data.OBJBlueprintModel;
 import orre.resources.partiallyLoadables.Shader;
-import orre.sceneGraph.Camera;
 import orre.sceneGraph.ContainerNode;
 import orre.scripting.ScriptInterpreter;
 

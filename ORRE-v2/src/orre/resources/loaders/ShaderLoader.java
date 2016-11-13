@@ -18,7 +18,7 @@ public class ShaderLoader implements ResourceTypeLoader {
 		return loadShader(source);
 	}
 
-	private Shader loadShader(UnloadedResource source) {
+	public static Shader loadShader(UnloadedResource source) {
 		String path = source.location.getAbsolutePath();
 		File vertexShaderSource = new File(path + ".vert");
 		File fragmentShaderSource = new File(path + ".frag");
@@ -32,7 +32,7 @@ public class ShaderLoader implements ResourceTypeLoader {
 		return ResourceType.shader;
 	}
 	
-	private String readShaderFile(File sourceFile) {
+	public static String readShaderFile(File sourceFile) {
 		FileInputStream stream;
 		try {
 			stream = new FileInputStream(sourceFile);

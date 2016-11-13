@@ -15,7 +15,7 @@ public class Shapes {
 		int vertexCount = (3 + 2) * 3 * 2;
 		int indexCount = 6;
 		
-		FloatBuffer geometry = BufferUtils.createFloatBuffer(vertexCount * 3);
+		FloatBuffer geometry = BufferUtils.createFloatBuffer(vertexCount);
 		IntBuffer indices = BufferUtils.createIntBuffer(indexCount);
 		
 		geometry.put(new float[]{

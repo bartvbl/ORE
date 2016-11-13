@@ -21,7 +21,6 @@ import orre.resources.loaders.TextureLoader;
 
 public class ResourceLoader implements EventHandler {
 	
-	private LoadingScreenDrawer loadingScreenDrawer = null;
 	private ProgressTracker progressTracker;
 	private ResourceQueue resourceQueue;
 	private ResourceFinalizer resourceFinalizer;
@@ -63,11 +62,6 @@ public class ResourceLoader implements EventHandler {
 		
 	}
 	
-	public void setLoadingScreen(LoadingScreenDrawer loadingScreen)
-	{
-		this.loadingScreenDrawer = loadingScreen;
-	}
-
 	public boolean isFinished() {
 		return this.progressTracker.isFinished() && this.resourceQueue.finalizableQueueIsEmpty();
 	}
@@ -91,10 +85,9 @@ public class ResourceLoader implements EventHandler {
 		}
 	}
 
-	public void drawLoadingScreen(RenderState state) {
-		if(this.loadingScreenDrawer != null)
-		{
-			this.loadingScreenDrawer.draw(this.progressTracker.getProgress(), state);
-		}
+	public double getProgress() {
+		return this.progressTracker.getProgress();
 	}
+
+	
 }

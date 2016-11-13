@@ -25,6 +25,7 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 	@Override
 	public void render(RenderState state)
 	{
+		state.shaders.commitUniformState();
 		glBindVertexArray(arrayID);
 		glDrawElements(mode.glEnum, indexCount, GL_UNSIGNED_INT, 0);
 	}

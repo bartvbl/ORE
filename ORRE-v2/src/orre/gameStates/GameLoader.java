@@ -10,7 +10,7 @@ public class GameLoader extends LoadingScreen {
 
 	public GameLoader(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName, ResourceCache cache, ResourceLoader loader) {
 		super(main, eventDispatcher, stateName, cache, loader);
-		this.setLoadingScreen(new DefaultLoadingScreen());
+		this.setLoadingScreen(new DefaultLoadingScreen(loader));
 	}
 
 }

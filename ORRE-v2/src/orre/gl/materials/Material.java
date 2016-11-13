@@ -4,7 +4,6 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import orre.gl.shaders.ActiveShader;
 import orre.gl.texture.Texture;
 import orre.rendering.RenderState;
 import orre.rendering.ShaderProperty;
