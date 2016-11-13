@@ -16,8 +16,4 @@ public class MenuRootNode extends ContainerNode implements SceneNode {
 		this.menuRoot = menuRoot;
 	}
 	
-	@Override
-	public void preRender() {
-		
-	}
 }

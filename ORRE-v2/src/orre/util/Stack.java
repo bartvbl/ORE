@@ -22,4 +22,11 @@ public class Stack<DataType> {
 		if(isEmpty()) return null;
 		return this.stack.get(this.stack.size() - 1);
 	}
+
+	public void set(DataType item) {
+		if(isEmpty()) {
+			throw new RuntimeException("Can not change value on top of empty stack");
+		}
+		stack.set(stack.size() - 1, item);
+	}
 }

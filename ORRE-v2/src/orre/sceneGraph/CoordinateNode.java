@@ -2,8 +2,14 @@ package orre.sceneGraph;
 
 import java.util.ArrayList;
 
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
+
+import orre.geom.Axis;
 import orre.geom.Point3D;
 import orre.gl.shaders.ActiveShader;
+import orre.rendering.RenderState;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class CoordinateNode extends ContainerNode {
@@ -31,18 +37,19 @@ public class CoordinateNode extends ContainerNode {
 	}
 	
 	@Override
-	public void preRender() {
-		glPushMatrix();
-		glTranslated(x - pivotX, y - pivotY, z - pivotZ);
-		glRotated(rotationZ, 0, 0, 1);
-		glRotated(rotationY, 0, 1, 0);
-		glRotated(rotationX, 1, 0, 0);
-		glTranslated(pivotX, pivotY, pivotZ);
+	public void preRender(RenderState state) {
+		state.transformations.pushMatrix();
+		Matrix4f current = state.transformations.peekMatrix();
+		Matrix4f.translate(new Vector3f((float) (x - pivotX), (float) (y - pivotY), (float) (z - pivotZ)), current, current);
+		Matrix4f.rotate((float) rotationZ, Axis.z.vector, current, current);
+		Matrix4f.rotate((float) rotationY, Axis.y.vector, current, current);
+		Matrix4f.rotate((float) rotationX, Axis.x.vector, current, current);
+		Matrix4f.translate(new Vector3f((float) (pivotX), (float) (pivotY), (float) (pivotZ)), current, current);
 	}
 	
 	@Override
-	public void postRender() {
-		glPopMatrix();
+	public void postRender(RenderState state) {
+		state.transformations.popMatrix();
 	}
 	
 	public void translate(double x, double y, double z) 

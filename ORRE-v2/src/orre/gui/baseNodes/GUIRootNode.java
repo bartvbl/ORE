@@ -1,6 +1,9 @@
 package orre.gui.baseNodes;
 
 import orre.gl.RenderUtils;
+import orre.gl.renderer.RenderContext;
+import orre.rendering.RenderState;
+
 import static org.lwjgl.opengl.GL11.*;
 
 import orre.sceneGraph.ContainerNode;
@@ -12,7 +15,7 @@ public class GUIRootNode extends ContainerNode implements SceneNode {
 	}
 	
 	@Override
-	public void preRender() {
+	public void preRender(RenderState state) {
 		glMatrixMode(GL_PROJECTION);
 		glPushMatrix();
 		glMatrixMode(GL_MODELVIEW);
@@ -21,7 +24,7 @@ public class GUIRootNode extends ContainerNode implements SceneNode {
 	}
 	
 	@Override
-	public void postRender() {
+	public void postRender(RenderState state) {
 		glMatrixMode(GL_PROJECTION);
 		glPopMatrix();
 		glMatrixMode(GL_MODELVIEW);

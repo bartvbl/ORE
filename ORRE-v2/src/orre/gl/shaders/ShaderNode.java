@@ -1,5 +1,6 @@
 package orre.gl.shaders;
 
+import orre.rendering.RenderState;
 import orre.sceneGraph.ContainerNode;
 import static org.lwjgl.opengl.GL20.*;
 
@@ -16,7 +17,7 @@ public class ShaderNode extends ContainerNode {
 	}
 
 	@Override
-	public void preRender() {
+	public void preRender(RenderState state) {
 		glUseProgram(programID);
 		ActiveShader.setActiveShader(this);
 	}
@@ -26,7 +27,7 @@ public class ShaderNode extends ContainerNode {
 	}
 	
 	@Override
-	public void postRender() {
+	public void postRender(RenderState state) {
 		glUseProgram(0);
 		ActiveShader.setActiveShader(null);
 	}

@@ -2,6 +2,8 @@ package orre.sceneGraph;
 
 import java.util.ArrayList;
 
+import orre.rendering.RenderState;
+
 import static org.lwjgl.opengl.GL11.*;
 
 public class ContainerNode implements SceneNode {
@@ -59,14 +61,6 @@ public class ContainerNode implements SceneNode {
 	}
 
 	@Override
-	public void preRender() {
-	}
-	
-	@Override
-	public void postRender() {
-	}
-	
-	@Override
 	public String toString() {
 		return "Container " + name;
 	}
@@ -74,6 +68,16 @@ public class ContainerNode implements SceneNode {
 	@Override
 	public boolean isVisible() {
 		return this.visible;
+	}
+
+	@Override
+	public void preRender(RenderState state) {
+		
+	}
+
+	@Override
+	public void postRender(RenderState state) {
+		
 	}
 }
 

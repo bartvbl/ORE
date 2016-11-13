@@ -2,10 +2,12 @@ package orre.sceneGraph;
 
 import java.util.ArrayList;
 
+import orre.rendering.RenderState;
+
 public interface SceneNode {
-	public void preRender();
+	public void preRender(RenderState state);
 	public void render();
-	public void postRender();
+	public void postRender(RenderState state);
 	
 	public void addChild(SceneNode node);
 	public void removeChild(SceneNode node);

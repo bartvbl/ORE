@@ -7,6 +7,8 @@ import org.lwjgl.BufferUtils;
 import orre.gl.renderer.RenderContext;
 import orre.gl.shaders.ActiveShader;
 import orre.gl.texture.Texture;
+import orre.rendering.RenderState;
+import orre.rendering.ShaderProperty;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import static org.lwjgl.opengl.GL11.*;
@@ -134,25 +136,14 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	}
 	
 	@Override
-	public void preRender() {
-		glPushMatrix();
-		this.bindTexture();
-		glMaterialf(GL_FRONT, GL_SHININESS, shininess);
-		glMaterial(GL_FRONT, GL_AMBIENT, this.fillColourBuffer(this.ambientColour));
-		glMaterial(GL_FRONT, GL_DIFFUSE, this.fillColourBuffer(this.diffuseColour));
-		glMaterial(GL_FRONT, GL_SPECULAR, this.fillColourBuffer(this.specularColour));
-		glMaterial(GL_FRONT, GL_EMISSION, this.fillColourBuffer(this.emissionColour));
-	}
-	
-	private void bindTexture() {
-		if(this.diffuseTexture != null) {
-			glEnable(GL_TEXTURE_2D);
-			this.diffuseTexture.bind();
-			RenderContext.setTexturesEnabled(true);
-		} else {
-			glDisable(GL_TEXTURE_2D);
-			RenderContext.setTexturesEnabled(false);
-		}
+	public void preRender(RenderState state) {
+		state.transformations.pushMatrix();
+		state.shaders.setPropertyi(ShaderProperty.TEXTURE, this.diffuseTexture.id);
+		state.shaders.setPropertyf(ShaderProperty.MATERIAL_SHININESS, shininess);
+		state.shaders.setProperty4f(ShaderProperty.MATERIAL_AMBIENT, this.ambientColour);
+		state.shaders.setProperty4f(ShaderProperty.MATERIAL_DIFFUSE, this.diffuseColour);
+		state.shaders.setProperty4f(ShaderProperty.MATERIAL_SPECULAR, this.specularColour);
+		state.shaders.setProperty4f(ShaderProperty.MATERIAL_EMISSION, this.emissionColour);
 	}
 	
 	@Override
@@ -161,7 +152,7 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	}
 	
 	@Override
-	public void postRender() {
+	public void postRender(RenderState state) {
 		glPopMatrix();
 	}
 

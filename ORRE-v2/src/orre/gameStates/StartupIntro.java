@@ -19,6 +19,7 @@ import orre.gl.materials.Material;
 import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
 import orre.gl.shaders.Uniform;
+import orre.rendering.RenderState;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.loaders.OBJLoader;
@@ -184,7 +185,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 		}
 		brickPosition.setLocation(-((double)imageWidth * brickSize)/2, ((double)imageHeight * brickSize)/2, -100);
 		brickPosition.setRotationX(90);
-		RenderPass.render(node);
+		RenderPass.render(node, new RenderState());
 		
 	}
 

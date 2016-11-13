@@ -9,6 +9,7 @@ import orre.gameWorld.core.MessageType;
 import orre.geom.mesh.Mesh3D;
 import orre.gl.renderer.RenderPass;
 import orre.gl.shaders.ShaderNode;
+import orre.rendering.RenderState;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.data.OBJBlueprintModel;
@@ -20,6 +21,7 @@ import orre.scripting.ScriptInterpreter;
 public class GameRunning extends GameState {
 	private GameWorld gameWorld;
 	private ContainerNode sceneRoot;
+	private final RenderState renderState = new RenderState();
 	
 	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter)
 	{
@@ -34,7 +36,7 @@ public class GameRunning extends GameState {
 	@Override
 	public void executeFrame(long frameNumber) {
 		this.gameWorld.tick();
-		RenderPass.render(this.sceneRoot);
+		RenderPass.render(this.sceneRoot, this.renderState);
 	}
 	
 	@Override

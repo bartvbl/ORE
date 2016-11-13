@@ -2,12 +2,14 @@ package orre.sceneGraph;
 
 import java.util.ArrayList;
 
+import orre.rendering.RenderState;
+
 public class LeafNode implements SceneNode {
 	private static final ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	private boolean isVisible = true;
 
 	@Override
-	public void preRender() {
+	public void preRender(RenderState state) {
 	}
 
 	@Override
@@ -15,7 +17,7 @@ public class LeafNode implements SceneNode {
 	}
 
 	@Override
-	public void postRender() {
+	public void postRender(RenderState state) {
 	}
 
 	@Override

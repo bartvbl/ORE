@@ -2,20 +2,21 @@ package orre.gl.renderer;
 
 import java.util.ArrayList;
 
+import orre.rendering.RenderState;
 import orre.sceneGraph.SceneNode;
 
 public class RenderPass {
-	public static void render(SceneNode node) {
+	public static void render(SceneNode node, RenderState state) {
 		if(!node.isVisible()) {
 			return;
 		}
-		node.preRender();
+		node.preRender(state);
 		node.render();
 			
 		ArrayList<SceneNode> children = node.getChildren();
 		for(SceneNode child : children) {
-			render(child);
+			render(child, state);
 		}
-		node.postRender();
+		node.postRender(state);
 	}
 }
