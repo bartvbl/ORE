@@ -1,13 +1,19 @@
 package orre.gui.elementNodes;
 
 import static org.lwjgl.opengl.GL11.*;
+
+import orre.geom.Shapes;
 import orre.gl.texture.Texture;
+import orre.gl.vao.GeometryNode;
 import orre.gui.baseNodes.GUIBaseNode;
+import orre.rendering.RenderState;
+import orre.rendering.ShaderProperty;
 
 public class ButtonNode extends GUIBaseNode {
 	private final Texture[] textures = new Texture[4];
 	private int activeTextureIndex = 0;
 	private final String name;
+	private GeometryNode squareVAO;
 	
 	public ButtonNode(String name) {
 		this.name = name;
@@ -30,13 +36,11 @@ public class ButtonNode extends GUIBaseNode {
 	}
 	
 	@Override
-	protected void draw(double x1, double y1, double x2, double y2) {
+	protected void draw(RenderState state, double x1, double y1, double x2, double y2) {
 		if(textures[activeTextureIndex] == null) {
 			return;
 		}
-		glColor4d(1, 1, 1, 1);
-		glEnable(GL_TEXTURE_2D);
-		textures[activeTextureIndex].bind();
+		textures[activeTextureIndex].bind(state);
 		glBegin(GL_QUADS);
 		glTexCoord2d(0, 0);
 		glVertex2d(x1, y1);
@@ -59,5 +63,10 @@ public class ButtonNode extends GUIBaseNode {
 		this.textures[1] = overTexture;
 		this.textures[2] = downTexture;
 		this.textures[3] = disabledTexture;
+	}
+
+	@Override
+	public void finaliseResource() {
+		squareVAO = Shapes.generateTexturedSquare();
 	}
 }

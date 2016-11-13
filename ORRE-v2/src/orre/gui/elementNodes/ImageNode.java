@@ -3,6 +3,7 @@ package orre.gui.elementNodes;
 import static org.lwjgl.opengl.GL11.*;
 import orre.gl.texture.Texture;
 import orre.gui.baseNodes.GUIBaseNode;
+import orre.rendering.RenderState;
 
 public class ImageNode extends GUIBaseNode {
 	
@@ -13,10 +14,10 @@ public class ImageNode extends GUIBaseNode {
 	}
 
 	@Override
-	protected void draw(double x1, double y1, double x2, double y2) {
+	protected void draw(RenderState state, double x1, double y1, double x2, double y2) {
 		glColor4d(1, 1, 1, 1);
 		glEnable(GL_TEXTURE_2D);
-		texture.bind();
+		texture.bind(state);
 		glBegin(GL_QUADS);
 		glTexCoord2d(0, 0);
 		glVertex2d(x1, y1);
@@ -31,6 +32,11 @@ public class ImageNode extends GUIBaseNode {
 
 	public void setTexture(Texture texture) {
 		this.texture = texture;
+	}
+	
+	@Override
+	public void finaliseResource() {
+		
 	}
 	
 	public String toString() {

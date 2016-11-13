@@ -25,9 +25,11 @@ public abstract class GUIBaseNode extends CoordinateNode implements SceneNode {
 
 	@Override
 	public void render(RenderState state) {
-		this.draw(0, 0, width, height);
+		this.draw(state, 0, 0, width, height);
 	}
 
-	protected abstract void draw(double x1, double y1, double x2, double y2);
+	protected abstract void draw(RenderState state, double x1, double y1, double x2, double y2);
+
+	public abstract void finaliseResource();
 
 }

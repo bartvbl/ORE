@@ -1,6 +1,7 @@
 package orre.gui.elementNodes;
 
 import orre.gui.baseNodes.GUIBaseNode;
+import orre.rendering.RenderState;
 
 public class ContainerElementNode extends GUIBaseNode {
 
@@ -9,11 +10,16 @@ public class ContainerElementNode extends GUIBaseNode {
 	}
 
 	@Override
-	protected void draw(double x1, double y1, double x2, double y2) {
+	protected void draw(RenderState state, double x1, double y1, double x2, double y2) {
 	}
 	
 	public String toString() {
 		return "GUI Container (" + name + ")";
+	}
+
+	@Override
+	public void finaliseResource() {
+		
 	}
 
 }

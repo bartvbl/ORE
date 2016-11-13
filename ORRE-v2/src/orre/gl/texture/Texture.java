@@ -1,5 +1,8 @@
 package orre.gl.texture;
 
+import orre.rendering.RenderState;
+import orre.rendering.ShaderProperty;
+
 public class Texture {
 	public final int id;
 	public final int width, height;
@@ -19,5 +22,9 @@ public class Texture {
 	@Override
 	public String toString() {
 		return "Texture with ID " + this.id;
+	}
+
+	public void bind(RenderState state) {
+		state.shaders.setPropertyi(ShaderProperty.TEXTURE, id);
 	}
 }

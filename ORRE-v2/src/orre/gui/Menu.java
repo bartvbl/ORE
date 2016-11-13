@@ -85,6 +85,9 @@ public class Menu implements Animatable, Finalizable {
 
 	@Override
 	public Resource finalizeResource() {
+		for(GUIElement element : registeredElements.values()) {
+			element.sceneNode.finaliseResource();
+		}
 		return new Resource(ResourceType.menu, this.name, Menu.class, this);
 	}
 
