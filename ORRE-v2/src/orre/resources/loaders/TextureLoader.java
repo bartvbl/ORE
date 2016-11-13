@@ -16,6 +16,15 @@ import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
 
+import org.lwjgl.opengl.GL11;
+import org.lwjgl.opengl.GL12;
+import org.lwjgl.opengl.GL13;
+import org.lwjgl.opengl.GL14;
+import org.lwjgl.opengl.GL15;
+import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.GL21;
+import org.lwjgl.opengl.GL30;
+
 import orre.gl.texture.Texture;
 import orre.resources.Finalizable;
 import orre.resources.ResourceQueue;
@@ -94,6 +103,7 @@ public class TextureLoader implements ResourceTypeLoader {
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 		glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
 		glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA8, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, bb);
+		GL30.glGenerateMipmap(GL_TEXTURE_2D);
 		glPopAttrib();
 		return new Texture(texRef, width, height);
 	}
