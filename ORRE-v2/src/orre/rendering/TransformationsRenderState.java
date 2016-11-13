@@ -46,4 +46,9 @@ public class TransformationsRenderState {
 		Matrix4f current = matrixStack.peek();
 		Matrix4f.translate(vec, current, current);
 	}
+
+	public void rotate(float rotation, Vector3f axis) {
+		Matrix4f current = matrixStack.peek();
+		Matrix4f.rotate((float) Math.toRadians(rotation), axis, current, current);
+	}
 }
