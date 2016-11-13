@@ -9,6 +9,8 @@ import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.glu.Sphere;
 
 import orre.sceneGraph.SceneNode;
+import orre.rendering.RenderState;
+import orre.rendering.ShaderProperty;
 import orre.sceneGraph.CoordinateNode;
 
 public class Light extends CoordinateNode implements SceneNode {
@@ -27,27 +29,27 @@ public class Light extends CoordinateNode implements SceneNode {
 	}
 	
 	@Override
-	public void preRender() {
-		glPushMatrix();
+	public void preRender(RenderState state) {
+		state.transformations.pushMatrix();
+		
 		if(Keyboard.isKeyDown(Keyboard.KEY_2)) {
 			height += 0.1;
 		}
 		if(Keyboard.isKeyDown(Keyboard.KEY_1)) {
 			height -= 0.1;
 		}
-		glTranslated(position[0], position[1], position[2] + height);
 		sphere.draw(0.1f, 20, 20);
-		glEnable(GL_LIGHTING);
-		glEnable(GL_LIGHT0);
-		glLight(GL_LIGHT0, GL_POSITION, (FloatBuffer)this.colourBuffer.put(this.zero).rewind());
-		glLight(GL_LIGHT0, GL_AMBIENT, (FloatBuffer)this.colourBuffer.put(this.ambientLight).rewind());
-		glLight(GL_LIGHT0, GL_DIFFUSE, (FloatBuffer)this.colourBuffer.put(this.diffuseLight).rewind());
-		glLight(GL_LIGHT0, GL_SPECULAR, (FloatBuffer)this.colourBuffer.put(this.specularLight).rewind());
-		glPopMatrix();
+		
+		state.shaders.setProperty4f(ShaderProperty.LIGHT_POSITION, position);
+		state.shaders.setProperty4f(ShaderProperty.LIGHT_AMBIENT, ambientLight);
+		state.shaders.setProperty4f(ShaderProperty.LIGHT_DIFFUSE, diffuseLight);
+		state.shaders.setProperty4f(ShaderProperty.LIGHT_SPECULAR, specularLight);
+		
+		state.transformations.popMatrix();
 	}
 	
 	@Override
-	public void postRender() {
+	public void postRender(RenderState state) {
 		
 	}
 	

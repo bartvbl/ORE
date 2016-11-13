@@ -16,6 +16,8 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import orre.rendering.RenderState;
+
 public class CoordConverter {
 	private static final FloatBuffer modelView = BufferUtils.createFloatBuffer(16);
 	private static final FloatBuffer projection = BufferUtils.createFloatBuffer(16);
@@ -37,7 +39,7 @@ public class CoordConverter {
 		gluProject(x, y, z, modelView, projection, viewport, location);
 		return new float[] {location.get(0), location.get(1), location.get(2)};
 	}
-	public static float[] getMapCoords(int x, int y)
+	public static float[] getMapCoords(RenderState state, int x, int y)
 	{
 		modelView.clear().rewind();
 		projection.clear().rewind();
