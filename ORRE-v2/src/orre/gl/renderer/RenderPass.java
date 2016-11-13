@@ -21,7 +21,7 @@ public class RenderPass {
 		node.postRender(state);
 	}
 
-	public static void renderSingleNode(GeometryNode node, RenderState state) {
+	public static void renderSingleNode(SceneNode node, RenderState state) {
 		node.preRender(state);
 		node.render(state);
 		node.postRender(state);		

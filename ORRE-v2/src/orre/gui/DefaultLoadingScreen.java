@@ -45,35 +45,28 @@ public class DefaultLoadingScreen extends LoadingScreenDrawer {
 		RenderUtils.loadIdentity(state);
 		RenderUtils.set2DMode(state);
 		
-		
-		glColor4f(1, 1, 1, 1);
-		
-		loadingScreen.bind(state);
 		state.transformations.pushMatrix();
-		Matrix4f current = state.transformations.peekMatrix();
 		
-		current = Matrix4f.scale(new Vector3f(Display.getWidth(), Display.getHeight(), 1.0f), current, current);
-		state.transformations.setMatrix(current);
-		RenderPass.renderSingleNode(texturedQuadVAO, state);
-//		
-//		this.loadingScreen.blit(0, 0, Display.getWidth(), Display.getHeight());
-//		int x = (int)(0.223f*Display.getWidth());
-//		int y = (int)(0.046f*Display.getHeight());
-//		int width = (int)((Display.getWidth() - 2.02f*x) * progress);
-//		int height = (int)(Display.getHeight() / 60f);
-//		
-//		this.loadingBar.bind();
-//		glBegin(GL_QUADS);
-//		glTexCoord2f(0,0);
-//		glVertex2f(x,y);
-//		glTexCoord2f((float)progress,0);
-//		glVertex2f(x+width,y);
-//		glTexCoord2f((float)progress,1);
-//		glVertex2f(x+width,y+height);
-//		glTexCoord2f(0,1);
-//		glVertex2f(x,y+height);
-//		glEnd();
-//		
+			loadingScreen.bind(state);
+			state.transformations.scale(new Vector3f(Display.getWidth(), Display.getHeight(), 1.0f));
+			RenderPass.renderSingleNode(texturedQuadVAO, state);
+		
+		state.transformations.popMatrix();
+		state.transformations.pushMatrix();
+		
+		
+			int x = (int)(0.223f*Display.getWidth());
+			int y = (int)(0.046f*Display.getHeight());
+			int width = (int)((Display.getWidth() - 2.02f*x) * progress);
+			int height = (int)(Display.getHeight() / 60f);
+			
+			this.loadingBar.bind(state);
+			state.transformations.translate(new Vector3f(x, y, 0));
+			state.transformations.scale(new Vector3f(width, height, 1.0f));
+			
+			RenderPass.renderSingleNode(texturedQuadVAO, state);
+		state.transformations.popMatrix();
+		
 //		this.loadingIcon.bind();
 //		rotation += 3;
 //		int size = 50;

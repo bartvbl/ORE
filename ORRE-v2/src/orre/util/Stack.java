@@ -29,4 +29,12 @@ public class Stack<DataType> {
 		}
 		stack.set(stack.size() - 1, item);
 	}
+	
+	public String toString() {
+		String string = "{";
+		for(int i = 0; i < stack.size(); i++) {
+			string += "{" + stack.get(i) + "}";
+		}
+		return string + "}";
+	}
 }

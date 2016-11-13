@@ -1,6 +1,7 @@
 package orre.rendering;
 
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector3f;
 
 import orre.util.Stack;
 
@@ -13,7 +14,7 @@ public class TransformationsRenderState {
 	}
 	
 	public void pushMatrix() {
-		matrixStack.push(matrixStack.peek());
+		matrixStack.push(new Matrix4f(matrixStack.peek()));
 	}
 	
 	public void popMatrix() {
@@ -34,5 +35,15 @@ public class TransformationsRenderState {
 
 	public Matrix4f getProjectionMatrix() {
 		return projectionMatrix;
+	}
+
+	public void scale(Vector3f vec) {
+		Matrix4f current = matrixStack.peek();
+		Matrix4f.scale(vec, current, current);
+	}
+
+	public void translate(Vector3f vec) {
+		Matrix4f current = matrixStack.peek();
+		Matrix4f.translate(vec, current, current);
 	}
 }
