@@ -2,6 +2,7 @@ package orre.gl.renderer;
 
 import java.util.ArrayList;
 
+import orre.gl.vao.GeometryNode;
 import orre.rendering.RenderState;
 import orre.sceneGraph.SceneNode;
 
@@ -18,5 +19,11 @@ public class RenderPass {
 			render(child, state);
 		}
 		node.postRender(state);
+	}
+
+	public static void renderSingleNode(GeometryNode node, RenderState state) {
+		node.preRender(state);
+		node.render(state);
+		node.postRender(state);		
 	}
 }

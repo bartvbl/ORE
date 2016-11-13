@@ -1,6 +1,6 @@
 package orre.resources.loaders.obj;
 
-import orre.geom.vbo.VBOFormat;
+import orre.gl.vao.VBOFormat;
 
 public class OBJLoadingUtils {
 	public static float[] parseFloatLine(String line) {

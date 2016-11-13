@@ -12,6 +12,7 @@ import orre.events.GlobalEventType;
 import orre.gameStates.*;
 import orre.gameWorld.core.GameWorld;
 import orre.gl.RenderUtils;
+import orre.rendering.RenderState;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceLoader;
 import orre.scripting.ScriptInterpreter;
@@ -45,11 +46,13 @@ public class GameMain implements EventHandler{
 	
 	public void mainLoop()
 	{
+		RenderState state = new RenderState();
+		
 		while(!Display.isCloseRequested() && gameIsRunning)
 		{
 			RenderUtils.newFrame();
-			RenderUtils.set3DMode();
-			this.currentGameState.executeFrame(this.frameNumber);
+			RenderUtils.set3DMode(state);
+			this.currentGameState.executeFrame(this.frameNumber, state);
 			this.frameNumber++;
 			Display.update();
 			Display.sync(60);

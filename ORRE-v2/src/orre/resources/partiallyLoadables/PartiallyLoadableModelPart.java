@@ -3,7 +3,7 @@ package orre.resources.partiallyLoadables;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 
-import orre.geom.vbo.VBOFormat;
+import orre.gl.vao.VBOFormat;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
 import orre.resources.loaders.obj.StoredModelPart;

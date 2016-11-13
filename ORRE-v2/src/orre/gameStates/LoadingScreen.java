@@ -3,6 +3,7 @@ package orre.gameStates;
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
 import orre.gui.LoadingScreenDrawer;
+import orre.rendering.RenderState;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceLoader;
 
@@ -22,8 +23,9 @@ public class LoadingScreen extends SequencableGameState {
 	public void unset() {}
 
 	@Override
-	public void executeFrame(long frameNumber) {
+	public void executeFrame(long frameNumber, RenderState state) {
 		this.resourceLoader.update();
+		this.resourceLoader.drawLoadingScreen(state);
 		if(this.resourceLoader.isFinished())
 		{
 			this.resourceLoader = null;

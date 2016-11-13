@@ -145,7 +145,7 @@ public class StartupIntro extends SequencableGameState implements AbstractGameSt
 	}
 
 	@Override
-	public void executeFrame(long frameNumber) {
+	public void executeFrame(long frameNumber, RenderState state) {
 		boolean allFinished = true;
 		for(int x = 0; x < brickNodes.length; x++) {
 			for(int y = 0; y < brickNodes.length; y++) {

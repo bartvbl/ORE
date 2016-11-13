@@ -1,4 +1,4 @@
-package orre.geom.vbo;
+package orre.gl.vao;
 
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;

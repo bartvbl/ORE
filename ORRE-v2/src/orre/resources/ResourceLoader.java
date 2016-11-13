@@ -7,6 +7,7 @@ import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.gui.LoadingScreenDrawer;
+import orre.rendering.RenderState;
 import orre.resources.loaders.AnimationLoader;
 import orre.resources.loaders.ConfigLoader;
 import orre.resources.loaders.LXFMLLoader;
@@ -59,10 +60,7 @@ public class ResourceLoader implements EventHandler {
 			hasKickedOffLoading = true;
 		}
 		this.resourceFinalizer.doFinalizations();
-		if(this.loadingScreenDrawer != null)
-		{
-			this.loadingScreenDrawer.draw(this.progressTracker.getProgress());
-		}
+		
 	}
 	
 	public void setLoadingScreen(LoadingScreenDrawer loadingScreen)
@@ -90,6 +88,13 @@ public class ResourceLoader implements EventHandler {
 			}
 			UnloadedResource resource = (UnloadedResource) event.getEventParameterObject();
 			this.resourceQueue.enqueueNodeForLoading(resource);
+		}
+	}
+
+	public void drawLoadingScreen(RenderState state) {
+		if(this.loadingScreenDrawer != null)
+		{
+			this.loadingScreenDrawer.draw(this.progressTracker.getProgress(), state);
 		}
 	}
 }

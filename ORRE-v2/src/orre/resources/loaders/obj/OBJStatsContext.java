@@ -2,7 +2,7 @@ package orre.resources.loaders.obj;
 
 import java.util.List;
 
-import orre.geom.vbo.VBOFormat;
+import orre.gl.vao.VBOFormat;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 
 public class OBJStatsContext {

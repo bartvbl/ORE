@@ -3,7 +3,7 @@ package orre.resources.loaders.obj;
 import java.util.ArrayList;
 
 import orre.geom.mesh.ModelPart;
-import orre.geom.vbo.GeometryNode;
+import orre.gl.vao.GeometryNode;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
 
 public class StoredModelPart {

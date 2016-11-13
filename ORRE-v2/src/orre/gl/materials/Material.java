@@ -23,7 +23,6 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	private Texture ambientTexture = null;
 	private Texture diffuseTexture = null;
 	private Texture specularTexture = null;
-	private FloatBuffer colourBuffer = BufferUtils.createFloatBuffer(4);
 	
 	public Material(String name)
 	{
@@ -101,16 +100,6 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		this.alpha = alpha;
 	}
 	
-
-	private FloatBuffer fillColourBuffer(float[] colour) {
-		this.colourBuffer.put(colour[0]);
-		this.colourBuffer.put(colour[1]);
-		this.colourBuffer.put(colour[2]);
-		this.colourBuffer.put(colour[3] * alpha);
-		this.colourBuffer.rewind();
-		return this.colourBuffer;
-	}
-	
 	@Override
 	public void destroy(){}
 	
@@ -137,7 +126,10 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	@Override
 	public void preRender(RenderState state) {
 		state.transformations.pushMatrix();
-		state.shaders.setPropertyi(ShaderProperty.TEXTURE, this.diffuseTexture.id);
+		if(diffuseTexture != null) {
+			state.shaders.setPropertyi(ShaderProperty.TEXTURE, this.diffuseTexture.id);			
+		}
+		
 		state.shaders.setPropertyf(ShaderProperty.MATERIAL_SHININESS, shininess);
 		state.shaders.setProperty4f(ShaderProperty.MATERIAL_AMBIENT, this.ambientColour);
 		state.shaders.setProperty4f(ShaderProperty.MATERIAL_DIFFUSE, this.diffuseColour);
@@ -152,7 +144,7 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	
 	@Override
 	public void postRender(RenderState state) {
-		glPopMatrix();
+		state.transformations.popMatrix();
 	}
 
 }

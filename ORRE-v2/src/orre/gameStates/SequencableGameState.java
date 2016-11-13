@@ -4,6 +4,7 @@ import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
+import orre.rendering.RenderState;
 import orre.resources.ResourceCache;
 
 public abstract class SequencableGameState implements AbstractGameState {
@@ -22,7 +23,7 @@ public abstract class SequencableGameState implements AbstractGameState {
 	}
 	
 	@Override
-	public abstract void executeFrame(long frameNumber);
+	public abstract void executeFrame(long frameNumber, RenderState state);
 	
 	public void setNextState(GameStateName mainMenu)
 	{

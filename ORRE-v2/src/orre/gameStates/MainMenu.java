@@ -6,6 +6,7 @@ import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
+import orre.rendering.RenderState;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
@@ -21,7 +22,7 @@ public class MainMenu extends GameState {
 	}
 	
 	@Override
-	public void executeFrame(long frameNumber) {
+	public void executeFrame(long frameNumber, RenderState state) {
 		
 	}
 

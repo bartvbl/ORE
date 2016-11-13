@@ -21,7 +21,6 @@ import orre.scripting.ScriptInterpreter;
 public class GameRunning extends GameState {
 	private GameWorld gameWorld;
 	private ContainerNode sceneRoot;
-	private final RenderState renderState = new RenderState();
 	
 	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter)
 	{
@@ -34,9 +33,9 @@ public class GameRunning extends GameState {
 	}
 	
 	@Override
-	public void executeFrame(long frameNumber) {
+	public void executeFrame(long frameNumber, RenderState state) {
 		this.gameWorld.tick();
-		RenderPass.render(this.sceneRoot, this.renderState);
+		RenderPass.render(this.sceneRoot, state);
 	}
 	
 	@Override

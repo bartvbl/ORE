@@ -4,8 +4,11 @@ import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.util.glu.GLU.gluPerspective;
 
 import org.lwjgl.opengl.Display;
+import org.lwjgl.util.vector.Matrix4f;
 
 import orre.core.GameWindow;
+import orre.geom.Projections;
+import orre.rendering.RenderState;
 
 public class RenderUtils {
 	public static final float NEAR_POINT = 0.1f;
@@ -21,39 +24,31 @@ public class RenderUtils {
 		glLoadIdentity();
 	}
 	
-	public static void set3DMode()
+	public static void set3DMode(RenderState state)
 	{
 		glEnable(GL_DEPTH_TEST);
 		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		gluPerspective(45.0f, ((float)Display.getWidth()/(float)Display.getHeight()), RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
+		
+		Matrix4f projection = Projections.createPerspectiveMatrix((float)Display.getWidth()/(float)Display.getHeight(), 90, RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
+		state.transformations.setMatrix(projection);
+		
 		glEnable(GL_CULL_FACE);
-		glDisable(GL_TEXTURE_2D);
-		glEnable(GL_LIGHTING);
+		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
-	public static void set2DMode()
+	public static void set2DMode(RenderState state)
 	{
 		glDisable(GL_DEPTH_TEST);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-		glOrtho(0, Display.getWidth(), 0, Display.getHeight(), 1, -1);
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		glEnable(GL_TEXTURE_2D);
-		glDisable(GL_LIGHTING);
+		Matrix4f orthoMatrix = Projections.createOrthoMatrix(0, Display.getWidth(), 0, Display.getHeight(), 1, -1);
+		state.transformations.setProjectionMatrix(orthoMatrix);
 		glDisable(GL_CULL_FACE); 
 	}
 	
 	public static void initOpenGL(int windowWidth, int windowHeight)
 	{
 		glViewport(0, 0, GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
 		gluPerspective(60.0f, (float)windowWidth / (float)windowHeight, 0.1f, 10000.0f);
 		glMatrixMode(GL_MODELVIEW);
 		glClearColor(0, 0, 0, 1);
@@ -65,5 +60,9 @@ public class RenderUtils {
 
 	public static void resetSettings() {
 		glClearColor(94.0f/255.0f, 161.0f/255.0f, 255.0f/255.0f, 1f);
+	}
+
+	public static void loadIdentity(RenderState state) {
+		state.transformations.setMatrix(new Matrix4f());
 	}
 }

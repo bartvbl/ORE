@@ -6,7 +6,7 @@ import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.List;
 
-import orre.geom.vbo.VertexBuffer;
+import orre.gl.vao.VertexBuffer;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
 import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 

@@ -6,9 +6,9 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
-import orre.geom.vbo.VBOFormat;
-import orre.geom.vbo.GeometryNode;
-import orre.geom.vbo.GeometryBufferGenerator;
+import orre.gl.vao.GeometryBufferGenerator;
+import orre.gl.vao.GeometryNode;
+import orre.gl.vao.VBOFormat;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
 

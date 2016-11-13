@@ -1,6 +1,6 @@
 package orre.lxf;
 
-import orre.geom.vbo.GeometryNode;
+import orre.gl.vao.GeometryNode;
 import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
