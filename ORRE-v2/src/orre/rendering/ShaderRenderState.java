@@ -40,13 +40,19 @@ public class ShaderRenderState {
 
 	public void commitUniformState() {
 		Matrix4f transform = renderState.transformations.peekMatrix();
-		new Matrix4f().load(matrixBuffer);
+		
+		Matrix4f projection = renderState.transformations.getProjectionMatrix();
+		
+		Matrix4f MVP = new Matrix4f();
+		Matrix4f.mul(projection, transform, MVP);
+		
+		MVP.store(matrixBuffer);
 		matrixBuffer.rewind();
 		GL20.glUniformMatrix4(ShaderProperty.MVP_MATRIX.uniformID, false, matrixBuffer);
 
 		Matrix4f normalTransform = new Matrix4f();
 		Matrix4f.invert(transform, normalTransform);
-		normalTransform.loadTranspose(matrixBuffer);
+		normalTransform.storeTranspose(matrixBuffer);
 		matrixBuffer.rewind();
 		GL20.glUniformMatrix4(ShaderProperty.MVP_NORMAL_MATRIX.uniformID, false, matrixBuffer);
 		

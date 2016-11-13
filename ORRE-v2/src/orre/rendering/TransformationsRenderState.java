@@ -31,4 +31,8 @@ public class TransformationsRenderState {
 	public void setProjectionMatrix(Matrix4f matrix) {
 		this.projectionMatrix = matrix;
 	}
+
+	public Matrix4f getProjectionMatrix() {
+		return projectionMatrix;
+	}
 }

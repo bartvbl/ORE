@@ -49,13 +49,12 @@ public class RenderUtils {
 	public static void initOpenGL(int windowWidth, int windowHeight)
 	{
 		glViewport(0, 0, GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
-		gluPerspective(60.0f, (float)windowWidth / (float)windowHeight, 0.1f, 10000.0f);
-		glMatrixMode(GL_MODELVIEW);
+		
 		glClearColor(0, 0, 0, 1);
 		glClearDepth(1.0);
+		
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);
-		glEnable(GL_LIGHTING);
 	}
 
 	public static void resetSettings() {

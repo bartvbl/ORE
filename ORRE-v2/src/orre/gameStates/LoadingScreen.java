@@ -50,6 +50,7 @@ public class LoadingScreen extends SequencableGameState {
 	@Override
 	public void executeFrame(long frameNumber, RenderState state) {
 		RenderPass.render(sceneRoot, state);
+		
 		this.resourceLoader.update();
 		if(this.resourceLoader.isFinished())
 		{

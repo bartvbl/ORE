@@ -13,7 +13,6 @@ import orre.gl.renderer.RenderPass;
 import orre.gl.texture.Texture;
 import orre.gl.vao.GeometryNode;
 import orre.rendering.RenderState;
-import orre.rendering.ShaderProperty;
 import orre.resources.ResourceLoader;
 import orre.resources.loaders.TextureLoader;
 
@@ -52,9 +51,9 @@ public class DefaultLoadingScreen extends LoadingScreenDrawer {
 		loadingScreen.bind(state);
 		state.transformations.pushMatrix();
 		Matrix4f current = state.transformations.peekMatrix();
-		current = Matrix4f.scale(new Vector3f(Display.getWidth(), Display.getHeight(), 0), current, current);
+		
+		current = Matrix4f.scale(new Vector3f(Display.getWidth(), Display.getHeight(), 1.0f), current, current);
 		state.transformations.setMatrix(current);
-		System.out.println(current);
 		RenderPass.renderSingleNode(texturedQuadVAO, state);
 //		
 //		this.loadingScreen.blit(0, 0, Display.getWidth(), Display.getHeight());

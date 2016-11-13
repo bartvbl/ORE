@@ -39,22 +39,10 @@ public class Projections {
 		float ty = -(top + bottom) / (top - bottom);
 		float tz = -(far + near) / (far - near);
 
-		m.m00 = x_orth;
-		m.m10 = 0;
-		m.m20 = 0;
-		m.m30 = 0;
-		m.m01 = 0;
-		m.m11 = y_orth;
-		m.m21 = 0;
-		m.m31 = 0;
-		m.m02 = 0;
-		m.m12 = 0;
-		m.m22 = z_orth;
-		m.m32 = 0;
-		m.m03 = tx;
-		m.m13 = ty;
-		m.m23 = tz;
-		m.m33 = 1;
+		m.m00 = x_orth;	m.m10 = 0;		m.m20 = 0;		m.m30 = tx;
+		m.m01 = 0;		m.m11 = y_orth;	m.m21 = 0;		m.m31 = ty;
+		m.m02 = 0;		m.m12 = 0;		m.m22 = z_orth;	m.m32 = tz;
+		m.m03 = 0;		m.m13 = 0;		m.m23 = 0;		m.m33 = 1;
 		
 		return m;
 	}
