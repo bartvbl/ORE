@@ -30,7 +30,7 @@ public class RenderUtils {
 		glMatrixMode(GL_PROJECTION);
 		
 		Matrix4f projection = Projections.createPerspectiveMatrix((float)Display.getWidth()/(float)Display.getHeight(), 90, RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
-		state.transformations.setMatrix(projection);
+		state.transformations.setProjectionMatrix(projection);
 		
 		glEnable(GL_CULL_FACE);
 		

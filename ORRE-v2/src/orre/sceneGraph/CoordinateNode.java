@@ -38,12 +38,11 @@ public class CoordinateNode extends ContainerNode {
 	@Override
 	public void preRender(RenderState state) {
 		state.transformations.pushMatrix();
-		Matrix4f current = state.transformations.peekMatrix();
-		Matrix4f.translate(new Vector3f((float) (x - pivotX), (float) (y - pivotY), (float) (z - pivotZ)), current, current);
-		Matrix4f.rotate((float) rotationZ, Axis.z.vector, current, current);
-		Matrix4f.rotate((float) rotationY, Axis.y.vector, current, current);
-		Matrix4f.rotate((float) rotationX, Axis.x.vector, current, current);
-		Matrix4f.translate(new Vector3f((float) (pivotX), (float) (pivotY), (float) (pivotZ)), current, current);
+		state.transformations.translate((float) (x - pivotX), (float) (y - pivotY), (float) (z - pivotZ));
+		state.transformations.rotate((float) rotationZ, Axis.z.vector);
+		state.transformations.rotate((float) rotationY, Axis.y.vector);
+		state.transformations.rotate((float) rotationX, Axis.x.vector);
+		state.transformations.translate((float) (pivotX), (float) (pivotY), (float) (pivotZ));
 	}
 	
 	@Override

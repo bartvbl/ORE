@@ -71,7 +71,7 @@ public class DefaultLoadingScreen extends LoadingScreenDrawer {
 		
 			this.loadingIcon.bind(state);
 			rotation += 3;
-			int size = 50;
+			int size = 100;
 			
 			state.transformations.translate(new Vector3f(80, 80, 0));
 			state.transformations.rotate(rotation, new Vector3f(0, 0, 1));

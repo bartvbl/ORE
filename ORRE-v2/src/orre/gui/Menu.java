@@ -1,7 +1,5 @@
 package orre.gui;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Set;
@@ -10,9 +8,7 @@ import org.lwjgl.opengl.Display;
 
 import orre.animation.Animatable;
 import orre.gameWorld.core.GameWorld;
-import orre.geom.mesh.Model;
 import orre.gui.controls.Control;
-import orre.gui.elements.Container;
 import orre.gui.elements.GUIElement;
 import orre.resources.Finalizable;
 import orre.resources.Resource;

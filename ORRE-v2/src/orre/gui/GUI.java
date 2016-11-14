@@ -13,6 +13,8 @@ import orre.gui.baseNodes.GUIRootNode;
 import orre.gui.controls.Control;
 import orre.input.InputEvent;
 import orre.resources.ResourceType;
+import orre.resources.partiallyLoadables.Shader;
+import orre.sceneGraph.SceneNode;
 import orre.util.Logger;
 import orre.util.Logger.LogType;
 
@@ -25,6 +27,7 @@ public class GUI extends Property {
 	private double mouseX;
 	private double mouseY;
 	private boolean mouseState;
+	private Shader defaultShader;
 
 	public GUI(GameObject object) {
 		super(PropertyType.IS_GUI, object);
@@ -97,8 +100,13 @@ public class GUI extends Property {
 
 	@Override
 	public void init() {
+		this.defaultShader = ((Shader) gameObject.world.resourceCache.getResource(ResourceType.shader, "phong").content);
+		
 		this.guiRoot = new GUIRootNode();
-		gameObject.world.sceneRoot.addChild(guiRoot);
+		SceneNode defaultShaderNode = defaultShader.createSceneNode();
+		defaultShaderNode.addChild(guiRoot);
+		
+		gameObject.world.sceneRoot.addChild(defaultShaderNode);
 		gameObject.world.addMessageListener(MessageType.ANIMATION_ENDED, this.gameObject);
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");

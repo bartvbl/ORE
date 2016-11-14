@@ -3,6 +3,7 @@ package orre.gui.elementNodes;
 import static org.lwjgl.opengl.GL11.*;
 
 import orre.geom.Shapes;
+import orre.gl.renderer.RenderPass;
 import orre.gl.texture.Texture;
 import orre.gl.vao.GeometryNode;
 import orre.gui.baseNodes.GUIBaseNode;
@@ -41,16 +42,7 @@ public class ButtonNode extends GUIBaseNode {
 			return;
 		}
 		textures[activeTextureIndex].bind(state);
-		glBegin(GL_QUADS);
-		glTexCoord2d(0, 0);
-		glVertex2d(x1, y1);
-		glTexCoord2d(1, 0);
-		glVertex2d(x2, y1);
-		glTexCoord2d(1, 1);
-		glVertex2d(x2, y2);
-		glTexCoord2d(0, 1);
-		glVertex2d(x1, y2);
-		glEnd();
+		RenderPass.renderSingleNode(squareVAO, state);
 	}
 	
 	@Override

@@ -6,6 +6,7 @@ import java.util.HashMap;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
+import org.lwjgl.opengl.OpenGLException;
 import org.lwjgl.util.vector.Matrix4f;
 
 public class ShaderRenderState {
@@ -51,6 +52,7 @@ public class ShaderRenderState {
 		matrixBuffer.rewind();
 		GL20.glUniformMatrix4(ShaderProperty.MVP_MATRIX.uniformID, false, matrixBuffer);
 
+		matrixBuffer.rewind();
 		Matrix4f normalTransform = new Matrix4f();
 		Matrix4f.invert(transform, normalTransform);
 		normalTransform.storeTranspose(matrixBuffer);
@@ -59,7 +61,6 @@ public class ShaderRenderState {
 		
 
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, integerProperties.get(ShaderProperty.TEXTURE));
-		
 	}
 
 }

@@ -2,6 +2,9 @@ package orre.resources.partiallyLoadables;
 
 import static org.lwjgl.opengl.GL11.GL_FALSE;
 import static org.lwjgl.opengl.GL20.*;
+
+import org.lwjgl.opengl.GL20;
+
 import orre.gl.shaders.ShaderNode;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
@@ -13,6 +16,8 @@ public class Shader implements Finalizable {
 	private final String vertSource;
 	private final String fragSource;
 	private int programID = -1;
+	private int vertexShaderID;
+	private int fragmentShaderID;
 
 	public Shader(String name, String vertSource, String fragSource) {
 		this.name = name;
@@ -38,8 +43,8 @@ public class Shader implements Finalizable {
 	}
 
 	private void compile() {
-		int vertexShaderID = createShader(vertSource, GL_VERTEX_SHADER);
-		int fragmentShaderID = createShader(fragSource, GL_FRAGMENT_SHADER);
+		this.vertexShaderID = createShader(vertSource, GL_VERTEX_SHADER);
+		this.fragmentShaderID = createShader(fragSource, GL_FRAGMENT_SHADER);
 		int programID = glCreateProgram();
 		glAttachShader(programID, vertexShaderID);
 		glAttachShader(programID, fragmentShaderID);
@@ -53,6 +58,12 @@ public class Shader implements Finalizable {
 	
 	public ShaderNode createSceneNode() {
 		return new ShaderNode(programID);
+	}
+
+	public void destroy() {
+		glDeleteProgram(programID);
+		glDeleteShader(vertexShaderID);
+		glDeleteShader(fragmentShaderID);
 	}
 
 }

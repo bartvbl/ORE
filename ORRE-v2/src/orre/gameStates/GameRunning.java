@@ -1,13 +1,18 @@
 package orre.gameStates;
 
+import java.io.File;
+
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
 import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
 import orre.gl.renderer.RenderPass;
+import orre.gl.shaders.ShaderNode;
 import orre.rendering.RenderState;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
+import orre.resources.UnloadedResource;
+import orre.resources.loaders.ShaderLoader;
 import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.ContainerNode;
 import orre.scripting.ScriptInterpreter;
@@ -15,6 +20,8 @@ import orre.scripting.ScriptInterpreter;
 public class GameRunning extends GameState {
 	private GameWorld gameWorld;
 	private ContainerNode sceneRoot;
+	private ShaderNode defaultShaderNode;
+	private Shader defaultShader;
 	
 	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter)
 	{
@@ -29,7 +36,7 @@ public class GameRunning extends GameState {
 	@Override
 	public void executeFrame(long frameNumber, RenderState state) {
 		this.gameWorld.tick();
-		RenderPass.render(this.sceneRoot, state);
+		RenderPass.render(this.defaultShaderNode, state);
 	}
 	
 	@Override
@@ -37,6 +44,10 @@ public class GameRunning extends GameState {
 		System.out.println("game has started.");
 		
 		this.sceneRoot = new ContainerNode();
+		
+		this.defaultShader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content);
+		defaultShaderNode = defaultShader.createSceneNode();
+		defaultShaderNode.addChild(sceneRoot);
 		
 		ContainerNode cameraContainer = new ContainerNode();
 		sceneRoot.addChild(cameraContainer);
@@ -51,5 +62,6 @@ public class GameRunning extends GameState {
 	@Override
 	public void unset() {
 		gameWorld.services.shutdown();
+		defaultShader.destroy();
 	}
 }

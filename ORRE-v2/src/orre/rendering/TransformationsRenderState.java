@@ -51,4 +51,8 @@ public class TransformationsRenderState {
 		Matrix4f current = matrixStack.peek();
 		Matrix4f.rotate((float) Math.toRadians(rotation), axis, current, current);
 	}
+
+	public void translate(float x, float y, float z) {
+		translate(new Vector3f(x, y, z));
+	}
 }

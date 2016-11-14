@@ -40,6 +40,6 @@ public class GeometryNode extends ContainerNode implements SceneNode {
 	
 	@Override
 	public String toString() {
-		return "GeometryBuffer with " + vertexCount + " vertices";
+		return "GeometryBuffer with " + vertexCount + " vertices and " + indexCount + " indices.";
 	}
 }

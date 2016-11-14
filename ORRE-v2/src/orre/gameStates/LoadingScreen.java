@@ -45,7 +45,9 @@ public class LoadingScreen extends SequencableGameState {
 	
 	
 	@Override
-	public void unset() {}
+	public void unset() {
+		defaultShader.destroy();
+	}
 
 	@Override
 	public void executeFrame(long frameNumber, RenderState state) {
