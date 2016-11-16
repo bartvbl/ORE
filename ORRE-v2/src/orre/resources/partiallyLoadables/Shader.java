@@ -57,7 +57,7 @@ public class Shader implements Finalizable {
 	}
 	
 	public ShaderNode createSceneNode() {
-		return new ShaderNode(programID);
+		return new ShaderNode(name, programID);
 	}
 
 	public void destroy() {

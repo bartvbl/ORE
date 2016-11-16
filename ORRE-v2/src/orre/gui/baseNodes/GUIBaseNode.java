@@ -5,8 +5,8 @@ import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 
 public abstract class GUIBaseNode extends CoordinateNode implements SceneNode {
-	private double width;
-	private double height;
+	private float width;
+	private float height;
 	
 	public GUIBaseNode() {
 		
@@ -16,7 +16,7 @@ public abstract class GUIBaseNode extends CoordinateNode implements SceneNode {
 		super(name);
 	}
 	
-	public void updateBounds(double x, double y, double width, double height) {
+	public void updateBounds(float x, float y, float width, float height) {
 		this.x = x;
 		this.y = y;
 		this.width = width;
@@ -28,7 +28,7 @@ public abstract class GUIBaseNode extends CoordinateNode implements SceneNode {
 		this.draw(state, 0, 0, width, height);
 	}
 
-	protected abstract void draw(RenderState state, double x1, double y1, double x2, double y2);
+	protected abstract void draw(RenderState state, float x1, float y1, float x2, float y2);
 
 	public abstract void finaliseResource();
 

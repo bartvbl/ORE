@@ -34,11 +34,4 @@ public class TransformMatrixUtils {
 		matrix.load(matrixBuffer);
 		return matrix;
 	}
-
-	public static void applyMatrixOnCurrentMatrix(Matrix4f inverse) {
-		matrixBuffer.rewind();
-		inverse.store(matrixBuffer);
-		matrixBuffer.rewind();
-		glMultMatrix(matrixBuffer);
-	}
 }

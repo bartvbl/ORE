@@ -8,7 +8,8 @@ public class ShaderNode extends ContainerNode {
 
 	private int programID;
 
-	public ShaderNode(int programID) {
+	public ShaderNode(String name, int programID) {
+		super(name);
 		this.programID = programID;
 	}
 	
@@ -32,6 +33,6 @@ public class ShaderNode extends ContainerNode {
 	
 	@Override
 	public String toString() {
-		return "Shader node";
+		return "Shader node \"" + name + "\"";
 	}
 }

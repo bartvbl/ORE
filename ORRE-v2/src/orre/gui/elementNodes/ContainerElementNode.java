@@ -10,7 +10,7 @@ public class ContainerElementNode extends GUIBaseNode {
 	}
 
 	@Override
-	protected void draw(RenderState state, double x1, double y1, double x2, double y2) {
+	protected void draw(RenderState state, float x1, float y1, float x2, float y2) {
 	}
 	
 	public String toString() {

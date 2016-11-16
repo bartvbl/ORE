@@ -100,7 +100,7 @@ public class GUI extends Property {
 
 	@Override
 	public void init() {
-		this.defaultShader = ((Shader) gameObject.world.resourceCache.getResource(ResourceType.shader, "phong").content);
+		this.defaultShader = ((Shader) gameObject.world.resourceCache.getResource(ResourceType.shader, "default").content);
 		
 		this.guiRoot = new GUIRootNode();
 		SceneNode defaultShaderNode = defaultShader.createSceneNode();

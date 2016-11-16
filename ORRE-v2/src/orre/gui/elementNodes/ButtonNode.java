@@ -1,14 +1,11 @@
 package orre.gui.elementNodes;
 
-import static org.lwjgl.opengl.GL11.*;
-
 import orre.geom.Shapes;
 import orre.gl.renderer.RenderPass;
 import orre.gl.texture.Texture;
 import orre.gl.vao.GeometryNode;
 import orre.gui.baseNodes.GUIBaseNode;
 import orre.rendering.RenderState;
-import orre.rendering.ShaderProperty;
 
 public class ButtonNode extends GUIBaseNode {
 	private final Texture[] textures = new Texture[4];
@@ -37,12 +34,16 @@ public class ButtonNode extends GUIBaseNode {
 	}
 	
 	@Override
-	protected void draw(RenderState state, double x1, double y1, double x2, double y2) {
+	protected void draw(RenderState state, float x1, float y1, float x2, float y2) {
 		if(textures[activeTextureIndex] == null) {
 			return;
 		}
 		textures[activeTextureIndex].bind(state);
+		state.transformations.pushMatrix();
+		state.transformations.translate(x1, y1, 0);
+		state.transformations.scale(x2 - x1, y2 - y1, 1);
 		RenderPass.renderSingleNode(squareVAO, state);
+		state.transformations.popMatrix();
 	}
 	
 	@Override

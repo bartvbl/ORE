@@ -15,6 +15,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.util.vector.Matrix4f;
 
 import orre.rendering.RenderState;
 
@@ -24,35 +25,21 @@ public class CoordConverter {
 	private static final IntBuffer viewport = BufferUtils.createIntBuffer(16);
 	private static final FloatBuffer location = BufferUtils.createFloatBuffer(3);
 	private static final FloatBuffer winZ = BufferUtils.createFloatBuffer(1);
-	
-	public static float[] getScreenCoords(float x, float y, float z)
-	{
-		modelView.clear().rewind();
-		projection.clear().rewind();
-		viewport.clear().rewind();
-		location.clear().rewind();
-		
-		glGetFloat(GL_MODELVIEW_MATRIX, modelView);
-		glGetFloat(GL_PROJECTION_MATRIX, projection);
-		glGetInteger(GL_VIEWPORT, viewport);
-		
-		gluProject(x, y, z, modelView, projection, viewport, location);
-		return new float[] {location.get(0), location.get(1), location.get(2)};
-	}
+
 	public static float[] getMapCoords(RenderState state, int x, int y)
 	{
-		modelView.clear().rewind();
+		/*modelView.clear().rewind();
 		projection.clear().rewind();
 		viewport.clear().rewind();
 		location.clear().rewind();
 		winZ.clear().rewind();
-		
-		glGetFloat(GL_MODELVIEW_MATRIX, modelView);
-		glGetFloat(GL_PROJECTION_MATRIX, projection);
-		glGetInteger(GL_VIEWPORT, viewport);
-		
+
+		Matrix4f model = state.transformations.peekMatrix();
+		Matrix4f projection = state.transformations.getProjectionMatrix();
+
+
 		glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, winZ);
-		gluUnProject(x, y, winZ.get(0), modelView, projection, viewport, location);
-		return new float[] {location.get(0), location.get(1), location.get(2)};
+		gluUnProject(x, y, winZ.get(0), modelView, projection, viewport, location);*/
+		return new float[] {0, 0, 0};
 	}
 }

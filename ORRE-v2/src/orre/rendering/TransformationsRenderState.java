@@ -55,4 +55,13 @@ public class TransformationsRenderState {
 	public void translate(float x, float y, float z) {
 		translate(new Vector3f(x, y, z));
 	}
+
+	public void scale(float x, float y, float z) {
+		scale(new Vector3f(x, y, z));
+	}
+
+	public void applyTransformation(Matrix4f matrix) {
+		Matrix4f current = matrixStack.peek();
+		Matrix4f.mul(current, matrix, current);
+	}
 }

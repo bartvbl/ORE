@@ -1,6 +1,8 @@
 package orre.gui.baseNodes;
 
+import orre.geom.Shapes;
 import orre.gl.RenderUtils;
+import orre.gl.vao.GeometryNode;
 import orre.rendering.RenderState;
 
 import orre.sceneGraph.ContainerNode;
@@ -14,8 +16,8 @@ public class GUIRootNode extends ContainerNode implements SceneNode {
 	@Override
 	public void preRender(RenderState state) {
 		state.transformations.pushMatrix();
-		RenderUtils.loadIdentity(state);
 		RenderUtils.set2DMode(state);
+		RenderUtils.loadIdentity(state);
 	}
 	
 	@Override

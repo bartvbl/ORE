@@ -47,7 +47,7 @@ public class ShaderRenderState {
 		
 		Matrix4f MVP = new Matrix4f();
 		Matrix4f.mul(projection, transform, MVP);
-		
+
 		MVP.store(matrixBuffer);
 		matrixBuffer.rewind();
 		GL20.glUniformMatrix4(ShaderProperty.MVP_MATRIX.uniformID, false, matrixBuffer);

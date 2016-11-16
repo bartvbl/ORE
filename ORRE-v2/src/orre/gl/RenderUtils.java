@@ -18,21 +18,16 @@ public class RenderUtils {
 	{
 		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT | GL_STENCIL_BUFFER_BIT);
 		glViewport(0, 0, Display.getWidth(), Display.getHeight()); 
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
 	}
 	
 	public static void set3DMode(RenderState state)
 	{
 		glEnable(GL_DEPTH_TEST);
-		glMatrixMode(GL_PROJECTION);
 		
 		Matrix4f projection = Projections.createPerspectiveMatrix((float)Display.getWidth()/(float)Display.getHeight(), 90, RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
 		state.transformations.setProjectionMatrix(projection);
 		
-		glEnable(GL_CULL_FACE);
+		glDisable(GL_CULL_FACE);
 		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
@@ -51,7 +46,7 @@ public class RenderUtils {
 		glViewport(0, 0, GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);
 		
 		glClearColor(0, 0, 0, 1);
-		glClearDepth(1.0);
+		//glClearDepth(1.0);
 		
 		glShadeModel(GL_SMOOTH);
 		glEnable(GL_DEPTH_TEST);

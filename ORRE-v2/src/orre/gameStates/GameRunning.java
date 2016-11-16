@@ -43,9 +43,9 @@ public class GameRunning extends GameState {
 	public void set() {
 		System.out.println("game has started.");
 		
-		this.sceneRoot = new ContainerNode();
+		this.sceneRoot = new ContainerNode("Scene Root Node");
 		
-		this.defaultShader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content);
+		this.defaultShader = ((Shader) resourceCache.getResource(ResourceType.shader, "default").content);
 		defaultShaderNode = defaultShader.createSceneNode();
 		defaultShaderNode.addChild(sceneRoot);
 		

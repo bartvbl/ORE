@@ -21,11 +21,9 @@ public class Light extends CoordinateNode implements SceneNode {
 	private float[] zero = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 	
 	private FloatBuffer colourBuffer = BufferUtils.createFloatBuffer(4);
-	private Sphere sphere;
 	private double height = 5d;
 	
 	public Light() {
-		this.sphere = new Sphere();
 	}
 	
 	@Override
@@ -38,7 +36,6 @@ public class Light extends CoordinateNode implements SceneNode {
 		if(Keyboard.isKeyDown(Keyboard.KEY_1)) {
 			height -= 0.1;
 		}
-		sphere.draw(0.1f, 20, 20);
 		
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_POSITION, position);
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_AMBIENT, ambientLight);

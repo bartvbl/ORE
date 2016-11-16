@@ -67,11 +67,11 @@ public class Menu implements Animatable, Finalizable {
 		return hasConsumedMouse;
 	}
 	
-	private void updateBounds(GUIElement element, double parentX, double parentY, double parentWidth, double parentHeight) {
-		double x = element.bounds.getX(parentWidth, parentHeight);
-		double y = element.bounds.getY(parentWidth, parentHeight);
-		double width = element.bounds.getWidth(parentWidth, parentHeight);
-		double height = element.bounds.getHeight(parentWidth, parentHeight);
+	private void updateBounds(GUIElement element, float parentX, float parentY, float parentWidth, float parentHeight) {
+		float x = (float) element.bounds.getX(parentWidth, parentHeight);
+		float y = (float) element.bounds.getY(parentWidth, parentHeight);
+		float width = (float) element.bounds.getWidth(parentWidth, parentHeight);
+		float height = (float) element.bounds.getHeight(parentWidth, parentHeight);
 		element.sceneNode.updateBounds(x, y, width, height);
 		element.update(x + parentX, y + parentY, width, height);
 		for(GUIElement child : element.getChildren()) {
