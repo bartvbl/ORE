@@ -12,10 +12,10 @@ import static org.lwjgl.opengl.GL30.*;
 public class GeometryBufferGenerator {
 	
 	public static GeometryNode generateGeometryBuffer(VBOFormat dataFormat, FloatBuffer geometryData, IntBuffer indices, int vertexCount, int indexCount) {
-		return generateGeometryBuffer(dataFormat, geometryData, indices, vertexCount, indexCount, DrawingMode.TRIANGLES);
+		return generateGeometryBuffer(dataFormat, VBOFlags.STATIC_DRAW, geometryData, indices, vertexCount, indexCount, DrawingMode.TRIANGLES);
 	}
 	
-	public static GeometryNode generateGeometryBuffer(VBOFormat dataFormat, FloatBuffer geometryData, IntBuffer indices, int vertexCount, int indexCount, DrawingMode drawingMode) {
+	public static GeometryNode generateGeometryBuffer(VBOFormat dataFormat, VBOFlags flags, FloatBuffer geometryData, IntBuffer indices, int vertexCount, int indexCount, DrawingMode drawingMode) {
 		int arrayID = glGenVertexArrays();
 		glBindVertexArray(arrayID);
 		
@@ -25,8 +25,8 @@ public class GeometryBufferGenerator {
 		int vertexBufferID = createBuffer();
 		int indexBufferID = createBuffer();
 		
-		storeIndexData(indexBufferID, indices);
-		storeVertexData(vertexBufferID, geometryData);
+		storeIndexData(indexBufferID, indices, flags);
+		storeVertexData(vertexBufferID, geometryData, flags);
 		
 		// Since all data is stored in single buffers, we don't need to bind other buffers for setting these up
 		setDataPointers(dataFormat);
@@ -85,14 +85,24 @@ public class GeometryBufferGenerator {
 		return buffer.get(0);
 	}
 	
-	private static void storeVertexData(int bufferIndex, FloatBuffer geometryData) {
+	private static void storeVertexData(int bufferIndex, FloatBuffer geometryData, VBOFlags flags) {
+		int hint = GL_STATIC_DRAW;
+		if(flags == VBOFlags.DYNAMIC_DRAW) {
+			hint = GL_DYNAMIC_DRAW;
+		}
+		
 		glBindBuffer(GL_ARRAY_BUFFER, bufferIndex);
-		glBufferData(GL_ARRAY_BUFFER, geometryData, GL_STATIC_DRAW);
+		glBufferData(GL_ARRAY_BUFFER, geometryData, hint);
 	}
 	
-	private static void storeIndexData(int bufferIndex, IntBuffer indexes) {
+	private static void storeIndexData(int bufferIndex, IntBuffer indexes, VBOFlags flags) {
+		int hint = GL_STATIC_DRAW;
+		if(flags == VBOFlags.DYNAMIC_DRAW) {
+			hint = GL_DYNAMIC_DRAW;
+		}
+		
 		glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, bufferIndex);
-		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexes, GL_STATIC_DRAW);
+		glBufferData(GL_ELEMENT_ARRAY_BUFFER, indexes, hint);
 	}
 	
 	public static GeometryNode generateNormalsGeometryBuffer(VBOFormat dataFormat, FloatBuffer geometryData, IntBuffer indices) {
@@ -128,6 +138,7 @@ public class GeometryBufferGenerator {
 		vertexBuffer.rewind();
 		normalIndices.rewind();
 		
-		return generateGeometryBuffer(dataFormat, vertexBuffer, normalIndices, vertexCount * 2 * 2, vertexCount*2, DrawingMode.LINES);
+		return generateGeometryBuffer(dataFormat, VBOFlags.STATIC_DRAW, vertexBuffer, normalIndices, vertexCount * 2 * 2, vertexCount*2, DrawingMode.LINES);
 	}
+
 }
