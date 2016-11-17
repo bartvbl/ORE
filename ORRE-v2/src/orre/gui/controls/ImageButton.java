@@ -53,6 +53,7 @@ public class ImageButton extends Control {
 			disabledTexture = (Texture) resourceCache.getResource(ResourceType.texture, disabledImageName).content;
 		}
 		buttonNode.setTextures(upTexture, overTexture, downTexture, disabledTexture);
+		buttonNode.finaliseResource();
 	}
 
 	@Override

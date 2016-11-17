@@ -47,6 +47,8 @@ public class ImageToggleButton extends ImageButton {
 		}
 	}	
 	
+	
+	
 	public String toString() {
 		return "ImageToggleButton " + this.name;
 	}

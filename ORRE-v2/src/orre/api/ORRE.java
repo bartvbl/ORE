@@ -11,6 +11,7 @@ import orre.util.FatalExceptionHandler;
 
 public class ORRE {
 	private final GameMain main;
+	private static boolean isDebugEnabled = false;
 
 	public static ORRE init(String[] args, GameSettings settings) {
 		readDebugFlag(args);
@@ -27,6 +28,8 @@ public class ORRE {
 				System.out.println("Debugging enabled!");
 				System.setProperty("org.lwjgl.util.Debug", "true");
 				System.loadLibrary("opengl32");
+			} else if(arg.equalsIgnoreCase("debug_mode")) {
+				isDebugEnabled = true;
 			}
 		}
 	}
@@ -50,11 +53,16 @@ public class ORRE {
 	}
 	
 	public void run() {
-		try {
+		if(!isDebugEnabled) {			
+			try {
+				main.mainLoop();
+			} catch(Exception e) {
+				e.printStackTrace();
+				FatalExceptionHandler.exitWithErrorMessage(e.getMessage());
+			}
+		} else {
+			// Ensure exceptions are caught when they occur
 			main.mainLoop();
-		} catch(Exception e) {
-			e.printStackTrace();
-			FatalExceptionHandler.exitWithErrorMessage(e.getMessage());
 		}
 	}
 	
