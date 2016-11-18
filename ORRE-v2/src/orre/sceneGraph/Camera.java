@@ -13,7 +13,7 @@ public class Camera extends LeafNode
 	}
 	
 	protected void transform(RenderState state) {
-		transformationMatrix.setIdentity();
+		state.transformations.setViewMatrix(transformationMatrix);
 	}
 
 	@Override

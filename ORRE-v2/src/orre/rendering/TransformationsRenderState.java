@@ -8,6 +8,7 @@ import orre.util.Stack;
 public class TransformationsRenderState {
 	private Stack<Matrix4f> matrixStack = new Stack<Matrix4f>();
 	private Matrix4f projectionMatrix = new Matrix4f();
+	private Matrix4f viewMatrix = new Matrix4f();
 	
 	public TransformationsRenderState() {
 		matrixStack.push(new Matrix4f());
@@ -35,6 +36,14 @@ public class TransformationsRenderState {
 
 	public Matrix4f getProjectionMatrix() {
 		return projectionMatrix;
+	}
+	
+	public void setViewMatrix(Matrix4f viewMatrix) {
+		this.viewMatrix  = viewMatrix;
+	}
+	
+	public Matrix4f getViewMatrix() {
+		return this.viewMatrix;
 	}
 
 	public void scale(Vector3f vec) {
