@@ -138,7 +138,7 @@ public class GeometryBufferGenerator {
 		vertexBuffer.rewind();
 		normalIndices.rewind();
 		
-		return generateGeometryBuffer(dataFormat, VBOFlags.STATIC_DRAW, vertexBuffer, normalIndices, vertexCount * 2 * 2, vertexCount*2, DrawingMode.LINES);
+		return generateGeometryBuffer(VBOFormat.VERTICES, VBOFlags.STATIC_DRAW, vertexBuffer, normalIndices, vertexCount * 2 * 2, vertexCount*2, DrawingMode.LINES);
 	}
 
 }
