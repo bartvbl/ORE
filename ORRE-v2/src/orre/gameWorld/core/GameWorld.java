@@ -15,7 +15,6 @@ import orre.util.ArrayUtils;
 import orre.util.Queue;
 
 public class GameWorld {
-	public final SceneNode scene3DRoot;
 	public final WorldServices services;
 	public final ResourceCache resourceCache;
 	public final ContainerNode sceneRoot;
@@ -26,10 +25,9 @@ public class GameWorld {
 	private final HashMap<MessageType, ArrayList<MessageHandler>> messageListeners;
 	private final Queue<Integer> despawnQueue;
 	
-	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ContainerNode shader, ContainerNode rootNode, ContainerNode cameraContainer) {
-		this.scene3DRoot = shader;//new ContainerNode("Scene root");
+	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ContainerNode rootNode) {
 		this.sceneRoot = rootNode;
-		this.services = new WorldServices(this, cache, interpreter, cameraContainer);
+		this.services = new WorldServices(this, cache, interpreter);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<MessageHandler>>();
 		this.propertyMap = new HashMap<Enum<?>, int[]>();

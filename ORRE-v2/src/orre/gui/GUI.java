@@ -9,6 +9,7 @@ import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
+import orre.gl.camera.OrthographicCameraNode;
 import orre.gui.baseNodes.GUIRootNode;
 import orre.gui.controls.Control;
 import orre.input.InputEvent;
@@ -103,10 +104,13 @@ public class GUI extends Property {
 		this.defaultShader = ((Shader) gameObject.world.resourceCache.getResource(ResourceType.shader, "default").content);
 		
 		this.guiRoot = new GUIRootNode();
+		OrthographicCameraNode camera = new OrthographicCameraNode();
+		
 		SceneNode defaultShaderNode = defaultShader.createSceneNode();
 		defaultShaderNode.addChild(guiRoot);
+		camera.addChild(defaultShaderNode);
 		
-		gameObject.world.sceneRoot.addChild(defaultShaderNode);
+		gameObject.world.sceneRoot.addChild(camera);
 		gameObject.world.addMessageListener(MessageType.ANIMATION_ENDED, this.gameObject);
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");

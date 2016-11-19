@@ -6,58 +6,64 @@ import org.lwjgl.util.vector.Vector3f;
 import orre.util.Stack;
 
 public class TransformationsRenderState {
-	private Stack<Matrix4f> matrixStack = new Stack<Matrix4f>();
-	private Matrix4f projectionMatrix = new Matrix4f();
-	private Matrix4f viewMatrix = new Matrix4f();
+	private Stack<Matrix4f> modelMatrixStack = new Stack<Matrix4f>();
+	private Stack<Matrix4f> projectionMatrixStack = new Stack<Matrix4f>();
+	private Stack<Matrix4f> viewMatrixStack = new Stack<Matrix4f>();
 	
 	public TransformationsRenderState() {
-		matrixStack.push(new Matrix4f());
+		modelMatrixStack.push(new Matrix4f());
+		projectionMatrixStack.push(new Matrix4f());
+		viewMatrixStack.push(new Matrix4f());
 	}
 	
 	public void pushMatrix() {
-		matrixStack.push(new Matrix4f(matrixStack.peek()));
+		modelMatrixStack.push(new Matrix4f(modelMatrixStack.peek()));
+		projectionMatrixStack.push(new Matrix4f(projectionMatrixStack.peek()));
+		viewMatrixStack.push(new Matrix4f(viewMatrixStack.peek()));
 	}
 	
 	public void popMatrix() {
-		matrixStack.pop();
+		modelMatrixStack.pop();
+		projectionMatrixStack.pop();
+		viewMatrixStack.pop();
 	}
 
 	public Matrix4f peekMatrix() {
-		return matrixStack.peek();
+		return modelMatrixStack.peek();
 	}
 
 	public void setMatrix(Matrix4f matrix) {
-		matrixStack.set(matrix);
+		modelMatrixStack.set(matrix);
 	}
 
 	public void setProjectionMatrix(Matrix4f matrix) {
-		this.projectionMatrix = matrix;
+		this.projectionMatrixStack.set(matrix);
 	}
 
 	public Matrix4f getProjectionMatrix() {
-		return projectionMatrix;
+		return projectionMatrixStack.peek();
 	}
 	
 	public void setViewMatrix(Matrix4f viewMatrix) {
-		this.viewMatrix  = viewMatrix;
+		this.viewMatrixStack.set(viewMatrix);
 	}
 	
 	public Matrix4f getViewMatrix() {
-		return this.viewMatrix;
+		return this.viewMatrixStack.peek();
 	}
 
 	public void scale(Vector3f vec) {
-		Matrix4f current = matrixStack.peek();
+		Matrix4f current = modelMatrixStack.peek();
 		Matrix4f.scale(vec, current, current);
 	}
 
 	public void translate(Vector3f vec) {
-		Matrix4f current = matrixStack.peek();
+		Matrix4f current = modelMatrixStack.peek();
 		Matrix4f.translate(vec, current, current);
 	}
 
 	public void rotate(float rotation, Vector3f axis) {
-		Matrix4f current = matrixStack.peek();
+		Matrix4f current = modelMatrixStack.peek();
 		Matrix4f.rotate((float) Math.toRadians(rotation), axis, current, current);
 	}
 
@@ -70,7 +76,7 @@ public class TransformationsRenderState {
 	}
 
 	public void applyTransformation(Matrix4f matrix) {
-		Matrix4f current = matrixStack.peek();
+		Matrix4f current = modelMatrixStack.peek();
 		Matrix4f.mul(current, matrix, current);
 	}
 }

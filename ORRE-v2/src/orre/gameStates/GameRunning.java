@@ -11,8 +11,6 @@ import orre.gl.shaders.ShaderNode;
 import orre.rendering.RenderState;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
-import orre.resources.UnloadedResource;
-import orre.resources.loaders.ShaderLoader;
 import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.ContainerNode;
 import orre.scripting.ScriptInterpreter;
@@ -49,11 +47,8 @@ public class GameRunning extends GameState {
 		defaultShaderNode = defaultShader.createSceneNode();
 		defaultShaderNode.addChild(sceneRoot);
 		
-		ContainerNode cameraContainer = new ContainerNode();
-		sceneRoot.addChild(cameraContainer);
-		ContainerNode shader = ((Shader) resourceCache.getResource(ResourceType.shader, "phong").content).createSceneNode();
-		sceneRoot.addChild(shader);
-		this.gameWorld = new GameWorld(this.resourceCache, interpreter, shader, sceneRoot, cameraContainer);
+		this.gameWorld = new GameWorld(this.resourceCache, interpreter, sceneRoot);
+
 		gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.spawnGameObject(GameObjectType.DEV_TOOLS);
 		gameWorld.spawnGameObject(GameObjectType.GUI);

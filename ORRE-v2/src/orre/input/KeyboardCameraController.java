@@ -6,7 +6,7 @@ import orre.gameWorld.core.MessageType;
 import orre.gameWorld.core.Property;
 import orre.gameWorld.core.PropertyType;
 import orre.gameWorld.services.InputService;
-import orre.sceneGraph.Camera;
+import orre.gl.camera.Camera;
 
 public class KeyboardCameraController extends Property {
 

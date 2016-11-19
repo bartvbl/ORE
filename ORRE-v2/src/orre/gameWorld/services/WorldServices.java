@@ -10,20 +10,17 @@ public class WorldServices {
 	public final AIService aiService;
 	public final SoundService soundService;
 	public final InputService inputService;
-	public final CameraService cameraService;
 	public final ScriptingService scriptingService;
 
-	public WorldServices(GameWorld world, ResourceCache cache, ScriptInterpreter interpreter, ContainerNode cameraContainer) {
+	public WorldServices(GameWorld world, ResourceCache cache, ScriptInterpreter interpreter) {
 		this.animationService = new AnimationService(world);
 		this.aiService = new AIService(world);
 		this.soundService = new SoundService();
 		this.inputService = new InputService(world, cache);
-		this.cameraService = new CameraService(cameraContainer);
 		this.scriptingService = new ScriptingService(world, interpreter);
 	}
 	
 	public void tickServices() {
-		this.cameraService.tick();
 		this.aiService.tick();
 		this.soundService.tick();
 		this.inputService.tick();

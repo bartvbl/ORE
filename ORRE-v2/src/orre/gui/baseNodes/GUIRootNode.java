@@ -16,8 +16,6 @@ public class GUIRootNode extends ContainerNode implements SceneNode {
 	@Override
 	public void preRender(RenderState state) {
 		state.transformations.pushMatrix();
-		RenderUtils.set2DMode(state);
-		RenderUtils.loadIdentity(state);
 	}
 	
 	@Override

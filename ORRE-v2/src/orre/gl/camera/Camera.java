@@ -1,12 +1,17 @@
-package orre.sceneGraph;
+package orre.gl.camera;
 
 import org.lwjgl.util.vector.Matrix4f;
 import orre.rendering.RenderState;
+import orre.sceneGraph.ContainerNode;
 
-public class Camera extends LeafNode
+public class Camera extends ContainerNode
 {
 	protected final Matrix4f transformationMatrix = new Matrix4f();
 	
+	public Camera(String name) {
+		super(name);
+	}
+
 	@Override
 	public void preRender(RenderState state) {
 		transform(state);
@@ -18,6 +23,6 @@ public class Camera extends LeafNode
 
 	@Override
 	public String toString() {
-		return "Camera";
+		return name;
 	}
 }
