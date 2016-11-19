@@ -24,6 +24,6 @@ public class RenderPass {
 	public static void renderSingleNode(SceneNode node, RenderState state) {
 		node.preRender(state);
 		node.render(state);
-		node.postRender(state);		
+		node.postRender(state);
 	}
 }

@@ -16,6 +16,7 @@ import orre.input.InputEvent;
 import orre.resources.ResourceType;
 import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.SceneNode;
+import orre.sceneGraph.SceneRootNode;
 import orre.util.Logger;
 import orre.util.Logger.LogType;
 
@@ -110,7 +111,7 @@ public class GUI extends Property {
 		defaultShaderNode.addChild(guiRoot);
 		camera.addChild(defaultShaderNode);
 		
-		gameObject.world.sceneRoot.addChild(camera);
+		((SceneRootNode) gameObject.world.sceneRoot).addGUINode(camera);
 		gameObject.world.addMessageListener(MessageType.ANIMATION_ENDED, this.gameObject);
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
 		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");

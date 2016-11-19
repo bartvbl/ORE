@@ -13,6 +13,7 @@ import orre.resources.ResourceCache;
 import orre.resources.ResourceType;
 import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.ContainerNode;
+import orre.sceneGraph.SceneRootNode;
 import orre.scripting.ScriptInterpreter;
 
 public class GameRunning extends GameState {
@@ -41,7 +42,7 @@ public class GameRunning extends GameState {
 	public void set() {
 		System.out.println("game has started.");
 		
-		this.sceneRoot = new ContainerNode("Scene Root Node");
+		this.sceneRoot = new SceneRootNode("Scene Root Node");
 		
 		this.defaultShader = ((Shader) resourceCache.getResource(ResourceType.shader, "default").content);
 		defaultShaderNode = defaultShader.createSceneNode();

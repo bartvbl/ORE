@@ -27,7 +27,7 @@ public class RenderUtils {
 		Matrix4f projection = Projections.createPerspectiveMatrix((float)Display.getWidth()/(float)Display.getHeight(), 90, RenderUtils.NEAR_POINT, RenderUtils.FAR_POINT);
 		state.transformations.setProjectionMatrix(projection);
 		
-		glDisable(GL_CULL_FACE);
+		glEnable(GL_CULL_FACE);
 		
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

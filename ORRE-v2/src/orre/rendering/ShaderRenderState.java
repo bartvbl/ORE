@@ -25,8 +25,8 @@ public class ShaderRenderState {
 			switch(property) {
 			case LIGHT_AMBIENT:			vec4Properties.put(ShaderProperty.LIGHT_AMBIENT, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case LIGHT_DIFFUSE:			vec4Properties.put(ShaderProperty.LIGHT_DIFFUSE, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
-			case LIGHT_POSITION:		vec4Properties.put(ShaderProperty.LIGHT_POSITION, new float[]{0.0f, 0.0f, 0.0f, 1.0f}); break;
 			case LIGHT_SPECULAR:		vec4Properties.put(ShaderProperty.LIGHT_SPECULAR, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
+			case LIGHT_POSITION:		vec4Properties.put(ShaderProperty.LIGHT_POSITION, new float[]{0.0f, 0.0f, 1.0f, 1.0f}); break;
 			
 			case MATERIAL_AMBIENT:		vec4Properties.put(ShaderProperty.MATERIAL_AMBIENT, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_DIFFUSE:		vec4Properties.put(ShaderProperty.MATERIAL_DIFFUSE, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
@@ -79,7 +79,8 @@ public class ShaderRenderState {
 		matrixBuffer.rewind();
 		Matrix4f normalTransform = new Matrix4f();
 		Matrix4f.invert(MVP, normalTransform);
-		normalTransform.storeTranspose(matrixBuffer);
+		Matrix4f.transpose(normalTransform, normalTransform);
+		normalTransform.store(matrixBuffer);
 		matrixBuffer.rewind();
 		GL20.glUniformMatrix4(ShaderProperty.MVP_NORMAL_MATRIX.uniformID, false, matrixBuffer);
 		

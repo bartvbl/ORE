@@ -51,7 +51,6 @@ public class GameMain implements EventHandler{
 		while(!Display.isCloseRequested() && gameIsRunning)
 		{
 			RenderUtils.newFrame();
-			RenderUtils.set3DMode(state);
 			this.currentGameState.executeFrame(this.frameNumber, state);
 			this.frameNumber++;
 			Display.update();

@@ -14,11 +14,17 @@ public class Camera extends ContainerNode
 
 	@Override
 	public void preRender(RenderState state) {
+		state.transformations.pushMatrix();
 		transform(state);
 	}
 	
 	protected void transform(RenderState state) {
 		state.transformations.setViewMatrix(transformationMatrix);
+	}
+	
+	@Override
+	public void postRender(RenderState state) {
+		state.transformations.popMatrix();
 	}
 
 	@Override

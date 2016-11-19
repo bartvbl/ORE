@@ -79,4 +79,13 @@ public class TransformationsRenderState {
 		Matrix4f current = modelMatrixStack.peek();
 		Matrix4f.mul(current, matrix, current);
 	}
+
+	public void printState() {
+		System.out.println("Projection stack:");
+		System.out.println(projectionMatrixStack);
+		System.out.println("View stack:");
+		System.out.println(viewMatrixStack);
+		System.out.println("Model stack:");
+		System.out.println(modelMatrixStack);
+	}
 }
