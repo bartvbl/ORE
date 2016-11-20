@@ -39,6 +39,9 @@ public class RenderUtils {
 		Matrix4f orthoMatrix = Projections.createOrthoMatrix(0, Display.getWidth(), 0, Display.getHeight(), 1, -1);
 		state.transformations.setProjectionMatrix(orthoMatrix);
 		glDisable(GL_CULL_FACE); 
+		
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
 	public static void initOpenGL(int windowWidth, int windowHeight)

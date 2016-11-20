@@ -26,20 +26,21 @@ public class ShaderRenderState {
 			case LIGHT_AMBIENT:			vec4Properties.put(ShaderProperty.LIGHT_AMBIENT, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case LIGHT_DIFFUSE:			vec4Properties.put(ShaderProperty.LIGHT_DIFFUSE, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case LIGHT_SPECULAR:		vec4Properties.put(ShaderProperty.LIGHT_SPECULAR, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
-			case LIGHT_POSITION:		vec4Properties.put(ShaderProperty.LIGHT_POSITION, new float[]{0.0f, 0.0f, 1.0f, 1.0f}); break;
+			case LIGHT_POSITION:		vec4Properties.put(ShaderProperty.LIGHT_POSITION, new float[]{0.0f, 0.0f, -1.0f, 1.0f}); break;
 			
 			case MATERIAL_AMBIENT:		vec4Properties.put(ShaderProperty.MATERIAL_AMBIENT, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_DIFFUSE:		vec4Properties.put(ShaderProperty.MATERIAL_DIFFUSE, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_EMISSION:		vec4Properties.put(ShaderProperty.MATERIAL_EMISSION, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_SPECULAR:		vec4Properties.put(ShaderProperty.MATERIAL_SPECULAR, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
-			case MATERIAL_SHININESS:	floatProperties.put(ShaderProperty.MATERIAL_SHININESS, 1.0f); break;
+			case MATERIAL_SHININESS:	floatProperties.put(ShaderProperty.MATERIAL_SHININESS, 32.0f); break;
 			
 			case TEXTURE:				integerProperties.put(ShaderProperty.TEXTURE, 0); break;
 			
 			case TEXTURES_ENABLED:		booleanProperties.put(ShaderProperty.TEXTURES_ENABLED, false); break;
 			
+			case MV_MATRIX: break;
 			case MVP_MATRIX: 			/* Do nothing -> Transformations are stored elsewhere */ break;
-			case MVP_NORMAL_MATRIX: 	/* Do nothing -> Transformations are stored elsewhere */ break;
+			case MV_NORMAL_MATRIX: 	/* Do nothing -> Transformations are stored elsewhere */ break;
 			
 			default: 
 				throw new RuntimeException("A ShaderProperty could not be initialised!");	
@@ -75,14 +76,21 @@ public class ShaderRenderState {
 		MVP.store(matrixBuffer);
 		matrixBuffer.rewind();
 		GL20.glUniformMatrix4(ShaderProperty.MVP_MATRIX.uniformID, false, matrixBuffer);
+		
+		Matrix4f modelView = new Matrix4f();
+		Matrix4f.mul(view, model, modelView);
+		modelView.store(matrixBuffer);
+		matrixBuffer.rewind();
+		GL20.glUniformMatrix4(ShaderProperty.MV_MATRIX.uniformID, false, matrixBuffer);
 
 		matrixBuffer.rewind();
 		Matrix4f normalTransform = new Matrix4f();
-		Matrix4f.invert(MVP, normalTransform);
+		Matrix4f.mul(view, model, normalTransform);
+		Matrix4f.invert(normalTransform, normalTransform);
 		Matrix4f.transpose(normalTransform, normalTransform);
 		normalTransform.store(matrixBuffer);
 		matrixBuffer.rewind();
-		GL20.glUniformMatrix4(ShaderProperty.MVP_NORMAL_MATRIX.uniformID, false, matrixBuffer);
+		GL20.glUniformMatrix4(ShaderProperty.MV_NORMAL_MATRIX.uniformID, false, matrixBuffer);
 		
 
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, integerProperties.get(ShaderProperty.TEXTURE));

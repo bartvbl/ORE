@@ -7,6 +7,8 @@ import java.nio.FloatBuffer;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.glu.Sphere;
+import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector4f;
 
 import orre.sceneGraph.SceneNode;
 import orre.rendering.RenderState;
@@ -21,9 +23,10 @@ public class Light extends CoordinateNode implements SceneNode {
 	private float[] zero = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 	
 	private FloatBuffer colourBuffer = BufferUtils.createFloatBuffer(4);
-	private double height = 5d;
+	private float height = 3;
 	
 	public Light() {
+		
 	}
 	
 	@Override
@@ -37,7 +40,13 @@ public class Light extends CoordinateNode implements SceneNode {
 			height -= 0.1;
 		}
 		
-		state.shaders.setProperty4f(ShaderProperty.LIGHT_POSITION, position);
+		Matrix4f MVP = state.transformations.calculateMVMatrix();
+		Vector4f originalPosition = new Vector4f(position[0], position[1], position[2] + height, position[3]);
+		Vector4f transformedPosition = new Vector4f(0, 0, 0, 1);
+		Matrix4f.transform(MVP, originalPosition, transformedPosition);
+		float[] transformed = new float[]{transformedPosition.x, transformedPosition.y, transformedPosition.z, transformedPosition.w};
+		
+		state.shaders.setProperty4f(ShaderProperty.LIGHT_POSITION, transformed);
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_AMBIENT, ambientLight);
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_DIFFUSE, diffuseLight);
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_SPECULAR, specularLight);

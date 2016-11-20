@@ -15,6 +15,7 @@ import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
+import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 
 import orre.rendering.RenderState;
@@ -36,10 +37,20 @@ public class CoordConverter {
 
 		Matrix4f model = state.transformations.peekMatrix();
 		Matrix4f projection = state.transformations.getProjectionMatrix();
-
-
+	*/
+		state.transformations.getProjectionMatrix().store(projection);
+		projection.rewind();
+		
+		Matrix4f modelview = new Matrix4f();
+		Matrix4f.mul(state.transformations.getViewMatrix(), state.transformations.peekMatrix(), modelview);
+		modelview.store(modelView);
+		modelView.rewind();
+		
+		GL11.glGetInteger(GL11.GL_VIEWPORT, viewport);
+		viewport.rewind();
+		
 		glReadPixels(x, y, 1, 1, GL_DEPTH_COMPONENT, GL_FLOAT, winZ);
-		gluUnProject(x, y, winZ.get(0), modelView, projection, viewport, location);*/
-		return new float[] {0, 0, 0};
+		gluUnProject(x, y, winZ.get(0), modelView, projection, viewport, location);
+		return new float[] {location.get(0), location.get(1), location.get(2)};
 	}
 }

@@ -17,7 +17,7 @@ public enum ShaderProperty {
 	TEXTURES_ENABLED(5), 
 	
 	MVP_MATRIX(6),
-	MVP_NORMAL_MATRIX(10);
+	MV_NORMAL_MATRIX(10), MV_MATRIX(2);
 	;
 	
 	

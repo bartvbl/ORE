@@ -88,4 +88,17 @@ public class TransformationsRenderState {
 		System.out.println("Model stack:");
 		System.out.println(modelMatrixStack);
 	}
+
+	public Matrix4f calculateMVPMatrix() {
+		Matrix4f MVP = new Matrix4f();
+		Matrix4f.mul(projectionMatrixStack.peek(), viewMatrixStack.peek(), MVP);
+		Matrix4f.mul(MVP, modelMatrixStack.peek(), MVP);
+		return MVP;
+	}
+
+	public Matrix4f calculateMVMatrix() {
+		Matrix4f MVP = new Matrix4f();
+		Matrix4f.mul(viewMatrixStack.peek(), modelMatrixStack.peek(), MVP);
+		return MVP;
+	}
 }
