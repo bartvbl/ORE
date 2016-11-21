@@ -93,6 +93,7 @@ public class ShaderRenderState {
 		GL20.glUniformMatrix4(ShaderProperty.MV_NORMAL_MATRIX.uniformID, false, matrixBuffer);
 		
 
+		GL20.glUniform1f(ShaderProperty.TEXTURES_ENABLED.uniformID, booleanProperties.get(ShaderProperty.TEXTURES_ENABLED) ? 1 : 0);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, integerProperties.get(ShaderProperty.TEXTURE));
 		//GL20.glUniform1i(ShaderProperty.TEXTURE.uniformID, integerProperties.get(ShaderProperty.TEXTURE));
 		

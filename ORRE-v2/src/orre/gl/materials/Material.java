@@ -126,7 +126,10 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	public void preRender(RenderState state) {
 		state.transformations.pushMatrix();
 		if(diffuseTexture != null) {
+			state.shaders.setPropertyb(ShaderProperty.TEXTURES_ENABLED, true);
 			state.shaders.setPropertyi(ShaderProperty.TEXTURE, this.diffuseTexture.id);			
+		} else {
+			state.shaders.setPropertyb(ShaderProperty.TEXTURES_ENABLED, false);
 		}
 		
 		state.shaders.setPropertyf(ShaderProperty.MATERIAL_SHININESS, shininess);
