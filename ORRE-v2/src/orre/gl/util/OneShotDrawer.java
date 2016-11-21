@@ -5,8 +5,10 @@ import java.nio.IntBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import orre.gl.renderer.RenderPass;
 import orre.gl.vao.DrawingMode;
 import orre.gl.vao.GeometryBufferGenerator;
+import orre.gl.vao.GeometryNode;
 import orre.gl.vao.VBOFlags;
 import orre.gl.vao.VBOFormat;
 import orre.rendering.RenderState;
@@ -19,7 +21,11 @@ public class OneShotDrawer {
 		IntBuffer indices = BufferUtils.createIntBuffer(indexdata.length);
 		indices.put(indexdata).rewind();
 		
-		GeometryBufferGenerator.generateGeometryBuffer(format, VBOFlags.DYNAMIC_DRAW, vertices, indices, vertexData.length, indexdata.length, DrawingMode.TRIANGLES);
+		GeometryNode node = GeometryBufferGenerator.generateGeometryBuffer(format, VBOFlags.DYNAMIC_DRAW, vertices, indices, vertexData.length, indexdata.length, DrawingMode.TRIANGLES);
+		
+		RenderPass.renderSingleNode(node, state);
+		
+		node.destroy();
 	}
 
 }
