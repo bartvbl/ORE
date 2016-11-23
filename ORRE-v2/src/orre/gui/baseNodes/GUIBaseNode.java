@@ -1,6 +1,6 @@
 package orre.gui.baseNodes;
 
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 import orre.sceneGraph.CoordinateNode;
 import orre.sceneGraph.SceneNode;
 

@@ -7,7 +7,7 @@ import org.lwjgl.util.vector.Vector3f;
 
 import orre.geom.Axis;
 import orre.geom.Point3D;
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 
 import static org.lwjgl.opengl.GL11.*;
 

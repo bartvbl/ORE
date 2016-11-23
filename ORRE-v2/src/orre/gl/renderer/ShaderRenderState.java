@@ -1,6 +1,7 @@
-package orre.rendering;
+package orre.gl.renderer;
 
 import java.nio.FloatBuffer;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import org.lwjgl.BufferUtils;
@@ -32,7 +33,7 @@ public class ShaderRenderState {
 			case MATERIAL_DIFFUSE:		vec4Properties.put(ShaderProperty.MATERIAL_DIFFUSE, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_EMISSION:		vec4Properties.put(ShaderProperty.MATERIAL_EMISSION, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_SPECULAR:		vec4Properties.put(ShaderProperty.MATERIAL_SPECULAR, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
-			case MATERIAL_SHININESS:	floatProperties.put(ShaderProperty.MATERIAL_SHININESS, 32.0f); break;
+			case MATERIAL_SHININESS:	floatProperties.put(ShaderProperty.MATERIAL_SHININESS, 3.0f); break;
 			
 			case TEXTURE:				integerProperties.put(ShaderProperty.TEXTURE, 0); break;
 			
@@ -92,8 +93,7 @@ public class ShaderRenderState {
 		matrixBuffer.rewind();
 		GL20.glUniformMatrix4(ShaderProperty.MV_NORMAL_MATRIX.uniformID, false, matrixBuffer);
 		
-
-		GL20.glUniform1f(ShaderProperty.TEXTURES_ENABLED.uniformID, booleanProperties.get(ShaderProperty.TEXTURES_ENABLED) ? 1 : 0);
+		GL20.glUniform1f(ShaderProperty.TEXTURES_ENABLED.uniformID, booleanProperties.get(ShaderProperty.TEXTURES_ENABLED) ? 1.0f : 0.0f);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, integerProperties.get(ShaderProperty.TEXTURE));
 		//GL20.glUniform1i(ShaderProperty.TEXTURE.uniformID, integerProperties.get(ShaderProperty.TEXTURE));
 		

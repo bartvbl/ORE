@@ -3,7 +3,7 @@ package orre.gameStates;
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
 import orre.gameStates.GameState;
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 import orre.resources.ResourceCache;
 import orre.scripting.ScriptInterpreter;
 

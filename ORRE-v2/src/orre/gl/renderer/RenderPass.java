@@ -3,7 +3,6 @@ package orre.gl.renderer;
 import java.util.ArrayList;
 
 import orre.gl.vao.GeometryNode;
-import orre.rendering.RenderState;
 import orre.sceneGraph.SceneNode;
 
 public class RenderPass {

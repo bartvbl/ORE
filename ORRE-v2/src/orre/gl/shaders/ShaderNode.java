@@ -1,6 +1,6 @@
 package orre.gl.shaders;
 
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 import orre.sceneGraph.ContainerNode;
 import static org.lwjgl.opengl.GL20.*;
 

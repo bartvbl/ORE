@@ -1,4 +1,4 @@
-package orre.rendering;
+package orre.gl.renderer;
 
 public class RenderState {
 	public final TransformationsRenderState transformations = new TransformationsRenderState();

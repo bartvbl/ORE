@@ -12,7 +12,7 @@ import orre.events.GlobalEventType;
 import orre.gameStates.*;
 import orre.gameWorld.core.GameWorld;
 import orre.gl.RenderUtils;
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceLoader;
 import orre.scripting.ScriptInterpreter;

@@ -6,12 +6,12 @@ import java.nio.IntBuffer;
 import org.lwjgl.BufferUtils;
 
 import orre.gl.renderer.RenderPass;
+import orre.gl.renderer.RenderState;
 import orre.gl.vao.DrawingMode;
 import orre.gl.vao.GeometryBufferGenerator;
 import orre.gl.vao.GeometryNode;
 import orre.gl.vao.VBOFlags;
 import orre.gl.vao.VBOFormat;
-import orre.rendering.RenderState;
 
 public class OneShotDrawer {
 

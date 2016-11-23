@@ -8,7 +8,7 @@ import org.lwjgl.util.vector.Matrix4f;
 
 import orre.core.GameWindow;
 import orre.geom.Projections;
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 
 public class RenderUtils {
 	public static final float NEAR_POINT = 0.1f;

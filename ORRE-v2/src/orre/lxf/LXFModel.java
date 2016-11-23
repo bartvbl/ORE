@@ -13,11 +13,11 @@ public class LXFModel implements Model, Animatable {
 
 	public final String name;
 	private final HashMap<String, CoordinateNode> partMap = new HashMap<String, CoordinateNode>();
-	public final CoordinateNode rootNode;
+	public final LXFRootNode rootNode;
 
 	public LXFModel(String name, HashMap<BlueprintMaterial, LXFBlueprintPart[]> parts) {
 		this.name = name;
-		rootNode = new CoordinateNode("LXFModel " + name);
+		rootNode = new LXFRootNode("LXFModel " + name);
 		CoordinateNode partRoot = new CoordinateNode("root");
 		rootNode.addChild(partRoot);
 		partMap.put("root", partRoot);

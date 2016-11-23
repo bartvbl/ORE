@@ -1,8 +1,8 @@
 package orre.geom.mesh;
 
 import orre.gl.materials.Material;
+import orre.gl.renderer.RenderState;
 import orre.gl.vao.GeometryNode;
-import orre.rendering.RenderState;
 import orre.sceneGraph.SceneNode;
 import orre.sceneGraph.CoordinateNode;
 

@@ -1,7 +1,7 @@
 package orre.gui.elementNodes;
 
+import orre.gl.renderer.RenderState;
 import orre.gui.baseNodes.GUIBaseNode;
-import orre.rendering.RenderState;
 
 public class ContainerElementNode extends GUIBaseNode {
 

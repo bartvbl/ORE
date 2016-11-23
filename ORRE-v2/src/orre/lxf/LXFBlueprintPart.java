@@ -12,6 +12,7 @@ import orre.gl.vao.GeometryNode;
 import orre.gl.vao.VBOFormat;
 import orre.resources.Finalizable;
 import orre.resources.Resource;
+import orre.sceneGraph.ContainerNode;
 import lib.ldd.data.VBOContents;
 
 public class LXFBlueprintPart implements Finalizable {
@@ -19,6 +20,7 @@ public class LXFBlueprintPart implements Finalizable {
 	private final VBOContents vboContents;
 	public final String name;
 	private GeometryNode compiledVBOContents;
+//	private GeometryNode compiledVBOContentsNormals;
 
 	public LXFBlueprintPart(VBOContents vboContents, String name) {
 		this.vboContents = vboContents;
@@ -26,6 +28,10 @@ public class LXFBlueprintPart implements Finalizable {
 	}
 
 	public LXFPart getPartInstance() {
+//		ContainerNode node = new ContainerNode();
+//		node.addChild(compiledVBOContents);
+//		node.addChild(compiledVBOContentsNormals);
+//		LXFPart part = new LXFPart(name, node);
 		LXFPart part = new LXFPart(name, compiledVBOContents);
 		Vector4f origin = vboContents.getOrigin();
 		part.setPivotLocation(-origin.x, -origin.y, -origin.z);
@@ -53,7 +59,9 @@ public class LXFBlueprintPart implements Finalizable {
 		
 		geometryBuffer.flip();
 		indices.flip();
-		
+//		compiledVBOContentsNormals = GeometryBufferGenerator.generateNormalsGeometryBuffer(dataFormat, geometryBuffer, indices, 0.002f);
+//		indices.rewind();
+//		geometryBuffer.rewind();
 		compiledVBOContents = GeometryBufferGenerator.generateGeometryBuffer(dataFormat, geometryBuffer, indices, vertexCount, indexCount);
 		return null;
 	}

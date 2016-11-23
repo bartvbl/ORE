@@ -4,9 +4,9 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 
+import orre.gl.renderer.RenderState;
+import orre.gl.renderer.ShaderProperty;
 import orre.gl.texture.Texture;
-import orre.rendering.RenderState;
-import orre.rendering.ShaderProperty;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import static org.lwjgl.opengl.GL11.*;

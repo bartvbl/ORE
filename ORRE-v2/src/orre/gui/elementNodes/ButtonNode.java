@@ -2,10 +2,10 @@ package orre.gui.elementNodes;
 
 import orre.geom.Shapes;
 import orre.gl.renderer.RenderPass;
+import orre.gl.renderer.RenderState;
 import orre.gl.texture.Texture;
 import orre.gl.vao.GeometryNode;
 import orre.gui.baseNodes.GUIBaseNode;
-import orre.rendering.RenderState;
 
 public class ButtonNode extends GUIBaseNode {
 	private final Texture[] textures = new Texture[4];

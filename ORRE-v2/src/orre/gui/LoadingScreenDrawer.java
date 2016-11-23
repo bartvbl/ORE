@@ -1,6 +1,6 @@
 package orre.gui;
 
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 import orre.resources.ResourceLoader;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;

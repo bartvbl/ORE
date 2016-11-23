@@ -6,7 +6,7 @@ import orre.core.GameMain;
 import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 import orre.resources.UnloadedResource;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceType;

@@ -2,7 +2,7 @@ package orre.sceneGraph;
 
 import java.util.ArrayList;
 
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 
 public interface SceneNode {
 	public void preRender(RenderState state);

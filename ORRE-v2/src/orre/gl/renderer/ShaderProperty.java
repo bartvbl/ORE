@@ -1,4 +1,4 @@
-package orre.rendering;
+package orre.gl.renderer;
 
 public enum ShaderProperty {
 	TEXTURE(3), 

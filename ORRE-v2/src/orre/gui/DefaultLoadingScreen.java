@@ -10,9 +10,9 @@ import org.lwjgl.util.vector.Vector3f;
 import orre.geom.Shapes;
 import orre.gl.RenderUtils;
 import orre.gl.renderer.RenderPass;
+import orre.gl.renderer.RenderState;
 import orre.gl.texture.Texture;
 import orre.gl.vao.GeometryNode;
-import orre.rendering.RenderState;
 import orre.resources.ResourceLoader;
 import orre.resources.loaders.TextureLoader;
 

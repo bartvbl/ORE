@@ -18,7 +18,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.util.vector.Matrix4f;
 
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 
 public class CoordConverter {
 	private static final FloatBuffer modelView = BufferUtils.createFloatBuffer(16);

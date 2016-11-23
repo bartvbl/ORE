@@ -1,7 +1,8 @@
 package orre.gl.camera;
 
 import org.lwjgl.util.vector.Matrix4f;
-import orre.rendering.RenderState;
+
+import orre.gl.renderer.RenderState;
 import orre.sceneGraph.ContainerNode;
 
 public class Camera extends ContainerNode

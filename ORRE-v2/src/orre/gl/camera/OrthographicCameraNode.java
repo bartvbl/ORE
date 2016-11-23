@@ -1,7 +1,7 @@
 package orre.gl.camera;
 
 import orre.gl.RenderUtils;
-import orre.rendering.RenderState;
+import orre.gl.renderer.RenderState;
 
 public class OrthographicCameraNode extends Camera {
 

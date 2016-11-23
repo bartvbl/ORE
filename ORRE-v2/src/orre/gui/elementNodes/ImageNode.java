@@ -4,10 +4,10 @@ import static org.lwjgl.opengl.GL11.*;
 
 import orre.geom.Shapes;
 import orre.gl.renderer.RenderPass;
+import orre.gl.renderer.RenderState;
 import orre.gl.texture.Texture;
 import orre.gl.vao.GeometryNode;
 import orre.gui.baseNodes.GUIBaseNode;
-import orre.rendering.RenderState;
 
 public class ImageNode extends GUIBaseNode {
 	

@@ -1,7 +1,7 @@
 package orre.gl.texture;
 
-import orre.rendering.RenderState;
-import orre.rendering.ShaderProperty;
+import orre.gl.renderer.RenderState;
+import orre.gl.renderer.ShaderProperty;
 
 public class Texture {
 	public final int id;

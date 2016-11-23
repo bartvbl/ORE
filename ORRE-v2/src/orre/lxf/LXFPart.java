@@ -8,7 +8,7 @@ public class LXFPart extends CoordinateNode implements SceneNode {
 
 	public final String partName;
 
-	public LXFPart(String name, GeometryNode geometry) {
+	public LXFPart(String name, SceneNode geometry) {
 		super(name);
 		this.partName = name;
 		this.addChild(geometry);

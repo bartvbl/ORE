@@ -106,6 +106,10 @@ public class GeometryBufferGenerator {
 	}
 	
 	public static GeometryNode generateNormalsGeometryBuffer(VBOFormat dataFormat, FloatBuffer geometryData, IntBuffer indices) {
+		return generateNormalsGeometryBuffer(dataFormat, geometryData, indices, 1.0f);
+	}
+	
+	public static GeometryNode generateNormalsGeometryBuffer(VBOFormat dataFormat, FloatBuffer geometryData, IntBuffer indices, float scaleFactor) {
 		int vertexCount = geometryData.capacity() / dataFormat.elementsPerVertex;
 		FloatBuffer vertexBuffer = BufferUtils.createFloatBuffer(vertexCount * 2 * 3);
 		IntBuffer normalIndices = BufferUtils.createIntBuffer(vertexCount * 2 * 2);
@@ -118,9 +122,9 @@ public class GeometryBufferGenerator {
 				geometryData.get();
 				geometryData.get();
 			}
-			float nx = geometryData.get();
-			float ny = geometryData.get();
-			float nz = geometryData.get();
+			float nx = geometryData.get() * scaleFactor;
+			float ny = geometryData.get() * scaleFactor;
+			float nz = geometryData.get() * scaleFactor;
 			
 			vertexBuffer.put(x);
 			vertexBuffer.put(y);

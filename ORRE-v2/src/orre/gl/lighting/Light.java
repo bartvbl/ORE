@@ -11,8 +11,8 @@ import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector4f;
 
 import orre.sceneGraph.SceneNode;
-import orre.rendering.RenderState;
-import orre.rendering.ShaderProperty;
+import orre.gl.renderer.RenderState;
+import orre.gl.renderer.ShaderProperty;
 import orre.sceneGraph.CoordinateNode;
 
 public class Light extends CoordinateNode implements SceneNode {

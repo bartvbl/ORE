@@ -1,4 +1,4 @@
-package orre.rendering;
+package orre.gl.renderer;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;

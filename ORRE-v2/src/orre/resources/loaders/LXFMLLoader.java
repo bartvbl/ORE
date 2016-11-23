@@ -2,6 +2,7 @@ package orre.resources.loaders;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.Arrays;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
@@ -69,9 +70,14 @@ public class LXFMLLoader implements ResourceTypeLoader {
 		float blue 	= (material.blue)  / 255f;
 		float alpha = (material.alpha) / 255f;
 		float[] colour = new float[]{red, green, blue, alpha};
+		float[] black = new float[]{0, 0, 0, 1};
+		float[] white = new float[]{1, 1, 1, 1};
+		
+		converted.setAmbientColour(black);
 		converted.setDiffuseColour(colour);
-		converted.setAmbientColour(colour);
+		converted.setSpecularColour(black);
 		if(alpha < 1.0f) {
+			converted.setDiffuseColour(black);
 			converted.setEmissionColour(colour);
 		}
 		return converted;
