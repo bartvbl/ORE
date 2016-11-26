@@ -8,6 +8,7 @@ import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
+import org.lwjgl.util.vector.Vector4f;
 
 public class ShaderRenderState {
 
@@ -33,9 +34,11 @@ public class ShaderRenderState {
 			case MATERIAL_DIFFUSE:		vec4Properties.put(ShaderProperty.MATERIAL_DIFFUSE, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_EMISSION:		vec4Properties.put(ShaderProperty.MATERIAL_EMISSION, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_SPECULAR:		vec4Properties.put(ShaderProperty.MATERIAL_SPECULAR, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
-			case MATERIAL_SHININESS:	floatProperties.put(ShaderProperty.MATERIAL_SHININESS, 3.0f); break;
+			case MATERIAL_SHININESS:	floatProperties.put(ShaderProperty.MATERIAL_SHININESS, 128f); break;
 			
 			case TEXTURE:				integerProperties.put(ShaderProperty.TEXTURE, 0); break;
+			
+			case CAMERA_POSITION:		/* Do nothing -> Calculated elsewhere */ break;
 			
 			case TEXTURES_ENABLED:		booleanProperties.put(ShaderProperty.TEXTURES_ENABLED, false); break;
 			
@@ -80,7 +83,7 @@ public class ShaderRenderState {
 		
 		Matrix4f modelView = new Matrix4f();
 		Matrix4f.mul(view, model, modelView);
-		modelView.store(matrixBuffer);
+		model.store(matrixBuffer);
 		matrixBuffer.rewind();
 		GL20.glUniformMatrix4(ShaderProperty.MV_MATRIX.uniformID, false, matrixBuffer);
 
@@ -96,6 +99,13 @@ public class ShaderRenderState {
 		GL20.glUniform1f(ShaderProperty.TEXTURES_ENABLED.uniformID, booleanProperties.get(ShaderProperty.TEXTURES_ENABLED) ? 1.0f : 0.0f);
 		GL11.glBindTexture(GL11.GL_TEXTURE_2D, integerProperties.get(ShaderProperty.TEXTURE));
 		//GL20.glUniform1i(ShaderProperty.TEXTURE.uniformID, integerProperties.get(ShaderProperty.TEXTURE));
+		
+		Vector4f cameraPosition = new Vector4f(0, 0, 0, 1);
+		Matrix4f transformedView = new Matrix4f();
+		Matrix4f.invert(view, transformedView);
+		Matrix4f.transform(transformedView, cameraPosition, cameraPosition);
+		GL20.glUniform4f(ShaderProperty.CAMERA_POSITION.uniformID, cameraPosition.x, cameraPosition.y, cameraPosition.z, cameraPosition.w);
+		
 		
 		float[] lightPosition = vec4Properties.get(ShaderProperty.LIGHT_POSITION);
 		GL20.glUniform4f(ShaderProperty.LIGHT_POSITION.uniformID, lightPosition[0], lightPosition[1], lightPosition[2], lightPosition[3]);
@@ -116,6 +126,7 @@ public class ShaderRenderState {
 		GL20.glUniform4f(ShaderProperty.MATERIAL_EMISSION.uniformID, materialEmission[0], materialEmission[1], materialEmission[2], materialEmission[3]);
 		float materialShininess = floatProperties.get(ShaderProperty.MATERIAL_SHININESS);
 		GL20.glUniform1f(ShaderProperty.MATERIAL_SHININESS.uniformID, materialShininess);
+		
 	}
 
 }

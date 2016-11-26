@@ -40,7 +40,7 @@ public class Light extends CoordinateNode implements SceneNode {
 			height -= 0.1;
 		}
 		
-		Matrix4f MVP = state.transformations.calculateMVMatrix();
+		Matrix4f MVP = state.transformations.peekMatrix();
 		Vector4f originalPosition = new Vector4f(position[0], position[1], position[2] + height, position[3]);
 		Vector4f transformedPosition = new Vector4f(0, 0, 0, 1);
 		Matrix4f.transform(MVP, originalPosition, transformedPosition);

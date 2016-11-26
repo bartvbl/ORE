@@ -75,7 +75,7 @@ public class LXFMLLoader implements ResourceTypeLoader {
 		
 		converted.setAmbientColour(black);
 		converted.setDiffuseColour(colour);
-		converted.setSpecularColour(black);
+		converted.setSpecularColour(white);
 		if(alpha < 1.0f) {
 			converted.setDiffuseColour(black);
 			converted.setEmissionColour(colour);
