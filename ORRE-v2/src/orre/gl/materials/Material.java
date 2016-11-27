@@ -30,6 +30,7 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		this.diffuseColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 		this.specularColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 		this.emissionColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
+		this.shininess = 32f;
 		this.alpha = 1f;
 	}
 	

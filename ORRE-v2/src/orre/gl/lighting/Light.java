@@ -6,7 +6,6 @@ import java.nio.FloatBuffer;
 
 import org.lwjgl.BufferUtils;
 import org.lwjgl.input.Keyboard;
-import org.lwjgl.util.glu.Sphere;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector4f;
 
@@ -20,6 +19,8 @@ public class Light extends CoordinateNode implements SceneNode {
 	private float[] diffuseLight =  new float[]{1f, 1f, 1f, 1f};
 	private float[] specularLight = new float[]{1f, 1f, 1f, 1f};
 	private float[] position = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
+	private float specularStrength = 10f;
+	
 	private float[] zero = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 	
 	private FloatBuffer colourBuffer = BufferUtils.createFloatBuffer(4);
@@ -40,16 +41,21 @@ public class Light extends CoordinateNode implements SceneNode {
 			height -= 0.1;
 		}
 		
-		Matrix4f MVP = state.transformations.peekMatrix();
+		Matrix4f MVMatrix = new Matrix4f();
+		Matrix4f model = state.transformations.peekMatrix();
+		Matrix4f view = state.transformations.getViewMatrix();
+		Matrix4f.mul(view, model, MVMatrix);
+		
 		Vector4f originalPosition = new Vector4f(position[0], position[1], position[2] + height, position[3]);
 		Vector4f transformedPosition = new Vector4f(0, 0, 0, 1);
-		Matrix4f.transform(MVP, originalPosition, transformedPosition);
+		Matrix4f.transform(model, originalPosition, transformedPosition);
 		float[] transformed = new float[]{transformedPosition.x, transformedPosition.y, transformedPosition.z, transformedPosition.w};
 		
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_POSITION, transformed);
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_AMBIENT, ambientLight);
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_DIFFUSE, diffuseLight);
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_SPECULAR, specularLight);
+		state.shaders.setPropertyf(ShaderProperty.LIGHT_SPECULAR_STRENGTH, specularStrength);
 		
 		state.transformations.popMatrix();
 	}
