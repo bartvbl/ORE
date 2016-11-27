@@ -21,6 +21,10 @@ public class Light extends CoordinateNode implements SceneNode {
 	private float[] position = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 	private float specularStrength = 10f;
 	
+	private float attenuation_constant = 0.7f;
+	private float attenuation_linear = 0.05f;
+	private float attenuation_quadratic = 0.01f;
+	
 	private float[] zero = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 	
 	private FloatBuffer colourBuffer = BufferUtils.createFloatBuffer(4);
@@ -56,6 +60,9 @@ public class Light extends CoordinateNode implements SceneNode {
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_DIFFUSE, diffuseLight);
 		state.shaders.setProperty4f(ShaderProperty.LIGHT_SPECULAR, specularLight);
 		state.shaders.setPropertyf(ShaderProperty.LIGHT_SPECULAR_STRENGTH, specularStrength);
+		state.shaders.setPropertyf(ShaderProperty.ATTENUATION_CONSTANT, attenuation_constant);
+		state.shaders.setPropertyf(ShaderProperty.ATTENUATION_LINEAR, attenuation_linear);
+		state.shaders.setPropertyf(ShaderProperty.ATTENUATION_QUADRATIC, attenuation_quadratic);
 		
 		state.transformations.popMatrix();
 	}

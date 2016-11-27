@@ -31,6 +31,10 @@ public class ShaderRenderState {
 			case LIGHT_POSITION:		vec4Properties.put(ShaderProperty.LIGHT_POSITION, new float[]{0.0f, 0.0f, -1.0f, 1.0f}); break;
 			case LIGHT_SPECULAR_STRENGTH: floatProperties.put(ShaderProperty.LIGHT_SPECULAR_STRENGTH, 8f); break;
 			
+			case ATTENUATION_CONSTANT: 	floatProperties.put(ShaderProperty.ATTENUATION_CONSTANT, 1f); break;
+			case ATTENUATION_LINEAR:	floatProperties.put(ShaderProperty.ATTENUATION_LINEAR, 0.09f); break;
+			case ATTENUATION_QUADRATIC: floatProperties.put(ShaderProperty.ATTENUATION_QUADRATIC, 0.032f); break;
+			
 			case MATERIAL_AMBIENT:		vec4Properties.put(ShaderProperty.MATERIAL_AMBIENT, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_DIFFUSE:		vec4Properties.put(ShaderProperty.MATERIAL_DIFFUSE, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
 			case MATERIAL_EMISSION:		vec4Properties.put(ShaderProperty.MATERIAL_EMISSION, new float[]{1.0f, 1.0f, 1.0f, 1.0f}); break;
@@ -114,6 +118,13 @@ public class ShaderRenderState {
 		GL20.glUniform4f(ShaderProperty.LIGHT_SPECULAR.uniformID, lightSpecular[0], lightSpecular[1], lightSpecular[2], lightSpecular[3]);
 		float specularStrength = floatProperties.get(ShaderProperty.LIGHT_SPECULAR_STRENGTH);
 		GL20.glUniform1f(ShaderProperty.LIGHT_SPECULAR_STRENGTH.uniformID, specularStrength);
+		
+		float attenuationConstant = floatProperties.get(ShaderProperty.ATTENUATION_CONSTANT);
+		GL20.glUniform1f(ShaderProperty.ATTENUATION_CONSTANT.uniformID, attenuationConstant);
+		float attenuationLinear = floatProperties.get(ShaderProperty.ATTENUATION_LINEAR);
+		GL20.glUniform1f(ShaderProperty.ATTENUATION_LINEAR.uniformID, attenuationLinear);
+		float attenuationQuadratic = floatProperties.get(ShaderProperty.ATTENUATION_QUADRATIC);
+		GL20.glUniform1f(ShaderProperty.ATTENUATION_QUADRATIC.uniformID, attenuationQuadratic);
 		
 		float[] materialAmbient = vec4Properties.get(ShaderProperty.MATERIAL_AMBIENT);
 		GL20.glUniform4f(ShaderProperty.MATERIAL_AMBIENT.uniformID, materialAmbient[0], materialAmbient[1], materialAmbient[2], materialAmbient[3]);
