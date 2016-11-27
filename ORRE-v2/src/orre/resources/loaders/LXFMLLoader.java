@@ -3,6 +3,7 @@ package orre.resources.loaders;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Comparator;
 
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
@@ -48,6 +49,28 @@ public class LXFMLLoader implements ResourceTypeLoader {
 	private LXFBlueprintModel convertMesh(Mesh mesh, String modelName, ResourceQueue queue) {
 		LXFBlueprintModel model = new LXFBlueprintModel(modelName);
 		int partCounter = 0;
+		Arrays.sort(mesh.contents, new Comparator<GeometryWithMaterial>() {
+
+			@Override
+			public int compare(GeometryWithMaterial left, GeometryWithMaterial right) {
+				boolean leftIsSolid = left.material.alpha == 255;
+				boolean rightIsSolid = right.material.alpha == 255;
+				
+				// Both solid or both translucent
+				if((leftIsSolid && rightIsSolid) || (!leftIsSolid && !rightIsSolid)) {
+					return 0;
+				}
+				// Only left translucent
+				if(!leftIsSolid) {
+					return -1;
+				}
+				if(!rightIsSolid) {
+					return 1;
+				}
+				return 0;
+			}
+			
+		});
 		for(GeometryWithMaterial group : mesh.contents) {
 			BlueprintMaterial material = convertMaterial(group.material);
 			LXFBlueprintPart[] parts = new LXFBlueprintPart[group.geometry.length];
