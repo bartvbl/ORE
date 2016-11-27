@@ -44,6 +44,10 @@ public class RenderUtils {
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
+	public static void resetViewport() {
+		glViewport(0, 0, Display.getWidth(), Display.getHeight());
+	}
+	
 	public static void initOpenGL(int windowWidth, int windowHeight)
 	{
 		glViewport(0, 0, GameWindow.DEFAULT_WINDOW_WIDTH, GameWindow.DEFAULT_WINDOW_HEIGHT);

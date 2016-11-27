@@ -11,7 +11,7 @@ public class ContainerNode implements SceneNode {
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	protected float renderRadius = 0.0f;
 	protected boolean parentHasBeenRegistered = false;
-	protected final String name;
+	protected String name;
 	
 	public ContainerNode() {
 		this.name = "";

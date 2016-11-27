@@ -28,7 +28,6 @@ public class Light extends CoordinateNode implements SceneNode {
 	private float[] zero = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
 	
 	private FloatBuffer colourBuffer = BufferUtils.createFloatBuffer(4);
-	private float height = 3;
 	
 	public Light() {
 		
@@ -38,19 +37,12 @@ public class Light extends CoordinateNode implements SceneNode {
 	public void preRender(RenderState state) {
 		state.transformations.pushMatrix();
 		
-		if(Keyboard.isKeyDown(Keyboard.KEY_2)) {
-			height += 0.1;
-		}
-		if(Keyboard.isKeyDown(Keyboard.KEY_1)) {
-			height -= 0.1;
-		}
-		
 		Matrix4f MVMatrix = new Matrix4f();
 		Matrix4f model = state.transformations.peekMatrix();
 		Matrix4f view = state.transformations.getViewMatrix();
 		Matrix4f.mul(view, model, MVMatrix);
 		
-		Vector4f originalPosition = new Vector4f(position[0], position[1], position[2] + height, position[3]);
+		Vector4f originalPosition = new Vector4f(position[0], position[1], position[2], position[3]);
 		Vector4f transformedPosition = new Vector4f(0, 0, 0, 1);
 		Matrix4f.transform(model, originalPosition, transformedPosition);
 		float[] transformed = new float[]{transformedPosition.x, transformedPosition.y, transformedPosition.z, transformedPosition.w};

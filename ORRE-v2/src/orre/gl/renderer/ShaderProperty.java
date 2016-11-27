@@ -1,7 +1,8 @@
 package orre.gl.renderer;
 
 public enum ShaderProperty {
-	TEXTURE(3), 
+	TEXTURE0(3), 
+	TEXTURE1(40),
 	
 	MATERIAL_AMBIENT(19), 
 	MATERIAL_DIFFUSE(20), 
@@ -24,7 +25,7 @@ public enum ShaderProperty {
 	
 	ATTENUATION_CONSTANT(24),
 	ATTENUATION_LINEAR(25),
-	ATTENUATION_QUADRATIC(26)
+	ATTENUATION_QUADRATIC(26), LIGHT_MVP(35), 
 	;
 	
 	

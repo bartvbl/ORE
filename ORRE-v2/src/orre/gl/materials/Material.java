@@ -128,7 +128,7 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		state.transformations.pushMatrix();
 		if(diffuseTexture != null) {
 			state.shaders.setPropertyb(ShaderProperty.TEXTURES_ENABLED, true);
-			state.shaders.setPropertyi(ShaderProperty.TEXTURE, this.diffuseTexture.id);			
+			state.shaders.setPropertyi(ShaderProperty.TEXTURE0, this.diffuseTexture.id);			
 		} else {
 			state.shaders.setPropertyb(ShaderProperty.TEXTURES_ENABLED, false);
 		}

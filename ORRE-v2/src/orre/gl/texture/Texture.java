@@ -25,7 +25,7 @@ public class Texture {
 	}
 
 	public void bind(RenderState state) {
-		state.shaders.setPropertyi(ShaderProperty.TEXTURE, id);
+		state.shaders.setPropertyi(ShaderProperty.TEXTURE0, id);
 	}
 	
 	public void unbind() {
