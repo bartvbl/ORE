@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import orre.animation.Animation;
 import orre.animation.AnimationAction;
 import orre.animation.AnimationLineParser;
-import orre.animation.AnimationType;
 import orre.animation.KeyFrame;
 import orre.resources.Finalizable;
 import orre.resources.ResourceQueue;
@@ -75,8 +74,7 @@ public class AnimationLoader implements ResourceTypeLoader {
 		reader.close();
 		fileReader.close();
 		KeyFrame[] framesArray = keyFrames.toArray(new KeyFrame[keyFrames.size()]);
-		AnimationType type = AnimationType.valueOf(animationName);
-		return new Animation(type, framesArray); 
+		return new Animation(animationName, framesArray); 
 	}
 
 	private static String parseFirstLine(String line) throws Exception {

@@ -10,7 +10,6 @@ import org.lwjgl.util.Timer;
 
 import orre.animation.Animatable;
 import orre.animation.Animation;
-import orre.animation.AnimationType;
 import orre.animation.execution.AnimationPlayhead;
 import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Message;
@@ -51,12 +50,12 @@ public class AnimationService implements Service {
 	}
 
 	//Workaround for a NoSuchMethodError.
-	public int applyAnimation(AnimationType type, Mesh3D animatable) {
-		return applyAnimation(type, (Animatable)animatable);
+	public int applyAnimation(String animationResourceName, Mesh3D animatable) {
+		return applyAnimation(animationResourceName, (Animatable)animatable);
 	}
 
-	public int applyAnimation(AnimationType type, Animatable animatable) {
-		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.animation, type.toString()).content;
+	public int applyAnimation(String animationResourceName, Animatable animatable) {
+		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.animation, animationResourceName).content;
 		return applyAnimation(animation, animatable);
 	}
 
