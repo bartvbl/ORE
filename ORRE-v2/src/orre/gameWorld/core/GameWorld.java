@@ -156,4 +156,12 @@ public class GameWorld {
 	public int getOnlyGameObject(Enum<?> gameObjectType) {
 		return objectTypeMap.get(gameObjectType)[0];
 	}
+
+	public void removeMessageListener(MessageType type, MessageHandler listener) {
+		if(!messageListeners.containsKey(type)) {
+			return;
+		}
+		ArrayList<MessageHandler> listenerList = messageListeners.get(type);
+		listenerList.remove(listener);
+	}
 }

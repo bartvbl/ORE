@@ -4,6 +4,7 @@ import java.io.File;
 
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
+import orre.gameWorld.chaining.ChainUtil;
 import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
 import orre.gl.renderer.RenderPass;
@@ -49,6 +50,8 @@ public class GameRunning extends GameState {
 		defaultShaderNode.addChild(sceneRoot);
 		
 		this.gameWorld = new GameWorld(this.resourceCache, interpreter, sceneRoot);
+		
+		ChainUtil.init(gameWorld);
 
 		gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.spawnGameObject(GameObjectType.DEV_TOOLS);

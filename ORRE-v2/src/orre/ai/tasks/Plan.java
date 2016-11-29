@@ -44,13 +44,12 @@ public final class Plan {
 	
 	public void update() {
 		this.actions[activeAction].update();
-		if(actions[activeAction].isFinished() && (activeAction < actions.length - 1)) {
-			actions[activeAction].end();
-			activeAction++;
-			actions[activeAction].start();
-		}
 		if(actions[activeAction].isFinished()) {
 			actions[activeAction].end();
+			if(activeAction < actions.length - 1) {
+				activeAction++;
+				actions[activeAction].start();
+			}
 		}
 	}
 	
@@ -79,5 +78,9 @@ public final class Plan {
 
 	public void start() {
 		actions[0].start();
+	}
+
+	public void end() {
+		actions[actions.length - 1].end();
 	}
 }

@@ -18,11 +18,12 @@ import orre.geom.mesh.Model;
 
 public abstract class TaskExecutor extends Property {
 	private enum TaskExecutorState {
+		STOPPED,
 		IDLE,
 		REQUESTED_TASK,
 		EXECUTING_TASK
 	};
-	private TaskExecutorState state = TaskExecutorState.IDLE;
+	private TaskExecutorState state = TaskExecutorState.STOPPED;
 	
 	private Assignment currentAssignment;
 
@@ -39,17 +40,22 @@ public abstract class TaskExecutor extends Property {
 			this.abort();
 			NewAssignmentMessage newTask = (NewAssignmentMessage) message;
 			this.currentAssignment = newTask.getPayload();
-			System.out.println("Got new assignment: " + currentAssignment.tasks[0].type);
 			currentAssignment.plan.start();
 			state = TaskExecutorState.EXECUTING_TASK;
 		} else if(message.type == MessageType.RUN_ACTION) {
 			this.abort();
+		} else if(message.type == MessageType.START_EXECUTING_TASKS) {
+			this.state = TaskExecutorState.IDLE;
+		} else if(message.type == MessageType.STOP_EXECUTING_TASKS) {
+			this.abort();
+			this.state = TaskExecutorState.STOPPED;
 		}
 	}
 
 	private void abort() {
 		if(state == TaskExecutorState.EXECUTING_TASK) {
 			currentAssignment.abort();
+			currentAssignment.plan.end();
 			this.gameObject.world.services.aiService.returnTask(this.gameObject.id);
 		}
 	}
@@ -62,11 +68,12 @@ public abstract class TaskExecutor extends Property {
 
 	@Override
 	public void tick() {
-		if((state == TaskExecutorState.IDLE) || ((state == TaskExecutorState.EXECUTING_TASK) && currentAssignment.plan.isFinished())) {
+		if(state == TaskExecutorState.IDLE) {
 			requestNewTask();
 		} else if(state == TaskExecutorState.EXECUTING_TASK) {
 			currentAssignment.plan.update();
 			if(currentAssignment.plan.isFinished()) {
+				currentAssignment.plan.end();
 				reportAssignmentCompletion();
 				requestNewTask();
 			}
@@ -83,7 +90,7 @@ public abstract class TaskExecutor extends Property {
 
 	@Override
 	public void destroy() {
-
+		abort();
 	}
 
 	@Override
