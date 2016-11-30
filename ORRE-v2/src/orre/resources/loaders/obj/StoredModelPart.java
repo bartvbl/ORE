@@ -14,6 +14,9 @@ public class StoredModelPart {
 	private ArrayList<BlueprintMaterial> materials = new ArrayList<BlueprintMaterial>();
 	private ArrayList<GeometryNode> geometryBuffers = new ArrayList<GeometryNode>();
 	private double pivotX, pivotY, pivotZ;
+	private float scaleX = 1;
+	private float scaleY = 1;
+	private float scaleZ = 1;
 	
 	private ArrayList<StoredModelPart> childList = new ArrayList<StoredModelPart>();
 
@@ -46,11 +49,18 @@ public class StoredModelPart {
 	}
 
 	public ModelPart createSceneNode() {
-		ModelPart part = new ModelPart();
+		ModelPart part = new ModelPart(name);
+		part.setPivotLocation(pivotX, pivotY, pivotZ);
+		part.setScale(scaleX, scaleY, scaleZ);
 		for(int i = 0; i < this.materials.size(); i++) {
-			part.setPivotLocation(pivotX, pivotY, pivotZ);
 			part.addMaterialAndGeometryBufferCombo(this.materials.get(i).convertToMaterial(), this.geometryBuffers.get(i), this.nameInModel);
 		}
 		return part;
+	}
+
+	public void setScale(float scaleX, float scaleY, float scaleZ) {
+		this.scaleX = scaleX;
+		this.scaleY = scaleY;
+		this.scaleZ = scaleZ;
 	}
 }

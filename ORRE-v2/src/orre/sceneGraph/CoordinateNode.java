@@ -18,6 +18,9 @@ public class CoordinateNode extends ContainerNode {
 	protected boolean visible = true;
 	protected ArrayList<SceneNode> children = new ArrayList<SceneNode>();
 	protected float renderRadius = 0.0f;
+	private float scaleX = 1;
+	private float scaleY = 1;
+	private float scaleZ = 1;
 	
 	public CoordinateNode(String name) {
 		super(name);
@@ -38,6 +41,7 @@ public class CoordinateNode extends ContainerNode {
 	@Override
 	public void preRender(RenderState state) {
 		state.transformations.pushMatrix();
+		state.transformations.scale(scaleX, scaleY, scaleZ);
 		state.transformations.translate((float) (x - pivotX), (float) (y - pivotY), (float) (z - pivotZ));
 		state.transformations.rotate((float) rotationZ, Axis.z.vector);
 		state.transformations.rotate((float) rotationY, Axis.y.vector);
@@ -82,6 +86,12 @@ public class CoordinateNode extends ContainerNode {
 		this.rotationX = rotationX;
 		this.rotationY = rotationY;
 		this.rotationZ = rotationZ;
+	}
+	
+	public void setScale(float scaleX, float scaleY, float scaleZ) {
+		this.scaleX = scaleX;
+		this.scaleY = scaleY;
+		this.scaleZ = scaleZ;
 	}
 	
 	public void setX(double x) {

@@ -29,8 +29,8 @@ public class AnimationLoader implements ResourceTypeLoader {
 			return parseAnimationFile(animationFile);
 		}
 		catch(Exception e) {
-			System.out.println("Failed to load animation at \"" + animationFile.location + "\".");
-			System.out.println("Reason: " + e.getMessage());
+			System.err.println("Failed to load animation at \"" + animationFile.location + "\".");
+			System.err.println("Reason: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return null;

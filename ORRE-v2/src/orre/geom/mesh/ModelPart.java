@@ -35,6 +35,8 @@ public class ModelPart extends CoordinateNode implements SceneNode {
 		return "ModelPart " + this.name;
 	}
 
+	
+
 
 
 }

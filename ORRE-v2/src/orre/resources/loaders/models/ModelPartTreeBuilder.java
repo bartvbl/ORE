@@ -33,8 +33,31 @@ public class ModelPartTreeBuilder {
 		if(partType == ModelPartType.PHYSICAL) {			
 			parsePivotLocation(newPart, nodeElement);
 		}
+		parseScale(newPart, nodeElement);
 		parseChildNodes(newPart, nodeElement, model);
 		return newPart;
+	}
+
+	private static void parseScale(StoredModelPart newPart, Element nodeElement) {
+		float scaleX = 1;
+		float scaleY = 1;
+		float scaleZ = 1;
+
+		if(hasAttribute(nodeElement, "scaleX")) {
+			scaleX = Float.parseFloat(nodeElement.getAttributeValue("scaleX"));
+		}
+		if(hasAttribute(nodeElement, "scaleY")) {
+			scaleY = Float.parseFloat(nodeElement.getAttributeValue("scaleY"));
+		}
+		if(hasAttribute(nodeElement, "scaleZ")) {
+			scaleZ = Float.parseFloat(nodeElement.getAttributeValue("scaleZ"));
+		}
+		
+		newPart.setScale(scaleX, scaleY, scaleZ);
+	}
+
+	private static boolean hasAttribute(Element nodeElement, String attributeName) {
+		return nodeElement.getAttribute(attributeName) != null;
 	}
 	
 	private static void parsePivotLocation(StoredModelPart newPart, Element nodeElement) {
