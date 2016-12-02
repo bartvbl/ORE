@@ -32,7 +32,8 @@ public class DevTools extends Property {
 
 	@Override
 	public void init() {
-		this.gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "showDebugTools");
+		// Priority has an arbitrary low number in order to be first in line.
+		this.gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "showDebugTools", -150);
 	}
 
 }

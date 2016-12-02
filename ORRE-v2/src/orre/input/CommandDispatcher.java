@@ -1,6 +1,8 @@
 package orre.input;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 
 import orre.gameWorld.core.GameWorld;
@@ -10,12 +12,22 @@ import orre.gameWorld.core.MessageType;
 public class CommandDispatcher {
 
 	private final GameWorld world;
-	private final HashMap<String, ArrayList<Integer>> commandMap;
+	private final HashMap<String, ArrayList<CommandHandler>> commandMap;
 	private final ArrayList<Runnable> postponedTaskList = new ArrayList<Runnable>();
+	
+	private class CommandHandler {
+		public final int priority;
+		public final int gameObjectID;
+		
+		public CommandHandler(int priority, int gameObjectID) {
+			this.priority = priority;
+			this.gameObjectID = gameObjectID;
+		}
+	}
 
 	public CommandDispatcher(final GameWorld world) {
 		this.world = world;
-		this.commandMap = new HashMap<String, ArrayList<Integer>>();
+		this.commandMap = new HashMap<String, ArrayList<CommandHandler>>();
 	}
 
 	public void dispatchCommand(KeyType type, double value, double delta) {
@@ -31,9 +43,15 @@ public class CommandDispatcher {
 			//commandMap can be modified while handling an event.
 			//handlers are intended to only concern themselves; not registering handlers on other objects.
 			//This is assumed to be the case here.
-			ArrayList<Integer> handlers = commandMap.get(command);
+			ArrayList<CommandHandler> handlers = commandMap.get(command);
+			Collections.sort(handlers, new Comparator<CommandHandler>() {
+				@Override
+				public int compare(CommandHandler left, CommandHandler right) {
+					return Integer.compare(left.priority, right.priority);
+				}
+			});
 			for(int i = 0; i < handlers.size(); i++) {
-				int gameObjectID = handlers.get(i);
+				int gameObjectID = handlers.get(i).gameObjectID;
 				world.dispatchMessage(message, gameObjectID);
 				if(event.isConsumed()) {
 					break;
@@ -46,13 +64,13 @@ public class CommandDispatcher {
 		postponedTaskList.clear();
 	}
 
-	public void addInputEventListener(final String command, final int gameObjectID) {
+	public void addInputEventListener(final String command, final int gameObjectID, final int priority) {
 		postponedTaskList.add(new Runnable() {
 			public void run() {
 				if(!commandMap.containsKey(command)) {
-					commandMap.put(command, new ArrayList<Integer>());
+					commandMap.put(command, new ArrayList<CommandHandler>());
 				}
-				commandMap.get(command).add(gameObjectID);
+				commandMap.get(command).add(new CommandHandler(priority, gameObjectID));
 			}
 		});
 	}
@@ -61,8 +79,17 @@ public class CommandDispatcher {
 		postponedTaskList.add(new Runnable() {
 			public void run() {
 				if(commandMap.containsKey(command)) {
-					int objectIndex = commandMap.get(command).indexOf(gameObjectID);
-					commandMap.get(command).remove(objectIndex);
+					ArrayList<CommandHandler> objects = commandMap.get(command);
+					int index = -1;
+					for(int i = 0; i < objects.size(); i++) {
+						if(objects.get(i).gameObjectID == gameObjectID) {
+							index = i;
+							break;
+						}
+					}
+					if(index != -1) {
+						commandMap.get(command).remove(index);
+					}
 				}
 			}
 		});

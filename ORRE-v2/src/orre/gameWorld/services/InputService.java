@@ -40,8 +40,8 @@ public class InputService implements Service {
 		controller.update();
 	}
 
-	public void addCommandListener(final int gameObjectID, final String command) {
-		dispatcher.addInputEventListener(command, gameObjectID);
+	public void addCommandListener(final int gameObjectID, final String command, final int priority) {
+		dispatcher.addInputEventListener(command, gameObjectID, priority);
 	}
 
 	public void removeCommandListener(final int gameObjectID, final String command) {

@@ -113,9 +113,11 @@ public class GUI extends Property {
 		
 		((SceneRootNode) gameObject.world.sceneRoot).addGUINode(camera);
 		gameObject.world.addMessageListener(MessageType.ANIMATION_ENDED, this.gameObject);
-		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX");
-		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY");
-		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select");
+		
+		// GUI has highest priority, and therefore inhibits priority 0
+		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedX", 0);
+		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "mouseMovedY", 0);
+		gameObject.world.services.inputService.addCommandListener(this.gameObject.id, "select", 0);
 	}
 	
 	private Menu getMenuByName(String menuName, ArrayList<Menu> menuList) {
