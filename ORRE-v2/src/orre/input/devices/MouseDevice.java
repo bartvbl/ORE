@@ -37,7 +37,7 @@ public class MouseDevice {
 		}
 	}
 
-	private void dispatchButtonChange(int buttonIndex, boolean buttonState) {
+	private void dispatchButtonChange(int buttonIndex, boolean buttonState, boolean previousState) {
 		double buttonDelta = buttonState ? 1.0 : -1.0;
 		double buttonValue = buttonState ? 1.0 : 0.0;
 		switch(buttonIndex) {
@@ -54,21 +54,16 @@ public class MouseDevice {
 	}
 	
 	private void updateMouseButtons() {
-		for(int i = 0; i < mouseButtonStates.length; i++) {
-			if(mouseButtonStates[i]) {
-				dispatchButtonChange(i, mouseButtonStates[i]);
-			}
-		}
-		
 		while(Mouse.next()) {
 			int buttonIndex = Mouse.getEventButton();
 			boolean buttonState = Mouse.getEventButtonState();
 			
 			if(buttonIndex != -1) {
-				mouseButtonStates[buttonIndex] = buttonState;
-				if(!buttonState) {
-					dispatchButtonChange(buttonIndex, buttonState);
+				boolean previousState = mouseButtonStates[buttonIndex];
+				if(previousState != buttonState) {
+					dispatchButtonChange(buttonIndex, buttonState, previousState);
 				}
+				mouseButtonStates[buttonIndex] = buttonState;
 			}
 		}
 	}
