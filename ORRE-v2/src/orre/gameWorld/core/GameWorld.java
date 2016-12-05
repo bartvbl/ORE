@@ -85,6 +85,9 @@ public class GameWorld {
 	
 	public void dispatchMessage(Message<?> message) {
 		ArrayList<MessageHandler> listenerList = messageListeners.get(message.type);
+		if(listenerList == null) {
+			return;
+		}
 		for(MessageHandler listener : listenerList) {
 			listener.handleMessage(message);
 		}

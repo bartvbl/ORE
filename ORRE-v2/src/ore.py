@@ -24,7 +24,13 @@ def orre_eventConditionsSatisfied(conditions, parameters):
 			if parameters[condition] != conditions[condition]:
 				return False
 	return True
-	
+
+def dispatchScriptEvent(eventType, parameters):
+	orre_handleEvent(eventType, parameters)
+
+def dispatchEvent(eventType, parameters = {}):
+	ScriptAPI.dispatchEvent(eventType, parameters)
+
 def orre_handleEvent(eventType, parameters):
 	global orre_registeredHandlers
 	if eventType in orre_registeredHandlers:

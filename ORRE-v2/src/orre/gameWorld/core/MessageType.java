@@ -2,10 +2,10 @@ package orre.gameWorld.core;
 
 import orre.ai.tasks.Action;
 import orre.ai.tasks.Assignment;
-import orre.ai.tasks.Task;
 import orre.gl.camera.Camera;
 import orre.gui.AnimateMenuCommand;
 import orre.input.InputEvent;
+import orre.scripting.ScriptEvent;
 
 public enum MessageType implements EnforcedClassEnum {
 	OBJECT_CONTROL_RELEASED(GraphicsObject.class), 
@@ -20,6 +20,7 @@ public enum MessageType implements EnforcedClassEnum {
 	ANIMATION_ENDED(Integer.class), 
 	START_EXECUTING_TASKS(Object.class), 
 	STOP_EXECUTING_TASKS(Object.class), 
+	SCRIPT_EVENT(ScriptEvent.class), 
 	;
 
 	public final Class<?> requiredPayloadDataType;

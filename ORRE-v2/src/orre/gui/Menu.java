@@ -29,7 +29,7 @@ public class Menu implements Animatable, Finalizable {
 
 	public Menu(String name, GUIElement root) {
 		this.name = name;
-		this.root = root;
+		this.root = root;//new GUIElement(new Bounds(0, 0, 0, 0, 100, 0, 100, 0), );
 		findElements(root);
 		animationEventParams = new HashMap<String, String>();
 		animationEventParams.put("menuName", name);
