@@ -8,7 +8,6 @@ import orre.ai.commands.UpdatePrioritiesCommand;
 import orre.ai.tasks.Task;
 import orre.ai.tasks.TaskRequest;
 import orre.gameWorld.core.GameWorld;
-import orre.geom.Point2D;
 import orre.threads.AIThread;
 
 public class AIService implements Service {
