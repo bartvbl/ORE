@@ -10,15 +10,18 @@ import orre.sceneGraph.SceneNode;
 public class Mesh3D implements Animatable, Model {
 	private HashMap<String, ModelPart> parts = new HashMap<String, ModelPart>();
 	public final CoordinateNode root;
+	private final String name;
 	
 	public Mesh3D(String name) {
 		ModelPart root = new ModelPart(name);
 		this.root = root;
+		this.name = name;
 		this.parts.put("root", root);
 	}
 	
 	public Mesh3D(CoordinateNode rootNode) {
 		this.root = rootNode;
+		this.name = "Untitled Mesh3D";
 	}
 
 	public CoordinateNode getModelPartByName(String name) {
@@ -41,5 +44,9 @@ public class Mesh3D implements Animatable, Model {
 	public String[] getModelParts() {
 		Set<String> modelParts = parts.keySet();
 		return modelParts.toArray(new String[modelParts.size()]);
+	}
+	
+	public String toString() {
+		return "Mesh3D " + this.name;
 	}
 }

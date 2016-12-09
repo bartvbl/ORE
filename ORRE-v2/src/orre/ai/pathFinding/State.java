@@ -7,4 +7,5 @@ public interface State<DataType> {
 	public double estimateHeuristicTo(DataType other);
 	public double getDistanceToSuccessor(DataType successor);
 	public boolean isEqualTo(DataType otherState);
+	public boolean isEqualToGoalState(DataType goal);
 }

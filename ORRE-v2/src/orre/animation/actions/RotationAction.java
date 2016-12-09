@@ -1,5 +1,7 @@
 package orre.animation.actions;
 
+import java.util.Arrays;
+
 import orre.animation.Animatable;
 import orre.animation.AnimationAction;
 import orre.animation.AnimationActionType;
@@ -31,6 +33,10 @@ public class RotationAction extends AnimationAction {
 	@Override
 	public void update(Animatable target, double percentElapsed, double timeSinceLastUpdate) {
 		CoordinateNode part = target.getModelPartByName(partName);
+		if(part == null) {
+			System.out.println(Arrays.toString(target.getModelParts()));
+			throw new RuntimeException("Part " + partName + " was not found in " + target);
+		}
 		
 		double previousPercentage = ease.calculateAnimationPercentage(totalPercentElapsed );
 		double currentPercentage = ease.calculateAnimationPercentage(totalPercentElapsed + percentElapsed);

@@ -88,6 +88,10 @@ public class Node implements Comparable<Node> {
 	public String toString() {
 		return this.state.toString();
 	}
+
+	public boolean isGoalState(Node goal) {
+		return this.state.isEqualToGoalState(goal.state);
+	}
 	
 	
 }

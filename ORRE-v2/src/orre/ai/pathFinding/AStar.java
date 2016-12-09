@@ -50,7 +50,7 @@ public class AStar {
 	}
 
 	private boolean goalHasBeenReached(Node currentNode) {
-		return currentNode.isEqualTo(this.destinationNode);
+		return currentNode.isGoalState(this.destinationNode);
 	}
 
 	private void reset() {
