@@ -11,5 +11,6 @@ public enum ResourceType {
 	model, 
 	config, 
 	menu, 
-	stlFile
+	stlFile, 
+	lwsAnimation
 }
