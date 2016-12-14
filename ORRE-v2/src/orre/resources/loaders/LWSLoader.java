@@ -4,7 +4,13 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.TreeSet;
 
+import orre.animation.Animation;
+import orre.animation.AnimationAction;
+import orre.animation.KeyFrame;
 import orre.resources.Finalizable;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
@@ -20,15 +26,15 @@ public class LWSLoader implements ResourceTypeLoader {
 		BufferedReader fileReader = new BufferedReader(new FileReader(source.location));
 		
 		readHeader(fileReader);
-		readBody(fileReader);
+		Animation animation = readBody(fileReader, source.name);
 		
 		fileReader.close();
-		return null;
+		return animation;
 	}
 
-	private void readBody(BufferedReader fileReader) throws IOException {
+	private Animation readBody(BufferedReader fileReader, String name) throws IOException {
 		int firstFrame, lastFrame, frameStep;
-		double framesPerSecond;
+		double framesPerSecond = 1;
 		
 		ArrayList<LWSAnimation> parsedAnimations = new ArrayList<LWSAnimation>();
 		
@@ -52,6 +58,60 @@ public class LWSLoader implements ResourceTypeLoader {
 				}
 			}
 		}
+		
+		Animation animation = convertAnimations(parsedAnimations, framesPerSecond, name);
+		
+		return animation;
+	}
+
+	private Animation convertAnimations(ArrayList<LWSAnimation> parsedAnimations, double framesPerSecond, String name) {
+		
+		// Figure out which frame numbers have been defined
+		int parsedAnimationCount = parsedAnimations.size();
+		
+		HashSet<Integer> frameNumbersSet = new HashSet<Integer>();
+		for(LWSAnimation anim : parsedAnimations) {
+			for(LWSKeyFrame frame : anim.frames) {
+				frameNumbersSet.add(frame.frameNumber);
+			}
+		}
+		
+		// Next, sort them in ascending order
+
+		int frameCount = frameNumbersSet.size();
+		
+		Integer[] frameNumbers = new Integer[frameCount];
+		frameNumbersSet.toArray(frameNumbers);
+		Arrays.sort(frameNumbers);
+		
+		// Convert frame numbers to frame times
+		
+		double[] frameTimes = new double[frameCount];
+		for(int i = 0; i < frameTimes.length; i++) {
+			frameTimes[i] = (double) frameNumbers[i] * framesPerSecond;
+		}
+		
+		KeyFrame[] keyFrames = new KeyFrame[frameCount];
+		
+		// Note that since ORE's animation format uses deltas, we only convert up to the final frame.
+		for(int i = 0; i < frameCount - 1; i++) {
+			int frameNumber = frameNumbers[i];
+			ArrayList<AnimationAction> actions = new ArrayList<AnimationAction>();
+			for(int j = 0; j < parsedAnimationCount; j++) {
+				sample(frameNumber, parsedAnimations.get(i), actions);				
+			}
+			
+			AnimationAction[] frameActions = new AnimationAction[actions.size()];
+			actions.toArray(frameActions);
+			double frameDuration = frameTimes[i + 1] - frameTimes[i];
+			keyFrames[i] = new KeyFrame("Frame " + i, frameDuration, false, false, frameActions);
+		}
+		
+		return new Animation(name, keyFrames);
+	}
+
+	private void sample(int frameNumber, LWSAnimation lwsAnimation, ArrayList<AnimationAction> actions) {
+		
 	}
 
 	private LWSAnimation parseAnimation(BufferedReader fileReader) throws IOException {
@@ -148,7 +208,7 @@ public class LWSLoader implements ResourceTypeLoader {
 		}
 		String versionLine = seekNextLine(fileReader);
 		if(!versionLine.equals("1")) {
-			throw new RuntimeException("Only version 1 of LWO files is supported.");
+			throw new RuntimeException("Only version 1 of LWS files is supported.");
 		}
 	}
 	
