@@ -10,7 +10,10 @@ import java.util.TreeSet;
 
 import orre.animation.Animation;
 import orre.animation.AnimationAction;
+import orre.animation.Ease;
 import orre.animation.KeyFrame;
+import orre.animation.actions.TranslateAction;
+import orre.geom.Axis;
 import orre.resources.Finalizable;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
@@ -96,9 +99,11 @@ public class LWSLoader implements ResourceTypeLoader {
 		// Note that since ORE's animation format uses deltas, we only convert up to the final frame.
 		for(int i = 0; i < frameCount - 1; i++) {
 			int frameNumber = frameNumbers[i];
+			int nextFrameNumber = frameNumbers[i + 1];
+			
 			ArrayList<AnimationAction> actions = new ArrayList<AnimationAction>();
 			for(int j = 0; j < parsedAnimationCount; j++) {
-				sample(frameNumber, parsedAnimations.get(i), actions);				
+				sample(frameNumber, nextFrameNumber, parsedAnimations.get(i), actions);				
 			}
 			
 			AnimationAction[] frameActions = new AnimationAction[actions.size()];
@@ -110,8 +115,38 @@ public class LWSLoader implements ResourceTypeLoader {
 		return new Animation(name, keyFrames);
 	}
 
-	private void sample(int frameNumber, LWSAnimation lwsAnimation, ArrayList<AnimationAction> actions) {
+	private void sample(int frameNumber, int nextFrameNumber, LWSAnimation lwsAnimation, ArrayList<AnimationAction> actions) {
+		// Seek how far we have reached into the animation
 		
+		int lwsFrameNumber = findLWSFrame(frameNumber, lwsAnimation);
+		int lwsNextFrameNumber = findLWSFrame(nextFrameNumber, lwsAnimation);
+		
+		int currentFrameStart = lwsAnimation.frames[lwsFrameNumber].frameNumber;
+		
+		LWSKeyFrame currentFrame = lwsAnimation.frames[lwsFrameNumber];
+		LWSKeyFrame nextFrame = lwsAnimation.frames[lwsNextFrameNumber];
+		
+		int currentFrameDuration = nextFrameNumber - frameNumber;
+		int framesIntoCurrentFrame = frameNumber - currentFrameStart;
+		double progressIntoFrame = (double) framesIntoCurrentFrame / (double) currentFrameDuration;
+		
+		// Now we look which values changed, and add actions for each of them.
+		
+		if(currentFrame.translationX != nextFrame.translationX) {
+			double units = nextFrame.translationX - currentFrame.translationX;
+			TranslateAction translation = new TranslateAction(lwsAnimation.partName, Axis.x, units, Ease.NO_EASE);
+			actions.add(translation);
+		}
+	}
+
+	private int findLWSFrame(int frameNumber, LWSAnimation lwsAnimation) {
+		int currentFrameNumber = 0;
+		
+		// Note that the final frame is again excluded
+		while(frameNumber > lwsAnimation.frames[currentFrameNumber].frameNumber && currentFrameNumber < lwsAnimation.frames.length - 1) {
+			currentFrameNumber++;
+		}
+		return currentFrameNumber;
 	}
 
 	private LWSAnimation parseAnimation(BufferedReader fileReader) throws IOException {
