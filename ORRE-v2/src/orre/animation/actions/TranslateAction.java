@@ -46,5 +46,9 @@ public class TranslateAction extends AnimationAction {
 		}
 		totalPercentElapsed += percentElapsed;
 	}
+	
+	public String toString() {
+		return "Translate Action along the " + axis + "-axis by " + units + " units";
+	}
 
 }

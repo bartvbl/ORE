@@ -12,6 +12,8 @@ import orre.animation.Animation;
 import orre.animation.AnimationAction;
 import orre.animation.Ease;
 import orre.animation.KeyFrame;
+import orre.animation.actions.RotationAction;
+import orre.animation.actions.ScaleAction;
 import orre.animation.actions.TranslateAction;
 import orre.geom.Axis;
 import orre.resources.Finalizable;
@@ -32,6 +34,14 @@ public class LWSLoader implements ResourceTypeLoader {
 		Animation animation = readBody(fileReader, source.name);
 		
 		fileReader.close();
+		System.out.println("--- Animation ---");
+		for(KeyFrame frame : animation.keyFrames) {
+			System.out.println("KeyFrame: " + frame.name);
+			for(AnimationAction action : frame.actions) {
+				System.out.println("\t" + action);
+			}
+		}
+		
 		return animation;
 	}
 
@@ -103,7 +113,7 @@ public class LWSLoader implements ResourceTypeLoader {
 			
 			ArrayList<AnimationAction> actions = new ArrayList<AnimationAction>();
 			for(int j = 0; j < parsedAnimationCount; j++) {
-				sample(frameNumber, nextFrameNumber, parsedAnimations.get(i), actions);				
+				sample(frameNumber, nextFrameNumber, parsedAnimations.get(j), actions);				
 			}
 			
 			AnimationAction[] frameActions = new AnimationAction[actions.size()];
@@ -115,29 +125,81 @@ public class LWSLoader implements ResourceTypeLoader {
 		return new Animation(name, keyFrames);
 	}
 
-	private void sample(int frameNumber, int nextFrameNumber, LWSAnimation lwsAnimation, ArrayList<AnimationAction> actions) {
-		// Seek how far we have reached into the animation
+	private void sample(int globalStartFrame, int globalNextFrame, LWSAnimation lwsAnimation, ArrayList<AnimationAction> actions) {
+		// This function samples the input LWS animation between two specific frame numbers, 
+		// and determines any actions which describe animation changes, which are added to a list.
+		// Assumes that the start and end global frame parameters are placed at places where any frame starts or ends.
+		// This means only a single linear action needs to be calculated within a single frame within the LWS animation.
 		
-		int lwsFrameNumber = findLWSFrame(frameNumber, lwsAnimation);
-		int lwsNextFrameNumber = findLWSFrame(nextFrameNumber, lwsAnimation);
+		int lwsFrameNumber = findLWSFrame(globalStartFrame, lwsAnimation);
 		
-		int currentFrameStart = lwsAnimation.frames[lwsFrameNumber].frameNumber;
+		LWSKeyFrame currentAnimationFrame = lwsAnimation.frames[lwsFrameNumber];
+		LWSKeyFrame nextAnimationFrame = lwsAnimation.frames[Math.min(lwsFrameNumber + 1, lwsAnimation.frames.length - 1)];
 		
-		LWSKeyFrame currentFrame = lwsAnimation.frames[lwsFrameNumber];
-		LWSKeyFrame nextFrame = lwsAnimation.frames[lwsNextFrameNumber];
+		int currentFrameStart = currentAnimationFrame.frameNumber;
+		int nextFrameStart = nextAnimationFrame.frameNumber;
 		
-		int currentFrameDuration = nextFrameNumber - frameNumber;
-		int framesIntoCurrentFrame = frameNumber - currentFrameStart;
-		double progressIntoFrame = (double) framesIntoCurrentFrame / (double) currentFrameDuration;
+		int currentFrameDuration = nextFrameStart - currentFrameStart;
+		
+		int startProgressFrames = globalStartFrame - currentFrameStart;
+		double startProgressPercent = (double) startProgressFrames / (double) currentFrameDuration;
+		
+		int endProgressFrames = globalNextFrame - currentFrameStart;
+		double endProgressPercent = (double) endProgressFrames / (double) currentFrameDuration;
+		
+		double percentDelta = endProgressPercent - startProgressPercent;
 		
 		// Now we look which values changed, and add actions for each of them.
 		
-		if(currentFrame.translationX != nextFrame.translationX) {
-			double units = nextFrame.translationX - currentFrame.translationX;
+		if(currentAnimationFrame.translationX != nextAnimationFrame.translationX) {
+			double units = (nextAnimationFrame.translationX - currentAnimationFrame.translationX) * percentDelta;
 			TranslateAction translation = new TranslateAction(lwsAnimation.partName, Axis.x, units, Ease.NO_EASE);
 			actions.add(translation);
 		}
+		if(currentAnimationFrame.translationY != nextAnimationFrame.translationY) {
+			double units = (nextAnimationFrame.translationY - currentAnimationFrame.translationY) * percentDelta;
+			TranslateAction translation = new TranslateAction(lwsAnimation.partName, Axis.y, units, Ease.NO_EASE);
+			actions.add(translation);
+		}
+		if(currentAnimationFrame.translationZ != nextAnimationFrame.translationZ) {
+			double units = (nextAnimationFrame.translationZ - currentAnimationFrame.translationZ) * percentDelta;
+			TranslateAction translation = new TranslateAction(lwsAnimation.partName, Axis.z, units, Ease.NO_EASE);
+			actions.add(translation);
+		}
+		
+		if(currentAnimationFrame.rotationX != nextAnimationFrame.rotationX) {
+			double units = (nextAnimationFrame.rotationX - currentAnimationFrame.rotationX) * percentDelta;
+			RotationAction translation = new RotationAction(lwsAnimation.partName, Axis.x, units, Ease.NO_EASE);
+			actions.add(translation);
+		}
+		if(currentAnimationFrame.rotationY != nextAnimationFrame.rotationY) {
+			double units = (nextAnimationFrame.rotationY - currentAnimationFrame.rotationY) * percentDelta;
+			RotationAction translation = new RotationAction(lwsAnimation.partName, Axis.y, units, Ease.NO_EASE);
+			actions.add(translation);
+		}
+		if(currentAnimationFrame.rotationZ != nextAnimationFrame.rotationZ) {
+			double units = (nextAnimationFrame.rotationZ - currentAnimationFrame.rotationZ) * percentDelta;
+			RotationAction translation = new RotationAction(lwsAnimation.partName, Axis.z, units, Ease.NO_EASE);
+			actions.add(translation);
+		}
+		
+		if(currentAnimationFrame.scaleX != nextAnimationFrame.scaleX) {
+			double units = (nextAnimationFrame.scaleX - currentAnimationFrame.scaleX) * percentDelta;
+			ScaleAction translation = new ScaleAction(lwsAnimation.partName, Axis.x, units);
+			actions.add(translation);
+		}
+		if(currentAnimationFrame.scaleY != nextAnimationFrame.scaleY) {
+			double units = (nextAnimationFrame.scaleY - currentAnimationFrame.scaleY) * percentDelta;
+			ScaleAction translation = new ScaleAction(lwsAnimation.partName, Axis.y, units);
+			actions.add(translation);
+		}
+		if(currentAnimationFrame.scaleZ != nextAnimationFrame.scaleZ) {
+			double units = (nextAnimationFrame.scaleZ - currentAnimationFrame.scaleZ) * percentDelta;
+			ScaleAction translation = new ScaleAction(lwsAnimation.partName, Axis.z, units);
+			actions.add(translation);
+		}
 	}
+	
 
 	private int findLWSFrame(int frameNumber, LWSAnimation lwsAnimation) {
 		int currentFrameNumber = 0;
@@ -237,7 +299,7 @@ public class LWSLoader implements ResourceTypeLoader {
 	}
 
 	private void readHeader(BufferedReader fileReader) throws IOException {
-		String firstLine = seekNextLine(fileReader);
+		String firstLine = seekNextLine(fileReader).trim();
 		if(!firstLine.equals("LWSC")) {
 			throw new RuntimeException("Unexpected LWS header. Is this really an LWO file?");
 		}
@@ -249,7 +311,7 @@ public class LWSLoader implements ResourceTypeLoader {
 	
 	private String seekNextLine(BufferedReader fileReader) throws IOException {
 		String line = fileReader.readLine();
-		while(!line.equals("") && fileReader.ready()) {
+		while(line.trim().equals("") && fileReader.ready()) {
 			line = fileReader.readLine();
 		}
 		return line;

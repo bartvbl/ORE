@@ -51,7 +51,7 @@ public class Shader implements Finalizable {
 		glLinkProgram(programID);
 		String infoLog = glGetProgramInfoLog(programID, glGetProgrami(programID, GL_INFO_LOG_LENGTH));
 		if (glGetProgrami(programID, GL_LINK_STATUS) == GL_FALSE) {
-			throw new RuntimeException("Failed to link shader: " + infoLog);
+			throw new RuntimeException("Failed to link shader: " + infoLog + "\nIn file: " + name + "\n\nVertex Shader source: " + vertSource + "\n\nFragment Shader Source:" + fragSource);
 		}
 		this.programID = programID;
 	}

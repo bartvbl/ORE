@@ -15,5 +15,9 @@ public class RepeatAction extends AnimationAction {
 
 	@Override
 	public void update(Animatable target, double percentElapsed, double timeSinceLastUpdate) {}
+	
+	public String toString() {
+		return "RepeatAction to frame " + targetFrame;
+	}
 
 }

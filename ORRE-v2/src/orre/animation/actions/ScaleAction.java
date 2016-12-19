@@ -22,5 +22,9 @@ public class ScaleAction extends AnimationAction {
 	public void update(Animatable target, double percentElapsed, double timeSinceLastUpdate) {
 		
 	}
+	
+	public String toString() {
+		return "Scale Action along the " + axis + "-axis by " + percentage + " units";
+	}
 
 }

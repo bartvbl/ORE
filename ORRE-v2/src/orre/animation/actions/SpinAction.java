@@ -31,5 +31,9 @@ public class SpinAction extends AnimationAction {
 			part.rotate(0, 0, updatedRotation);
 		}
 	}
+	
+	public String toString() {
+		return "Spin Action around the " + axis + "-axis at speed " + speedDegrees + " units per second";
+	}
 
 }

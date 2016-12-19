@@ -52,5 +52,9 @@ public class RotationAction extends AnimationAction {
 		}
 		totalPercentElapsed += percentElapsed;
 	}
+	
+	public String toString() {
+		return "Rotation Action around the " + axis + "-axis by " + rotation + " units";
+	}
 
 }

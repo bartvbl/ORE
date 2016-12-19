@@ -31,5 +31,9 @@ public class MoveAction extends AnimationAction {
 			part.translate(0, 0, distanceTranslated);
 		}
 	}
+	
+	public String toString() {
+		return "MoveAction along the " + axis + "-axis at " + speedUnits + " units";
+	}
 
 }

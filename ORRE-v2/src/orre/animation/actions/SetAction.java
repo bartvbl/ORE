@@ -45,5 +45,9 @@ public class SetAction extends AnimationAction {
 			part.setVisibility(value == 1.0);
 		}
 	}
+	
+	public String toString() {
+		return "Set Action of type "+valueType+" on the " + axis + "-axis to " + value;
+	}
 
 }
