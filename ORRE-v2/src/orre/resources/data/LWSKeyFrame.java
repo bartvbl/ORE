@@ -33,6 +33,6 @@ public class LWSKeyFrame {
 	}
 	
 	public String toString() {
-		return "LWSKeyFrame: translation (" + translationX + ", "  + translationY + ", "  + translationZ + "), rotation (" + rotationX + ", "  + rotationY + ", "  + rotationZ + "), scale (" + scaleX + ", "  + scaleY + ", "  + scaleZ + ")";
+		return "LWSKeyFrame: frame " + frameNumber + " - translation (" + translationX + ", "  + translationY + ", "  + translationZ + "), rotation (" + rotationX + ", "  + rotationY + ", "  + rotationZ + "), scale (" + scaleX + ", "  + scaleY + ", "  + scaleZ + ")";
 	}
 }

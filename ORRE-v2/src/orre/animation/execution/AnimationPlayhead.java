@@ -19,6 +19,7 @@ public class AnimationPlayhead {
 	private int currentFrameID = 0;
 	private double elapsedTimeInFrame = 0;
 	private boolean isFinished = false;
+	private boolean mustReset = false;
 	private final AnimationBehaviour behaviour;
 	
 	private static AtomicInteger counter = new AtomicInteger();
@@ -53,7 +54,7 @@ public class AnimationPlayhead {
 				double remainingTime = elapsedTimeInFrame + elapsedTime - currentFrame.duration;
 				elapsedTimeInFrame -= currentFrame.duration;
 				nextFrame();
-				if(!isFinished()) {
+				if(!isFinished() && !mustReset) {
 					updateFrame(remainingTime, false);
 				}
 			}
@@ -63,6 +64,14 @@ public class AnimationPlayhead {
 		
 		elapsedTimeInFrame += elapsedTime;
 		previousFrameStartTime = currentTime;
+		
+		if(mustReset) {
+			mustReset = false;
+			this.previousFrameStartTime = 0;
+			this.currentFrameID = 0;
+			this.elapsedTimeInFrame = 0;
+			this.timer = new Timer();
+		}
 	}
 
 	private void updateFrame(double elapsedTime, boolean isInstantUpdate) {
@@ -101,11 +110,8 @@ public class AnimationPlayhead {
 			this.currentFrameID++;
 			if(this.currentFrameID >= animation.keyFrames.length) {
 				if(this.behaviour == AnimationBehaviour.REPEAT_ON_COMPLETE) {
-					// reset the animation
-					this.previousFrameStartTime = 0;
-					this.currentFrameID = 0;
-					this.elapsedTimeInFrame = 0;
-					this.timer = new Timer();
+					// reset the animation has to be postponed because an update may follow. So we set a flag instead.
+					this.mustReset  = true;
 				}
 				if(this.behaviour == AnimationBehaviour.END_ON_COMPLETE) {
 					this.isFinished  = true;

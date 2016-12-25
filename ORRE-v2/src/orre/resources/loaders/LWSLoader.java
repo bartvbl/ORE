@@ -12,8 +12,10 @@ import orre.animation.Animation;
 import orre.animation.AnimationAction;
 import orre.animation.Ease;
 import orre.animation.KeyFrame;
+import orre.animation.TransitionType;
 import orre.animation.actions.RotationAction;
 import orre.animation.actions.ScaleAction;
+import orre.animation.actions.SetAction;
 import orre.animation.actions.TranslateAction;
 import orre.geom.Axis;
 import orre.resources.Finalizable;
@@ -25,6 +27,11 @@ import orre.resources.data.LWSAnimation;
 import orre.resources.data.LWSKeyFrame;
 
 public class LWSLoader implements ResourceTypeLoader {
+	private static final double SCALE_CONVERSION_FACTOR = 0.001;
+	
+	private static final Axis lwsXAxis = Axis.y;
+	private static final Axis lwsYAxis = Axis.x;
+	private static final Axis lwsZAxis = Axis.z;
 	
 	@Override
 	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
@@ -35,17 +42,17 @@ public class LWSLoader implements ResourceTypeLoader {
 		
 		fileReader.close();
 		
-		System.out.println("--- Animation ---");
-		for(KeyFrame frame : animation.keyFrames) {
-			if(frame == null) {
-				System.out.println("Frame is null!");
-				continue;
-			}
-			System.out.println("KeyFrame: " + frame.name + " of duration " + frame.duration);
-			for(AnimationAction action : frame.actions) {
-				System.out.println("\t" + action);
-			}
-		}
+//		System.out.println("--- Animation ---");
+//		for(KeyFrame frame : animation.keyFrames) {
+//			if(frame == null) {
+//				System.out.println("Frame is null!");
+//				continue;
+//			}
+//			System.out.println("KeyFrame: " + frame.name + " of duration " + frame.duration);
+//			for(AnimationAction action : frame.actions) {
+//				System.out.println("\t" + action);
+//			}
+//		}
 		
 		return animation;
 	}
@@ -94,12 +101,12 @@ public class LWSLoader implements ResourceTypeLoader {
 			}
 		}
 		
-		for(LWSAnimation animation : parsedAnimations) {
-			System.out.println("Animation " + animation.partName);
-			for(LWSKeyFrame frame : animation.frames) {
-				System.out.println("\t" + frame);
-			}
-		}
+//		for(LWSAnimation animation : parsedAnimations) {
+//			System.out.println("Animation " + animation.partName);
+//			for(LWSKeyFrame frame : animation.frames) {
+//				System.out.println("\t" + frame);
+//			}
+//		}
 		
 		// Next, sort them in ascending order
 
@@ -117,7 +124,35 @@ public class LWSLoader implements ResourceTypeLoader {
 		}
 //		System.out.println("FRAME TIMES: " + Arrays.toString(frameTimes));
 		
-		KeyFrame[] keyFrames = new KeyFrame[frameCount - 1];
+		// One less keyframe because we're working with deltas, one more because frame 0 needs to set up the initial state.
+		KeyFrame[] keyFrames = new KeyFrame[frameCount - 1 + 1];
+		
+		ArrayList<AnimationAction> setActions = new ArrayList<AnimationAction>();
+		for(LWSAnimation animation : parsedAnimations) {
+			SetAction translateXAction = new SetAction(animation.partName, Axis.x, TransitionType.position, animation.frames[0].translationX);
+			setActions.add(translateXAction);
+			SetAction translateYAction = new SetAction(animation.partName, Axis.y, TransitionType.position, animation.frames[0].translationY);
+			setActions.add(translateYAction);
+			SetAction translateZAction = new SetAction(animation.partName, Axis.z, TransitionType.position, animation.frames[0].translationZ);
+			setActions.add(translateZAction);
+			
+			SetAction rotateXAction = new SetAction(animation.partName, lwsXAxis, TransitionType.rotation, animation.frames[0].rotationX);
+			setActions.add(rotateXAction);
+			SetAction rotateYAction = new SetAction(animation.partName, lwsYAxis, TransitionType.rotation, animation.frames[0].rotationY);
+			setActions.add(rotateYAction);
+			SetAction rotateZAction = new SetAction(animation.partName, lwsZAxis, TransitionType.rotation, animation.frames[0].rotationZ);
+			setActions.add(rotateZAction);
+			
+			SetAction scaleXAction = new SetAction(animation.partName, lwsXAxis, TransitionType.scale, animation.frames[0].scaleX);
+			setActions.add(scaleXAction);
+			SetAction scaleYAction = new SetAction(animation.partName, lwsYAxis, TransitionType.scale, animation.frames[0].scaleY);
+			setActions.add(scaleYAction);
+			SetAction scaleZAction = new SetAction(animation.partName, lwsZAxis, TransitionType.scale, animation.frames[0].scaleZ);
+			setActions.add(scaleZAction);
+		}
+		
+		// create the setup frame (overwrites current part positions!)
+		keyFrames[0] = new KeyFrame("Frame 0 (setup)", 0, false, true, setActions.toArray(new SetAction[setActions.size()]));
 		
 		// Note that since ORE's animation format uses deltas, we only convert up to the final frame.
 		for(int i = 0; i < frameCount - 1; i++) {
@@ -132,7 +167,7 @@ public class LWSLoader implements ResourceTypeLoader {
 			AnimationAction[] frameActions = new AnimationAction[actions.size()];
 			actions.toArray(frameActions);
 			double frameDuration = (frameTimes[i + 1] - frameTimes[i]);
-			keyFrames[i] = new KeyFrame("Frame " + i, frameDuration, false, false, frameActions);
+			keyFrames[i + 1] = new KeyFrame("Frame " + i + " (LWS frame " + frameNumber + ")", frameDuration, false, false, frameActions);
 		}
 		
 		return new Animation(name, keyFrames);
@@ -163,52 +198,54 @@ public class LWSLoader implements ResourceTypeLoader {
 		double percentDelta = endProgressPercent - startProgressPercent;
 		
 		// Now we look which values changed, and add actions for each of them.
+		// ORE's coordinate system: z is up
+		// So x, y, z becomes z, x, y
 		
 		if(currentAnimationFrame.translationX != nextAnimationFrame.translationX) {
 			double units = (nextAnimationFrame.translationX - currentAnimationFrame.translationX) * percentDelta;
-			TranslateAction translation = new TranslateAction(lwsAnimation.partName, Axis.x, units, Ease.NO_EASE);
+			TranslateAction translation = new TranslateAction(lwsAnimation.partName, lwsXAxis, units, Ease.NO_EASE);
 			actions.add(translation);
 		}
 		if(currentAnimationFrame.translationY != nextAnimationFrame.translationY) {
 			double units = (nextAnimationFrame.translationY - currentAnimationFrame.translationY) * percentDelta;
-			TranslateAction translation = new TranslateAction(lwsAnimation.partName, Axis.y, units, Ease.NO_EASE);
+			TranslateAction translation = new TranslateAction(lwsAnimation.partName, lwsYAxis, units, Ease.NO_EASE);
 			actions.add(translation);
 		}
 		if(currentAnimationFrame.translationZ != nextAnimationFrame.translationZ) {
 			double units = (nextAnimationFrame.translationZ - currentAnimationFrame.translationZ) * percentDelta;
-			TranslateAction translation = new TranslateAction(lwsAnimation.partName, Axis.z, units, Ease.NO_EASE);
+			TranslateAction translation = new TranslateAction(lwsAnimation.partName, lwsZAxis, units, Ease.NO_EASE);
 			actions.add(translation);
 		}
 		
 		if(currentAnimationFrame.rotationX != nextAnimationFrame.rotationX) {
 			double units = (nextAnimationFrame.rotationX - currentAnimationFrame.rotationX) * percentDelta;
-			RotationAction translation = new RotationAction(lwsAnimation.partName, Axis.x, units, Ease.NO_EASE);
-			actions.add(translation);
+			RotationAction translation = new RotationAction(lwsAnimation.partName, lwsXAxis, units, Ease.NO_EASE);
+			actions.add(translation); // z
 		}
 		if(currentAnimationFrame.rotationY != nextAnimationFrame.rotationY) {
 			double units = (nextAnimationFrame.rotationY - currentAnimationFrame.rotationY) * percentDelta;
-			RotationAction translation = new RotationAction(lwsAnimation.partName, Axis.y, units, Ease.NO_EASE);
-			actions.add(translation);
+			RotationAction translation = new RotationAction(lwsAnimation.partName, lwsYAxis, units, Ease.NO_EASE);
+			actions.add(translation); // x
 		}
 		if(currentAnimationFrame.rotationZ != nextAnimationFrame.rotationZ) {
 			double units = (nextAnimationFrame.rotationZ - currentAnimationFrame.rotationZ) * percentDelta;
-			RotationAction translation = new RotationAction(lwsAnimation.partName, Axis.z, units, Ease.NO_EASE);
-			actions.add(translation);
+			RotationAction translation = new RotationAction(lwsAnimation.partName, lwsZAxis, units, Ease.NO_EASE);
+			actions.add(translation); // y
 		}
 		
 		if(currentAnimationFrame.scaleX != nextAnimationFrame.scaleX) {
 			double units = (nextAnimationFrame.scaleX - currentAnimationFrame.scaleX) * percentDelta;
-			ScaleAction translation = new ScaleAction(lwsAnimation.partName, Axis.x, units);
+			ScaleAction translation = new ScaleAction(lwsAnimation.partName, lwsXAxis, units);
 			actions.add(translation);
 		}
 		if(currentAnimationFrame.scaleY != nextAnimationFrame.scaleY) {
 			double units = (nextAnimationFrame.scaleY - currentAnimationFrame.scaleY) * percentDelta;
-			ScaleAction translation = new ScaleAction(lwsAnimation.partName, Axis.y, units);
+			ScaleAction translation = new ScaleAction(lwsAnimation.partName, lwsYAxis, units);
 			actions.add(translation);
 		}
 		if(currentAnimationFrame.scaleZ != nextAnimationFrame.scaleZ) {
 			double units = (nextAnimationFrame.scaleZ - currentAnimationFrame.scaleZ) * percentDelta;
-			ScaleAction translation = new ScaleAction(lwsAnimation.partName, Axis.z, units);
+			ScaleAction translation = new ScaleAction(lwsAnimation.partName, lwsZAxis, units);
 			actions.add(translation);
 		}
 	}
@@ -217,10 +254,17 @@ public class LWSLoader implements ResourceTypeLoader {
 	private int findLWSFrame(int frameNumber, LWSAnimation lwsAnimation) {
 		int currentFrameNumber = 0;
 		
+//		System.out.println("Finding frame " + frameNumber + " in: ");
+//		for(LWSKeyFrame frame : lwsAnimation.frames) {
+//			System.out.println("\t" + frame.frameNumber);
+//		}
+		
 		// Note that the final frame is again excluded
-		while(frameNumber > lwsAnimation.frames[currentFrameNumber].frameNumber && currentFrameNumber < lwsAnimation.frames.length - 1) {
+		while(currentFrameNumber < lwsAnimation.frames.length - 1 && frameNumber >= lwsAnimation.frames[currentFrameNumber + 1].frameNumber) {
 			currentFrameNumber++;
 		}
+		
+		System.out.println("Chosen: " + currentFrameNumber);
 		return currentFrameNumber;
 	}
 
@@ -277,9 +321,9 @@ public class LWSLoader implements ResourceTypeLoader {
 			line = seekNextLine(fileReader);
 			lineParts = line.trim().split(" ");
 			
-			double translationX = Double.parseDouble(lineParts[0]);
-			double translationY = Double.parseDouble(lineParts[1]);
-			double translationZ = Double.parseDouble(lineParts[2]);
+			double translationX = Double.parseDouble(lineParts[0]) * SCALE_CONVERSION_FACTOR;
+			double translationY = Double.parseDouble(lineParts[1]) * SCALE_CONVERSION_FACTOR;
+			double translationZ = Double.parseDouble(lineParts[2]) * SCALE_CONVERSION_FACTOR;
 			
 			double rotationX = Double.parseDouble(lineParts[3]);
 			double rotationY = Double.parseDouble(lineParts[4]);
