@@ -48,7 +48,7 @@ public class TranslateAction extends AnimationAction {
 	}
 	
 	public String toString() {
-		return "Translate Action along the " + axis + "-axis by " + units + " units";
+		return "Translate Action on part " + partName + " along the " + axis + "-axis by " + units + " units";
 	}
 
 }

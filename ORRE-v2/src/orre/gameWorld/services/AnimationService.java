@@ -10,11 +10,13 @@ import org.lwjgl.util.Timer;
 
 import orre.animation.Animatable;
 import orre.animation.Animation;
+import orre.animation.AnimationBehaviour;
 import orre.animation.execution.AnimationPlayhead;
 import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
 import orre.geom.mesh.Mesh3D;
+import orre.geom.mesh.Model;
 import orre.resources.ResourceType;
 
 public class AnimationService implements Service {
@@ -32,12 +34,12 @@ public class AnimationService implements Service {
 		for(int i = activeAnimationIDs.size() - 1; i >= 0; i--) {
 			int animationID = activeAnimationIDs.get(i);
 			AnimationPlayhead playHead = activeAnimations.get(animationID);
-			try {
+//			try {
 				playHead.updateAnimation();
-			} catch(NullPointerException e) {
-				stopAnimation(animationID);
-				System.err.println("Animation caused an error. Aborting. Message: " + e.getMessage());
-			}
+//			} catch(NullPointerException e) {
+//				stopAnimation(animationID);
+//				throw new RuntimeException("Animation caused an error. Aborting.", e);
+//			}
 		}
 		for(int i = 0; i < activeAnimationIDs.size(); i++) {
 			int animationID = activeAnimationIDs.get(i);
@@ -51,16 +53,20 @@ public class AnimationService implements Service {
 
 	//Workaround for a NoSuchMethodError.
 	public int applyAnimation(String animationResourceName, Mesh3D animatable) {
-		return applyAnimation(animationResourceName, (Animatable)animatable);
+		return applyAnimation(animationResourceName, (Animatable)animatable, AnimationBehaviour.END_ON_COMPLETE);
 	}
 
 	public int applyAnimation(String animationResourceName, Animatable animatable) {
+		return applyAnimation(animationResourceName, animatable, AnimationBehaviour.END_ON_COMPLETE);
+	}
+	
+	public int applyAnimation(String animationResourceName, Animatable animatable, AnimationBehaviour behaviour) {
 		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.animation, animationResourceName).content;
-		return applyAnimation(animation, animatable);
+		return applyAnimation(animation, animatable, behaviour);
 	}
 
-	public int applyAnimation(Animation animation, Animatable target) {
-		AnimationPlayhead playHead = new AnimationPlayhead(animation, target);
+	public int applyAnimation(Animation animation, Animatable target, AnimationBehaviour behaviour) {
+		AnimationPlayhead playHead = new AnimationPlayhead(animation, target, behaviour);
 		activeAnimations.put(playHead.id, playHead);
 		activeAnimationIDs.add(playHead.id);
 		playHead.updateAnimation();

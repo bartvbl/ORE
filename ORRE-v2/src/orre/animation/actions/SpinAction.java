@@ -33,7 +33,7 @@ public class SpinAction extends AnimationAction {
 	}
 	
 	public String toString() {
-		return "Spin Action around the " + axis + "-axis at speed " + speedDegrees + " units per second";
+		return "Spin Action on part " + partName + " around the " + axis + "-axis at speed " + speedDegrees + " units per second";
 	}
 
 }

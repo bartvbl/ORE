@@ -33,7 +33,7 @@ public class MoveAction extends AnimationAction {
 	}
 	
 	public String toString() {
-		return "MoveAction along the " + axis + "-axis at " + speedUnits + " units";
+		return "MoveAction along on part " + partName + " the " + axis + "-axis at " + speedUnits + " units";
 	}
 
 }

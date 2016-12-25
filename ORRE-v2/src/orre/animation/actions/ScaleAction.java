@@ -24,7 +24,7 @@ public class ScaleAction extends AnimationAction {
 	}
 	
 	public String toString() {
-		return "Scale Action along the " + axis + "-axis by " + percentage + " units";
+		return "Scale Action on part " + partName + " along the " + axis + "-axis by " + percentage + " units";
 	}
 
 }

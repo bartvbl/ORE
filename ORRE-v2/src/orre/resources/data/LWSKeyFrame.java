@@ -31,4 +31,8 @@ public class LWSKeyFrame {
 		this.scaleY = scaleY;
 		this.scaleZ = scaleZ;
 	}
+	
+	public String toString() {
+		return "LWSKeyFrame: translation (" + translationX + ", "  + translationY + ", "  + translationZ + "), rotation (" + rotationX + ", "  + rotationY + ", "  + rotationZ + "), scale (" + scaleX + ", "  + scaleY + ", "  + scaleZ + ")";
+	}
 }

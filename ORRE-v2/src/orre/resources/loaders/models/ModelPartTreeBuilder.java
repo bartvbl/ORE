@@ -11,7 +11,8 @@ import orre.resources.loaders.obj.StoredModelPart;
 
 public class ModelPartTreeBuilder {
 	private static final String PHYSICAL_PART = "part";
-	private static final String VIRTUAL_PART = "shaderPart";
+	private static final String VIRTUAL_PART = "bone";
+	private static final String EMPTY_PART = "null";
 
 	public static void generatePartTree(OBJBlueprintModel model, Element rootElement) {
 		Element partStructureElement = rootElement.getFirstChildElement("partStructure");
@@ -32,8 +33,11 @@ public class ModelPartTreeBuilder {
 		model.registerPart(newPart);
 		if(partType == ModelPartType.PHYSICAL) {			
 			parsePivotLocation(newPart, nodeElement);
+			parseScale(newPart, nodeElement);
 		}
-		parseScale(newPart, nodeElement);
+		if(partType == ModelPartType.BONE) {
+			parsePivotLocation(newPart, nodeElement);
+		}
 		parseChildNodes(newPart, nodeElement, model);
 		return newPart;
 	}
@@ -74,11 +78,13 @@ public class ModelPartTreeBuilder {
 
 	private static ModelPartType getPartType(Element modelNode) {
 		String partType = modelNode.getAttributeValue("type");
-		partType = partType == null ? PHYSICAL_PART : VIRTUAL_PART;
+		partType = partType == null ? EMPTY_PART : partType;
 		if(partType.equals(PHYSICAL_PART)){
 			return ModelPartType.PHYSICAL;
 		} else if(partType.equals(VIRTUAL_PART)){
-			return ModelPartType.VIRTUAL;
+			return ModelPartType.BONE;
+		} else if(partType.equals(EMPTY_PART)){
+			return ModelPartType.NULL;
 		}
 		return ModelPartType.PHYSICAL;
 	}

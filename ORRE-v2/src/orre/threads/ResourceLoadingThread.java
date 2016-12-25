@@ -48,7 +48,12 @@ public class ResourceLoadingThread extends Thread {
 			System.err.println("Can't find a loader for resource type \"" + currentFile.resourceType + "\". Has it been registered?");
 			return;
 		}
-		Finalizable resource = registeredLoaders.get(currentFile.resourceType).loadResource(currentFile, resourceQueue);
+		Finalizable resource;
+		try {
+			resource = registeredLoaders.get(currentFile.resourceType).loadResource(currentFile, resourceQueue);			
+		} catch(Exception e) {
+			throw new Exception("An error occurred while loading resource " + currentFile.name + " of type "+currentFile.resourceType+", located at " + currentFile.location, e);
+		}
 		if(resource != null) {
 			this.resourceQueue.enqueueResourceForFinalization(resource);
 		}

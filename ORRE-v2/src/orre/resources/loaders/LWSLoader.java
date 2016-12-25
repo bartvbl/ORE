@@ -34,9 +34,14 @@ public class LWSLoader implements ResourceTypeLoader {
 		Animation animation = readBody(fileReader, source.name);
 		
 		fileReader.close();
+		
 		System.out.println("--- Animation ---");
 		for(KeyFrame frame : animation.keyFrames) {
-			System.out.println("KeyFrame: " + frame.name);
+			if(frame == null) {
+				System.out.println("Frame is null!");
+				continue;
+			}
+			System.out.println("KeyFrame: " + frame.name + " of duration " + frame.duration);
 			for(AnimationAction action : frame.actions) {
 				System.out.println("\t" + action);
 			}
@@ -89,6 +94,13 @@ public class LWSLoader implements ResourceTypeLoader {
 			}
 		}
 		
+		for(LWSAnimation animation : parsedAnimations) {
+			System.out.println("Animation " + animation.partName);
+			for(LWSKeyFrame frame : animation.frames) {
+				System.out.println("\t" + frame);
+			}
+		}
+		
 		// Next, sort them in ascending order
 
 		int frameCount = frameNumbersSet.size();
@@ -101,10 +113,11 @@ public class LWSLoader implements ResourceTypeLoader {
 		
 		double[] frameTimes = new double[frameCount];
 		for(int i = 0; i < frameTimes.length; i++) {
-			frameTimes[i] = (double) frameNumbers[i] * framesPerSecond;
+			frameTimes[i] = (double) frameNumbers[i] / framesPerSecond;
 		}
+//		System.out.println("FRAME TIMES: " + Arrays.toString(frameTimes));
 		
-		KeyFrame[] keyFrames = new KeyFrame[frameCount];
+		KeyFrame[] keyFrames = new KeyFrame[frameCount - 1];
 		
 		// Note that since ORE's animation format uses deltas, we only convert up to the final frame.
 		for(int i = 0; i < frameCount - 1; i++) {
@@ -118,7 +131,7 @@ public class LWSLoader implements ResourceTypeLoader {
 			
 			AnimationAction[] frameActions = new AnimationAction[actions.size()];
 			actions.toArray(frameActions);
-			double frameDuration = frameTimes[i + 1] - frameTimes[i];
+			double frameDuration = (frameTimes[i + 1] - frameTimes[i]);
 			keyFrames[i] = new KeyFrame("Frame " + i, frameDuration, false, false, frameActions);
 		}
 		
@@ -265,16 +278,16 @@ public class LWSLoader implements ResourceTypeLoader {
 			lineParts = line.trim().split(" ");
 			
 			double translationX = Double.parseDouble(lineParts[0]);
-			double translationY = Double.parseDouble(lineParts[0]);
-			double translationZ = Double.parseDouble(lineParts[0]);
+			double translationY = Double.parseDouble(lineParts[1]);
+			double translationZ = Double.parseDouble(lineParts[2]);
 			
-			double rotationX = Double.parseDouble(lineParts[0]);
-			double rotationY = Double.parseDouble(lineParts[0]);
-			double rotationZ = Double.parseDouble(lineParts[0]);
+			double rotationX = Double.parseDouble(lineParts[3]);
+			double rotationY = Double.parseDouble(lineParts[4]);
+			double rotationZ = Double.parseDouble(lineParts[5]);
 			
-			double scaleX = Double.parseDouble(lineParts[0]);
-			double scaleY = Double.parseDouble(lineParts[0]);
-			double scaleZ = Double.parseDouble(lineParts[0]);
+			double scaleX = Double.parseDouble(lineParts[6]);
+			double scaleY = Double.parseDouble(lineParts[7]);
+			double scaleZ = Double.parseDouble(lineParts[8]);
 			
 			line = seekNextLine(fileReader);
 			lineParts = line.trim().split(" ");

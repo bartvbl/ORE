@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 import orre.animation.Animation;
+import orre.animation.AnimationBehaviour;
 import orre.gameWorld.core.GameObject;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
@@ -56,7 +57,7 @@ public class GUI extends Property {
 			Animation animation = (Animation) gameObject.world.resourceCache.getResource(ResourceType.animation, command.animationName).content;
 			Menu menu = getMenuByName(command.menuName, activeMenus);
 			if(menu != null) {
-				int animationID = this.gameObject.world.services.animationService.applyAnimation(animation, menu);
+				int animationID = this.gameObject.world.services.animationService.applyAnimation(animation, menu, AnimationBehaviour.END_ON_COMPLETE);
 				this.animatedMenus.put(animationID, menu);
 				menu.notifyAnimationStart();
 			} else {

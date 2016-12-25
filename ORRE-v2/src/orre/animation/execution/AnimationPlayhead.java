@@ -7,25 +7,28 @@ import org.lwjgl.util.Timer;
 import orre.animation.Animatable;
 import orre.animation.Animation;
 import orre.animation.AnimationAction;
+import orre.animation.AnimationBehaviour;
 import orre.animation.KeyFrame;
 import orre.animation.actions.RepeatAction;
 
 public class AnimationPlayhead {
 	private final Animation animation;
-	private final Timer timer;
+	private Timer timer;
 	private final Animatable target;
 	private float previousFrameStartTime = 0;
 	private int currentFrameID = 0;
 	private double elapsedTimeInFrame = 0;
 	private boolean isFinished = false;
+	private final AnimationBehaviour behaviour;
 	
 	private static AtomicInteger counter = new AtomicInteger();
 	public final int id;
 
-	public AnimationPlayhead(Animation animation, Animatable target) {
+	public AnimationPlayhead(Animation animation, Animatable target, AnimationBehaviour behaviour) {
 		this.animation = animation;
 		this.timer = new Timer();
 		this.target = target;
+		this.behaviour = behaviour;
 		id = counter.getAndIncrement();
 	}
 	
@@ -97,7 +100,16 @@ public class AnimationPlayhead {
 		if(!jumped) {
 			this.currentFrameID++;
 			if(this.currentFrameID >= animation.keyFrames.length) {
-				this.isFinished  = true;
+				if(this.behaviour == AnimationBehaviour.REPEAT_ON_COMPLETE) {
+					// reset the animation
+					this.previousFrameStartTime = 0;
+					this.currentFrameID = 0;
+					this.elapsedTimeInFrame = 0;
+					this.timer = new Timer();
+				}
+				if(this.behaviour == AnimationBehaviour.END_ON_COMPLETE) {
+					this.isFinished  = true;
+				}
 			}
 		}
 	}

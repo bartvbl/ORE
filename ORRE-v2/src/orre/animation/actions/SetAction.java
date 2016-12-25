@@ -47,7 +47,7 @@ public class SetAction extends AnimationAction {
 	}
 	
 	public String toString() {
-		return "Set Action of type "+valueType+" on the " + axis + "-axis to " + value;
+		return "Set Action on part " + partName + " of type "+valueType+" on the " + axis + "-axis to " + value;
 	}
 
 }

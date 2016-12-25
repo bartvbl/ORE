@@ -54,7 +54,7 @@ public class RotationAction extends AnimationAction {
 	}
 	
 	public String toString() {
-		return "Rotation Action around the " + axis + "-axis by " + rotation + " units";
+		return "Rotation Action on part " + partName + " around the " + axis + "-axis by " + rotation + " units";
 	}
 
 }
