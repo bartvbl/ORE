@@ -16,27 +16,20 @@ import java.nio.IntBuffer;
 
 import javax.imageio.ImageIO;
 
-import org.lwjgl.opengl.GL11;
-import org.lwjgl.opengl.GL12;
-import org.lwjgl.opengl.GL13;
-import org.lwjgl.opengl.GL14;
-import org.lwjgl.opengl.GL15;
-import org.lwjgl.opengl.GL20;
-import org.lwjgl.opengl.GL21;
 import org.lwjgl.opengl.GL30;
 
 import orre.gl.texture.Texture;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
 
 public class TextureLoader implements ResourceTypeLoader {
 	
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
 		return partiallyLoadTextureFromFile(source);
 	}
 	
@@ -45,8 +38,8 @@ public class TextureLoader implements ResourceTypeLoader {
 		return ResourceType.texture;
 	}
 	
-	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(UnloadedResource file) throws FileNotFoundException, IOException, Exception {
-		BufferedImage image = loadImageFromFile(file.location);
+	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(Resource file) throws FileNotFoundException, IOException, Exception {
+		BufferedImage image = loadImageFromFile(file.fileLocation);
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
 		return new PartiallyLoadableTexture(file.name, imageData, image.getWidth(), image.getHeight());
 	}

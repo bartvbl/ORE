@@ -11,20 +11,18 @@ import orre.input.CommandDispatcher;
 import orre.input.devices.ControllerDevice;
 import orre.input.devices.KeyboardDevice;
 import orre.input.devices.MouseDevice;
-import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 
 public class InputService implements Service {
 	private final GameWorld world;
-	private final ResourceCache cache;
 	private final CommandDispatcher dispatcher;
 	
 	private final KeyboardDevice keyboard;
 	private final MouseDevice mouse;
 	private final ControllerDevice controller;
 
-	public InputService(final GameWorld world, final ResourceCache cache) {
+	public InputService(final GameWorld world) {
 		this.world = world;
-		this.cache = cache;
 		this.dispatcher = new CommandDispatcher(world);
 		createDevices();
 		

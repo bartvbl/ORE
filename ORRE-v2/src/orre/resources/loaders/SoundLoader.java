@@ -1,15 +1,15 @@
 package orre.resources.loaders;
 
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 
 public class SoundLoader implements ResourceTypeLoader {
 
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
 		return loadSound(source);
 	}
 
@@ -18,7 +18,7 @@ public class SoundLoader implements ResourceTypeLoader {
 		return ResourceType.sound;
 	}
 
-	private Finalizable loadSound(UnloadedResource source) {
+	private Finalizable loadSound(Resource source) {
 		return null;
 	}
 

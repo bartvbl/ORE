@@ -14,6 +14,7 @@ import orre.gl.renderer.RenderState;
 import orre.gl.texture.Texture;
 import orre.gl.vao.GeometryNode;
 import orre.resources.ResourceLoader;
+import orre.resources.ResourceService;
 import orre.resources.loaders.TextureLoader;
 
 public class DefaultLoadingScreen extends LoadingScreenDrawer {
@@ -26,9 +27,9 @@ public class DefaultLoadingScreen extends LoadingScreenDrawer {
 	private int rotation = 0;
 	private Texture loadingIcon;
 	
-	public DefaultLoadingScreen(ResourceLoader loader)
+	public DefaultLoadingScreen(ResourceService resourceService)
 	{
-		super(loader);
+		super(resourceService);
 		try {
 			this.loadingScreen = TextureLoader.loadTextureFromFile(new File("res/images/loadingScreen/loadingScreen.png"));
 			this.loadingBar = TextureLoader.loadTextureFromFile(new File("res/images/loadingScreen/loadingBar.png"));

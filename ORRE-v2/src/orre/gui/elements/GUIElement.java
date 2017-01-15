@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import orre.gui.Bounds;
 import orre.gui.baseNodes.GUIBaseNode;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.sceneGraph.CoordinateNode;
 
 public abstract class GUIElement {
@@ -31,5 +32,5 @@ public abstract class GUIElement {
 
 	public void update(double x, double y, double width, double height) {}
 
-	public abstract void initGraphics(ResourceCache resourceCache);
+	public abstract void initGraphics(ResourceService resourceService);
 }

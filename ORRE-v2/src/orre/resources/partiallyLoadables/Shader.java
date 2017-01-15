@@ -31,20 +31,20 @@ public class Shader implements Finalizable {
 		return new Resource(ResourceType.shader, this.name, Shader.class, this);
 	}
 	
-	private int createShader(String vertexSource, int type) {
+	private int createShader(String typeString, String vertexSource, int type) {
 		int shaderID = glCreateShader(type);
 		glShaderSource(shaderID, vertexSource);
 		glCompileShader(shaderID);
 		String infoLog = glGetShaderInfoLog(shaderID, glGetShaderi(shaderID, GL_INFO_LOG_LENGTH));
 		if(glGetShaderi(shaderID, GL_COMPILE_STATUS) == GL_FALSE) {
-			throw new RuntimeException("Shader compilation failed: " + infoLog);
+			throw new RuntimeException(typeString + " shader compilation of \"" + name + "\" failed: " + infoLog);
 		}
 		return shaderID;
 	}
 
 	private void compile() {
-		this.vertexShaderID = createShader(vertSource, GL_VERTEX_SHADER);
-		this.fragmentShaderID = createShader(fragSource, GL_FRAGMENT_SHADER);
+		this.vertexShaderID = createShader("Vertex", vertSource, GL_VERTEX_SHADER);
+		this.fragmentShaderID = createShader("Fragment", fragSource, GL_FRAGMENT_SHADER);
 		int programID = glCreateProgram();
 		glAttachShader(programID, vertexShaderID);
 		glAttachShader(programID, fragmentShaderID);

@@ -11,6 +11,7 @@ import orre.gl.renderer.RenderPass;
 import orre.gl.renderer.RenderState;
 import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.resources.ResourceType;
 import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.ContainerNode;
@@ -23,9 +24,9 @@ public class GameRunning extends GameState {
 	private ShaderNode defaultShaderNode;
 	private Shader defaultShader;
 	
-	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter)
+	public GameRunning(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceService resourceService, ScriptInterpreter interpreter)
 	{
-		super(main, eventDispatcher, cache, interpreter);
+		super(main, eventDispatcher, resourceService, interpreter);
 		
 	}
 	public void initialize()
@@ -45,14 +46,15 @@ public class GameRunning extends GameState {
 		
 		this.sceneRoot = new SceneRootNode("Scene Root Node");
 		
-		this.defaultShader = ((Shader) resourceCache.getResource(ResourceType.shader, "default").content);
+		this.defaultShader = ((Shader) resourceService.getResource(ResourceType.shader, "default").content);
 		defaultShaderNode = defaultShader.createSceneNode();
 		defaultShaderNode.addChild(sceneRoot);
 		
-		this.gameWorld = new GameWorld(this.resourceCache, interpreter, sceneRoot);
+		this.gameWorld = new GameWorld(this.resourceService, interpreter, sceneRoot);
 		
 		ChainUtil.init(gameWorld);
 
+		// Default gameObjects provided by the engine
 		gameWorld.spawnGameObject(GameObjectType.CAMERA_CONTROLLER);
 		gameWorld.spawnGameObject(GameObjectType.DEV_TOOLS);
 		gameWorld.spawnGameObject(GameObjectType.GUI);

@@ -19,10 +19,10 @@ import orre.animation.actions.SetAction;
 import orre.animation.actions.TranslateAction;
 import orre.geom.Axis;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.resources.data.LWSAnimation;
 import orre.resources.data.LWSKeyFrame;
 
@@ -34,8 +34,8 @@ public class LWSLoader implements ResourceTypeLoader {
 	private static final Axis lwsZAxis = Axis.z;
 	
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
-		BufferedReader fileReader = new BufferedReader(new FileReader(source.location));
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
+		BufferedReader fileReader = new BufferedReader(new FileReader(source.fileLocation));
 		
 		readHeader(fileReader);
 		Animation animation = readBody(fileReader, source.name);

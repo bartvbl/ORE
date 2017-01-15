@@ -54,7 +54,7 @@ public class GUI extends Property {
 			updateMenus(event);
 		} else if(message.type == MessageType.ANIMATE_MENU) {
 			AnimateMenuCommand command = (AnimateMenuCommand) message.getPayload();
-			Animation animation = (Animation) gameObject.world.resourceCache.getResource(ResourceType.animation, command.animationName).content;
+			Animation animation = (Animation) gameObject.world.resourceService.getResource(ResourceType.animation, command.animationName).content;
 			Menu menu = getMenuByName(command.menuName, activeMenus);
 			if(menu != null) {
 				int animationID = this.gameObject.world.services.animationService.applyAnimation(animation, menu, AnimationBehaviour.END_ON_COMPLETE);
@@ -103,7 +103,7 @@ public class GUI extends Property {
 
 	@Override
 	public void init() {
-		this.defaultShader = ((Shader) gameObject.world.resourceCache.getResource(ResourceType.shader, "default").content);
+		this.defaultShader = ((Shader) gameObject.world.resourceService.getResource(ResourceType.shader, "default").content);
 		
 		this.guiRoot = new GUIRootNode();
 		OrthographicCameraNode camera = new OrthographicCameraNode();
@@ -132,8 +132,8 @@ public class GUI extends Property {
 	
 	private void showMenu(String menuName) {
 		if(getMenuByName(menuName, activeMenus) == null) {
-			Menu menu = (Menu) gameObject.world.resourceCache.getResource(ResourceType.menu, menuName).content;
-			menu.initGraphics(gameObject.world.resourceCache);
+			Menu menu = (Menu) gameObject.world.resourceService.getResource(ResourceType.menu, menuName).content;
+			menu.initGraphics(gameObject.world.resourceService);
 			menu.initEventHandlers(gameObject.world);
 			activeMenus.add(menu);
 			if(inactiveMenus.contains(menu)) {

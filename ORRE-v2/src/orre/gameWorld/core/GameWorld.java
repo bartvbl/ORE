@@ -6,17 +6,15 @@ import java.util.HashMap;
 
 import orre.api.PropertyTypeProvider;
 import orre.gameWorld.services.WorldServices;
-import orre.gl.shaders.ShaderNode;
-import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.sceneGraph.ContainerNode;
-import orre.sceneGraph.SceneNode;
 import orre.scripting.ScriptInterpreter;
 import orre.util.ArrayUtils;
 import orre.util.Queue;
 
 public class GameWorld {
 	public final WorldServices services;
-	public final ResourceCache resourceCache;
+	public final ResourceService resourceService;
 	public final ContainerNode sceneRoot;
 
 	private final HashMap<Integer, GameObject> gameObjectSet;
@@ -25,15 +23,15 @@ public class GameWorld {
 	private final HashMap<MessageType, ArrayList<MessageHandler>> messageListeners;
 	private final Queue<Integer> despawnQueue;
 	
-	public GameWorld(ResourceCache cache, ScriptInterpreter interpreter, ContainerNode rootNode) {
+	public GameWorld(ResourceService resourceService, ScriptInterpreter interpreter, ContainerNode rootNode) {
 		this.sceneRoot = rootNode;
-		this.services = new WorldServices(this, cache, interpreter);
+		this.services = new WorldServices(this, interpreter);
 		this.gameObjectSet = new HashMap<Integer, GameObject>();
 		this.messageListeners = new HashMap<MessageType, ArrayList<MessageHandler>>();
 		this.propertyMap = new HashMap<Enum<?>, int[]>();
 		this.objectTypeMap = new HashMap<Enum<?>, int[]>();
 		this.despawnQueue = new Queue<Integer>();
-		this.resourceCache = cache;
+		this.resourceService = resourceService;
 	}
 	
 	public int spawnGameObject(Enum<?> gameObjectType) {

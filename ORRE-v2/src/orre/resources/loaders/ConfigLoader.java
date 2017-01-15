@@ -8,10 +8,10 @@ import orre.config.Config;
 import orre.input.KeyBindings;
 import orre.input.KeyType;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.util.Logger;
 import orre.util.Logger.LogType;
 
@@ -23,8 +23,8 @@ public class ConfigLoader implements ResourceTypeLoader {
 	}
 
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
-		BufferedReader reader = new BufferedReader(new FileReader(source.location));
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
+		BufferedReader reader = new BufferedReader(new FileReader(source.fileLocation));
 		HashMap<String, String> configMap = new HashMap<String, String>();
 		
 		int lineNumber = 0;

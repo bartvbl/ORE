@@ -4,13 +4,13 @@ import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
 import orre.gameStates.GameState;
 import orre.gl.renderer.RenderState;
-import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.scripting.ScriptInterpreter;
 
 public class PauseMenu extends GameState {
 
-	public PauseMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter) {
-		super(main, eventDispatcher, cache, interpreter);
+	public PauseMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceService resourceService, ScriptInterpreter interpreter) {
+		super(main, eventDispatcher, resourceService, interpreter);
 	}
 
 	@Override

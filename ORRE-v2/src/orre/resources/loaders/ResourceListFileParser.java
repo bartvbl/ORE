@@ -6,17 +6,17 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.util.Logger;
 import orre.util.Logger.LogType;
 import orre.util.XMLLoader;
 
 public class ResourceListFileParser implements ResourceTypeLoader {
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
 		parseFile(source, queue);
 		return null;
 	}
@@ -26,9 +26,9 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 		return ResourceType.resourceList;
 	}
 	
-	public static void parseFile(UnloadedResource file, ResourceQueue queue)
+	public static void parseFile(Resource file, ResourceQueue queue)
 	{
-		Document resourceList = XMLLoader.readXML(file.location);
+		Document resourceList = XMLLoader.readXML(file.fileLocation);
 		Element rootElement = resourceList.getRootElement();
 		parseResourceFile(rootElement, queue);
 	}
@@ -63,7 +63,7 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 			String resourceTypeName = fileToLoadElement.getLocalName();
 			try {
 				Enum<?> resourceType = queue.getMatchingResourceType(resourceTypeName);
-				UnloadedResource file = new UnloadedResource(resourceType, new File(pathPrefix + "/" + src), name);
+				Resource file = new Resource(new File(pathPrefix + "/" + src), resourceType, name);
 				queue.enqueueNodeForLoading(file);
 			} catch(IllegalArgumentException e) {
 				Logger.log("Invalid resource type in resource list file: " + resourceTypeName, LogType.ERROR);

@@ -7,7 +7,7 @@ public class ResourceFinalizer {
 	private ResourceQueue resourceQueue;
 	private final ResourceCache cache;
 
-	private static final float ALLOWED_TIME_FOR_FINALIZATIONS = 0.014f;
+	private static final float ALLOWED_TIME_FOR_FINALIZATIONS = 1.0f / 70.0f;
 	
 	public ResourceFinalizer(ResourceQueue resourceQueue, ResourceCache cache) {
 		this.resourceQueue = resourceQueue;
@@ -26,9 +26,13 @@ public class ResourceFinalizer {
 			{
 				break;
 			}
-			Resource resource = resourceToFinalize.finalizeResource();
-			if(resource != null) {
-				cache.addResource(resource);
+			try {
+				Resource resource = resourceToFinalize.finalizeResource();
+				if(resource != null) {
+					cache.addResource(resource);
+				}				
+			} catch(Exception e) {
+				throw new RuntimeException("Finalisation of resource " + resourceToFinalize + " failed.", e);
 			}
 			Timer.tick();
 		}

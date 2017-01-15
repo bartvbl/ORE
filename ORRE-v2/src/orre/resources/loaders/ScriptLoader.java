@@ -5,18 +5,18 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.scripting.ScriptInterpreter;
 
 public class ScriptLoader implements ResourceTypeLoader {
 
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
-		String pythonSource = loadFileContents(source.location);
-		ScriptInterpreter.get().addToPythonPath(source.location.getParentFile());
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
+		String pythonSource = loadFileContents(source.fileLocation);
+		ScriptInterpreter.get().addToPythonPath(source.fileLocation.getParentFile());
 		ScriptInterpreter.get().execute(pythonSource);
 		return null;
 	}

@@ -18,6 +18,7 @@ import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Property;
 import orre.resources.Resource;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.sceneGraph.SceneNode;
 
 public class GameInfoWindow {
@@ -27,7 +28,7 @@ public class GameInfoWindow {
 		window.add(mainTabPane);
 		showSceneGraph(world.sceneRoot, mainTabPane);
 		showGameWorld(world.debugonly_getAllGameOjects(), mainTabPane);
-		showResourceCache(world.resourceCache, mainTabPane);
+		showResourceCache(world.resourceService, mainTabPane);
 		window.setSize(300, 500);
 		window.setLocation(100, 100);
 		window.setVisible(true);
@@ -78,7 +79,7 @@ public class GameInfoWindow {
 		worldTree.expandRow(0);
 	}
 	
-	private static void showResourceCache(ResourceCache cache, JTabbedPane mainTabPane) {
+	private static void showResourceCache(ResourceService resourceService, JTabbedPane mainTabPane) {
 		JScrollPane scrollPane = new JScrollPane();
 		JPanel informationPanel = new JPanel();
 		JSplitPane splitter = new JSplitPane(JSplitPane.HORIZONTAL_SPLIT, scrollPane, informationPanel);
@@ -88,7 +89,7 @@ public class GameInfoWindow {
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("");
 		DefaultTreeModel model = new DefaultTreeModel(rootNode);
 		worldTree.setModel(model);
-		HashMap<Enum<?>, HashMap<String, Resource>> resourceMap = cache.debugonly_getResourceMap();
+		HashMap<Enum<?>, HashMap<String, Resource>> resourceMap = resourceService.debugonly_getResourceMap();
 		for(Enum<?> type : resourceMap.keySet()) {
 			DefaultMutableTreeNode typeNode = new DefaultMutableTreeNode(type + " (" + resourceMap.get(type).size() + " loaded)");
 			for(String name : resourceMap.get(type).keySet()) {

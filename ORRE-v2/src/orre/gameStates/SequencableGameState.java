@@ -6,6 +6,7 @@ import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.gl.renderer.RenderState;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 
 public abstract class SequencableGameState implements AbstractGameState {
 	private GameMain main;
@@ -13,13 +14,13 @@ public abstract class SequencableGameState implements AbstractGameState {
 	private GameStateName nextState;
 
 	protected final GlobalEventDispatcher globalEventDispatcher;
-	protected final ResourceCache resourceCache;
+	protected final ResourceService resourceService;
 
-	public SequencableGameState(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName, ResourceCache cache) {
+	public SequencableGameState(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName, ResourceService resourceService) {
 		this.main = main;
 		this.globalEventDispatcher = eventDispatcher;
 		this.stateName = stateName;
-		this.resourceCache = cache;
+		this.resourceService = resourceService;
 	}
 	
 	@Override

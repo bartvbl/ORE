@@ -10,30 +10,29 @@ import orre.gl.shaders.ShaderNode;
 import orre.gui.LoadingScreenDrawer;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceLoader;
+import orre.resources.ResourceService;
 import orre.resources.ResourceType;
-import orre.resources.UnloadedResource;
 import orre.resources.loaders.ShaderLoader;
 import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.ContainerNode;
 
 public class LoadingScreen extends SequencableGameState {
 
-	private ResourceLoader resourceLoader;
+	private ResourceService resourceService;
 	private ShaderNode defaultShaderNode;
 	private LoadingScreenDrawer loadingScreen;
 	private ContainerNode sceneRoot;
 	private Shader defaultShader;
 
-	public LoadingScreen(GameMain main, GlobalEventDispatcher globalEventDispatcher, GameStateName stateName, ResourceCache cache, ResourceLoader loader) {
-		super(main, globalEventDispatcher, stateName, cache);
-		this.resourceLoader = loader;
+	public LoadingScreen(GameMain main, GlobalEventDispatcher globalEventDispatcher, GameStateName stateName, ResourceService resourceService) {
+		super(main, globalEventDispatcher, stateName, resourceService);
+		this.resourceService = resourceService;
 	}
 	
 	@Override
 	public void set() {
 		this.sceneRoot = new ContainerNode();
-		this.defaultShader = ShaderLoader.loadShader(new UnloadedResource(ResourceType.shader, new File("res/shaders/default"), ""));
-		defaultShader.finalizeResource();
+		this.defaultShader = (Shader) resourceService.getResource(ResourceType.shader, "default").content;
 		this.defaultShaderNode = defaultShader.createSceneNode();
 		sceneRoot.addChild(defaultShaderNode);
 		
@@ -53,10 +52,8 @@ public class LoadingScreen extends SequencableGameState {
 	public void executeFrame(long frameNumber, RenderState state) {
 		RenderPass.render(sceneRoot, state);
 		
-		this.resourceLoader.update();
-		if(this.resourceLoader.isFinished())
+		if(this.resourceService.isCurrentQueueEmpty())
 		{
-			this.resourceLoader = null;
 			this.finish();
 		}
 		return;

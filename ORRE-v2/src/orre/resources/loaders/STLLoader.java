@@ -8,10 +8,10 @@ import java.nio.IntBuffer;
 
 import lib.ldd.data.VBOContents;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 
 public class STLLoader implements ResourceTypeLoader {
 	private final byte[] header = new byte[80];
@@ -19,8 +19,8 @@ public class STLLoader implements ResourceTypeLoader {
 	
 
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
-		FileInputStream inputStream = new FileInputStream(source.location);
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
+		FileInputStream inputStream = new FileInputStream(source.fileLocation);
 		
 		byte[] singleTriangle = new byte[bytesPerTriangle];
 		ByteBuffer triangleBuffer = ByteBuffer.allocate(bytesPerTriangle);

@@ -13,8 +13,7 @@ import orre.gameStates.*;
 import orre.gameWorld.core.GameWorld;
 import orre.gl.RenderUtils;
 import orre.gl.renderer.RenderState;
-import orre.resources.ResourceCache;
-import orre.resources.ResourceLoader;
+import orre.resources.ResourceService;
 import orre.scripting.ScriptInterpreter;
 import orre.util.Logger;
 
@@ -26,9 +25,8 @@ public class GameMain implements EventHandler{
 	private HashMap<GameStateName, AbstractGameState> stateMap;
 	
 	private final String gameName;
-	private final ResourceCache resourceCache;
-	private final ResourceLoader resourceLoader;
 	private final ScriptInterpreter scriptInterpreter;
+	private final ResourceService resourceService;
 	private final GameSettings settings;
 	
 	public GameMain(GameSettings settings) 
@@ -39,8 +37,7 @@ public class GameMain implements EventHandler{
 		GameWorld.setPropertyTypeProvider(settings.propertyTypeProvider);
 		this.globalEventDispatcher = new GlobalEventDispatcher();
 		this.globalEventDispatcher.addEventListener(this, GlobalEventType.CHANGE_GAME_STATE);
-		this.resourceCache = new ResourceCache();
-		this.resourceLoader = new ResourceLoader(resourceCache, globalEventDispatcher);
+		this.resourceService = new ResourceService(globalEventDispatcher);
 		this.scriptInterpreter = ScriptInterpreter.create(globalEventDispatcher);
 	}
 	
@@ -51,6 +48,7 @@ public class GameMain implements EventHandler{
 		while(!Display.isCloseRequested() && gameIsRunning)
 		{
 			RenderUtils.newFrame();
+			this.resourceService.update();
 			this.currentGameState.executeFrame(this.frameNumber, state);
 			this.frameNumber++;
 			Display.update();
@@ -81,7 +79,7 @@ public class GameMain implements EventHandler{
 	{
 		GameWindow.create(gameName);
 		this.scriptInterpreter.init();
-		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher, resourceCache, resourceLoader, scriptInterpreter, settings);
+		HashMap<GameStateName, AbstractGameState> stateMap = GameStateInitializer.initializeGameStates(this, this.globalEventDispatcher, resourceService, scriptInterpreter, settings);
 		this.stateMap = stateMap;
 		this.setGameState(GameStateName.STARTUP_LOADING);
 	}

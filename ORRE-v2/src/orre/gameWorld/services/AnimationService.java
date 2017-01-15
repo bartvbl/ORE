@@ -16,7 +16,6 @@ import orre.gameWorld.core.GameWorld;
 import orre.gameWorld.core.Message;
 import orre.gameWorld.core.MessageType;
 import orre.geom.mesh.Mesh3D;
-import orre.geom.mesh.Model;
 import orre.resources.ResourceType;
 
 public class AnimationService implements Service {
@@ -61,7 +60,7 @@ public class AnimationService implements Service {
 	}
 	
 	public int applyAnimation(String animationResourceName, Animatable animatable, AnimationBehaviour behaviour) {
-		Animation animation = (Animation) world.resourceCache.getResource(ResourceType.animation, animationResourceName).content;
+		Animation animation = (Animation) world.resourceService.getResource(ResourceType.animation, animationResourceName).content;
 		return applyAnimation(animation, animatable, behaviour);
 	}
 

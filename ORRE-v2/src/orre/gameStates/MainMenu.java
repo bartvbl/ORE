@@ -7,17 +7,18 @@ import orre.events.GlobalEvent;
 import orre.events.GlobalEventDispatcher;
 import orre.events.GlobalEventType;
 import orre.gl.renderer.RenderState;
-import orre.resources.UnloadedResource;
+import orre.resources.Resource;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.resources.ResourceType;
 import orre.scripting.ScriptInterpreter;
 
 public class MainMenu extends GameState {
 
-	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceCache cache, ScriptInterpreter interpreter) {
-		super(main, eventDispatcher, cache, interpreter);
-		UnloadedResource mainCache = new UnloadedResource(ResourceType.resourceList, new File("res/reslist.xml"), "mainCacheList");
-		eventDispatcher.dispatchEvent(new GlobalEvent<UnloadedResource>(GlobalEventType.ENQUEUE_LOADING_ITEM, mainCache));
+	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceService resourceService, ScriptInterpreter interpreter) {
+		super(main, eventDispatcher, resourceService, interpreter);
+		Resource mainCache = new Resource(new File("res/reslist.xml"), ResourceType.resourceList, "mainCacheList", Object.class);
+		eventDispatcher.dispatchEvent(new GlobalEvent<Resource>(GlobalEventType.REGISTER_AVAILABLE_RESOURCE_LIST, mainCache));
 		
 	}
 	

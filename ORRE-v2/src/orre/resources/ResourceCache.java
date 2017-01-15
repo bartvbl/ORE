@@ -19,11 +19,23 @@ public class ResourceCache {
 		resourceMap.get(resource.type).put(resource.name, resource);
 	}
 	
-	public Resource getResource(Enum<?> resourceType, String name) {
-		if(resourceMap.containsKey(resourceType) && resourceMap.get(resourceType).containsKey(name)) {
-			return resourceMap.get(resourceType).get(name);
+	public ResourceObject<?> getResource(Enum<?> resourceType, String name) {
+		if(resourceMap.containsKey(resourceType)) {
+			if(resourceMap.get(resourceType).containsKey(name)) {
+				Resource resource = resourceMap.get(resourceType).get(name);
+				ResourceState currentState = resource.currentState();
+				if(currentState != ResourceState.LOADED) {
+					if(currentState == ResourceState.UNLOADED) {
+						
+					}
+				}
+				return resource.content;					
+			} else {
+				throw new RuntimeException("No resource of type " + resourceType + " named \"" + resourceType + "\" could be found. Make sure you added it to a resource list.");
+			}
+		} else {
+			throw new RuntimeException("Unknown resource type requested: \"" + resourceType + "\".");
 		}
-		throw new RuntimeException("No resource of type " + resourceType + " named " + name);
 	}
 	
 	public synchronized String uniqueName(Enum<?> resourceType) {
@@ -39,4 +51,6 @@ public class ResourceCache {
 	public HashMap<Enum<?>, HashMap<String, Resource>> debugonly_getResourceMap() {
 		return resourceMap;
 	}
+
+	
 }

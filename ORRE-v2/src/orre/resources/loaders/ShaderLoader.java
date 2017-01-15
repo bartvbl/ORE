@@ -5,21 +5,21 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.resources.partiallyLoadables.Shader;
 
 public class ShaderLoader implements ResourceTypeLoader {
 
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
 		return loadShader(source);
 	}
 
-	public static Shader loadShader(UnloadedResource source) {
-		String path = source.location.getAbsolutePath();
+	public static Shader loadShader(Resource source) {
+		String path = source.fileLocation.getAbsolutePath();
 		File vertexShaderSource = new File(path + ".vert");
 		File fragmentShaderSource = new File(path + ".frag");
 		String vertexSource = readShaderFile(vertexShaderSource);

@@ -8,14 +8,14 @@ import orre.animation.AnimationAction;
 import orre.animation.AnimationLineParser;
 import orre.animation.KeyFrame;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 
 public class AnimationLoader implements ResourceTypeLoader {
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) {
+	public Finalizable loadResource(Resource source, ResourceQueue queue) {
 		return load(source);
 	}
 
@@ -24,20 +24,20 @@ public class AnimationLoader implements ResourceTypeLoader {
 		return ResourceType.animation;
 	}
 	
-	public static Animation load(UnloadedResource animationFile) {
+	public static Animation load(Resource animationFile) {
 		try {			
 			return parseAnimationFile(animationFile);
 		}
 		catch(Exception e) {
-			System.err.println("Failed to load animation at \"" + animationFile.location + "\".");
+			System.err.println("Failed to load animation at \"" + animationFile.fileLocation + "\".");
 			System.err.println("Reason: " + e.getMessage());
 			e.printStackTrace();
 		}
 		return null;
 	}
 
-	private static Animation parseAnimationFile(UnloadedResource animationFile) throws Exception {
-		FileReader fileReader = new FileReader(animationFile.location);
+	private static Animation parseAnimationFile(Resource animationFile) throws Exception {
+		FileReader fileReader = new FileReader(animationFile.fileLocation);
 		BufferedReader reader = new BufferedReader(fileReader);
 
 		ArrayList<KeyFrame> keyFrames = new ArrayList<KeyFrame>();

@@ -19,9 +19,9 @@ import lib.ldd.lxfml.LXFMLReader;
 import orre.lxf.LXFBlueprintModel;
 import orre.lxf.LXFBlueprintPart;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.resources.ResourceQueue;
 import orre.resources.partiallyLoadables.BlueprintMaterial;
 
@@ -37,11 +37,11 @@ public class LXFMLLoader implements ResourceTypeLoader {
 	}
 	
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
 		checkDBFileAvailability();
 		LIFReader dbReader = openDBReader();
 		
-		Mesh mesh = LXFMLReader.readLXFMLFile(source.location, dbReader);
+		Mesh mesh = LXFMLReader.readLXFMLFile(source.fileLocation, dbReader);
 		String modelName = source.name;
 		return convertMesh(mesh, modelName, queue);
 	}

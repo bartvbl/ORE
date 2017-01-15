@@ -5,12 +5,13 @@ import orre.events.GlobalEventDispatcher;
 import orre.gui.DefaultLoadingScreen;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceLoader;
+import orre.resources.ResourceService;
 
 public class GameLoader extends LoadingScreen {
 
-	public GameLoader(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName, ResourceCache cache, ResourceLoader loader) {
-		super(main, eventDispatcher, stateName, cache, loader);
-		this.setLoadingScreen(new DefaultLoadingScreen(loader));
+	public GameLoader(GameMain main, GlobalEventDispatcher eventDispatcher, GameStateName stateName, ResourceService resourceService) {
+		super(main, eventDispatcher, stateName, resourceService);
+		this.setLoadingScreen(new DefaultLoadingScreen(resourceService));
 	}
 
 }

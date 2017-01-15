@@ -5,9 +5,9 @@ import java.util.List;
 import nu.xom.Document;
 import nu.xom.Element;
 import orre.resources.Finalizable;
+import orre.resources.Resource;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.resources.ResourceQueue;
 import orre.resources.data.OBJBlueprintModel;
 import orre.resources.loaders.models.ModelPartTreeBuilder;
@@ -16,7 +16,7 @@ import orre.util.XMLLoader;
 
 public class ModelLoader implements ResourceTypeLoader {
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
+	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
 		return loadModel(source, queue);
 	}
 
@@ -25,9 +25,9 @@ public class ModelLoader implements ResourceTypeLoader {
 		return ResourceType.model;
 	}
 
-	public static OBJBlueprintModel loadModel(UnloadedResource file, ResourceQueue queue) throws Exception
+	public static OBJBlueprintModel loadModel(Resource file, ResourceQueue queue) throws Exception
 	{
-		Document modelXMLDocument = XMLLoader.readXML(file.location);
+		Document modelXMLDocument = XMLLoader.readXML(file.fileLocation);
 		Element rootElement = modelXMLDocument.getRootElement();
 		OBJBlueprintModel model = new OBJBlueprintModel(file.name);
 		ModelPartTreeBuilder.generatePartTree(model, rootElement);
