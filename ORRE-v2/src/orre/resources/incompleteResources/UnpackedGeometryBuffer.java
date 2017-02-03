@@ -1,4 +1,4 @@
-package orre.resources.partiallyLoadables;
+package orre.resources.incompleteResources;
 
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;

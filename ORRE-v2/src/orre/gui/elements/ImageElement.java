@@ -4,6 +4,7 @@ import orre.gl.texture.Texture;
 import orre.gui.Bounds;
 import orre.gui.elementNodes.ImageNode;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.resources.ResourceType;
 
 public class ImageElement extends GUIElement {
@@ -23,8 +24,8 @@ public class ImageElement extends GUIElement {
 	}
 
 	@Override
-	public void initGraphics(ResourceCache resourceCache) {
-		node.setTexture((Texture) resourceCache.getResource(ResourceType.texture, imageName).content);
+	public void initGraphics(ResourceService resourceService) {
+		node.setTexture((Texture) resourceService.getResource(ResourceType.texture, imageName));
 	}
 
 }

@@ -11,18 +11,18 @@ import orre.gui.controls.ImageToggleButton;
 import orre.gui.elements.Container;
 import orre.gui.elements.GUIElement;
 import orre.gui.elements.ImageElement;
-import orre.resources.Finalizable;
+import orre.resources.IncompleteResourceObject;
+import orre.resources.Resource;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.UnloadedResource;
 import orre.util.XMLLoader;
 
 public class MenuLoader implements ResourceTypeLoader {
 
 	@Override
-	public Finalizable loadResource(UnloadedResource source, ResourceQueue queue) throws Exception {
-		Element rootElement = XMLLoader.readXML(source.location).getRootElement();
+	public IncompleteResourceObject<?> readResource(Resource source) throws Exception {
+		Element rootElement = XMLLoader.readXML(source.fileLocation).getRootElement();
 		Elements childElements = rootElement.getChildElements();
 		if(childElements.size() != 1) {
 			throw new RuntimeException("A menu requires a single container element as its root.");

@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.TreeSet;
 
 import orre.animation.Animation;
 import orre.animation.AnimationAction;
@@ -18,9 +17,9 @@ import orre.animation.actions.ScaleAction;
 import orre.animation.actions.SetAction;
 import orre.animation.actions.TranslateAction;
 import orre.geom.Axis;
-import orre.resources.Finalizable;
+import orre.resources.IncompleteResourceObject;
 import orre.resources.Resource;
-import orre.resources.ResourceQueue;
+import orre.resources.ResourceObject;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
 import orre.resources.data.LWSAnimation;
@@ -34,7 +33,7 @@ public class LWSLoader implements ResourceTypeLoader {
 	private static final Axis lwsZAxis = Axis.z;
 	
 	@Override
-	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
+	public Animation readResource(Resource source) throws Exception {
 		BufferedReader fileReader = new BufferedReader(new FileReader(source.fileLocation));
 		
 		readHeader(fileReader);
@@ -377,6 +376,11 @@ public class LWSLoader implements ResourceTypeLoader {
 	@Override
 	public Enum<?> getResourceType() {
 		return ResourceType.lwsAnimation;
+	}
+
+	@Override
+	public ResourceObject<?> completeResource(IncompleteResourceObject<?> resource) {
+		return (ResourceObject<?>) resource; // Do nothing
 	}
 
 }

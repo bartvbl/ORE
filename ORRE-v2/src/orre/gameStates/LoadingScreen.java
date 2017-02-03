@@ -1,19 +1,14 @@
 package orre.gameStates;
 
-import java.io.File;
-
 import orre.core.GameMain;
 import orre.events.GlobalEventDispatcher;
+import orre.gl.Shader;
 import orre.gl.renderer.RenderPass;
 import orre.gl.renderer.RenderState;
 import orre.gl.shaders.ShaderNode;
 import orre.gui.LoadingScreenDrawer;
-import orre.resources.ResourceCache;
-import orre.resources.ResourceLoader;
 import orre.resources.ResourceService;
 import orre.resources.ResourceType;
-import orre.resources.loaders.ShaderLoader;
-import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.ContainerNode;
 
 public class LoadingScreen extends SequencableGameState {
@@ -32,7 +27,7 @@ public class LoadingScreen extends SequencableGameState {
 	@Override
 	public void set() {
 		this.sceneRoot = new ContainerNode();
-		this.defaultShader = (Shader) resourceService.getResource(ResourceType.shader, "default").content;
+		this.defaultShader = (Shader) resourceService.getResource(ResourceType.shader, "default");
 		this.defaultShaderNode = defaultShader.createSceneNode();
 		sceneRoot.addChild(defaultShaderNode);
 		
@@ -45,7 +40,6 @@ public class LoadingScreen extends SequencableGameState {
 	
 	@Override
 	public void unset() {
-		defaultShader.destroy();
 	}
 
 	@Override

@@ -2,8 +2,9 @@ package orre.gl.texture;
 
 import orre.gl.renderer.RenderState;
 import orre.gl.renderer.ShaderProperty;
+import orre.resources.ResourceObject;
 
-public class Texture {
+public class Texture implements ResourceObject<Texture> {
 	public final int id;
 	public final int width, height;
 	
@@ -29,5 +30,10 @@ public class Texture {
 	}
 	
 	public void unbind() {
+	}
+
+	@Override
+	public Texture createInstance() {
+		return this;
 	}
 }

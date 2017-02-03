@@ -19,18 +19,19 @@ import javax.imageio.ImageIO;
 import org.lwjgl.opengl.GL30;
 
 import orre.gl.texture.Texture;
-import orre.resources.Finalizable;
+import orre.resources.IncompleteResourceObject;
 import orre.resources.Resource;
+import orre.resources.ResourceObject;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.partiallyLoadables.PartiallyLoadableTexture;
+import orre.resources.incompleteResources.IncompleteTexture;
 
 public class TextureLoader implements ResourceTypeLoader {
 	
 	@Override
-	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
-		return partiallyLoadTextureFromFile(source);
+	public IncompleteResourceObject<IncompleteTexture> readResource(Resource source) throws Exception {
+		return readTextureFromFile(source);
 	}
 	
 	@Override
@@ -38,10 +39,10 @@ public class TextureLoader implements ResourceTypeLoader {
 		return ResourceType.texture;
 	}
 	
-	public static PartiallyLoadableTexture partiallyLoadTextureFromFile(Resource file) throws FileNotFoundException, IOException, Exception {
+	public static IncompleteTexture readTextureFromFile(Resource file) throws FileNotFoundException, IOException, Exception {
 		BufferedImage image = loadImageFromFile(file.fileLocation);
 		byte[] imageData = TexturePixelConverter.getImageDataBytes(image);
-		return new PartiallyLoadableTexture(file.name, imageData, image.getWidth(), image.getHeight());
+		return new IncompleteTexture(file.name, imageData, image.getWidth(), image.getHeight());
 	}
 	
 	public static Texture createTextureFromImage(BufferedImage image) throws Exception
@@ -99,6 +100,13 @@ public class TextureLoader implements ResourceTypeLoader {
 		GL30.glGenerateMipmap(GL_TEXTURE_2D);
 		glPopAttrib();
 		return new Texture(texRef, width, height);
+	}
+
+	@Override
+	public ResourceObject<?> completeResource(IncompleteResourceObject<?> object) {
+		IncompleteTexture texture = (IncompleteTexture) object;
+		Texture compiledTexture = TextureLoader.createTexture(texture.imageData, texture.width, texture.height);
+		return compiledTexture;
 	}
 
 	

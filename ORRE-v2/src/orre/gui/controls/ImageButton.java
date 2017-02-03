@@ -3,7 +3,7 @@ package orre.gui.controls;
 import orre.gl.texture.Texture;
 import orre.gui.Bounds;
 import orre.gui.elementNodes.ButtonNode;
-import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.resources.ResourceType;
 
 public class ImageButton extends Control {
@@ -35,22 +35,22 @@ public class ImageButton extends Control {
 	
 
 	@Override
-	public void initGraphics(ResourceCache resourceCache) {
+	public void initGraphics(ResourceService resourceService) {
 		Texture upTexture = null;
 		Texture overTexture = null;
 		Texture downTexture = null; 
 		Texture disabledTexture = null;
 		if(upImageName != null) {
-			upTexture = (Texture) resourceCache.getResource(ResourceType.texture, upImageName).content;
+			upTexture = (Texture) resourceService.getResource(ResourceType.texture, upImageName);
 		}
 		if(overImageName != null) {
-			overTexture = (Texture) resourceCache.getResource(ResourceType.texture, overImageName).content;
+			overTexture = (Texture) resourceService.getResource(ResourceType.texture, overImageName);
 		}
 		if(downImageName != null) {
-			downTexture = (Texture) resourceCache.getResource(ResourceType.texture, downImageName).content;
+			downTexture = (Texture) resourceService.getResource(ResourceType.texture, downImageName);
 		}
 		if(disabledImageName != null) {
-			disabledTexture = (Texture) resourceCache.getResource(ResourceType.texture, disabledImageName).content;
+			disabledTexture = (Texture) resourceService.getResource(ResourceType.texture, disabledImageName);
 		}
 		buttonNode.setTextures(upTexture, overTexture, downTexture, disabledTexture);
 		buttonNode.finaliseResource();

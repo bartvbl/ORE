@@ -2,7 +2,7 @@ package orre.gui.elements;
 
 import orre.gui.Bounds;
 import orre.gui.elementNodes.ContainerElementNode;
-import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 
 public class Container extends GUIElement {
 
@@ -11,6 +11,6 @@ public class Container extends GUIElement {
 	}
 
 	@Override
-	public void initGraphics(ResourceCache resourceCache) {}
+	public void initGraphics(ResourceService resourceService) {}
 
 }

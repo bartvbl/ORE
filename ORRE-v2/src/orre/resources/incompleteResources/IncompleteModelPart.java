@@ -1,23 +1,19 @@
-package orre.resources.partiallyLoadables;
+package orre.resources.incompleteResources;
 
-import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 
 import orre.gl.vao.VBOFormat;
-import orre.resources.Finalizable;
-import orre.resources.Resource;
+import orre.resources.IncompleteResourceObject;
 import orre.resources.loaders.obj.StoredModelPart;
-import orre.util.Logger;
-import orre.util.Logger.LogType;
 
-public class PartiallyLoadableModelPart implements Finalizable {
+public class IncompleteModelPart implements IncompleteResourceObject<IncompleteModelPart> {
 	private BlueprintMaterial material;
 	private final UnpackedGeometryBuffer geometryBuffer;
 	
 	public final String name;
 	private StoredModelPart destinationPart;
 
-	public PartiallyLoadableModelPart(String name, int numVertices, VBOFormat bufferDataFormatType) {
+	public IncompleteModelPart(String name, int numVertices, VBOFormat bufferDataFormatType) {
 		this.geometryBuffer = new UnpackedGeometryBuffer(bufferDataFormatType, numVertices);
 		this.name = name;
 	}
@@ -29,20 +25,6 @@ public class PartiallyLoadableModelPart implements Finalizable {
 		this.geometryBuffer.addVertex(vertex); 
 	}
 	
-	@Override
-	public Resource finalizeResource() {
-		if(this.destinationPart == null) {
-			Logger.log("missing part in model: " + name, LogType.ERROR);
-			return null;
-		}
-		if(this.material != null) {
-			this.material.finalizeResource();
-		}
-		this.geometryBuffer.finalizeResource();
-		this.destinationPart.addBufferCombo(this.material, this.geometryBuffer.convertToGeometryBuffer());
-		return null;
-	}
-
 	public void setBufferDataFormat(VBOFormat dataType) {
 		geometryBuffer.setBufferDataFormat(dataType);
 	}

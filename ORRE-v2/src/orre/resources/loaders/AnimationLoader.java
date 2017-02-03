@@ -7,15 +7,16 @@ import orre.animation.Animation;
 import orre.animation.AnimationAction;
 import orre.animation.AnimationLineParser;
 import orre.animation.KeyFrame;
-import orre.resources.Finalizable;
+import orre.resources.IncompleteResourceObject;
 import orre.resources.Resource;
+import orre.resources.ResourceObject;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
 
 public class AnimationLoader implements ResourceTypeLoader {
 	@Override
-	public Finalizable loadResource(Resource source, ResourceQueue queue) {
+	public Animation readResource(Resource source) {
 		return load(source);
 	}
 
@@ -103,5 +104,11 @@ public class AnimationLoader implements ResourceTypeLoader {
 		AnimationAction[] actionList = actions.toArray(new AnimationAction[actions.size()]);
 		KeyFrame newFrame = new KeyFrame(tokens[1], duration, isInfinite, isInstant, actionList);
 		return newFrame;
+	}
+
+	@Override
+	public ResourceObject<?> completeResource(IncompleteResourceObject<?> animation) {
+		// Do nothing
+		return (ResourceObject<?>) animation;
 	}
 }

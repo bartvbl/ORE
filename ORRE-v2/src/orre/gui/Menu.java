@@ -10,14 +10,14 @@ import orre.animation.Animatable;
 import orre.gameWorld.core.GameWorld;
 import orre.gui.controls.Control;
 import orre.gui.elements.GUIElement;
-import orre.resources.Finalizable;
 import orre.resources.Resource;
 import orre.resources.ResourceCache;
+import orre.resources.ResourceObject;
 import orre.resources.ResourceService;
 import orre.resources.ResourceType;
 import orre.sceneGraph.CoordinateNode;
 
-public class Menu implements Animatable, Finalizable {
+public class Menu implements ResourceObject<Menu>, IncompleteResourceObject<?>, Animatable {
 	public final String name;
 	public final GUIElement root;
 	

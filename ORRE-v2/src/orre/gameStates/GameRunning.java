@@ -7,13 +7,13 @@ import orre.events.GlobalEventDispatcher;
 import orre.gameWorld.chaining.ChainUtil;
 import orre.gameWorld.core.GameObjectType;
 import orre.gameWorld.core.GameWorld;
+import orre.gl.Shader;
 import orre.gl.renderer.RenderPass;
 import orre.gl.renderer.RenderState;
 import orre.gl.shaders.ShaderNode;
 import orre.resources.ResourceCache;
 import orre.resources.ResourceService;
 import orre.resources.ResourceType;
-import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneRootNode;
 import orre.scripting.ScriptInterpreter;
@@ -46,7 +46,7 @@ public class GameRunning extends GameState {
 		
 		this.sceneRoot = new SceneRootNode("Scene Root Node");
 		
-		this.defaultShader = ((Shader) resourceService.getResource(ResourceType.shader, "default").content);
+		this.defaultShader = ((Shader) resourceService.getResource(ResourceType.shader, "default"));
 		defaultShaderNode = defaultShader.createSceneNode();
 		defaultShaderNode.addChild(sceneRoot);
 		
@@ -63,6 +63,5 @@ public class GameRunning extends GameState {
 	@Override
 	public void unset() {
 		gameWorld.services.shutdown();
-		defaultShader.destroy();
 	}
 }

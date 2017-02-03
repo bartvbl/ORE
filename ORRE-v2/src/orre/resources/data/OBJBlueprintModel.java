@@ -7,14 +7,12 @@ import orre.geom.mesh.BlueprintModel;
 import orre.geom.mesh.Mesh3D;
 import orre.geom.mesh.Model;
 import orre.geom.mesh.ModelPart;
-import orre.resources.Finalizable;
-import orre.resources.Resource;
-import orre.resources.ResourceType;
+import orre.resources.IncompleteResourceObject;
+import orre.resources.incompleteResources.IncompleteModelPart;
 import orre.resources.loaders.obj.StoredModelPart;
-import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.sceneGraph.SceneNode;
 
-public class OBJBlueprintModel implements BlueprintModel, Finalizable {
+public class OBJBlueprintModel implements IncompleteResourceObject<BlueprintModel>, BlueprintModel {
 	private ArrayList<StoredModelPart> topLevelNodeList = new ArrayList<StoredModelPart>();
 	private HashMap<String, StoredModelPart> modelParts = new HashMap<String, StoredModelPart>();
 	public final String name;
@@ -32,7 +30,7 @@ public class OBJBlueprintModel implements BlueprintModel, Finalizable {
 		this.modelParts.put(part.nameInModel, part);
 	}
 	
-	public void linkGeometryPartToModelPart(PartiallyLoadableModelPart partToLink) {
+	public void linkGeometryPartToModelPart(IncompleteModelPart partToLink) {
 		StoredModelPart part = this.modelParts.get(partToLink.name);
 		partToLink.setDestinationPart(part);
 	}
@@ -53,11 +51,6 @@ public class OBJBlueprintModel implements BlueprintModel, Finalizable {
 		for(StoredModelPart child : children) {
 			addChildren(mesh, modelPart, child);
 		}
-	}
-
-	@Override
-	public Resource finalizeResource() {
-		return new Resource(ResourceType.model, name, OBJBlueprintModel.class, this);
 	}
 
 	@Override

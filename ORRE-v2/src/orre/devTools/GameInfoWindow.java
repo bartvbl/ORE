@@ -89,7 +89,7 @@ public class GameInfoWindow {
 		DefaultMutableTreeNode rootNode = new DefaultMutableTreeNode("");
 		DefaultTreeModel model = new DefaultTreeModel(rootNode);
 		worldTree.setModel(model);
-		HashMap<Enum<?>, HashMap<String, Resource>> resourceMap = resourceService.debugonly_getResourceMap();
+		HashMap<Enum<?>, HashMap<String, Resource>> resourceMap = resourceService.debugonly_getResourceCache().debugonly_getResourceMap();
 		for(Enum<?> type : resourceMap.keySet()) {
 			DefaultMutableTreeNode typeNode = new DefaultMutableTreeNode(type + " (" + resourceMap.get(type).size() + " loaded)");
 			for(String name : resourceMap.get(type).keySet()) {

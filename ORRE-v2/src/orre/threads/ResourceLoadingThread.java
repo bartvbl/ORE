@@ -4,7 +4,8 @@ import java.util.HashMap;
 
 import orre.resources.ResourceTypeLoader;
 import orre.resources.Resource;
-import orre.resources.Finalizable;
+import orre.resources.ResourceObject;
+import orre.resources.IncompleteResourceObject;
 import orre.resources.ProgressTracker;
 import orre.resources.ResourceQueue;
 import orre.util.FatalExceptionHandler;
@@ -51,14 +52,11 @@ public class ResourceLoadingThread extends Thread {
 			System.err.println("Can't find a loader for resource type \"" + currentFile.type + "\". Has it been registered?");
 			return;
 		}
-		Finalizable resource;
 		try {
-			resource = registeredLoaders.get(currentFile.type).loadResource(currentFile, resourceQueue);			
+			IncompleteResourceObject<?> resourceObject = registeredLoaders.get(currentFile.type).readResource(currentFile);
+			this.resourceQueue.enqueueCompletable(currentFile, resourceObject);
 		} catch(Exception e) {
 			throw new Exception("An error occurred while loading resource " + currentFile.name + " of type "+currentFile.type+", located at " + currentFile.fileLocation.getAbsolutePath(), e);
-		}
-		if(resource != null) {
-			this.resourceQueue.enqueueResourceForFinalization(resource);
 		}
 	}
 	

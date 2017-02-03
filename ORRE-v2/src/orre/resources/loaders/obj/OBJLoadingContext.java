@@ -7,17 +7,17 @@ import java.util.HashMap;
 import java.util.List;
 
 import orre.gl.vao.VertexBuffer;
-import orre.resources.partiallyLoadables.BlueprintMaterial;
-import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
+import orre.resources.incompleteResources.BlueprintMaterial;
+import orre.resources.incompleteResources.IncompleteModelPart;
 
 public class OBJLoadingContext {
 	private String currentLine;
 	private BlueprintMaterial currentMaterial;
 	private HashMap<String, BlueprintMaterial> materials;
-	private List<PartiallyLoadableModelPart> modelParts;
+	private List<IncompleteModelPart> modelParts;
 	private VertexBuffer temporaryVertesBuffer;
 	private File containingDirectory;
-	private PartiallyLoadableModelPart currentModelPart = null;
+	private IncompleteModelPart currentModelPart = null;
 	
 	public OBJLoadingContext(File containingDirectory, OBJStatsContext statsContext)
 	{
@@ -48,7 +48,7 @@ public class OBJLoadingContext {
 	}
 	
 	public void setCurrentModelPart(String partName) {
-		for(PartiallyLoadableModelPart part : this.modelParts) {
+		for(IncompleteModelPart part : this.modelParts) {
 			if(part.name.equals(partName)) {
 				this.currentModelPart = part;
 				part.setMaterial(this.currentMaterial);
@@ -56,7 +56,7 @@ public class OBJLoadingContext {
 			}
 		}
 	}
-	public List<PartiallyLoadableModelPart> getModelParts() {
+	public List<IncompleteModelPart> getModelParts() {
 		return this.modelParts;
 	}
 	

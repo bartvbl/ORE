@@ -5,8 +5,9 @@ import java.io.File;
 import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.Elements;
-import orre.resources.Finalizable;
+import orre.resources.IncompleteResourceObject;
 import orre.resources.Resource;
+import orre.resources.ResourceObject;
 import orre.resources.ResourceQueue;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
@@ -16,8 +17,8 @@ import orre.util.XMLLoader;
 
 public class ResourceListFileParser implements ResourceTypeLoader {
 	@Override
-	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
-		parseFile(source, queue);
+	public IncompleteResourceObject<?> readResource(Resource source) throws Exception {
+		parseFile(source);
 		return null;
 	}
 	
@@ -26,14 +27,14 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 		return ResourceType.resourceList;
 	}
 	
-	public static void parseFile(Resource file, ResourceQueue queue)
+	public static void parseFile(Resource file)
 	{
 		Document resourceList = XMLLoader.readXML(file.fileLocation);
 		Element rootElement = resourceList.getRootElement();
-		parseResourceFile(rootElement, queue);
+		parseResourceFile(rootElement);
 	}
 	
-	private static void parseResourceFile(Element rootNode, ResourceQueue queue)
+	private static void parseResourceFile(Element rootNode)
 	{
 		Elements resourceCategories = rootNode.getChildElements();
 		for(int i = 0; i < resourceCategories.size(); i++) {
@@ -43,11 +44,11 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 			if(resourceCategoryName.equals("meta")) {
 				continue;
 			}
-			queueNodeList(resourceCategory, queue);
+			queueNodeList(resourceCategory);
 		}
 	}
 	
-	private static void queueNodeList(Element fileListRoot, ResourceQueue queue) {
+	private static void queueNodeList(Element fileListRoot) {
 		String pathPrefix = fileListRoot.getAttributeValue("pathPrefix");
 		
 		
@@ -70,5 +71,10 @@ public class ResourceListFileParser implements ResourceTypeLoader {
 				continue;
 			}
 		}
+	}
+
+	@Override
+	public ResourceObject<?> completeResource(IncompleteResourceObject<?> object) {
+		return null;
 	}
 }

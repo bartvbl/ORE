@@ -1,10 +1,9 @@
 package orre.animation;
 
-import orre.resources.Finalizable;
-import orre.resources.Resource;
-import orre.resources.ResourceType;
+import orre.resources.IncompleteResourceObject;
+import orre.resources.ResourceObject;
 
-public class Animation implements Finalizable {
+public class Animation implements IncompleteResourceObject<Animation>, ResourceObject<Animation> {
 
 	public final KeyFrame[] keyFrames;
 	public final String type;
@@ -18,9 +17,7 @@ public class Animation implements Finalizable {
 		this.type = type;
 	}
 
-	@Override
-	public Resource finalizeResource() {
-		return new Resource(ResourceType.animation, type, Animation.class);
+	public Animation createInstance() {
+		return this;
 	}
-	
 }

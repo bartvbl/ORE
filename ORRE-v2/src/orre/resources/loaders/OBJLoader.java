@@ -7,27 +7,27 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import orre.resources.incompleteResources.IncompleteModelPart;
 import orre.resources.loaders.obj.OBJFileLineReader;
 import orre.resources.loaders.obj.OBJLoadingContext;
 import orre.resources.loaders.obj.OBJStatsContext;
 import orre.resources.loaders.obj.OBJStatsLineReader;
-import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
 import orre.util.StringUtils;
 
 public class OBJLoader {
-	public static List<PartiallyLoadableModelPart> load(String src) throws Exception
+	public static List<IncompleteModelPart> load(String src) throws Exception
 	{
 		return loadObjFile(src);
 	}
 	
-	private static List<PartiallyLoadableModelPart> loadObjFile(String src) throws Exception {
+	private static List<IncompleteModelPart> loadObjFile(String src) throws Exception {
 		String[] objFile = readOBJFile(src);
 		
 		OBJStatsContext statsContext = new OBJStatsContext();
 		analyseObjFile(objFile, statsContext);
 		
 		OBJLoadingContext context = new OBJLoadingContext(new File(src).getParentFile(), statsContext);
-		List<PartiallyLoadableModelPart> parts = parseOBJFile(objFile, context);
+		List<IncompleteModelPart> parts = parseOBJFile(objFile, context);
 		
 		context.destroy();
 		return parts;
@@ -53,7 +53,7 @@ public class OBJLoader {
 		}
 	}
 	
-	private static List<PartiallyLoadableModelPart> parseOBJFile(String[] objFile, OBJLoadingContext context) throws Exception {
+	private static List<IncompleteModelPart> parseOBJFile(String[] objFile, OBJLoadingContext context) throws Exception {
 		for(String line : objFile)
 		{
 			line = StringUtils.stripString(line);

@@ -7,9 +7,9 @@ import java.util.HashMap;
 import orre.config.Config;
 import orre.input.KeyBindings;
 import orre.input.KeyType;
-import orre.resources.Finalizable;
+import orre.resources.IncompleteResourceObject;
 import orre.resources.Resource;
-import orre.resources.ResourceQueue;
+import orre.resources.ResourceObject;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
 import orre.util.Logger;
@@ -23,7 +23,7 @@ public class ConfigLoader implements ResourceTypeLoader {
 	}
 
 	@Override
-	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
+	public IncompleteResourceObject<?> readResource(Resource source) throws Exception {
 		BufferedReader reader = new BufferedReader(new FileReader(source.fileLocation));
 		HashMap<String, String> configMap = new HashMap<String, String>();
 		
@@ -82,6 +82,11 @@ public class ConfigLoader implements ResourceTypeLoader {
 				}
 			}
 		}
+	}
+
+	@Override
+	public ResourceObject<?> completeResource(IncompleteResourceObject<?> resource) {
+		return (ResourceObject<?>) resource;
 	}
 
 }

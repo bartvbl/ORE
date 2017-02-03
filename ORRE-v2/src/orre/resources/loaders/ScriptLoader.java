@@ -4,9 +4,9 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-import orre.resources.Finalizable;
+import orre.resources.IncompleteResourceObject;
 import orre.resources.Resource;
-import orre.resources.ResourceQueue;
+import orre.resources.ResourceObject;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
 import orre.scripting.ScriptInterpreter;
@@ -14,7 +14,7 @@ import orre.scripting.ScriptInterpreter;
 public class ScriptLoader implements ResourceTypeLoader {
 
 	@Override
-	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
+	public IncompleteResourceObject<?> readResource(Resource source) throws Exception {
 		String pythonSource = loadFileContents(source.fileLocation);
 		ScriptInterpreter.get().addToPythonPath(source.fileLocation.getParentFile());
 		ScriptInterpreter.get().execute(pythonSource);
@@ -38,6 +38,11 @@ public class ScriptLoader implements ResourceTypeLoader {
 	@Override
 	public ResourceType getResourceType() {
 		return ResourceType.script;
+	}
+
+	@Override
+	public ResourceObject<?> completeResource(IncompleteResourceObject<?> object) {
+		return null;
 	}
 
 }

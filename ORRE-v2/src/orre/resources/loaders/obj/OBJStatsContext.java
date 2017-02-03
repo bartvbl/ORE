@@ -3,7 +3,7 @@ package orre.resources.loaders.obj;
 import java.util.List;
 
 import orre.gl.vao.VBOFormat;
-import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
+import orre.resources.incompleteResources.IncompleteModelPart;
 
 public class OBJStatsContext {
 	private int totalVertices = 0;
@@ -57,7 +57,7 @@ public class OBJStatsContext {
 		return this.totalNormals;
 	}
 
-	public List<PartiallyLoadableModelPart> generateModelParts() {
+	public List<IncompleteModelPart> generateModelParts() {
 		return this.modelPartTracker.generateModelParts(this.dataFormat);
 	}
 }

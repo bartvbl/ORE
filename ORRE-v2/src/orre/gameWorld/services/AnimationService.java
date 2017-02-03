@@ -60,7 +60,7 @@ public class AnimationService implements Service {
 	}
 	
 	public int applyAnimation(String animationResourceName, Animatable animatable, AnimationBehaviour behaviour) {
-		Animation animation = (Animation) world.resourceService.getResource(ResourceType.animation, animationResourceName).content;
+		Animation animation = (Animation) world.resourceService.getResource(ResourceType.animation, animationResourceName);
 		return applyAnimation(animation, animatable, behaviour);
 	}
 

@@ -40,10 +40,11 @@ public class ResourceService implements EventHandler {
 			}
 			Resource resource = (Resource) event.getEventParameterObject();
 			resourceLoader.forceLoadResource_Blocking(resource);
+			resourceCache.registerResources((ResourceList) resource.content);
 		}
 	}
 
-	public Resource getResource(Enum<?> resourceType, String resourceName) {
+	public ResourceObject<?> getResource(Enum<?> resourceType, String resourceName) {
 		return resourceCache.getResource(resourceType, resourceName);
 	}
 
@@ -53,6 +54,11 @@ public class ResourceService implements EventHandler {
 
 	public boolean isCurrentQueueEmpty() {
 		return false;
+	}
+
+
+	public ResourceCache debugonly_getResourceCache() {
+		return resourceCache;
 	}
 
 }

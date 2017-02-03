@@ -18,12 +18,11 @@ import lib.ldd.lif.LIFReader;
 import lib.ldd.lxfml.LXFMLReader;
 import orre.lxf.LXFBlueprintModel;
 import orre.lxf.LXFBlueprintPart;
-import orre.resources.Finalizable;
 import orre.resources.Resource;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
+import orre.resources.incompleteResources.BlueprintMaterial;
 import orre.resources.ResourceQueue;
-import orre.resources.partiallyLoadables.BlueprintMaterial;
 
 public class LXFMLLoader implements ResourceTypeLoader {
 	private static final File assetsFile = new File("res/Assets.lif");
@@ -37,16 +36,16 @@ public class LXFMLLoader implements ResourceTypeLoader {
 	}
 	
 	@Override
-	public Finalizable loadResource(Resource source, ResourceQueue queue) throws Exception {
+	public LXFBlueprintModel readResource(Resource source) throws Exception {
 		checkDBFileAvailability();
 		LIFReader dbReader = openDBReader();
 		
 		Mesh mesh = LXFMLReader.readLXFMLFile(source.fileLocation, dbReader);
 		String modelName = source.name;
-		return convertMesh(mesh, modelName, queue);
+		return convertMesh(mesh, modelName);
 	}
 
-	private LXFBlueprintModel convertMesh(Mesh mesh, String modelName, ResourceQueue queue) {
+	private LXFBlueprintModel convertMesh(Mesh mesh, String modelName) {
 		LXFBlueprintModel model = new LXFBlueprintModel(modelName);
 		int partCounter = 0;
 		Arrays.sort(mesh.contents, new Comparator<GeometryWithMaterial>() {
@@ -78,7 +77,7 @@ public class LXFMLLoader implements ResourceTypeLoader {
 				VBOContents contents = group.geometry[i].transform(geometryConversionMatrix);
 				parts[i] = new LXFBlueprintPart(contents, "part " + partCounter);
 				partCounter++;
-				queue.enqueueResourceForFinalization(parts[i]);
+				queue.enqueue(parts[i]);
 			}
 			queue.enqueueResourceForFinalization(material);
 			model.addMaterialGroup(material, parts);

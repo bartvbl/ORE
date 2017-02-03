@@ -9,7 +9,7 @@ public class ResourceQueue {
 	private static final int NUMBER_OF_LOADING_THREADS = 3;
 	
 	private Queue<Resource> filesToLoadQueue;
-	private Queue<Finalizable> resourcesToFinalizeQueue;
+	private Queue<Completable> resourceCompletionQueue;
 
 	private final ProgressTracker tracker;
 	private final HashMap<Enum<?>, ResourceTypeLoader> registeredLoaders;
@@ -19,7 +19,7 @@ public class ResourceQueue {
 	public ResourceQueue(ProgressTracker tracker, HashMap<Enum<?>, ResourceTypeLoader> registeredLoaders)
 	{
 		this.filesToLoadQueue = new Queue<Resource>();
-		this.resourcesToFinalizeQueue = new Queue<Finalizable>();
+		this.resourceCompletionQueue = new Queue<Completable>();
 		this.tracker = tracker;
 		this.registeredLoaders = registeredLoaders;
 
@@ -37,14 +37,19 @@ public class ResourceQueue {
 		this.tracker.addFileToLoad();
 	}
 
-	public synchronized void enqueueResourceForFinalization(Finalizable finalizable)
+	public synchronized void enqueueCompletable(Resource completable, IncompleteResourceObject<?> resourceObject)
 	{
-		this.resourcesToFinalizeQueue.enqueue(finalizable);
+		synchronized(resourceCompletionQueue) {
+			completable.updateState(ResourceState.AWAITING_COMPLETION);
+			this.resourceCompletionQueue.enqueue(new Completable(completable, resourceObject));
+		}
 	}
 	
-	public synchronized Finalizable getNextFinalizable()
+	public synchronized Completable getNextCompletable()
 	{
-		return this.resourcesToFinalizeQueue.dequeue();
+		synchronized(resourceCompletionQueue) {
+			return this.resourceCompletionQueue.dequeue();
+		}
 	}
 	
 	public synchronized Resource getNextEnqueuedFileToLoad()
@@ -53,7 +58,7 @@ public class ResourceQueue {
 	}
 	
 	public boolean finalizableQueueIsEmpty(){
-		return this.resourcesToFinalizeQueue.isEmpty();
+		return this.resourceCompletionQueue.isEmpty();
 	}
 
 	public Enum<?> getMatchingResourceType(String resourceTypeName) {
@@ -64,4 +69,5 @@ public class ResourceQueue {
 		}
 		throw new IllegalArgumentException();
 	}
+
 }

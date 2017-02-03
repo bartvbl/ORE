@@ -18,7 +18,7 @@ public class ResourceLoader {
 	
 	private ProgressTracker progressTracker;
 	private ResourceQueue resourceQueue;
-	private ResourceFinalizer resourceFinalizer;
+	private ResourceCompleter resourceFinalizer;
 	
 	//static to allow multiple ResourceLoaders to exist that share registered loaders.
 	private static final HashMap<Enum<?>, ResourceTypeLoader> loaders = new HashMap<Enum<?>, ResourceTypeLoader>();
@@ -42,12 +42,12 @@ public class ResourceLoader {
 	{
 		this.progressTracker = new ProgressTracker();
 		this.resourceQueue = new ResourceQueue(this.progressTracker, loaders);
-		this.resourceFinalizer = new ResourceFinalizer(this.resourceQueue, cache);
+		this.resourceFinalizer = new ResourceCompleter(this.resourceQueue, this);
 	}
 
 	public void update()
 	{
-		this.resourceFinalizer.doFinalizations();
+		this.resourceFinalizer.completeResources();
 	}
 	
 	public boolean isFinished() {
@@ -66,9 +66,12 @@ public class ResourceLoader {
 	public void enqueueResource(Resource resource) {
 		resourceQueue.enqueueNodeForLoading(resource);
 	}
+	
+	public ResourceTypeLoader getLoaderFor(Enum<?> resourceType) {
+		return loaders.get(resourceType);
+	}
 
 	public void forceLoadResource_Blocking(Resource resource) {
-		
 	}
 
 	

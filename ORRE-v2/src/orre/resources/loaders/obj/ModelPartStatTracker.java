@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import orre.gl.vao.VBOFormat;
-import orre.resources.partiallyLoadables.PartiallyLoadableModelPart;
+import orre.resources.incompleteResources.IncompleteModelPart;
 
 public class ModelPartStatTracker {
 	private int verticesInCurrentPart = 0;
@@ -53,12 +53,12 @@ public class ModelPartStatTracker {
 		this.verticesInCurrentPart++;
 	}
 	
-	public List<PartiallyLoadableModelPart> generateModelParts(VBOFormat dataFormat) {
+	public List<IncompleteModelPart> generateModelParts(VBOFormat dataFormat) {
 		this.updateCurrentPartRecord();
 		
-		ArrayList<PartiallyLoadableModelPart> modelParts = new ArrayList<PartiallyLoadableModelPart>();
+		ArrayList<IncompleteModelPart> modelParts = new ArrayList<IncompleteModelPart>();
 		for(int i = 0; i < this.partNames.size(); i++) {
-			modelParts.add(new PartiallyLoadableModelPart(this.partNames.get(i), this.verticesInPart.get(i)*OBJConstants.VERTICES_PER_FACE, dataFormat));
+			modelParts.add(new IncompleteModelPart(this.partNames.get(i), this.verticesInPart.get(i)*OBJConstants.VERTICES_PER_FACE, dataFormat));
 		}
 		return modelParts;
 	}

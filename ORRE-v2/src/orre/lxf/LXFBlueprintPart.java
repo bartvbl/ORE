@@ -10,12 +10,12 @@ import org.lwjgl.util.vector.Vector4f;
 import orre.gl.vao.GeometryBufferGenerator;
 import orre.gl.vao.GeometryNode;
 import orre.gl.vao.VBOFormat;
-import orre.resources.Finalizable;
 import orre.resources.Resource;
+import orre.resources.ResourceObject;
 import orre.sceneGraph.ContainerNode;
 import lib.ldd.data.VBOContents;
 
-public class LXFBlueprintPart implements Finalizable {
+public class LXFBlueprintPart implements ResourceObject<LXFPart> {
 
 	private final VBOContents vboContents;
 	public final String name;
@@ -25,17 +25,6 @@ public class LXFBlueprintPart implements Finalizable {
 	public LXFBlueprintPart(VBOContents vboContents, String name) {
 		this.vboContents = vboContents;
 		this.name = name;
-	}
-
-	public LXFPart getPartInstance() {
-//		ContainerNode node = new ContainerNode();
-//		node.addChild(compiledVBOContents);
-//		node.addChild(compiledVBOContentsNormals);
-//		LXFPart part = new LXFPart(name, node);
-		LXFPart part = new LXFPart(name, compiledVBOContents);
-		Vector4f origin = vboContents.getOrigin();
-		part.setPivotLocation(-origin.x, -origin.y, -origin.z);
-		return part;
 	}
 
 	@Override
@@ -64,6 +53,18 @@ public class LXFBlueprintPart implements Finalizable {
 //		geometryBuffer.rewind();
 		compiledVBOContents = GeometryBufferGenerator.generateGeometryBuffer(dataFormat, geometryBuffer, indices, vertexCount, indexCount);
 		return null;
+	}
+
+	@Override
+	public LXFPart createInstance() {
+//		ContainerNode node = new ContainerNode();
+//		node.addChild(compiledVBOContents);
+//		node.addChild(compiledVBOContentsNormals);
+//		LXFPart part = new LXFPart(name, node);
+		LXFPart part = new LXFPart(name, compiledVBOContents);
+		Vector4f origin = vboContents.getOrigin();
+		part.setPivotLocation(-origin.x, -origin.y, -origin.z);
+		return part;
 	}
 
 

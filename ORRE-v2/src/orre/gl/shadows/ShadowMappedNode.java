@@ -1,38 +1,24 @@
 package orre.gl.shadows;
 
 import static org.lwjgl.opengl.GL11.*;
-import static org.lwjgl.opengl.GL12.*;
-import static org.lwjgl.opengl.GL13.*;
-import static org.lwjgl.opengl.GL14.*;
-import static org.lwjgl.opengl.GL15.*;
-
 import java.nio.ByteBuffer;
 import java.nio.FloatBuffer;
 import java.util.ArrayList;
-import java.util.Arrays;
-
 import org.lwjgl.BufferUtils;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.GL20;
 import org.lwjgl.util.vector.Matrix4f;
 import org.lwjgl.util.vector.Vector3f;
-import org.python.antlr.PythonParser.defparameter_return;
-
 import static org.lwjgl.opengl.GL30.*;
-import static org.lwjgl.opengl.GL32.*;
-
-
 import orre.geom.Projections;
 import orre.geom.Shapes;
 import orre.gl.RenderUtils;
+import orre.gl.Shader;
 import orre.gl.renderer.RenderPass;
 import orre.gl.renderer.RenderState;
 import orre.gl.renderer.ShaderProperty;
 import orre.gl.shaders.ShaderNode;
 import orre.gl.vao.GeometryNode;
-import orre.resources.ResourceCache;
+import orre.resources.ResourceService;
 import orre.resources.ResourceType;
-import orre.resources.partiallyLoadables.Shader;
 import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 
@@ -49,11 +35,10 @@ public class ShadowMappedNode implements SceneNode {
 	private final FloatBuffer matrixBuffer = BufferUtils.createFloatBuffer(16);
 	private final GeometryNode frameVAO;
 
-	public ShadowMappedNode(ResourceCache resourceCache) {
-		this.shadowPhong = ((Shader) resourceCache.getResource(ResourceType.shader, "shadow_phong").content).createSceneNode();
+	public ShadowMappedNode(ResourceService resourceService) {
+		this.shadowPhong = ((Shader) resourceService.getResource(ResourceType.shader, "shadow_phong")).createSceneNode();
 		shadowPhong.addChild(shadowElementsContainer);
-		
-		this.shadowPass = ((Shader) resourceCache.getResource(ResourceType.shader, "shadow_pass").content).createSceneNode();
+		this.shadowPass = ((Shader) resourceService.getResource(ResourceType.shader, "shadow_pass")).createSceneNode();
 		shadowPass.addChild(shadowElementsContainer);
 		
 		this.frameBufferID = glGenFramebuffers();

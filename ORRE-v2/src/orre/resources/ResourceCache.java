@@ -12,13 +12,6 @@ public class ResourceCache {
 		nameMap = new HashMap<Enum<?>, Integer>();
 	}
 	
-	public void addResource(Resource resource) {
-		if(!resourceMap.containsKey(resource.type)) {
-			resourceMap.put(resource.type, new HashMap<String, Resource>());
-		}
-		resourceMap.get(resource.type).put(resource.name, resource);
-	}
-	
 	public ResourceObject<?> getResource(Enum<?> resourceType, String name) {
 		if(resourceMap.containsKey(resourceType)) {
 			if(resourceMap.get(resourceType).containsKey(name)) {
@@ -50,6 +43,15 @@ public class ResourceCache {
 
 	public HashMap<Enum<?>, HashMap<String, Resource>> debugonly_getResourceMap() {
 		return resourceMap;
+	}
+
+	public void registerResources(ResourceList resourceList) {
+		for(Resource resource : resourceList.resources) {
+			if(!resourceMap.containsKey(resource.type)) {
+				resourceMap.put(resource.type, new HashMap<String, Resource>());
+			}
+			resourceMap.get(resource.type).put(resource.name, resource);
+		}
 	}
 
 	

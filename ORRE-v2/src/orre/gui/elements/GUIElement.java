@@ -4,9 +4,7 @@ import java.util.ArrayList;
 
 import orre.gui.Bounds;
 import orre.gui.baseNodes.GUIBaseNode;
-import orre.resources.ResourceCache;
 import orre.resources.ResourceService;
-import orre.sceneGraph.CoordinateNode;
 
 public abstract class GUIElement {
 

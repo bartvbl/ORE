@@ -6,7 +6,7 @@ import java.util.Set;
 import orre.animation.Animatable;
 import orre.geom.mesh.Model;
 import orre.gl.materials.Material;
-import orre.resources.partiallyLoadables.BlueprintMaterial;
+import orre.resources.incompleteResources.BlueprintMaterial;
 import orre.sceneGraph.CoordinateNode;
 
 public class LXFModel implements Model, Animatable {
@@ -26,7 +26,7 @@ public class LXFModel implements Model, Animatable {
 			Material material = blueprintMaterial.convertToMaterial();
 			partRoot.addChild(material);
 			for(LXFBlueprintPart blueprintPart : parts.get(blueprintMaterial)) {
-				LXFPart part = blueprintPart.getPartInstance();
+				LXFPart part = blueprintPart.createInstance();
 				partMap.put(part.partName, part);
 				material.addChild(part);
 			}

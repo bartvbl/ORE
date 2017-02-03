@@ -3,7 +3,8 @@ package orre.resources.loaders.obj;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
-import orre.resources.partiallyLoadables.BlueprintMaterial;
+
+import orre.resources.incompleteResources.BlueprintMaterial;
 import orre.util.StringUtils;
 
 public class MTLLibLoader {

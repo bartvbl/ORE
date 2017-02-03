@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import orre.geom.mesh.ModelPart;
 import orre.gl.vao.GeometryNode;
-import orre.resources.partiallyLoadables.BlueprintMaterial;
+import orre.resources.incompleteResources.BlueprintMaterial;
 
 public class StoredModelPart {
 	
