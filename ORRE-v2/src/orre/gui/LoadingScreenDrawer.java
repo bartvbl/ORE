@@ -17,6 +17,6 @@ public abstract class LoadingScreenDrawer extends ContainerNode implements Scene
 	
 	@Override
 	public void render(RenderState state) {
-		draw(resourceService.getProgress(), state);
+		draw(resourceService.getCurrentBatchProgress(), state);
 	}
 }

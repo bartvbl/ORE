@@ -1,6 +1,5 @@
 package orre.resources.incompleteResources;
 
-import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.nio.IntBuffer;
 
@@ -9,15 +8,14 @@ import org.lwjgl.BufferUtils;
 import orre.gl.vao.GeometryBufferGenerator;
 import orre.gl.vao.GeometryNode;
 import orre.gl.vao.VBOFormat;
-import orre.resources.Finalizable;
-import orre.resources.Resource;
+import orre.resources.IncompleteResourceObject;
 
-public class UnpackedGeometryBuffer implements Finalizable{
+public class IncompleteGeometryBuffer implements IncompleteResourceObject<IncompleteGeometryBuffer> {
 	private FloatBuffer vertices;
 	private VBOFormat dataFormat;
 	private final int numVertices;
 	
-	public UnpackedGeometryBuffer(VBOFormat bufferDataFormat, int numVertices) {
+	public IncompleteGeometryBuffer(VBOFormat bufferDataFormat, int numVertices) {
 		this.dataFormat = bufferDataFormat;
 		this.numVertices = numVertices;
 		int vertexBufferSize = bufferDataFormat.elementsPerVertex*numVertices;
@@ -28,10 +26,6 @@ public class UnpackedGeometryBuffer implements Finalizable{
 		vertices.put(vertex);
 	}
 
-	@Override
-	public Resource finalizeResource() {
-		return null;
-	}
 
 	public void setBufferDataFormat(VBOFormat dataType) {
 		this.dataFormat = dataType;

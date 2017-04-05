@@ -1,6 +1,5 @@
 package orre.resources.loaders.obj;
 
-import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 
 public class OBJFileLineReader {

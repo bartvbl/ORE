@@ -17,7 +17,7 @@ public class MainMenu extends GameState {
 
 	public MainMenu(GameMain main, GlobalEventDispatcher eventDispatcher, ResourceService resourceService, ScriptInterpreter interpreter) {
 		super(main, eventDispatcher, resourceService, interpreter);
-		Resource mainCache = new Resource(new File("res/reslist.xml"), ResourceType.resourceList, "mainCacheList", Object.class);
+		Resource mainCache = new Resource(new File("res/reslist.xml"), ResourceType.resourceList, "mainCacheList");
 		eventDispatcher.dispatchEvent(new GlobalEvent<Resource>(GlobalEventType.REGISTER_AVAILABLE_RESOURCE_LIST, mainCache));
 		
 	}

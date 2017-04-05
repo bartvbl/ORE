@@ -11,7 +11,7 @@ import orre.sceneGraph.ContainerNode;
 import orre.sceneGraph.SceneNode;
 import static org.lwjgl.opengl.GL11.*;
 
-public class Material extends ContainerNode implements SceneNode, AbstractMaterial {
+public class Material extends ContainerNode implements SceneNode {
 	public final String name;
 	private float[] ambientColour;
 	private float[] diffuseColour;
@@ -23,8 +23,9 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 	private Texture diffuseTexture = null;
 	private Texture specularTexture = null;
 	
-	public Material(String name)
-	{
+	public Material(
+		String name
+	) {
 		this.name = name;
 		this.ambientColour = new float[]{1.0f, 1.0f, 1.0f, 1.0f};
 		this.diffuseColour = new float[]{0.0f, 0.0f, 0.0f, 1.0f};
@@ -47,13 +48,12 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		this.specularTexture = texture;
 	}
 	
-	@Override
 	public void setAmbientColour(float[] colour)
 	{
 		colour = formatColour(colour);
 		this.ambientColour = colour;
 	}
-	@Override
+
 	public void setDiffuseColour(float[] colour)
 	{
 		colour = formatColour(colour);
@@ -64,7 +64,6 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		setDiffuseColour(new float[]{(float) colour[0], (float) colour[1], (float) colour[2], (float) colour[3]});
 	}
 	
-	@Override
 	public void setSpecularColour(float[] colour)
 	{
 		colour = formatColour(colour);
@@ -94,7 +93,6 @@ public class Material extends ContainerNode implements SceneNode, AbstractMateri
 		return colour;
 	}
 	
-	@Override
 	public void setAlpha(float alpha)
 	{
 		this.alpha = alpha;

@@ -1,20 +1,23 @@
 package orre.resources.loaders.obj;
 
 import java.io.File;
-import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 import java.util.HashMap;
 import java.util.List;
 
 import orre.gl.vao.VertexBuffer;
-import orre.resources.incompleteResources.BlueprintMaterial;
+import orre.resources.incompleteResources.IncompleteBlueprintMaterial;
+import orre.resources.incompleteResources.IncompleteGeometryMaterialCombo;
 import orre.resources.incompleteResources.IncompleteModelPart;
 
 public class OBJLoadingContext {
 	private String currentLine;
-	private BlueprintMaterial currentMaterial;
-	private HashMap<String, BlueprintMaterial> materials;
-	private List<IncompleteModelPart> modelParts;
+	private IncompleteBlueprintMaterial currentMaterial;
+	
+	private final HashMap<String, IncompleteBlueprintMaterial> materials;
+	private final HashMap<String, String> partMaterialNameMap;
+	private final HashMap<String, IncompleteGeometryMaterialCombo> modelParts;
+	
 	private VertexBuffer temporaryVertesBuffer;
 	private File containingDirectory;
 	private IncompleteModelPart currentModelPart = null;
@@ -22,8 +25,9 @@ public class OBJLoadingContext {
 	public OBJLoadingContext(File containingDirectory, OBJStatsContext statsContext)
 	{
 		this.temporaryVertesBuffer = new VertexBuffer(statsContext.getTotalVertices(), statsContext.getTotalTexCoords(), statsContext.getTotalNormals(), statsContext.getBufferDataFormat());
-		this.materials = new HashMap<String, BlueprintMaterial>(5);
+		this.materials = new HashMap<String, IncompleteBlueprintMaterial>(5);
 		this.modelParts = statsContext.generateModelParts();
+		this.partMaterialNameMap = new HashMap<String, String>();
 		this.containingDirectory = containingDirectory;
 	}
 
@@ -34,16 +38,14 @@ public class OBJLoadingContext {
 		return this.currentLine;
 	}
 	
-	public void addMaterial(BlueprintMaterial material) {
+	public void addMaterial(IncompleteBlueprintMaterial material) {
 		this.materials.put(material.name, material);
 	}
 	public void setMaterial(String materialName) {
 		this.currentMaterial = this.materials.get(materialName);
-		if(this.currentModelPart != null) {
-			this.currentModelPart.setMaterial(this.currentMaterial);
-		}
+		partMaterialNameMap.put(currentModelPart.name, materialName);
 	}
-	public BlueprintMaterial getCurrentMaterial() {
+	public IncompleteBlueprintMaterial getCurrentMaterial() {
 		return this.currentMaterial;
 	}
 	
@@ -55,9 +57,6 @@ public class OBJLoadingContext {
 				return;
 			}
 		}
-	}
-	public List<IncompleteModelPart> getModelParts() {
-		return this.modelParts;
 	}
 	
 	public File getContainingDirectory() {

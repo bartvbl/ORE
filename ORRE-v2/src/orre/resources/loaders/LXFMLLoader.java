@@ -21,7 +21,8 @@ import orre.lxf.LXFBlueprintPart;
 import orre.resources.Resource;
 import orre.resources.ResourceType;
 import orre.resources.ResourceTypeLoader;
-import orre.resources.incompleteResources.BlueprintMaterial;
+import orre.resources.incompleteResources.IncompleteBlueprintMaterial;
+import orre.resources.incompleteResources.IncompleteBlueprintModel;
 import orre.resources.ResourceQueue;
 
 public class LXFMLLoader implements ResourceTypeLoader {
@@ -36,7 +37,7 @@ public class LXFMLLoader implements ResourceTypeLoader {
 	}
 	
 	@Override
-	public LXFBlueprintModel readResource(Resource source) throws Exception {
+	public IncompleteBlueprintModel readResource(Resource source) throws Exception {
 		checkDBFileAvailability();
 		LIFReader dbReader = openDBReader();
 		
@@ -45,8 +46,8 @@ public class LXFMLLoader implements ResourceTypeLoader {
 		return convertMesh(mesh, modelName);
 	}
 
-	private LXFBlueprintModel convertMesh(Mesh mesh, String modelName) {
-		LXFBlueprintModel model = new LXFBlueprintModel(modelName);
+	private IncompleteBlueprintModel convertMesh(Mesh mesh, String modelName) {
+		IncompleteBlueprintModel model = new IncompleteBlueprintModel(modelName);
 		int partCounter = 0;
 		Arrays.sort(mesh.contents, new Comparator<GeometryWithMaterial>() {
 
@@ -71,7 +72,7 @@ public class LXFMLLoader implements ResourceTypeLoader {
 			
 		});
 		for(GeometryWithMaterial group : mesh.contents) {
-			BlueprintMaterial material = convertMaterial(group.material);
+			IncompleteBlueprintMaterial material = convertMaterial(group.material);
 			LXFBlueprintPart[] parts = new LXFBlueprintPart[group.geometry.length];
 			for(int i = 0; i < group.geometry.length; i++) {
 				VBOContents contents = group.geometry[i].transform(geometryConversionMatrix);
@@ -85,8 +86,8 @@ public class LXFMLLoader implements ResourceTypeLoader {
 		return model;
 	}
 
-	private BlueprintMaterial convertMaterial(Material material) {
-		BlueprintMaterial converted = new BlueprintMaterial("Brick material " + material.id);
+	private IncompleteBlueprintMaterial convertMaterial(Material material) {
+		IncompleteBlueprintMaterial converted = new IncompleteBlueprintMaterial("Brick material " + material.id);
 		float red 	= (material.red)   / 255f;
 		float green = (material.green) / 255f;
 		float blue 	= (material.blue)  / 255f;

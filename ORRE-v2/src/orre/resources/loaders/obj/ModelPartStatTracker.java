@@ -1,9 +1,12 @@
 package orre.resources.loaders.obj;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import orre.gl.vao.VBOFormat;
+import orre.resources.incompleteResources.IncompleteGeometryBuffer;
+import orre.resources.incompleteResources.IncompleteGeometryMaterialCombo;
 import orre.resources.incompleteResources.IncompleteModelPart;
 
 public class ModelPartStatTracker {
@@ -15,51 +18,41 @@ public class ModelPartStatTracker {
 	
 	public void setModelPart(String name) {
 		if(this.verticesInPart.size() != 0) {			
-			this.updateCurrentPartRecord();
+			int index = partNames.indexOf(this.currentPartName);
+			this.verticesInPart.set(index, this.verticesInCurrentPart);
 		}
-		int index = this.getPartIndexByName(name);
+		
+		int index = partNames.indexOf(name);
+		
 		if(index != -1) {
 			String currentPartName = this.partNames.get(index);
 			this.currentPartName = currentPartName;
 			this.verticesInCurrentPart = this.verticesInPart.get(index);			
 		} else {
-			this.createNewPart(name);
+			// Create a new part
+			this.partNames.add(name);
+			this.verticesInCurrentPart = 0;
+			this.verticesInPart.add(0);
 			this.currentPartName = name;
 		}
 	}
 	
-	private void updateCurrentPartRecord() {
-		int index = this.getPartIndexByName(this.currentPartName);
-		this.verticesInPart.set(index, this.verticesInCurrentPart);
-	}
-	
-	private int getPartIndexByName(String name) {
-		for(int i = 0; i < partNames.size(); i++) {
-			String currentPartName = this.partNames.get(i);
-			if(currentPartName.equals(name)) {
-				return i;
-			}
-		}
-		return -1;
-	}
-
-	private void createNewPart(String name) {
-		this.partNames.add(name);
-		this.verticesInCurrentPart = 0;
-		this.verticesInPart.add(0);
-	}
-
 	public void registerFace() {
 		this.verticesInCurrentPart++;
 	}
 	
-	public List<IncompleteModelPart> generateModelParts(VBOFormat dataFormat) {
-		this.updateCurrentPartRecord();
+	public HashMap<String, IncompleteGeometryMaterialCombo> generateModelParts(VBOFormat dataFormat) {
+		int index = partNames.indexOf(this.currentPartName);
+		this.verticesInPart.set(index, this.verticesInCurrentPart);
 		
-		ArrayList<IncompleteModelPart> modelParts = new ArrayList<IncompleteModelPart>();
+		HashMap<String, IncompleteGeometryMaterialCombo> partMap = new HashMap<String, IncompleteGeometryMaterialCombo>();
+		
 		for(int i = 0; i < this.partNames.size(); i++) {
-			modelParts.add(new IncompleteModelPart(this.partNames.get(i), this.verticesInPart.get(i)*OBJConstants.VERTICES_PER_FACE, dataFormat));
+			IncompleteGeometryBuffer buffer = new IncompleteGeometryBuffer(dataFormat, this.verticesInPart.get(i));
+			
+			partMap.put(this.partNames.get(i), new IncompleteGeometryMaterialCombo(buffer, material));
+			
 		}
-		return modelParts;
+		return partMap;
 	}
 }

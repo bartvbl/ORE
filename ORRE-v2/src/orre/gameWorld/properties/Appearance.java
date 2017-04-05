@@ -8,7 +8,6 @@ import orre.geom.mesh.BlueprintModel;
 import orre.geom.mesh.Mesh3D;
 import orre.geom.mesh.Model;
 import orre.resources.ResourceType;
-import orre.resources.data.OBJBlueprintModel;
 
 public abstract class Appearance extends Property {
 	protected Model appearance;

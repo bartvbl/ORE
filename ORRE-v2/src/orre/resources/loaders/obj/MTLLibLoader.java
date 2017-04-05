@@ -4,7 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 
-import orre.resources.incompleteResources.BlueprintMaterial;
+import orre.resources.incompleteResources.IncompleteBlueprintMaterial;
 import orre.util.StringUtils;
 
 public class MTLLibLoader {
@@ -19,6 +19,7 @@ public class MTLLibLoader {
 			line = StringUtils.stripString(line);
 			readMaterialLibLine(line, context);
 		}
+		bufferedReader.close();
 	}
 	
 	private static void readMaterialLibLine(String line, OBJLoadingContext context) throws Exception
@@ -52,47 +53,56 @@ public class MTLLibLoader {
 
 	private static void readNewMtlLine(String line, OBJLoadingContext context) {
 		String materialName = line.split(" ")[1];
-		BlueprintMaterial material = new BlueprintMaterial(materialName);
+		IncompleteBlueprintMaterial material = new IncompleteBlueprintMaterial(materialName);
 		context.addMaterial(material);
 		context.setMaterial(materialName);
 	}
 
 	private static void readAmbientColourLine(String line, OBJLoadingContext context) {
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
-		currentMaterial.setAmbientColour(OBJLoadingUtils.parseFloatLine(line));
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		float[] ambientColour = OBJLoadingUtils.parseFloatLine(line);
+		currentMaterial.ambientColour = ambientColour;
 	}
+	
 	private static void readDiffuseColourLine(String line, OBJLoadingContext context) {
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
-		currentMaterial.setDiffuseColour(OBJLoadingUtils.parseFloatLine(line));
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		float[] diffuseColour = OBJLoadingUtils.parseFloatLine(line);
+		currentMaterial.diffuseColour = diffuseColour;
 	}
+	
 	private static void readSpecularColourLine(String line, OBJLoadingContext context) {
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
-		currentMaterial.setSpecularColour(OBJLoadingUtils.parseFloatLine(line));
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		float[] specularColour = OBJLoadingUtils.parseFloatLine(line);
+		currentMaterial.specularColour = specularColour;
 	}
+	
 	private static void readEmissionColourLine(String line, OBJLoadingContext context) {
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
-		currentMaterial.setEmissionColour(OBJLoadingUtils.parseFloatLine(line));
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		float[] emissionColour = OBJLoadingUtils.parseFloatLine(line);
+		currentMaterial.emissionColour = emissionColour;
 	}
+	
 	private static void readTransparencyLine(String line, OBJLoadingContext context) {
 		String alphaValue = line.split(" ")[1];
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
-		currentMaterial.setAlpha(Float.parseFloat(alphaValue));
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		currentMaterial.alpha = Float.parseFloat(alphaValue);
 	}
 	
 	private static void readAmbientTextureLine(String line, OBJLoadingContext context) throws Exception {
 		String textureSrc = line.split(" ")[1];
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setAmbientTexture(textureSrc, context);
 	}
+	
 	private static void readDiffuseTextureLine(String line, OBJLoadingContext context) throws Exception {
 		String textureSrc = line.split(" ")[1];
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setDiffuseTexture(textureSrc, context);
 		
 	}
 	private static void readSpecularTextureLine(String line, OBJLoadingContext context) throws Exception {
 		String textureSrc = line.split(" ")[1];
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
 		currentMaterial.setSpecularTexture(textureSrc, context);
 	}
 	
@@ -102,7 +112,7 @@ public class MTLLibLoader {
 	
 	private static void readShininessLine(String line, OBJLoadingContext context) {
 		String shininessValue = line.split(" ")[1];
-		BlueprintMaterial currentMaterial = context.getCurrentMaterial();
-		currentMaterial.setShininess(Float.parseFloat(shininessValue));
+		IncompleteBlueprintMaterial currentMaterial = context.getCurrentMaterial();
+		currentMaterial.shininess = Float.parseFloat(shininessValue);
 	}
 }

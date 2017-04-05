@@ -14,7 +14,6 @@ public class ResourceService implements EventHandler {
 		this.resourceCache = new ResourceCache();
 		this.resourceLoader = new ResourceLoader(resourceCache);
 		globalEventDispatcher.addEventListener(this, GlobalEventType.REGISTER_RESOURCE_TYPE_LOADER);
-		globalEventDispatcher.addEventListener(this, GlobalEventType.ENQUEUE_LOADING_ITEM);
 	}
 	
 
@@ -27,13 +26,6 @@ public class ResourceService implements EventHandler {
 			}
 			ResourceTypeLoader loader = (ResourceTypeLoader) event.getEventParameterObject();
 			resourceLoader.registerResourceLoader(loader);
-		} else if(event.eventType == GlobalEventType.ENQUEUE_LOADING_ITEM) {
-			if(!(event.getEventParameterObject() instanceof Resource))
-			{
-				throw new RuntimeException("Did not receive a parameter of type Resource.");
-			}
-			Resource resource = (Resource) event.getEventParameterObject();
-			resourceLoader.enqueueResource(resource);
 		} else if(event.eventType == GlobalEventType.REGISTER_AVAILABLE_RESOURCE_LIST) {
 			if(!(event.getEventParameterObject() instanceof Resource)) {
 				throw new RuntimeException("Requires a parameter object of type Resource");
@@ -59,6 +51,12 @@ public class ResourceService implements EventHandler {
 
 	public ResourceCache debugonly_getResourceCache() {
 		return resourceCache;
+	}
+
+
+	public double getCurrentBatchProgress() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 }

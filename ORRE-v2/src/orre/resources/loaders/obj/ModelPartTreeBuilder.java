@@ -1,35 +1,36 @@
-package orre.resources.loaders.models;
+package orre.resources.loaders.obj;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import nu.xom.Element;
 import nu.xom.Elements;
-import orre.resources.data.OBJBlueprintModel;
-import orre.resources.loaders.obj.ModelPartType;
-import orre.resources.loaders.obj.StoredModelPart;
+import orre.resources.incompleteResources.IncompleteBlueprintModel;
+import orre.resources.incompleteResources.IncompleteModelPart;
 
 public class ModelPartTreeBuilder {
 	private static final String PHYSICAL_PART = "part";
 	private static final String VIRTUAL_PART = "bone";
 	private static final String EMPTY_PART = "null";
 
-	public static void generatePartTree(OBJBlueprintModel model, Element rootElement) {
+	public static void populatePartTree(IncompleteBlueprintModel model, Element rootElement, HashMap<String, String> partNameLinkMap) {
 		Element partStructureElement = rootElement.getFirstChildElement("partStructure");
 		Elements partElements = partStructureElement.getChildElements();
 		for(int i = 0; i < partElements.size(); i++)
 		{
 			Element currentElement = partElements.get(i);
-			StoredModelPart modelPart = parseTreeNode(currentElement, model);
+			IncompleteModelPart modelPart = parseTreeNode(currentElement, model, partNameLinkMap);
 			model.addTopLevelPart(modelPart);
 		}
 	}
 
-	private static StoredModelPart parseTreeNode(Element nodeElement, OBJBlueprintModel model) {
+	private static IncompleteModelPart parseTreeNode(Element nodeElement, IncompleteBlueprintModel model, HashMap<String, String> partNameLinkMap) {
 		ModelPartType partType = getPartType(nodeElement);
 		String partName = nodeElement.getAttributeValue("name");
 		String modelFilePartName = nodeElement.getAttributeValue("nameInModelFile");
-		StoredModelPart newPart = new StoredModelPart(partType, modelFilePartName, partName);
+		partNameLinkMap.put(partName, modelFilePartName);
+		IncompleteModelPart newPart = new IncompleteModelPart(partName, partType);
 		model.registerPart(newPart);
 		if(partType == ModelPartType.PHYSICAL) {			
 			parsePivotLocation(newPart, nodeElement);
@@ -42,7 +43,7 @@ public class ModelPartTreeBuilder {
 		return newPart;
 	}
 
-	private static void parseScale(StoredModelPart newPart, Element nodeElement) {
+	private static void parseScale(IncompleteModelPart newPart, Element nodeElement) {
 		float scaleX = 1;
 		float scaleY = 1;
 		float scaleZ = 1;
@@ -64,14 +65,14 @@ public class ModelPartTreeBuilder {
 		return nodeElement.getAttribute(attributeName) != null;
 	}
 	
-	private static void parsePivotLocation(StoredModelPart newPart, Element nodeElement) {
+	private static void parsePivotLocation(IncompleteModelPart newPart, Element nodeElement) {
 		String pivotXAttribute = nodeElement.getAttributeValue("pivotX");
 		String pivotYAttribute = nodeElement.getAttributeValue("pivotY");
 		String pivotZAttribute = nodeElement.getAttributeValue("pivotZ");
 
-		double pivotX = Double.parseDouble(pivotXAttribute);
-		double pivotY = Double.parseDouble(pivotYAttribute);
-		double pivotZ = Double.parseDouble(pivotZAttribute);
+		float pivotX = Float.parseFloat(pivotXAttribute);
+		float pivotY = Float.parseFloat(pivotYAttribute);
+		float pivotZ = Float.parseFloat(pivotZAttribute);
 		
 		newPart.setPivotLocation(pivotX, pivotY, pivotZ);
 	}
@@ -89,7 +90,7 @@ public class ModelPartTreeBuilder {
 		return ModelPartType.PHYSICAL;
 	}
 	
-	private static void parseChildNodes(StoredModelPart newPart, Element nodeElement, OBJBlueprintModel model) {
+	private static void parseChildNodes(IncompleteModelPart newPart, Element nodeElement, IncompleteBlueprintModel model) {
 		Elements childElements = nodeElement.getChildElements();
 		for(int i = 0; i < childElements.size(); i++) {
 			newPart.addChild(parseTreeNode(childElements.get(i), model));

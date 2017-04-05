@@ -38,21 +38,20 @@ public class OBJLoadingUtils {
 		return intArray;
 	}
 
-	public static void parseFaceFormat(OBJStatsContext context, String line) {
-		if(context.bufferDataTypeHasBeenSet()){return;}
+	public static VBOFormat parseFaceFormat(String line) {
 		String face = line.split(" ")[1];
 		String[] parts = face.split("/");
 		if(parts[1].length() == 0) {
 			if(parts[2].length() == 0) {
-				context.setBufferDataFormat(VBOFormat.VERTICES);				
+				return VBOFormat.VERTICES;				
 			} else {
-				context.setBufferDataFormat(VBOFormat.VERTICES_AND_NORMALS);
+				return VBOFormat.VERTICES_AND_NORMALS;
 			}
 		} else if(parts[2].length() == 0)
 		{
-			context.setBufferDataFormat(VBOFormat.VERTICES_AND_TEXTURES);
+			return VBOFormat.VERTICES_AND_TEXTURES;
 		} else {
-			context.setBufferDataFormat(VBOFormat.VERTICES_TEXTURES_NORMALS);
+			return VBOFormat.VERTICES_TEXTURES_NORMALS;
 		}
 	}
 
